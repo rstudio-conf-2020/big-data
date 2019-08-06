@@ -35,7 +35,7 @@ In this 2-day workshop, attendees will learn how to connect to and analyze data 
 
 ## Is this course for me?
 
-THREE_QUESTIONS
+You should take this workshop if you want to learn how to use R with databases, such as SQL Server, Oracle, or PostgreSQL, and/or other scalable external data sources, such as Hadoop clusters with Hive and Spark.
 
 ## Prework
 
