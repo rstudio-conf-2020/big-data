@@ -31,7 +31,7 @@ Throughout the workshop, we will take advantage of RStudio’s professional tool
 
 ## Learning objectives
 
-LEARNING_OBJECTIVES
+In this 2-day workshop, attendees will learn how to connect to and analyze data that exists outside of R.
 
 ## Is this course for me?
 
