@@ -3,7 +3,7 @@ Big Data with R
 
 ### rstudio::conf 2020
 
-by INSTRUCTOR_NAME
+by Edgar Ruiz
 
 -----
 
