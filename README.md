@@ -1,4 +1,4 @@
-WORKSHOP_TITLE
+Big Data with R
 ================
 
 ### rstudio::conf 2020
