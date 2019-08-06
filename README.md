@@ -25,7 +25,9 @@ can remove these instructions from the README.
 
 ## Overview
 
-ABSTRACT
+This 2-day workshop covers how to connect to and analyze data that exists outside of R. For databases, we will focus on the dplyr, DBI and odbc packages. For Big Data clusters, we will also learn how to use the sparklyr package to run models inside Spark and return the results to R. These packages enable us to use the same dplyr verbs inside R but are translated to SQL queries. We also will review recommendations for connection settings, security best practices and deployment options. 
+
+Throughout the workshop, we will take advantage of RStudio’s professional tools such as RStudio Server Pro, the new professional data connectors, and RStudio Connect.
 
 ## Learning objectives
 
