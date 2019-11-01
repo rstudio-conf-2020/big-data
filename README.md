@@ -109,9 +109,9 @@ The following is a tentative outline of the subjects that will be covered during
   - `vroom`
       - Introduction
       - Exercise
-    - `dtplyr`
-      - Introduction
-      - Exercises
+  - `dtplyr`
+    - Introduction
+    - Exercises
 - Databases
   - General DB best practices 
     - connecting (DSN)
@@ -122,7 +122,7 @@ The following is a tentative outline of the subjects that will be covered during
     - How it works…
     - Exercises
   - Visualizations
-    - Best practices (push calcs, plot results)
+    - Best practices (push calculations, plot results)
     - Introduce `dbplot`
     - Exercises
   - Correlations
@@ -178,7 +178,6 @@ The following is a tentative outline of the subjects that will be covered during
   - Bookmarks
   - Community
   - Repos
-
 
 -----
 
