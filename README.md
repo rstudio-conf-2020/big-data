@@ -14,23 +14,30 @@ by Edgar Ruiz
 
 -----
 
+* [Overview](#overview)
+  * [Learning Objectives](#learning-objectives)
+  * [Is this course for me?](#is-this-course-for-me)
+* [Pre-work](#prework)
+* [Equipment](#equipment)
+* [Schedule](#schedule)
+* [Instructors](#instructors)
+* [Class Outline](#class-outline)
+
+-----
+
 ## Overview
 
 This 2-day workshop covers how to analyze large amounts of data in R.  We will focus on scaling up our analyses using the same dplyr verbs that we use in our everyday work. We will use dplyr with data.table, databases, and Spark.  We will also cover best practices on visualizing, modeling, and sharing against these data sources.  Where applicable, we will review recommended connection settings, security best practices, and deployment options.
 
-## Learning objectives
+### Learning objectives
 
 In this 2-day workshop, attendees will learn how to connect to and analyze large scale data
 
-## Is this course for me?
+### Is this course for me?
 
 You should take this workshop if you want to learn how to work with big data in R. This data can be in-memory, in databases (like SQL Server), or in a cluster (like Spark).
 
 ## Prework
-
-### Equipment
-
-**We plan to provide a personal server to each student for use during the class.**  The server will contain all of the applications and materials needed, including R and RStudio.  **All you will need is a laptop with a web browser.**  For those of you that need to use their work provided laptops for the class, please ensure that the web browser in it will not be prevented from navigating to Amazon AWS, which is where the servers will be set up.
 
 ### Helpful reading
 
@@ -51,6 +58,10 @@ For spark background, please review the following:
 * Using dplyr with sparklyr: http://spark.rstudio.com/dplyr/
 * Machine Learning: http://spark.rstudio.com/mlib/
 * Deployment options: http://spark.rstudio.com/deployment/
+
+## Equipment
+
+**We plan to provide a personal server to each student for use during the class.**  The server will contain all of the applications and materials needed, including R and RStudio.  **All you will need is a laptop with a web browser.**  For those of you that need to use their work provided laptops for the class, please ensure that the web browser in it will not be prevented from navigating to Amazon AWS, which is where the servers will be set up.
 
 ## Schedule
 
@@ -86,7 +97,7 @@ Twitter: [Blair09M](https://twitter.com/Blair09M)
 
 LinkedIn: [blairjm](https://www.linkedin.com/in/blairjm/) 
 
-## Outline
+## Class Outline
 
 The following is a tentative outline of the subjects that will be covered during the class.  The content and order is subject to change. 
 
