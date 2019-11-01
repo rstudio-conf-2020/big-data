@@ -66,18 +66,25 @@ For spark background, please review the following:
 
 ## Instructors
 
-<img src=https://avatars1.githubusercontent.com/u/7875923?s=460&v=4 width=100 align="left" style="padding-right: 5px;"> 
-<p> **Edgar Ruiz** - Solutions Engineer @ RStudio 
-<p>Twitter: [theotheredgar](https://twitter.com/theotheredgar) 
-<p>LinkedIn: [edgararuiz](https://www.linkedin.com/in/edgararuiz/) 
+<img src=https://avatars1.githubusercontent.com/u/7875923?s=460&v=4 width=100> 
 
-<br>
+**Edgar Ruiz**
 
-<img src=https://avatars2.githubusercontent.com/u/10444878?s=460&v=4 width=100 align="left" style="padding-right: 5px;"> 
-<p> **James Blair** - Solutions Engineer @ RStudio 
-<p>Twitter: [Blair09M](https://twitter.com/Blair09M) 
-<p>LinkedIn: [blairjm](https://www.linkedin.com/in/blairjm/) 
-<br/>
+Solutions Engineer @ RStudio
+
+Twitter: [theotheredgar](https://twitter.com/theotheredgar)
+
+LinkedIn: [edgararuiz](https://www.linkedin.com/in/edgararuiz/)
+
+<img src=https://avatars2.githubusercontent.com/u/10444878?s=460&v=4 width=100> 
+
+**James Blair** 
+
+Solutions Engineer @ RStudio 
+
+Twitter: [Blair09M](https://twitter.com/Blair09M) 
+
+LinkedIn: [blairjm](https://www.linkedin.com/in/blairjm/) 
 
 ## Outline
 
