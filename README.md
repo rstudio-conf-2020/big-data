@@ -66,7 +66,7 @@ For spark background, please review the following:
 
 ## Instructors
 
-<img src=https://avatars1.githubusercontent.com/u/7875923?s=460&v=4 width=100> 
+<img src="https://avatars1.githubusercontent.com/u/7875923?s=460&v=4" width="100"/> 
 
 **Edgar Ruiz**
 
@@ -76,7 +76,7 @@ Twitter: [theotheredgar](https://twitter.com/theotheredgar)
 
 LinkedIn: [edgararuiz](https://www.linkedin.com/in/edgararuiz/)
 
-<img src=https://avatars2.githubusercontent.com/u/10444878?s=460&v=4 width=100> 
+<img src="https://avatars2.githubusercontent.com/u/10444878?s=460&v=4" width="100"/> 
 
 **James Blair** 
 
