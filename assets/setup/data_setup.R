@@ -1,6 +1,7 @@
-setup_sqlite <- function(avg_daily_orders = 2000, no_products = 30, avg_no_items = 3,
+setup_sqlite <- function(avg_daily_orders = 500, no_products = 30, avg_no_items = 3,
                          days_in_segment = 10,no_of_segments = 100, start_date = "2016-01-01", 
                          seed_number = 7878, transactions_days = 30, no_customers = 90, 
+                         no_transactions = 1000000, batch_size = 100000,
                          transactions_path = "data/transactions.csv",
                          db_path = "assets/setup/database/local.sqlite",
                          customer_path = "assets/setup/database/customers.csv"
@@ -14,7 +15,7 @@ setup_sqlite <- function(avg_daily_orders = 2000, no_products = 30, avg_no_items
   db_write_transactions(con, days_in_segment, no_of_segments, 
                         avg_daily_orders, avg_no_items, no_customers, 
                         no_products)
-  db_create_file(con, transactions_path, transactions_days, start_date)
+  db_create_file(con, transactions_path, no_transactions, batch_size)
   dbDisconnect(con)
 }
 
@@ -62,6 +63,7 @@ db_write_date <- function(con, start_date, days_in_segment, no_of_segments) {
 db_write_transactions <- function(con, days_in_segment, no_of_segments, avg_daily_orders, 
                                   avg_no_items, no_customers, no_products) {
   print("Database ---")
+  to <- 0
   for(i in 1:no_of_segments) {
     day_rpois <- rpois(1000, lambda = avg_daily_orders) 
     day_probs <- table(day_rpois) / sum(day_rpois)
@@ -101,36 +103,56 @@ db_write_transactions <- function(con, days_in_segment, no_of_segments, avg_dail
       product_id
     ) %>%
       inner_join(days, by = "order_id") %>%
-      mutate(step_id = day_id + (days_in_segment * (i - 1))) %>%
+      mutate(
+        step_id = day_id + (days_in_segment * (i - 1)),
+        transaction_id = row_number() + to 
+        ) %>%
       select(-day_id) %>%
-      select(step_id, everything())
+      select(transaction_id, step_id, everything())
+    
+    from <- min(transactions$transaction_id)
+    to <- max(transactions$transaction_id)
     
     dbWriteTable(con, "transactions", transactions, append = TRUE)
-    print(paste0(i, " of ", no_of_segments, " complete"))
+    print(paste0(i, " of ", no_of_segments, " complete- From: ", from, " - to: ", to))
   }
 }
 
-db_create_file <- function(con, transactions_path, transactions_days, start_date) {
+db_create_file <- function(con, transactions_path, no_transactions, batch_size) {
   transactions <- tbl(con, "transactions") %>%
     inner_join(tbl(con, "dates"), by = "step_id") %>%
     inner_join(tbl(con, "customers"), by = "customer_id") %>%
     inner_join(tbl(con, "products"), by = "product_id") %>%
-    select(order_id, contains("order_date"), contains("customer_"), everything()) %>%
+    select(transaction_id, order_id, contains("order_date"), contains("customer_"), everything()) %>%
     select(-step_id)
   if(file.exists(transactions_path)) unlink(transactions_path)
   print("Transaction file ---")
-  for(i in seq_len(transactions_days)) {
+  total_segments <- no_transactions/batch_size
+  for(i in seq_len(total_segments)) {
+    from <- 1 + (batch_size * (i - 1))
+    to <- batch_size * (i)
     day_trans <- transactions %>%
-      filter(order_date == !! as.character(start_date + (i - 1))) %>%
+      filter(
+        transaction_id >= from, 
+        transaction_id <= to
+        ) %>%
       collect()
     if(i == 1) {
-      readr::write_csv(day_trans, transactions_path)  
+      vroom::vroom_write(day_trans, transactions_path, ",")
     } 
     else {
-      readr::write_csv(day_trans, transactions_path, append = TRUE)  
+      vroom::vroom_write(day_trans, transactions_path, ",", append = TRUE)
     }
-    print(paste0(i, " of ", transactions_days, " complete"))
+    print(paste0(i, " of ", total_segments, " complete - From: ", from, " - to: ", to))
   }
+}
+
+transaction_to_file <- function(filename = NULL, delimeter = NULL, ...) {
+  cat(
+    paste0(paste(..., sep = delimeter), "\n"),
+    file = filename,
+    append = TRUE
+  )
 }
 
 save_customers <- function(no_customers, path = "setup/database/customers.csv") {
