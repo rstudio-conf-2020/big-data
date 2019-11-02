@@ -1,0 +1,13 @@
+# Big Data with R - Exercise book {-}
+
+<img src="images/big-data.png" align="center" width="400px"> 
+
+-----
+
+This 2-day workshop covers how to analyze large amounts of data in R.  We will focus on scaling up our analyses using the same dplyr verbs that we use in our everyday work. We will use dplyr with data.table, databases, and Spark.  We will also cover best practices on visualizing, modeling, and sharing against these data sources.  Where applicable, we will review recommended connection settings, security best practices, and deployment options.
+
+-----
+
+In this 2-day workshop, attendees will learn how to connect to and analyze large scale data
+
+-----

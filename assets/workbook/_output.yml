@@ -1,0 +1,24 @@
+bookdown::pdf_book:
+  includes:
+    in_header: preamble.tex
+  latex_engine: xelatex
+  citation_package: natbib
+  keep_tex: yes
+bookdown::epub_book: default
+bookdown::gitbook:
+  config:
+    toc:
+      collapse: subsection
+      scroll_highlight: yes
+      before: null
+      after: null
+    toolbar:
+      position: fixed
+    edit : null
+    download: null
+    search: yes
+    fontsettings:
+      theme: white
+      family: sans
+      size: 2
+    sharing: no
