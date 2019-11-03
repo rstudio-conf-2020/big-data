@@ -3,18 +3,15 @@ Big Data with R
 
 ### rstudio::conf 2020
 
-[by Edgar Ruiz and James Blair](#instructors)
-
 Interested? See registration information here: [RStudio Conference 2020](https://web.cvent.com/event/36ebe042-0113-44f1-8e36-b9bc5d0733bf)
+
 
 -----
 
 :spiral_calendar: January 27 and 28, 2020  
 :alarm_clock:     09:00 - 17:00  
 :hotel:           \[ADD ROOM\]  
-:writing_hand:    [rstd.io/conf](http://rstd.io/conf)
-
-**Interested? See registration information here: ** [RStudio Conference 2020](https://web.cvent.com/event/36ebe042-0113-44f1-8e36-b9bc5d0733bf)
+:writing_hand:    [RStudio Conference 2020](https://web.cvent.com/event/36ebe042-0113-44f1-8e36-b9bc5d0733bf)
 
 -----
 
@@ -182,6 +179,8 @@ The following is a tentative outline of the subjects that will be covered during
   - Bookmarks
   - Community
   - Repos
+
+Interested? See registration information here: [RStudio Conference 2020](https://web.cvent.com/event/36ebe042-0113-44f1-8e36-b9bc5d0733bf)
 
 -----
 
