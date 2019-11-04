@@ -7,12 +7,15 @@ library(data.table)
 library(dtplyr)
 library(dplyr)
 library(lobstr)
-library(ggplot2)
+library(vroom)
 
 transactions <- fread("../../data/transactions.csv")
+vr_transactions <- vroom("../../data/transactions.csv")
 ```
 
-# Introduction to `dtplyr`
+# Large files
+
+## Introduction to `dtplyr`
 
 ```{r, eval = FALSE}
 library(data.table)
@@ -67,8 +70,7 @@ dt_transactions %>%
 ```{r}
 dt_transactions %>%
   count(customer_id) %>%
-  collect() %>%
-  head()
+  as_tibble() 
 ```
 
 ```{r}
@@ -104,10 +106,21 @@ orders %>%
   summarise(total = sum(total_order)) %>%
   arrange(desc(total))
 ```
+
+## Introduction to `vroom`
+
+```{r, eval = FALSE}
+vr_transactions <- vroom("data/transactions.csv")
+```
+
 ```{r}
-orders %>%
-  group_by(customer) %>%
-  summarise(total = sum(total_order)) %>%
-  ungroup() 
+vr_transactions %>%
+  group_by(order_id) %>%
+  summarise(
+    date = max(order_date),
+    no_products = n(),
+    total_order = sum(price), 
+    customer = max(customer_name)
+    )
 ```
 

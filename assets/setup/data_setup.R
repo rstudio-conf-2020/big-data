@@ -1,7 +1,7 @@
-setup_sqlite <- function(avg_daily_orders = 500, no_products = 30, avg_no_items = 3,
+setup_sqlite <- function(avg_daily_orders = 200, no_products = 30, avg_no_items = 3,
                          days_in_segment = 10,no_of_segments = 100, start_date = "2016-01-01", 
                          seed_number = 7878, transactions_days = 30, no_customers = 90, 
-                         no_transactions = 1000000, batch_size = 100000,
+                         no_transactions = 100000, batch_size = 10000,
                          transactions_path = "data/transactions.csv",
                          db_path = "assets/setup/database/local.sqlite",
                          customer_path = "assets/setup/database/customers.csv"
@@ -15,12 +15,13 @@ setup_sqlite <- function(avg_daily_orders = 500, no_products = 30, avg_no_items 
   db_write_transactions(con, days_in_segment, no_of_segments, 
                         avg_daily_orders, avg_no_items, no_customers, 
                         no_products)
+  db_create_view_sqlite(con)
   db_create_file(con, transactions_path, no_transactions, batch_size)
   dbDisconnect(con)
 }
 
 init_process <- function(seed_number = 7878) {
-  packages <- c("dplyr", "tibble", "purrr", "lubridate", "DBI")
+  packages <- c("dplyr", "tibble", "purrr", "lubridate", "DBI", "glue", "dbplyr")
   lapply(packages, library, character.only = TRUE)
   set.seed(seed_number)
 }
@@ -118,13 +119,20 @@ db_write_transactions <- function(con, days_in_segment, no_of_segments, avg_dail
   }
 }
 
-db_create_file <- function(con, transactions_path, no_transactions, batch_size) {
+db_create_view_sqlite <- function(con) {
   transactions <- tbl(con, "transactions") %>%
     inner_join(tbl(con, "dates"), by = "step_id") %>%
     inner_join(tbl(con, "customers"), by = "customer_id") %>%
     inner_join(tbl(con, "products"), by = "product_id") %>%
     select(transaction_id, order_id, contains("order_date"), contains("customer_"), everything()) %>%
     select(-step_id)
+  transactions_sql <- remote_query(transactions)
+  full_sql <- glue_sql("CREATE VIEW v_transactions AS ", transactions_sql)
+  dbSendQuery(con, full_sql)
+}
+
+db_create_file <- function(con, transactions_path, no_transactions, batch_size) {
+  transactions <- tbl(con, "v_transactions") 
   if(file.exists(transactions_path)) unlink(transactions_path)
   print("Transaction file ---")
   total_segments <- no_transactions/batch_size
