@@ -14,6 +14,14 @@ files <- c(
   list.files(pattern = "\\.rds")
 )
 unlink(files, recursive = TRUE, force = TRUE)
+copy_data <- function() {
+  unlink("data", recursive = TRUE, force = TRUE)
+  dir.create("data")
+  file.copy("../../data", ".", recursive = TRUE)
+}
+#copy_data()
 bookdown::serve_book()
 .rs.removeAllObjects(TRUE, globalenv())
-.rs.restartR()
+.rs.restartR(
+  afterRestartCommand = "browseURL('_book/index.html'); setwd(file.path(here::here()))"
+  )

@@ -1,7 +1,7 @@
-setup_sqlite <- function(avg_daily_orders = 200, no_products = 30, avg_no_items = 3,
-                         days_in_segment = 10,no_of_segments = 100, start_date = "2016-01-01", 
+setup_sqlite <- function(avg_daily_orders = 300, no_products = 30, avg_no_items = 4,
+                         days_in_segment = 10, no_of_segments = 100, start_date = "2016-01-01", 
                          seed_number = 7878, transactions_days = 30, no_customers = 90, 
-                         no_transactions = 100000, batch_size = 10000,
+                         no_transactions = 1000000, batch_size = 100000,
                          transactions_path = "data/transactions.csv",
                          db_path = "assets/setup/database/local.sqlite",
                          customer_path = "assets/setup/database/customers.csv"

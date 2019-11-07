@@ -1,7 +1,3 @@
-```{r setup, include = FALSE}
-#knitr::opts_chunk$set(eval = TRUE)
-```
-
 ```{r include = FALSE}
 library(data.table)
 library(dtplyr)
@@ -9,8 +5,6 @@ library(dplyr)
 library(lobstr)
 library(vroom)
 
-transactions <- fread("../../data/transactions.csv")
-vr_transactions <- vroom("../../data/transactions.csv")
 ```
 
 # Large files
@@ -37,7 +31,7 @@ dt_mtcars %>%
   collect()
 ```
 
-```{r, eval = FALSE}
+```{r}
 transactions <- fread("data/transactions.csv")
 ```
 
@@ -109,7 +103,7 @@ orders %>%
 
 ## Introduction to `vroom`
 
-```{r, eval = FALSE}
+```{r}
 vr_transactions <- vroom("data/transactions.csv")
 ```
 
