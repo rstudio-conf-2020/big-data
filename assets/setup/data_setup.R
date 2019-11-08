@@ -1,4 +1,4 @@
-setup_sqlite <- function(avg_daily_orders = 300, no_products = 30, avg_no_items = 4,
+setup_sqlite <- function(avg_daily_orders = 100, no_products = 30, avg_no_items = 3,
                          days_in_segment = 10, no_of_segments = 100, start_date = "2016-01-01", 
                          seed_number = 7878, transactions_days = 30, no_customers = 90, 
                          no_transactions = 1000000, batch_size = 100000,
@@ -55,6 +55,8 @@ db_write_date <- function(con, start_date, days_in_segment, no_of_segments) {
     step_id,
     order_date = as.character(step_date),
     order_date_year = year(step_date),
+    order_date_month = month(step_date),
+    order_date_month_name = month(step_date, label = TRUE),
     order_date_quarter = quarter(step_date), 
     order_date_day = format(step_date, "%A")
   ) %>%

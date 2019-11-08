@@ -19,7 +19,7 @@ copy_data <- function() {
   dir.create("data")
   file.copy("../../data", ".", recursive = TRUE)
 }
-#copy_data()
+copy_data()
 bookdown::serve_book()
 .rs.removeAllObjects(TRUE, globalenv())
 .rs.restartR(
