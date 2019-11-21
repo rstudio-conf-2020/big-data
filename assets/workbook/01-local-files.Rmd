@@ -2,12 +2,119 @@
 library(data.table)
 library(dtplyr)
 library(dplyr)
+library(tidyr)
 library(lobstr)
 library(vroom)
+library(fs)
+library(purrr)
 #knitr::opts_chunk$set(eval = FALSE)
 ```
 
 # Large files
+
+## Introduction to `vroom`
+*Load data into R using `vroom`*
+
+1. Load the `vroom()` library
+    ```{r}
+    library(vroom)
+    ```
+
+1. Use the `vroom()` function to read the **transactions_1.csv** file from the **data** folder
+    ```{r}
+    vroom("data/transactions_1.csv")
+    ```
+
+1. Use the `id` argument to add the file name to the data frame.  Use **file_name** as the argument's value
+    ```{r}
+    vroom("data/transactions_1.csv", id = "file_name")
+    ```
+
+1. Load the prior command into a variable called `vr_transactions`
+    ```{r}
+    vr_transactions <- vroom("data/transactions_1.csv", id = "file_name")
+    
+    vr_transactions
+    ```
+
+1. Load the file spec into a variable called `vr_spec`, using the `spec()` command
+    ```{r}
+    vr_spec <- spec(vr_transactions)
+    
+    vr_spec
+    ```
+
+## Using `fs` and `purrr`
+*Load and modify multiple files*
+
+1. Load the `fs` library
+    ```{r}
+    library(fs)
+    ```
+
+1. List files in the **data** folder using the `dir_ls()` function
+    ```{r}
+    dir_ls("data")
+    ```
+
+1. In the `dir_ls()` function, use the `glob` argument to pass a wildcard to list CSV files only
+    ```{r}
+    dir_ls("data", glob = "*.csv")
+    ```
+
+1. Load the `purrr` library
+    ```{r}
+    library(purrr)
+    ```
+
+1. Use the `map_dfr()` function to run the `vroom()` function, over the contents of the **data** folder. Pass the `n_max` argument with a value of 5, to make sure that the files are read quickly.
+    ```{r}
+    dir_ls("data", glob = "*.csv") %>%
+      map_dfr(vroom, n_max = 5)
+    ```
+
+1. Add the `spec` argument to `map_dfr()`, use the `vr_spec` variable as the value
+    ```{r}
+    dir_ls("data", glob = "*.csv") %>%
+      map_dfr(vroom, n_max = 5, col_types = vr_spec)
+    ```
+
+1. Add the `col_select` argument to `map_dfr()`.  Use a `list` object to select `transaction_id`, `order_id`, `customer_name` and `price` 
+    ```{r}
+    dir_ls("data", glob = "*.csv") %>%
+      map_dfr(vroom, n_max = 5, col_types = vr_spec, 
+              col_select = list(transaction_id, order_date, customer_name, price)
+              )
+    ```
+
+
+```{r}
+vr_transactions %>%
+  group_by(order_id) %>%
+  summarise(
+    date = max(order_date),
+    no_products = n(),
+    total_order = sum(price), 
+    customer = max(customer_name)
+    )
+```
+
+```{r}
+vr_transactions <- dir_ls("data", glob = "*.csv") %>%
+  map_dfr(vroom, id = "file_name") %>%
+  separate(file_name, c(NA, NA, "batch_no"))
+
+vr_transactions
+```
+
+```{r, eval = FALSE, echo = FALSE}
+dir_ls("data", glob = "*.csv") %>%
+  map_dfr(vroom, id = "file_name", n_max = 5)
+vr_transactions %>%
+  separate(file_name, c("one", "two", "three"))
+vr_transactions %>%
+  separate(file_name, c(NA, NA, "batch_no"))
+```
 
 ## Introduction to `dtplyr`
 *Load data into R via `data.table`, and then wrap it with `dtplyr`*
@@ -19,8 +126,10 @@ library(vroom)
 
 1. Read the **transactions.csv** file, from the **data** folder. Use the `fread()` function to load the data into a variable called `transactions`
     ```{r}
-transactions <- fread("data/transactions.csv")
-```
+    transactions <- dir_ls("data", glob = "*.csv") %>%
+       map(fread) %>%
+       rbindlist()
+    ```
 
 1. Preview the data using `str()`
     ```{r}
@@ -160,19 +269,4 @@ transactions <- fread("data/transactions.csv")
       show_query()
     ```
 
-## Introduction to `vroom`
-*Load data into R using `vroom`*
-```{r}
-vr_transactions <- vroom("data/transactions.csv")
-```
 
-```{r}
-vr_transactions %>%
-  group_by(order_id) %>%
-  summarise(
-    date = max(order_date),
-    no_products = n(),
-    total_order = sum(price), 
-    customer = max(customer_name)
-    )
-```
