@@ -44,8 +44,7 @@ library(purrr)
     vr_spec
     ```
 
-## Using `fs` and `purrr`
-*Load multiple files*
+## Load multiple files
 
 1. Load the `fs` library
     ```{r}
@@ -57,43 +56,30 @@ library(purrr)
     dir_ls("data")
     ```
 
-1. In the `dir_ls()` function, use the `glob` argument to pass a wildcard to list CSV files only
+1. In the `dir_ls()` function, use the `glob` argument to pass a wildcard to list CSV files only. Load to a variable named `files`
     ```{r}
-    dir_ls("data", glob = "*.csv")
+    files <- dir_ls("data", glob = "*.csv")
     ```
 
-1. Load the `purrr` library
+1. Pass the `files` variable to `vroom`. Set the `n_max` argument to 1,000 to limit the data load for now
     ```{r}
-    library(purrr)
+    vroom(files, n_max = 1000)
     ```
 
-1. Use the `map_dfr()` function to run the `vroom()` function, over the contents of the **data** folder. Pass the `n_max` argument with a value of 5, to make sure that the files are read quickly.
+1. Add a `col_types` argument with `vr_specs` as its value
     ```{r}
-    dir_ls("data", glob = "*.csv") %>%
-      map_dfr(vroom, n_max = 5)
+    vroom(files, n_max = 1000, col_types = vr_spec)
     ```
 
-1. Add the `spec` argument to `map_dfr()`, use the `vr_spec` variable as the value
+1. Use the `col_select` argument to pass a `list` object containing the following variables: transaction_id, order_id, order_date, customer_name, and price
     ```{r}
-    dir_ls("data", glob = "*.csv") %>%
-      map_dfr(vroom, n_max = 5, col_types = vr_spec)
-    ```
-
-1. Add the `col_select` argument to `map_dfr()`.  Use a `list` object to select `transaction_id`, `order_id`, `customer_name` and `price` 
-    ```{r}
-    dir_ls("data", glob = "*.csv") %>%
-      map_dfr(vroom, n_max = 5, col_types = vr_spec, 
-              col_select = list(transaction_id, order_id, order_date, customer_name, price)
-              )
+    vroom(files, n_max = 1000, col_types = vr_spec,
+          col_select = list(transaction_id, order_id, order_date, customer_name, price)
+          )
     ```
 
 ## Load and modify multiple files
 *Files to large to have in memory, keep summarization*
-
-1. Load the contents of the **data** folder in a variable called `files`
-    ```{r}
-    files <- dir_ls("data", glob = "*.csv") 
-    ```
 
 1. Use a `for()` loop to print the content of each vector inside `files`
     ```{r}
