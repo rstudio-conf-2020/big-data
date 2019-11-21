@@ -45,7 +45,7 @@ library(purrr)
     ```
 
 ## Using `fs` and `purrr`
-*Load and modify multiple files*
+*Load multiple files*
 
 1. Load the `fs` library
     ```{r}
@@ -83,12 +83,83 @@ library(purrr)
     ```{r}
     dir_ls("data", glob = "*.csv") %>%
       map_dfr(vroom, n_max = 5, col_types = vr_spec, 
-              col_select = list(transaction_id, order_date, customer_name, price)
+              col_select = list(transaction_id, order_id, order_date, customer_name, price)
               )
     ```
 
+## Load and modify multiple files
+*Files to large to have in memory, keep summarization*
 
-```{r}
+1. Load the contents of the **data** folder in a variable called `files`
+    ```{r}
+    files <- dir_ls("data", glob = "*.csv") 
+    ```
+
+1. Use a `for()` loop to print the content of each vector inside `files`
+    ```{r}
+    for(i in seq_along(files)) {
+      print(files[i])
+    }
+    ```
+
+1. Switch the `print()` command with the `vroom` command, using the same arguments, except the file name.  Use the `files` variable.  Load the results into a variable called `transactions`. 
+    ```{r}
+    for(i in seq_along(files)) {
+      transactions <- vroom(files[i], n_max = 1000, col_types = vr_spec, 
+                           col_select = list(transaction_id, order_id, 
+                                             order_date, customer_name, price))
+
+    }
+    ```
+
+1. Group `transactions` by `order_id` and get the total of `price` and the number of records. Name them `total_sales` and `no_items` respectively. Name the new variable `orders`
+    ```{r}
+    for(i in seq_along(files)) {
+      transactions <- vroom(files[i], n_max = 1000, col_types = vr_spec, 
+                           col_select = list(transaction_id, order_id, order_date, customer_name, price))
+      orders <- transactions %>%
+        group_by(order_id) %>%
+        summarise(total_sales = sum(price), no_items = n())
+    }
+    ```
+
+1. Add a new variable called `all_orders` at the top. Set it to `NULL`. Add a `bind_rows()` step to `orders`, appending `all_orders`
+    ```{r}
+    all_orders <- NULL
+    for(i in seq_along(files)) {
+      transactions <- vroom(files[i], n_max = 1000, col_types = vr_spec, 
+                           col_select = list(transaction_id, order_id, order_date, customer_name, price))
+      orders <- transactions %>%
+        group_by(order_id) %>%
+        summarise(total_sales = sum(price), no_items = n()) %>%
+        bind_rows(all_orders)
+    }
+    ```
+    
+1. Remove the `transactions` variable at the end of each cycle    
+    ```{r}
+    all_orders <- NULL
+    for(i in seq_along(files)) {
+      transactions <- vroom(files[i], n_max = 1000, col_types = vr_spec, 
+                           col_select = list(transaction_id, order_id, order_date, customer_name, price))
+      orders <- transactions %>%
+        group_by(order_id) %>%
+        summarise(total_sales = sum(price), no_items = n()) %>%
+        bind_rows(all_orders)
+      rm(transactions)
+    }
+    ```
+
+```{r, eval = FALSE, echo = FALSE}
+vr_transactions <- dir_ls("data", glob = "*.csv") %>%
+  map_dfr(vroom, id = "file_name") %>%
+  separate(file_name, c(NA, NA, "batch_no"))
+dir_ls("data", glob = "*.csv") %>%
+  map_dfr(vroom, id = "file_name", n_max = 5)
+vr_transactions %>%
+  separate(file_name, c("one", "two", "three"))
+vr_transactions %>%
+  separate(file_name, c(NA, NA, "batch_no"))
 vr_transactions %>%
   group_by(order_id) %>%
   summarise(
@@ -97,23 +168,6 @@ vr_transactions %>%
     total_order = sum(price), 
     customer = max(customer_name)
     )
-```
-
-```{r}
-vr_transactions <- dir_ls("data", glob = "*.csv") %>%
-  map_dfr(vroom, id = "file_name") %>%
-  separate(file_name, c(NA, NA, "batch_no"))
-
-vr_transactions
-```
-
-```{r, eval = FALSE, echo = FALSE}
-dir_ls("data", glob = "*.csv") %>%
-  map_dfr(vroom, id = "file_name", n_max = 5)
-vr_transactions %>%
-  separate(file_name, c("one", "two", "three"))
-vr_transactions %>%
-  separate(file_name, c(NA, NA, "batch_no"))
 ```
 
 ## Introduction to `dtplyr`
@@ -217,7 +271,6 @@ vr_transactions %>%
     ```{r}
     library(ggplot2)
     ```
-
 
 1. Use `as_tibble()` to convert before creating a line plot 
     ```{r}
