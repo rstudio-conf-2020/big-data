@@ -1,5 +1,5 @@
 ```{r, textmining, include = FALSE}
-eval_mining <- TRUE
+eval_mining <- FALSE
 ```
 
 ```{r, eval = eval_mining, include = FALSE}
@@ -8,7 +8,7 @@ library(sparklyr)
 library(dplyr)
 ```
 
-# Text mining with sparklyr
+# Text mining with `sparklyr`
 
 For this example, there are two files that will be analyzed.  They are both the full works of Sir Arthur Conan Doyle and Mark Twain.  The files were downloaded from the [Gutenberg Project](https://www.gutenberg.org/) site via the `gutenbergr` package.  Intentionally, no data cleanup was done to the files prior to this analysis.  See the appendix below to see how the data was downloaded and prepared.
 
@@ -18,6 +18,7 @@ readLines("books/arthur_doyle.txt", 30)
 
 
 ## Data Import
+*Read the book data into Spark*
 
 1. Load the `sparklyr` library
     ```{r, eval = eval_mining}
@@ -41,6 +42,7 @@ readLines("books/arthur_doyle.txt", 30)
 
 
 ## Tidying data
+*Prepare the data for analysis*
 
 1. Load the `dplyr` library
     ```{r}
@@ -83,6 +85,7 @@ readLines("books/arthur_doyle.txt", 30)
     ```
 
 ## Transform the data
+*Use feature transformers to make additional preparations*
 
 1. Use `ft_tokenizer()` to separate each word. in the line.  Set the `output_col` to "word_list". Assign to a variable called `word_list`
     ```{r, eval = eval_mining}
@@ -113,8 +116,6 @@ readLines("books/arthur_doyle.txt", 30)
     all_words <- exploded %>%
       select(word, author) %>%
       filter(nchar(word) > 2)
-      
-    head(all_words, 4)
     ```
 
 1. Cache the `all_words` variable using `compute()`  
@@ -123,100 +124,89 @@ readLines("books/arthur_doyle.txt", 30)
       compute("all_words")
     ```
 
-
 ## Data Exploration
+*Used word clouds to explore the data*
 
-1. Words used the most by author
-
+1. Create a variable with the word count by author, name it `word_count`
     ```{r, eval = eval_mining}
     word_count <- all_words %>%
       count(author, word, sort = TRUE) 
     ```
 
-2. Words most used by Twain
+1. Filter `word_cout` to only retain "twain", assign it to `twain_most`
+    ```{r, eval = eval_mining}
+    twain_most <- word_count %>%
+      filter(author == "twain")
+    ```
 
-```{r, eval = eval_mining}
-twain_most <- word_count %>%
-  filter(author == "twain")
+1. Use `wordcloud` to visualize the top 50 words used by Twain
+    ```{r, eval = eval_mining}
+    twain_most %>%
+      head(50) %>%
+      collect() %>%
+      with(wordcloud::wordcloud(
+        word, 
+        n,
+        colors = c("#999999", "#E69F00", "#56B4E9","#56B4E9"))
+        )
+    ```
 
-twain_most
-```
+1. Filter `word_cout` to only retain "doyle", assign it to `doyle_most`
+    ```{r, eval = eval_mining}
+    doyle_most <- word_count %>%
+      filter(author == "doyle")
+    ```
 
-3. Use `wordcloud` to visualize the top 50 words used by Twain
+1. Used `wordcloud` to visualize the top 50 words used by Doyle that have more than 5 characters
+    ```{r, eval = eval_mining}
+    doyle_most %>%
+      filter(nchar(word) > 5) %>%
+      head(50) %>%
+      collect() %>%
+      with(wordcloud::wordcloud(
+        word, 
+        n,
+        colors = c("#999999", "#E69F00", "#56B4E9","#56B4E9")
+        ))
+    ```
 
-```{r, eval = eval_mining}
-twain_most %>%
-  head(50) %>%
-  collect() %>%
-  with(wordcloud::wordcloud(
-    word, 
-    n,
-    colors = c("#999999", "#E69F00", "#56B4E9","#56B4E9")))
-```
+1. Use `anti_join()` to figure out which words are used by Doyle but not Twain. Order the results by number of words.
+    ```{r, eval = eval_mining}
+    doyle_unique <- doyle_most %>%
+      anti_join(twain_most, by = "word") %>%
+      arrange(desc(n)) 
+    ```
 
-4. Words most used by Doyle
+1. Use `wordcloud` to visualize top 50 records in the previous step
+    ```{r, eval = eval_mining}
+    doyle_unique %>%
+      head(50) %>%
+      collect() %>%
+      with(wordcloud::wordcloud(
+        word, 
+        n,
+        colors = c("#999999", "#E69F00", "#56B4E9","#56B4E9"))
+        )
+    ```
 
-```{r, eval = eval_mining}
-doyle_most <- word_count %>%
-  filter(author == "doyle")
+1. Find out how many times Twain used the word "sherlock"
+    ```{r, eval = eval_mining}
+    all_words %>%
+      filter(author == "twain", word == "sherlock") %>%
+      tally()
+    ```
 
-doyle_most
-```
-
-5. Used `wordcloud` to visualize the top 50 words used by Doyle that have more than 5 characters
-
-```{r, eval = eval_mining}
-doyle_most %>%
-  filter(nchar(word) > 5) %>%
-  head(50) %>%
-  collect() %>%
-  with(wordcloud::wordcloud(
-    word, 
-    n,
-    colors = c("#999999", "#E69F00", "#56B4E9","#56B4E9")
-    ))
-```
-
-6. Use `anti_join()` to figure out which words are used by Doyle but not Twain. Order the results by number of words.
-
-```{r, eval = eval_mining}
-doyle_unique <- doyle_most %>%
-  anti_join(twain_most, by = "word") %>%
-  arrange(desc(n)) 
-
-doyle_unique
-```
-
-7. Use `wordcloud` to visualize top 50 records in the previous step
-```{r, eval = eval_mining}
-doyle_unique %>%
-  head(50) %>%
-  collect() %>%
-  with(wordcloud::wordcloud(
-    word, 
-    n,
-    colors = c("#999999", "#E69F00", "#56B4E9","#56B4E9")))
-```
-
-8. Find out how many times Twain used the word "sherlock"
-```{r, eval = eval_mining}
-all_words %>%
-  filter(author == "twain",
-         word == "sherlock") %>%
-  tally()
-```
-
-9. Against the `twain` variable, use Hive's *instr* and *lower* to make all ever word lower cap, and then look for "sherlock" in the line
-```{r, eval = eval_mining}
-twain %>%
-  mutate(line = lower(line)) %>%
-  filter(instr(line, "sherlock") > 0) %>%
-  pull(line)
-```
+1. Against the `twain` variable, use Hive's *instr* and *lower* to make all ever word lower cap, and then look for "sherlock" in the line
+    ```{r, eval = eval_mining}
+    twain %>%
+      mutate(line = lower(line)) %>%
+      filter(instr(line, "sherlock") > 0) %>%
+      pull(line)
+    ```
 
 Most of these lines are in a short story by Mark Twain called [A Double Barrelled Detective Story](https://www.gutenberg.org/files/3180/3180-h/3180-h.htm#link2H_4_0008). As per the [Wikipedia](https://en.wikipedia.org/wiki/A_Double_Barrelled_Detective_Story) page about this story, this is a satire by Twain on the mystery novel genre, published in 1902.
 
-
-```{r, eval = eval_mining}
-spark_disconnect(sc)
-```
+1. Close Spark session
+    ```{r, eval = eval_mining}
+    spark_disconnect(sc)
+    ```
