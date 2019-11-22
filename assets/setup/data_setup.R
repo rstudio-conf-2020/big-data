@@ -181,3 +181,23 @@ save_customers <- function(no_customers, path = "setup/database/customers.csv") 
     rowid_to_column("customer_id") %>%
     readr::write_csv(path)
 }
+
+create_text_files <- function() {
+  library(gutenbergr)
+  library(dplyr)
+  
+  gutenberg_works()  %>%
+    filter(author == "Doyle, Arthur Conan") %>%
+    pull(gutenberg_id) %>%
+    gutenberg_download() %>%
+    pull(text) %>%
+    writeLines("books/arthur_doyle.txt")
+  
+  gutenberg_works()  %>%
+    filter(author == "Twain, Mark") %>%
+    pull(gutenberg_id) %>%
+    gutenberg_download() %>%
+    pull(text) %>%
+    writeLines("books/mark_twain.txt")
+}
+

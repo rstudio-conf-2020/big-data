@@ -1,9 +1,13 @@
-```{r, include = FALSE}
+```{r intro-to-dtplyr, include = FALSE}
+eval_dtplyr <- FALSE
+```
+
+
+```{r, eval = eval_dtplyr, include = FALSE}
 library(data.table)
 library(dtplyr)
 library(dplyr)
 library(lobstr)
-#knitr::opts_chunk$set(eval = FALSE)
 ```
 
 # Introduction to `dtplyr`
@@ -12,36 +16,36 @@ library(lobstr)
 *Load data into R via `data.table`, and then wrap it with `dtplyr`*
 
 1. Load the `data.table` library
-    ```{r}
+    ```{r, eval = eval_dtplyr}
     library(data.table)
     ```
 
 1. Read the **transactions.csv** file, from the **data** folder. Use the `fread()` function to load the data into a variable called `transactions`
-    ```{r}
+    ```{r, eval = eval_dtplyr}
     transactions <- dir_ls("data", glob = "*.csv") %>%
        map(fread) %>%
        rbindlist()
     ```
 
 1. Preview the data using `str()`
-    ```{r}
+    ```{r, eval = eval_dtplyr}
     str(transactions)
     ```
 
 1. Load the `dplyr` and `dtplyr` libraries
-    ```{r}
+    ```{r, eval = eval_dtplyr}
     library(dplyr)
     library(dtplyr)
     ```
 
 1. Use the `lazy_dt()` to "wrap" the `transactions` variable, into a new variable called `dt_transactions`
-    ```{r}
+    ```{r, eval = eval_dtplyr}
     dt_transactions <- lazy_dt(transactions)
     ```
 
 
 1. View the `dt_transactions` variable's structure with `str()`
-    ```{r}
+    ```{r, eval = eval_dtplyr}
     str(dt_transactions)
     ```
 
@@ -49,22 +53,22 @@ library(lobstr)
 *Confirm that `dtplyr` is not making copies of the original `data.table`*
 
 1. Load the `lobstr` library
-    ```{r}
+    ```{r, eval = eval_dtplyr}
     library(lobstr)
     ```
 
 1. Use `obj_size()` to obtain `transactions`'s size in memory
-    ```{r}
+    ```{r, eval = eval_dtplyr}
     obj_size(transactions)
     ```
 
 1. Use `obj_size()` to obtain `dt_transactions`'s size in memory
-    ```{r}
+    ```{r, eval = eval_dtplyr}
     obj_size(dt_transactions)
     ```
 
 1. Use `obj_size()` to obtain `dt_transactions` and `transactions` size in memory together
-    ```{r}
+    ```{r, eval = eval_dtplyr}
     obj_size(transactions, dt_transactions)
     ```
 
@@ -72,26 +76,26 @@ library(lobstr)
 *Under the hood view of how `dtplyr` operates `data.table` objects*
 
 1. Use `dplyr` verbs on top of `dt_transactions` to obtain the total sales by month
-    ```{r}
+    ```{r, eval = eval_dtplyr}
     dt_transactions %>%
       group_by(order_date_month) %>%
       summarise(total_sales = sum(price))
     ```
 
 1. Load the above code into a variable called `by_month`
-    ```{r}
+    ```{r, eval = eval_dtplyr}
     by_month <- dt_transactions %>%
       group_by(order_date_month) %>%
       summarise(total_sales = sum(price))
     ```
 
 1. Use `show_query()` to see the `data.table` code that `by_month` actually runs
-    ```{r}
+    ```{r, eval = eval_dtplyr}
     show_query(by_month)
     ```
 
 1. Use `str()` to view how `by_month`, instead of modifying the data, it only adds steps that will later be operated by `data.table`
-    ```{r}
+    ```{r, eval = eval_dtplyr}
     str(by_month)
     ```
 
@@ -99,19 +103,19 @@ library(lobstr)
 *Learn data conversion and basic visualization techniques*
 
 1. Use `as_tibble()` to convert the results of `by_month` into a `tibble`
-    ```{r}
+    ```{r, eval = eval_dtplyr}
     by_month %>%
       as_tibble()
     ```
 
 1. Load the `ggplot2` library
 
-    ```{r}
+    ```{r, eval = eval_dtplyr}
     library(ggplot2)
     ```
 
 1. Use `as_tibble()` to convert before creating a line plot 
-    ```{r}
+    ```{r, eval = eval_dtplyr}
     by_month %>%
       as_tibble() %>%
       ggplot() +
@@ -122,19 +126,19 @@ library(lobstr)
 *Review a simple way to aggregate data faster, and then pivot it as a tibble*
 
 1. Load the `tidyr` library
-    ```{r}
+    ```{r, eval = eval_dtplyr}
     library(tidyr)
     ```
 
 1. Group `db_transactions` by `order_date_month` and `order_date_day`, then aggregate `price` into `total_sales`
-    ```{r}
+    ```{r, eval = eval_dtplyr}
     dt_transactions %>%
       group_by(order_date_month, order_date_day) %>% 
       summarise(total_sales = sum(price))
     ```
 
 1. Copy the aggregation code above, **then collect it into a `tibble`**, and then use `pivot_wider()` to make the `order_date_day` the column headers.
-    ```{r}
+    ```{r, eval = eval_dtplyr}
     dt_transactions %>%
       group_by(order_date_month, order_date_day) %>% 
       summarise(total_sales = sum(price)) %>%
@@ -147,14 +151,14 @@ library(lobstr)
 *See how `dtplyr` creates a copy of the original `data.table` object in order to make the `mutate` operation work the same as it does on `dtplr`*
 
 1. Use `mutate()` and `show_query()` to see the `copy()` command being used
-    ```{r}
+    ```{r, eval = eval_dtplyr}
     dt_transactions %>%
       mutate(new_field = price / 2) %>%
       show_query()
     ```
 
 1. Use `lazy_dt()` with the `immutable` argument set to `FALSE` to avoid the copy
-    ```{r}
+    ```{r, eval = eval_dtplyr}
     lazy_dt(transactions, immutable = FALSE) %>%
       mutate(new_field = price / 2) %>%
       show_query()

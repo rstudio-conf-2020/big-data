@@ -18,8 +18,12 @@ copy_data <- function() {
   unlink("data", recursive = TRUE, force = TRUE)
   dir.create("data")
   file.copy("../../data", ".", recursive = TRUE)
+  # Books for the text mining unit
+  unlink("books", recursive = TRUE, force = TRUE)
+  dir.create("books")
+  file.copy("../../books", ".", recursive = TRUE)
 }
-copy_data()
+#copy_data()
 bookdown::serve_book()
 .rs.removeAllObjects(TRUE, globalenv())
 .rs.restartR(
