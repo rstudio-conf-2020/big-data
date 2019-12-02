@@ -10,6 +10,7 @@ files <- c(
   "logs",
   "_book",
   "my_model.yml",
+  "mydatabase.sqlite",
   list.files(pattern = "\\.md"),
   list.files(pattern = "\\.rds")
 )

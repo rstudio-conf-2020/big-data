@@ -9,3 +9,4 @@ my_model.yml
 _book
 _bookdown_files
 data
+mydatabase.sqlite

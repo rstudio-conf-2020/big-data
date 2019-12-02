@@ -7,7 +7,6 @@ eval_vroom <- FALSE
 library(vroom)
 library(fs)
 library(purrr)
-
 ```
 
 # Introduction to `vroom`
@@ -102,7 +101,8 @@ library(purrr)
     ```{r, eval = eval_vroom}
     for(i in seq_along(files)) {
       transactions <- vroom(files[i], n_max = 1000, col_types = vr_spec, 
-                           col_select = list(transaction_id, order_id, order_date, customer_name, price))
+                           col_select = list(transaction_id, order_id, 
+                                             order_date, customer_name, price))
       orders <- transactions %>%
         group_by(order_id) %>%
         summarise(total_sales = sum(price), no_items = n())
@@ -114,7 +114,8 @@ library(purrr)
     all_orders <- NULL
     for(i in seq_along(files)) {
       transactions <- vroom(files[i], n_max = 1000, col_types = vr_spec, 
-                           col_select = list(transaction_id, order_id, order_date, customer_name, price))
+                           col_select = list(transaction_id, order_id, 
+                                             order_date, customer_name, price))
       orders <- transactions %>%
         group_by(order_id) %>%
         summarise(total_sales = sum(price), no_items = n()) %>%
@@ -127,7 +128,8 @@ library(purrr)
     all_orders <- NULL
     for(i in seq_along(files)) {
       transactions <- vroom(files[i], n_max = 1000, col_types = vr_spec, 
-                           col_select = list(transaction_id, order_id, order_date, customer_name, price))
+                           col_select = list(transaction_id, order_id, 
+                                             order_date, customer_name, price))
       orders <- transactions %>%
         group_by(order_id) %>%
         summarise(total_sales = sum(price), no_items = n()) %>%

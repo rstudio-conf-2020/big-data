@@ -8,6 +8,8 @@ library(data.table)
 library(dtplyr)
 library(dplyr)
 library(lobstr)
+library(fs)
+library(purrr)
 ```
 
 # Introduction to `dtplyr`
@@ -15,9 +17,11 @@ library(lobstr)
 ## `dtplyr` basics
 *Load data into R via `data.table`, and then wrap it with `dtplyr`*
 
-1. Load the `data.table` library
+1. Load the `data.table`, `purrr` and `fs` libraries
     ```{r, eval = eval_dtplyr}
     library(data.table)
+    library(purrr)
+    library(fs)
     ```
 
 1. Read the **transactions.csv** file, from the **data** folder. Use the `fread()` function to load the data into a variable called `transactions`
