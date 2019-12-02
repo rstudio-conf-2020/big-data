@@ -1,0 +1,136 @@
+```{r db-analysis, include = FALSE}
+eval_db <- FALSE
+```
+
+```{r, eval = eval_db, include = FALSE}
+library(connections)
+library(RSQLite)
+library(dplyr)
+library(dbplyr)
+```
+
+# Databases and `dplyr`
+
+## Intro to `connections`
+*Use `connections` to open open a database connection*
+
+1. Load the `connections` package
+    ```{r, eval = eval_db}
+    library(connections)
+    ```
+
+1. Use `connection_open()` to open a Database connection
+    ```{r, eval = eval_db}
+    con <- connection_open(RSQLite::SQLite(), "database/local.sqlite")
+    ```
+    
+1. The RStudio Connections pane should show the tables in the database
+<img src="images/04-conn-pane.png" align="center" width="400px"> 
+
+## Table reference
+*Use the `dplyr`'s `tbl()` command*
+
+1. Load the `dplyr` package
+    ```{r, eval = eval_db}
+    library(dplyr)
+    ```
+
+1. Use the `tbl()` command to call the **transactions** table
+    ```{r, eval = eval_db}
+    tbl(con, "transactions")
+    ```
+
+1. Add `in_schema()` as an argument to `tbl()` to specify the schema.  The default schema is called: "main"
+    ```{r, eval = eval_db}
+    tbl(con, in_schema("main", "transactions"))
+    ```
+
+1. Load the results from the `tbl()` command to a variable called `transactions` 
+    ```{r, eval = eval_db}
+    transactions <- tbl(con, "transactions")
+    ```
+    
+    
+## Under the hood 
+*Use `show_query()` to preview the SQL statement that will be sent to the database*
+
+1. Use `show_query()` to preview SQL statement that actually runs when we run `transactions` as a command
+    ```{r, eval = eval_db}
+    show_query(transactions)
+    ```
+
+1. Easily view the resulting query by adding `show_query()` in another piped command
+    ```{r, eval = eval_db}
+    transactions %>%
+      show_query()
+    ```
+
+1. Insert `head()` in between the two statements to see how the SQL changes
+    ```{r, eval = eval_db}
+    transactions %>%
+      head() %>%
+      show_query()
+    ```
+
+1. Use `sql_render()` and `simulate_mssql()` to see how the SQL statement changes from vendor to vendor
+    ```{r, eval = eval_db}
+    transactions %>%
+      head() %>%
+      sql_render(con = simulate_mssql()) 
+    ```
+
+1. Use `explain()` to explore the query plan
+    ```{r, eval = eval_db}
+    transactions %>% 
+      head() %>% 
+      explain()
+    ```
+    
+## Un-translated R commands
+*Review of how `dbplyr` handles R commands that have not been translated into a like-SQL command*
+
+1. Preview how `Sys.time()` is translated
+    ```{r, eval = eval_db}
+    transactions %>%
+      mutate(today = Sys.time()) %>%
+      show_query()
+    ```
+
+1. Use SQLite's native commands, in this case `date()`
+    ```{r, eval = eval_db}
+    transactions %>%
+      mutate(today = date('now')) %>%
+      show_query()
+    ```
+
+1. Run the `dplyr` code to confirm it works
+    ```{r, eval = eval_db}
+    transactions %>%
+      mutate(today = date('now')) %>%
+      select(today) %>%
+      head()
+    ```
+
+## Using bang-bang
+*Intro on passing unevaluated code to a dplyr verb*
+
+1. Preview how `Sys.time()` is translated when prefixing `!!`
+    ```{r, eval = eval_db}
+    transactions %>%
+      mutate(today = !!Sys.time()) %>%
+      show_query()
+    ```
+
+1. Preview how `Sys.time()` is translated when prefixing `!!`
+    ```{r, eval = eval_db}
+    transactions %>%
+      mutate(today = !!Sys.time()) %>%
+      select(today) %>%
+      head()
+    ```
+
+1. Close the connection
+    ```{r, eval = eval_db}
+    connection_close(con)
+    ```
+

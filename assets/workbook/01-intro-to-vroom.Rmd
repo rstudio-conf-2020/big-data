@@ -137,3 +137,9 @@ library(purrr)
       rm(transactions)
     }
     ```
+    
+1. Preview the `orders` variable
+    ```{r, eval = eval_vroom}
+    orders
+    ```
+

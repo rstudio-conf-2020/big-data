@@ -23,6 +23,14 @@ copy_data <- function() {
   unlink("books", recursive = TRUE, force = TRUE)
   dir.create("books")
   file.copy("../../books", ".", recursive = TRUE)
+  # Books for the text mining unit
+  unlink("books", recursive = TRUE, force = TRUE)
+  dir.create("books")
+  file.copy("../../books", ".", recursive = TRUE)
+  # Database
+  unlink("database", recursive = TRUE, force = TRUE)
+  dir.create("database")
+  file.copy("../../assets/setup/database", ".", recursive = TRUE)
 }
 #copy_data()
 bookdown::serve_book()

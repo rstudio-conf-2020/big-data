@@ -2,7 +2,7 @@
 eval_dbi <- FALSE
 ```
 
-```{r, eval = eval_dbi, include = FALSE}
+```{r, eval = TRUE, include = FALSE}
 library(DBI)
 library(RSQLite)
 ```
@@ -22,24 +22,24 @@ library(RSQLite)
     con <- dbConnect(RSQLite::SQLite(), "mydatabase.sqlite")
     ```
     
-1. Use `dbListTables()` to view existing tables, there should be 0
+1. Use `dbListTables()` to view existing tables, there should be 0 tables
     ```{r, eval = eval_dbi}
     dbListTables(con)
     ```
 
-1. Use `dbWriteTable()` to create a new table using `mtcars` data
+1. Use `dbWriteTable()` to create a new table using `mtcars` data. Name it **db_mtcars**
     ```{r, eval = eval_dbi}
-    dbWriteTable(con, "mtcars", mtcars)
+    dbWriteTable(con, "db_mtcars", mtcars)
     ```
 
-1. Use `dbListTables()` to view existing tables, it should return `mtcars`
+1. Use `dbListTables()` to view existing tables, it should return **db_mtcars**
     ```{r, eval = eval_dbi}
     dbListTables(con)
     ```
 
 1. Use `dbGetQuery()` to pass a SQL query to the database
     ```{r, eval = eval_dbi}
-    dbGetQuery(con, "select * from mtcars")
+    dbGetQuery(con, "select * from db_mtcars")
     ```
 
 1. Close the database connection using `dbDisconnect()`
@@ -55,40 +55,40 @@ library(RSQLite)
     con <- dbConnect(RSQLite::SQLite(), "mydatabase.sqlite")
     ```
 
-1. Use `dbWriteTable()` to create a new table using `mtcars` data
+1. Use `dbWriteTable()` to re-create the **db_mtcars** table using `mtcars` data
     ```{r, eval = FALSE}
-    dbWriteTable(con, "mtcars", mtcars)
+    dbWriteTable(con, "db_mtcars", mtcars)
     ```
 ```
-## Error: Table mtcars exists in database, and both overwrite and append are FALSE
+## Error: Table db_mtcars exists in database, and both overwrite and append are FALSE
 ```
 
-1. Use the `append` argument in `dbWriteTable()` to add the data in the `mtcars` table
+1. Use the `append` argument in `dbWriteTable()` to add the data in the **db_mtcars** table
     ```{r, eval = eval_dbi}
-    dbWriteTable(con, "mtcars", mtcars, append = TRUE)
+    dbWriteTable(con, "db_mtcars", mtcars, append = TRUE)
     ```
 
-1. Using `dbGetQuery()`, check the current record count of `mtcars`, pass the following query: "select count() from mtcars"
+1. Using `dbGetQuery()`, check the current record count of **db_mtcars**, pass the following query: "select count() from db_mtcars"
     ```{r, eval = eval_dbi}
-    dbGetQuery(con, "select count() from mtcars")
+    dbGetQuery(con, "select count() from db_mtcars")
     ```
 
-1. Use the `overwrite` argument to `dbWriteTable()` to replace the data in the `mtcars` table
+1. Use the `overwrite` argument to `dbWriteTable()` to replace the data in the **db_mtcars** table
     ```{r, eval = TRUE}
-    dbWriteTable(con, "mtcars", mtcars, overwrite = TRUE)
+    dbWriteTable(con, "db_mtcars", mtcars, overwrite = TRUE)
     ```
 
-1. Check the record count of `mtcars` again
+1. Check the record count of `db_mtcars` again
     ```{r, eval = eval_dbi}
-    dbGetQuery(con, "select count() from mtcars")
+    dbGetQuery(con, "select count() from db_mtcars")
     ```
 
 ## Database operations
 *Understand how to use `dbSendStatement()` to modify the database*
 
-1. Use `dbSendStatement()` to pass a SQL commands that deletes any automatic car form `mtcars`: "delete from mtcars where am = 1". Load the command to a variable called `rs`
+1. Use `dbSendStatement()` to pass a SQL commands that deletes any automatic car form `db_mtcars`: "delete from db_mtcars where am = 1". Load the command to a variable called `rs`
     ```{r, eval = eval_dbi}
-    rs <- dbSendStatement(con, "delete from mtcars where am = 1")
+    rs <- dbSendStatement(con, "delete from db_mtcars where am = 1")
     ```
 
 1. Call the `rs` variable to view information about the results of the requeted change
@@ -116,9 +116,9 @@ library(RSQLite)
     rs
     ```
 
-1. Check the record count of `mtcars` again, the new count should be 19 (32 original records - 13 deleted records)
+1. Check the record count of `db_mtcars` again, the new count should be 19 (32 original records - 13 deleted records)
     ```{r, eval = eval_dbi}
-    dbGetQuery(con, "select count() from mtcars")
+    dbGetQuery(con, "select count() from db_mtcars")
     ```
 
 ## `knitr` SQL engine
@@ -127,21 +127,21 @@ library(RSQLite)
 1. Start a new code chunk, but using `sql` instead of `r` as the first argument of the chunk.  Also add `connection=con` as another argument of the chunk. 
 ````markdown
     `r ''````{sql, connection=con}
-    select * from mtcars
+    select * from db_mtcars
     ```
 ````
 ```{sql, connection=con, echo = FALSE}
-select * from mtcars
+select * from db_mtcars
 ```
 
 2. Add the `max.print` options to the chunk, and set it to 5
 ````markdown
     `r ''````{sql, connection=con, max.print = 5}
-    select * from mtcars
+    select * from db_mtcars
     ```
 ````
 ```{sql, connection=con, echo = FALSE, max.print = 5}
-select * from mtcars
+select * from db_mtcars
 ```
 
 3. Set defaults for the `sql` chunks by using the `knitr::opts_chunk$set()` command
@@ -152,11 +152,11 @@ knitr::opts_chunk$set(connection = "con", max.print = 5)
 4. Run the same query in a new `sql` chunk, but without any other argument
 ````markdown
     `r ''````{sql}
-    select * from mtcars
+    select * from db_mtcars
     ```
 ````
 ```{sql, echo = FALSE}
-select * from mtcars
+select * from db_mtcars
 ```
 
 5. Close the database connection using `dbDisconnect()`
