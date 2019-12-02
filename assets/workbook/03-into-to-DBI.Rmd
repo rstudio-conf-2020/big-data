@@ -1,5 +1,5 @@
 ```{r intro-to-dbi, include = FALSE}
-eval_dbi <- TRUE
+eval_dbi <- FALSE
 ```
 
 ```{r, eval = eval_dbi, include = FALSE}
@@ -7,20 +7,18 @@ library(DBI)
 library(RSQLite)
 ```
 
-
-
-# Introduction to `DBI` and `RSQlite`
+# Introduction to `DBI` 
 
 ## Local database basics
 *Connecting and adding data to a database*
 
 1. Load the `DBI` package
-    ```{r, eval = eval_dbi}
+    ```{r, eval = TRUE}
     library(DBI)
     ```
 
 1. Use `dbConnect()` to open a Database connection
-    ```{r, eval = eval_dbi}
+    ```{r, eval = TRUE}
     con <- dbConnect(RSQLite::SQLite(), "mydatabase.sqlite")
     ```
     
@@ -76,7 +74,7 @@ library(RSQLite)
     ```
 
 1. Use the `overwrite` argument to `dbWriteTable()` to replace the data in the `mtcars` table
-    ```{r, eval = eval_dbi}
+    ```{r, eval = TRUE}
     dbWriteTable(con, "mtcars", mtcars, overwrite = TRUE)
     ```
 
@@ -123,8 +121,6 @@ library(RSQLite)
     dbGetQuery(con, "select count() from mtcars")
     ```
 
-
-
 ## `knitr` SQL engine
 *See how to run SQL queries as code chunks*
 
@@ -134,8 +130,8 @@ library(RSQLite)
     select * from mtcars
     ```
 ````
-```{sql, connection=con, eval = eval_dbi, echo = FALSE}
-    select * from mtcars
+```{sql, connection=con, echo = FALSE}
+select * from mtcars
 ```
 
 2. Add the `max.print` options to the chunk, and set it to 5
@@ -144,12 +140,12 @@ library(RSQLite)
     select * from mtcars
     ```
 ````
-```{sql, connection=con, eval = eval_dbi, echo = FALSE, max.print = 5}
-    select * from mtcars
+```{sql, connection=con, echo = FALSE, max.print = 5}
+select * from mtcars
 ```
 
 3. Set defaults for the `sql` chunks by using the `knitr::opts_chunk$set()` command
-```{r, eval = eval_dbi}
+```{r, eval = TRUE}
 knitr::opts_chunk$set(connection = "con", max.print = 5)
 ```
 
@@ -159,8 +155,11 @@ knitr::opts_chunk$set(connection = "con", max.print = 5)
     select * from mtcars
     ```
 ````
-```{sql, eval = eval_dbi, echo = FALSE}
-    select * from mtcars
+```{sql, echo = FALSE}
+select * from mtcars
 ```
 
-
+5. Close the database connection using `dbDisconnect()`
+```{r, eval = TRUE}
+dbDisconnect(con)
+```

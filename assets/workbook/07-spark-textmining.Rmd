@@ -204,9 +204,9 @@ readLines("books/arthur_doyle.txt", 30)
       pull(line)
     ```
 
-Most of these lines are in a short story by Mark Twain called [A Double Barrelled Detective Story](https://www.gutenberg.org/files/3180/3180-h/3180-h.htm#link2H_4_0008). As per the [Wikipedia](https://en.wikipedia.org/wiki/A_Double_Barrelled_Detective_Story) page about this story, this is a satire by Twain on the mystery novel genre, published in 1902.
-
 1. Close Spark session
     ```{r, eval = eval_mining}
     spark_disconnect(sc)
     ```
+
+Most of these lines are in a short story by Mark Twain called [A Double Barrelled Detective Story](https://www.gutenberg.org/files/3180/3180-h/3180-h.htm#link2H_4_0008). As per the [Wikipedia](https://en.wikipedia.org/wiki/A_Double_Barrelled_Detective_Story) page about this story, this is a satire by Twain on the mystery novel genre, published in 1902.
