@@ -16,6 +16,7 @@ setup_sqlite <- function(avg_daily_orders = 1000, no_products = 30, avg_no_items
                         avg_daily_orders, avg_no_items, 
                         no_customers, no_products)
   db_create_view_sqlite(con)
+  db_create_orders_sqlite(con)
   db_create_file(con, transactions_path, no_transactions, batch_size, no_files)
   dbDisconnect(con)
 }
@@ -133,6 +134,19 @@ db_create_view_sqlite <- function(con) {
     select(-step_id)
   transactions_sql <- remote_query(transactions)
   full_sql <- glue_sql("CREATE VIEW v_transactions AS ", transactions_sql)
+  dbSendQuery(con, full_sql)
+}
+
+db_create_orders_sqlite <- function(con) {
+  orders <- tbl(con, "transactions") %>%
+    inner_join(tbl(con, "dates"), by = "step_id") %>%
+    inner_join(tbl(con, "customers"), by = "customer_id") %>%
+    inner_join(tbl(con, "products"), by = "product_id") %>%
+    group_by(order_id, order_date, order_date_year, 
+             order_date_month, customer_id, customer_name) %>%
+    summarise(order_total = sum(price), order_qty = n())
+  orders_sql <- remote_query(orders)
+  full_sql <- glue_sql("CREATE VIEW v_orders AS ", orders_sql)
   dbSendQuery(con, full_sql)
 }
 

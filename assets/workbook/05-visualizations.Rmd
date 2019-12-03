@@ -1,5 +1,5 @@
 ```{r db-visualizations, include = FALSE}
-eval_viz <- FALSE
+eval_viz <- TRUE
 ```
 
 ```{r, eval = eval_viz, include = FALSE}
@@ -30,73 +30,94 @@ library(ggplot2)
 
 1. Use `tbl()` to create a pointer to the **v_transactions** table
     ```{r, eval = eval_viz}
-    transactions <- tbl(con, "v_transactions")
+    orders <- tbl(con, "v_orders")
     ```
 
-1. Use `collect()` bring back the aggregated results into a "pass-through" variable called `by_quarter`
+1. Use `collect()` bring back the aggregated results into a "pass-through" variable called `by_year`
     ```{r, eval = eval_viz}
-    by_quarter <- transactions %>%
-      count(order_date_quarter) %>%
+    by_year <- orders %>%
+      count(order_date_year) %>%
       collect()
     ```
 
-1. Preview the `by_quarter` variable
+1. Preview the `by_year` variable
     ```{r, eval = eval_viz}
-    by_quarter
+    by_year
     ```
 
 1. Load the `ggplot2` library
     ```{r, eval = eval_viz}
     library(ggplot2)
     ```
-    
+
+
 1. Plot results using `ggplot2`
     ```{r, eval = eval_viz}
-    ggplot(by_quarter) +
-      geom_col(aes(order_date_quarter, n)) 
+      ggplot(by_year) +
+      geom_col(aes(order_date_year, n)) 
+    ```
+
+1. Using the code in this section, create a single piped code set which also creates the plot
+    ```{r, eval = eval_viz}
+    orders %>%
+      count(order_date_year) %>%
+      collect() %>%
+      ggplot() +            # < Don't forget to switch to `+`
+      geom_col(aes(order_date_year, n)) 
     ```
 
 ## Plot in one code segment
 *Practice going from `dplyr` to `ggplot2` without using pass-through variable, great for EDA*
 
-1. Using the code from the previous section, create a single piped code set which also creates the plot
+1. Summarize the order totals in a new variable called: *sales*
     ```{r, eval = eval_viz}
-    transactions %>%
-        count(order_date_quarter) %>%
-        collect() %>%
-        ggplot() +        # < Don't forget to switch to `+`
-        geom_col(aes(order_date_quarter, n)) 
+    orders %>%
+      summarise(sales = sum(order_total))
     ```
 
-1. With the same technique, create a plot of the average `price` by quarter
+1. Summarize the order totals in a new variable called: *sales*
     ```{r, eval = eval_viz}
-    transactions %>%
-        group_by(order_date_quarter) %>%
-        summarise(avg_sales = mean(price)) %>%
-        collect() %>%
-        ggplot() +        # < Don't forget to switch to `+`
-        geom_col(aes(order_date_quarter, avg_sales)) 
+    orders %>%
+      group_by(order_date_year) %>%
+      summarise(sales = sum(order_total))
     ```
+    
+1. Summarize the order totals in a new variable called: *sales*
+    ```{r, eval = eval_viz}
+    orders %>%
+      group_by(order_date_year) %>%
+      summarise(sales = sum(order_total)) %>%
+      ggplot() +
+      geom_col(aes(order_date_year, sales))
+    ```
+
+1. Switch the calculation to reflect the average of the order sale total
+    ```{r, eval = eval_viz}
+    orders %>%
+      group_by(order_date_year) %>%
+      summarise(sales = mean(order_total)) %>%
+      ggplot() +
+      geom_col(aes(order_date_year, sales))
+    ```
+
 
 ```{r, eval = TRUE, echo = FALSE}
 knitr::opts_chunk$set(eval = FALSE, echo = FALSE)
 ```
 
 
-3. Plot the average distance. Copy the code from the previous exercise and change the variable
-```{r}
-flights %>%
-  group_by(month) %>%
-  summarise(x = mean(distance, na.rm = TRUE)) %>%
-  mutate(x = as.numeric(x)) %>%
-  collect() %>%
-  ggplot() +
-  geom_line(aes(x = month, y = x)) 
-```
-
-
 ## Plot specific data segments
 *Combine skills from previous units to create more sophisticated plots*
+
+1. Switch the calculation to reflect the average of the order sale total
+    ```{r, eval = eval_viz}
+    orders %>%
+      group_by(customer_id) %>%
+      summarise(sales = sum(order_total)) %>%
+      arrange(desc(sales)) %>%
+      head(5) %>%
+      pull(customer_id)
+    ```
 
 1. Start with getting the top 5 carriers
 ```{r}
@@ -271,8 +292,8 @@ flights %>%
 
 1. Use the `dbplot_histogram()` to build the histogram
 ```{r}
-flights %>%
-  dbplot_histogram(distance)
+orders %>%
+  dbplot_histogram(order_total, bins = 10)
 ```
 
 
