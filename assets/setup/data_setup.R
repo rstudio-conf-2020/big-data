@@ -108,7 +108,10 @@ db_write_transactions <- function(con, days_in_segment, no_of_segments, avg_dail
       inner_join(days, by = "order_id") %>%
       mutate(
         step_id = day_id + (days_in_segment * (i - 1)),
-        transaction_id = row_number() + to 
+        transaction_id = row_number() + to
+        ) %>%
+      mutate(
+        order_id = as.integer((step_id * 1000) + order_id)
         ) %>%
       select(-day_id) %>%
       select(transaction_id, step_id, everything())
