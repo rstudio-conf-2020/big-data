@@ -3,8 +3,8 @@ setup_sqlite <- function(avg_daily_orders = 1000, no_products = 30, avg_no_items
                          seed_number = 7878, transactions_days = 30, no_customers = 90, 
                          no_transactions = 100000, batch_size = 10000, no_files = 5,
                          transactions_path = "data/",
-                         db_path = "assets/setup/database/local.sqlite",
-                         customer_path = "assets/setup/database/customers.csv"
+                         db_path = "database/local.sqlite",
+                         customer_path = "database/customers.csv"
 ) {
   init_process(seed_number)
   start_date <- date(start_date)

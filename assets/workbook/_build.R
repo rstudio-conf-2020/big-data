@@ -1,5 +1,5 @@
 setwd(here::here("assets/workbook"))
-Sys.setenv(GLOBAL_EVAL = TRUE)
+#Sys.setenv(GLOBAL_EVAL = TRUE)
 files <- c(
   "derby.log",
   "parsedmodel.csv",
@@ -31,7 +31,7 @@ copy_data <- function() {
   # Database
   unlink("database", recursive = TRUE, force = TRUE)
   dir.create("database")
-  file.copy("../../assets/setup/database", ".", recursive = TRUE)
+  file.copy("../../database", ".", recursive = TRUE)
 }
 copy_data()
 bookdown::serve_book()
