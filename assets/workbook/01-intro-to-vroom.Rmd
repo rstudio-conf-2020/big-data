@@ -1,5 +1,6 @@
 ```{r intro-to-vroom, include = FALSE}
 eval_vroom <- FALSE
+if(Sys.getenv("GLOBAL_EVAL") != "") eval_vroom <- Sys.getenv("GLOBAL_EVAL")
 ```
 
 
@@ -7,6 +8,7 @@ eval_vroom <- FALSE
 library(vroom)
 library(fs)
 library(purrr)
+library(dplyr)
 ```
 
 # Introduction to `vroom`
@@ -45,9 +47,10 @@ library(purrr)
 
 ## Load multiple files
 
-1. Load the `fs` library
+1. Load the `fs` and `dplyr` libraries
     ```{r, eval = eval_vroom}
     library(fs)
+    library(dplyr)
     ```
 
 1. List files in the **data** folder using the `dir_ls()` function

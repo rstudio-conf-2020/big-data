@@ -1,5 +1,6 @@
 ```{r, textmining, include = FALSE}
 eval_mining <- FALSE
+if(Sys.getenv("GLOBAL_EVAL") != "") eval_mining <- Sys.getenv("GLOBAL_EVAL")
 ```
 
 ```{r, eval = eval_mining, include = FALSE}

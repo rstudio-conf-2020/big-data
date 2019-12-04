@@ -1,5 +1,6 @@
 ```{r db-visualizations, include = FALSE}
-eval_viz <- TRUE
+eval_viz <- FALSE
+if(Sys.getenv("GLOBAL_EVAL") != "") eval_viz <- Sys.getenv("GLOBAL_EVAL")
 ```
 
 ```{r, eval = eval_viz, include = FALSE}

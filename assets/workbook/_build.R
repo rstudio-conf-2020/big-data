@@ -1,4 +1,5 @@
-setwd(file.path(here::here(), "assets/workbook"))
+setwd(here::here("assets/workbook"))
+Sys.setenv(GLOBAL_EVAL = TRUE)
 files <- c(
   "derby.log",
   "parsedmodel.csv",
@@ -36,5 +37,5 @@ copy_data()
 bookdown::serve_book()
 .rs.removeAllObjects(TRUE, globalenv())
 .rs.restartR(
-  afterRestartCommand = "browseURL('_book/index.html'); setwd(file.path(here::here()))"
+  afterRestartCommand = "browseURL('_book/index.html'); setwd(here::here())"
   )

@@ -1,5 +1,6 @@
 ```{r intro-to-dbi, include = FALSE}
 eval_dbi <- FALSE
+if(Sys.getenv("GLOBAL_EVAL") != "") eval_dbi <- Sys.getenv("GLOBAL_EVAL")
 ```
 
 ```{r, eval = TRUE, include = FALSE}

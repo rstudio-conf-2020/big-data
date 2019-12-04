@@ -10,3 +10,6 @@ _book
 _bookdown_files
 data
 mydatabase.sqlite
+books
+database
+_main.Rmd

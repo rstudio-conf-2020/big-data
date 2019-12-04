@@ -1,5 +1,6 @@
 ```{r, intro-to-sparklyr, include = FALSE}
 eval_sparklyr <- FALSE
+if(Sys.getenv("GLOBAL_EVAL") != "") eval_sparklyr <- Sys.getenv("GLOBAL_EVAL")
 ```
 
 # Intro to `sparklyr`

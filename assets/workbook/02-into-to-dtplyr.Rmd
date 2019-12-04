@@ -1,5 +1,6 @@
 ```{r intro-to-dtplyr, include = FALSE}
 eval_dtplyr <- FALSE
+if(Sys.getenv("GLOBAL_EVAL") != "") eval_dtplyr <- Sys.getenv("GLOBAL_EVAL")
 ```
 
 
