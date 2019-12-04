@@ -102,83 +102,61 @@ LinkedIn: [blairjm](https://www.linkedin.com/in/blairjm/)
 
 The following is a tentative outline of the subjects that will be covered during the class.  The content and order is subject to change. 
 
-- Big Data
-  - Define
-  - Typical strategies to handle
-  - Introduce new strategies
-- Large files
-  - `vroom`
-      - Introduction
-      - Exercise
-  - `dtplyr`
-    - Introduction
-    - Exercises
-- Databases
-  - General DB best practices 
-    - connecting (DSN)
-    - securing credentials
-    - Best practices for interacting with R 
-    - using with R (`DBI`, `odbc`, `connections`)
-  - Introduce `dbplyr`
-    - How it works…
-    - Exercises
-  - Visualizations
-    - Best practices (push calculations, plot results)
-    - Introduce `dbplot`
-    - Exercises
-  - Correlations
-    - Introduce `corrr`
-    - Exercises
+  - Introduction to `vroom`
+    - `vroom` basics
+    - Load multiple files
+    - Load and modify multiple files
+  - Introduction to `dtplyr`
+    - `dtplyr` basics
+    - Object sizes
+    - How `dtplyr` works
+    - Working with `dtplyr`
+    - Pivot data
+    - The `mutate()` verb
+  - Introduction to `DBI`
+    - Local database basics
+    - Options for writing tables
+    - Error: Table db_mtcars exists in database, and both overwrite and append are FALSE
+    - Database operations
+    - `knitr` SQL engine
+  - Databases and `dplyr`
+    - Intro to `connections`
+    - Table reference
+    - Under the hood
+    - Un-translated R commands
+    - Using bang-bang
+    - Table joins
+    - Custom view
+  - Data Visualizations
+    - Simple plot
+    - Plot in one code segment
+    - Create a histogram
+    - Raster plot
+    - Using the `calculate` functions
   - Modeling with databases
-    - Sampling strategies
-      - Single step
-      - Multi-step
+    - Single step sampling
+    - Multi-step sampling
     - Use Job panel in RStudio
     - Run predictions in DB
-      - Fit model in R
-      - Score with `tidypredict`
-      - Save and reload models
-      - Integration with tidymodels
-      - Exercises
+    - Fit model in R
+    - Score with `tidypredict`
+    - Save and reload models
+    - Integration with `tidymodels`
     - Run models in DB
-      - Introduce modeldb
-      - Linear regression demo 
-      - Integration with `tidypredict`
-      - Kmeans demo
-      - Exercises
-- Spark
-  - Spark overview
-  - Introduce `sparklyr` and friends
-  - Understanding data caching
-  - Deployment options
-  - Basic connection
-    - Introduction
-    - Exercises
-  - ML Pipelines
-    - Introduction
-    - Exercises
-  - Text mining
-    - Introduction
-    - Exercises
-  - Streaming	
-    - Introduction
-    - Exercises (?)
-- Advanced 
-  - Introduce `rlang`
-  - Create custom functions 
-  - Multiple queries with `map()`/`reduce()`
-- Production deployment
-  - Difference between a DS project and a Production project
-  - Publish to a server
-    - Introduce RStudio Connect
-    - `RMarkdown` scheduling
-    - Plumber apps
-    - Shiny integration (streaming)
-    - Introduce `pins` (?)
-- General Advice
-  - Bookmarks
-  - Community
-  - Repos
+    - Intro to `modeldb`
+    - `modeldb` with `tidypredict`
+  - Intro to `sparklyr`
+    - New Spark session
+    - Data transfer
+    - Spark and `dplyr`
+  - Text mining with `sparklyr`
+    - Data Import
+    - Tidying data
+    - Transform the data
+    - Data Exploration
+  - Spark data caching
+    - Map data
+    - Caching data
 
 Interested? See registration information here: [RStudio Conference 2020](https://web.cvent.com/event/36ebe042-0113-44f1-8e36-b9bc5d0733bf)
 

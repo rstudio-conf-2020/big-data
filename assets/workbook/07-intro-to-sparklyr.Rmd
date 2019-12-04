@@ -63,6 +63,3 @@ library(sparklyr)
 1. Click on the top item inside the **Completed Queries** table
 
 1. At the bottom of the diagram, expand **Details**
-
-
-

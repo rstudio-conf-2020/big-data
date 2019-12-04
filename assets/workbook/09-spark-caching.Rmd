@@ -89,4 +89,3 @@ if(Sys.getenv("GLOBAL_EVAL") != "") eval_caching <- Sys.getenv("GLOBAL_EVAL")
 1. Click the **Storage** button
 
 1. Notice that "orders" is now cached into Spark memory 
-
