@@ -143,7 +143,8 @@ db_create_orders_sqlite <- function(con) {
     inner_join(tbl(con, "customers"), by = "customer_id") %>%
     inner_join(tbl(con, "products"), by = "product_id") %>%
     group_by(order_id, order_date, order_date_year, 
-             order_date_month, customer_id, customer_name) %>%
+             order_date_month, customer_id, customer_name,
+             customer_lon, customer_lat) %>%
     summarise(order_total = sum(price), order_qty = n())
   orders_sql <- remote_query(orders)
   full_sql <- glue_sql("CREATE VIEW v_orders AS ", orders_sql)
@@ -187,13 +188,24 @@ transaction_to_file <- function(filename = NULL, delimeter = NULL, ...) {
   )
 }
 
-save_customers <- function(no_customers, path = "setup/database/customers.csv") {
+random_range <- function(from, to, size) {
+  fctr <- 1000000
+  from <- from * fctr
+  to <- to * fctr
+  sample(from:to, size)  / fctr
+}
+
+save_customers <- function(no_customers = 90, 
+                           path = "assets/setup/database/customers.csv") {
+  init_process()
+  lat <- c(37.788432, 37.727631)
+  long <- c(-122.485262, -122.398601)
   tibble(
     customer_name = charlatan::ch_name(no_customers),
     customer_phone = charlatan::ch_phone_number(no_customers),
     customer_cc = charlatan::ch_credit_card_number(no_customers),
-    customer_lon = charlatan::ch_lon(no_customers),
-    customer_lat = charlatan::ch_lat(no_customers)
+    customer_lon = random_range(long[1], long[2], no_customers),
+    customer_lat = random_range(lat[1], lat[2], no_customers)
   ) %>%
     rowid_to_column("customer_id") %>%
     readr::write_csv(path)
@@ -217,4 +229,5 @@ create_text_files <- function() {
     pull(text) %>%
     writeLines("books/mark_twain.txt")
 }
+
 

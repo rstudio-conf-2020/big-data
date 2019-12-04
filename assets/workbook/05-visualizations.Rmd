@@ -9,6 +9,7 @@ library(dplyr)
 library(dbplyr)
 library(dbplot)
 library(ggplot2)
+library(leaflet)
 ```
 
 
@@ -100,261 +101,121 @@ library(ggplot2)
       geom_col(aes(order_date_year, sales))
     ```
 
-
-```{r, eval = TRUE, echo = FALSE}
-knitr::opts_chunk$set(eval = FALSE, echo = FALSE)
-```
-
-
-## Plot specific data segments
-*Combine skills from previous units to create more sophisticated plots*
-
-1. Switch the calculation to reflect the average of the order sale total
-    ```{r, eval = eval_viz}
-    orders %>%
-      group_by(customer_id) %>%
-      summarise(sales = sum(order_total)) %>%
-      arrange(desc(sales)) %>%
-      head(5) %>%
-      pull(customer_id)
-    ```
-
-1. Start with getting the top 5 carriers
-```{r}
-flights %>%
-  group_by(uniquecarrier) %>%
-  tally() %>%
-  arrange(desc(n)) %>%
-  head(5) 
-```
-
-2. Pipe the top 5 carriers to a plot
-```{r}
-flights %>%
-  group_by(uniquecarrier) %>%
-  tally() %>%
-  mutate(n = as.numeric(n)) %>%
-  arrange(desc(n)) %>%
-  head(5) %>%
-  collect() %>%
-  ggplot() +
-    geom_col(aes(x = uniquecarrier, y = n))
-```
-
-3. Improve the plot's look
-```{r}
-flights %>%
-  group_by(uniquecarrier) %>%
-  tally() %>%
-  mutate(n = as.numeric(n)) %>%
-  arrange(desc(n)) %>%
-  head(5) %>%
-  collect() %>%
-  ggplot() +      #Don't forget to switch to `+`
-  geom_col(aes(x = forcats::fct_reorder(uniquecarrier, n), # Order by n
-               y = n, 
-               fill = n), # Add fill
-           show.legend = FALSE) +  # Turn legend off
-  scale_y_continuous(labels = scales::comma) + # Add commas to axis label numbers
-  coord_flip() +  # Rotate cols into rows
-  labs(title = "Top 5 Carriers", 
-       subtitle = "Source: Datawarehouse",
-       x = "Carrier Name", 
-       y = "# of Flights")
-```
-
-## Plot correlations
-*Use the `corrr` package to plot correlations*
-
-1. Correlate select numeric columns from the flights table
-```{r}
-library(corrr)
-flights_cor <- flights %>% 
-  select(contains("delay")) %>% 
-  correlate(use = "complete.obs")
-```
-
-2. Visualize the correlations
-```{r}
-flights_cor %>% 
-  rplot()
-```
-
-3. Visualize correlation network
-```{r}
-flights_cor %>% 
-  network_plot(min_cor = .15)
-```
-
-
-## Two or more queries
-*Learn how to use `pull()` to pass a set of values to be used on a secondary query*
-
-1. Use `pull()` to get the top 5 carriers loaded in a vector
-```{r}
-top5 <- flights %>%
-  group_by(uniquecarrier) %>%
-  tally() %>%
-  arrange(desc(n)) %>%
-  head(5) %>%
-  pull(uniquecarrier)
-top5
-```
-
-2. Use `%in%` to pass the `top5` vector to a filter
-```{r}
-flights %>%
-  filter(uniquecarrier %in% top5)
-```
-
-3. Group by carrier and get the average arrival delay
-```{r}
-flights %>%
-  filter(uniquecarrier %in% top5) %>%
-  group_by(uniquecarrier) %>%
-  summarise(n = mean(arrdelay, na.rm = TRUE))
-```
-
-4. Copy the final `ggplot()` code from the *Plot specific data segments* section. Update the `y` labs.
-```{r}
-flights %>%
-  filter(uniquecarrier %in% top5) %>%
-  group_by(uniquecarrier) %>%
-  summarise(n = mean(arrdelay, na.rm = TRUE)) %>%
-  # From previous section ----------------------------------------------
-  collect() %>%
-  ggplot() +      #Don't forget to switch to `+`
-  geom_col(aes(x = forcats::fct_reorder(uniquecarrier, n), # Order by n
-               y = n, 
-               fill = n), # Add fill
-           show.legend = FALSE) +  # Turn legend off
-  coord_flip() +  # Rotate cols into rows
-  labs(title = "Top 5 Carriers", 
-       subtitle = "Source: Datawarehouse",
-       x = "Carrier Name", 
-       y = "Average Delay")
-```
-
-## Visualize using `dbplot`
-*Review how to use `dbplot` to make it easier to plot with databases*
-
-1. Install and load `dbplot`
-```{r, eval = FALSE}
-library(dbplot)
-```
-
-2. Create a line plot using the helper function `dbplot_line()`
-
-```{r}
-flights %>% 
-  count(month)
-```
-
-
-```{r}
-flights %>%
-  dbplot_line(month)
-flights %>% 
-  db_compute_bins(month)
-```
-
-3. Update the plot's labels
-```{r}
-flights %>%
-  dbplot_line(month) +
-  labs(title = "Monthly flights",
-       x = "Month",
-       y = "Number of flights") 
-```
-
-## Plot a different aggregation
-*`dbplot` allows for aggregate functions, other than record count, to be used for plotting*
-
-1. Plot the average departure delay by day of week
-```{r}
-flights %>%
-  dbplot_bar(dayofweek, mean(depdelay, na.rm = TRUE))
-```
-
-2. Change the day numbers to day name labels
-```{r}
-flights %>%
-  dbplot_bar(dayofweek, mean(depdelay, na.rm = TRUE)) +
-  scale_x_continuous(
-    labels = c("Mon", "Tue", "Wed", "Thu", "Fri", "Sat", "Sun"),
-    breaks = 1:7
-  )
-```
-
-
 ## Create a histogram
 *Use the package's function to easily create a histogram*
 
+1. Load the `dbplot` package
+    ```{r, eval = eval_viz}
+    library(dbplot)
+    ```
+
+
 1. Use the `dbplot_histogram()` to build the histogram
-```{r}
-orders %>%
-  dbplot_histogram(order_total, bins = 10)
-```
+    ```{r, eval = eval_viz}
+    orders %>%
+      dbplot_histogram(order_total)
+    ```
 
 
 2. Adjust the `binwidth` to 300
-
-```{r}
-flights %>%
-  dbplot_histogram(distance, binwidth = 300)
-```
+    ```{r, eval = eval_viz}
+    orders %>%
+      dbplot_histogram(order_total, binwidth = 10)
+    ```
 
 ## Raster plot
+*Use `dbplot`'s raster graph*
 
-1. Use a `dbplot_raster()` to visualize `deptime` versus `depdelay`
-```{r}
-flights %>%
-  dbplot_raster(deptime, arrtime)
-```
+1. Use a `dbplot_raster()` to visualize `order_qty` versus `order_total`
+    ```{r, eval = eval_viz}
+    orders %>%
+      dbplot_raster(order_qty, order_total)
+    ```
 
-2. Change the plot's resolution to 500
-```{r}
-flights %>%
-  dbplot_raster(deptime, arrtime, resolution = 500)
-```
-
+1. Change the plot's resolution to 10
+    ```{r, eval = eval_viz}
+    orders %>%
+      dbplot_raster(order_qty, order_total, resolution = 10)
+    ```
 
 ## Using the `calculate` functions
 
 1. Use the `db_compute_raster()` function to get the underlying results that feed the plot
-```{r}
-departure <- flights %>%
-  db_compute_raster(deptime, arrtime)
-departure
+    ```{r, eval = eval_viz}
+    locations <- orders %>%
+      db_compute_raster2(customer_lon, customer_lat, resolution = 10)
+    ```
+
+1. Preview the `locations` variable
+    ```{r, eval = eval_viz}
+    locations
+    ```
+
+1. Load the `leaflet` library
+    ```{r, eval = eval_viz}
+    library(leaflet)
+    ```
+
+1. Pipe `location` into the `leaflet()` function, and then pipe that into the `addTiles()` function
+    ```{r, eval = eval_viz}
+    locations %>%
+      leaflet() %>% 
+        addTiles() 
+    ```
+
+1. Add the `addRectangles()` function using the longitude and latitude variables 
+```{r, eval = eval_viz}
+locations %>%
+  leaflet() %>% 
+    addTiles() %>%
+    addRectangles(
+      ~customer_lon, 
+      ~customer_lat, 
+      ~customer_lon_2,
+      ~customer_lat_2
+    )
 ```
 
-2. Plot the results "manually"
-```{r}
-departure %>%
-  filter(`n()` > 1000) %>%
-  ggplot() +
-  geom_raster(aes(x = deptime, y = arrtime, fill = `n()`))
+1. Add the `fillOpacity` argument to the `addRectangles()` step, use ``n()`` as the value for it
+```{r, eval = eval_viz}
+locations %>%
+  leaflet() %>% 
+    addTiles() %>%
+    addRectangles(
+      ~customer_lon, 
+      ~customer_lat, 
+      ~customer_lon_2,
+      ~customer_lat_2,
+      fillOpacity = ~`n()`
+    )
 ```
 
-## Under the hood (II)
-*Review how `dbplot` pushes histogram and raster calculations to the database*
-
-1. Use the `db_bin()` command to see the resulting tidy eval formula
-```{r}
-db_bin(field)
+1. Modify `fillOpacity` to be calculated as a percentage against the maximum number of oders
+```{r, eval = eval_viz}
+locations %>%
+  leaflet() %>% 
+    addTiles() %>%
+    addRectangles(
+      ~customer_lon, 
+      ~customer_lat, 
+      ~customer_lon_2,
+      ~customer_lat_2,
+      fillOpacity = ~(`n()` / max(`n()`))
+    )
 ```
 
-2. Use `translate_sql()` and `simulate_odbc_postgresql()` to see an example of what the resulting SQL statement looks like
-```{r}
-translate_sql(!! db_bin(field), con = simulate_odbc_postgresql())
+1. Add the `popup` argument with the following instruction as its value: `~paste0("<p>No of orders: ",  `n()`,"</p>")`
+```{r, eval = eval_viz}
+locations %>%
+  leaflet() %>% 
+    addTiles() %>%
+    addRectangles(
+      ~customer_lon, 
+      ~customer_lat, 
+      ~customer_lon_2,
+      ~customer_lat_2,
+      fillOpacity = ~(`n()` / max(`n()`)),
+      popup = ~paste0("<p>No of orders: ",  `n()`,"</p>")
+    )
 ```
 
-3. Disconnect from the database
-
-```{r}
-dbDisconnect(con)
-```
-
-```{r, eval = TRUE, echo = FALSE}
-knitr::opts_chunk$set(eval = TRUE, echo = TRUE)
-```
