@@ -19,6 +19,7 @@ setup_sqlite <- function(avg_daily_orders = 1000, no_products = 30, avg_no_items
   db_create_orders_sqlite(con)
   db_create_file(con, transactions_path, no_transactions, batch_size, no_files)
   dbDisconnect(con)
+  copy_to_workbook()
 }
 
 init_process <- function(seed_number = 7878) {
@@ -230,4 +231,16 @@ create_text_files <- function() {
     writeLines("books/mark_twain.txt")
 }
 
-
+copy_to_workbook <- function() {
+  unlink("assets/workbook/data", recursive = TRUE, force = TRUE)
+  dir.create("assets/workbook/data")
+  file.copy("data", "assets/workbook/", recursive = TRUE)
+  # Books for the text mining unit
+  unlink("assets/workbook/books", recursive = TRUE, force = TRUE)
+  dir.create("assets/workbook/books")
+  file.copy("books", "assets/workbook/", recursive = TRUE)
+  # Database
+  unlink("assets/workbook/database", recursive = TRUE, force = TRUE)
+  dir.create("assets/workbook/database")
+  file.copy("database", "assets/workbook/", recursive = TRUE)
+}

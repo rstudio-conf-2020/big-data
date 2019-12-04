@@ -45,3 +45,10 @@ library_list <- function() {
   lib_list <- Reduce(c, lib_list)
   unique(lib_list)
 }
+
+install_command <- function() {
+  all_libs <- paste0("\"", library_list(), "\"", collapse = ", ")
+  cat(paste0("install.packages(c(", all_libs,"))"))
+}
+
+
