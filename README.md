@@ -145,6 +145,11 @@ The following is a tentative outline of the subjects that will be covered during
     - Run models in DB
     - Intro to `modeldb`
     - `modeldb` with `tidypredict`
+  - Advanced Operations
+    - Simple wrapper function
+    - Multiple variables
+    - Multiple queries
+    - Characters to field names
   - Intro to `sparklyr`
     - New Spark session
     - Data transfer

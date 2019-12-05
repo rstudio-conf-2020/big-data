@@ -1,0 +1,15 @@
+```{r db-advanced, include = FALSE}
+eval_adv <- FALSE
+if(Sys.getenv("GLOBAL_EVAL") != "") eval_adv <- Sys.getenv("GLOBAL_EVAL")
+```
+
+```{r, eval = eval_adv, include = FALSE}
+
+```
+
+# Advanced Operations
+
+## Simple wrapper function
+## Multiple variables
+## Multiple queries
+## Characters to field names
