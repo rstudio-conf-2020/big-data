@@ -1,3 +1,4 @@
+
 toc <- function(file_path) {
   re <- readLines(file_path)
   has_title <- as.logical(lapply(re, function(x) substr(x, 1, 1) == "#"))

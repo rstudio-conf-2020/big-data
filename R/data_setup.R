@@ -22,51 +22,25 @@ setup_sqlite <- function(avg_daily_orders = 1000, no_products = 30, avg_no_items
   copy_to_workbook()
 }
 
-init_process <- function(seed_number = 7878) {
-  packages <- c("dplyr", "tibble", "purrr", "lubridate", "DBI", "glue", "dbplyr")
-  lapply(packages, library, character.only = TRUE)
-  set.seed(seed_number)
-}
-
-db_init_sqlite <- function(path) {
+#' @param path Folder and file name location to place the database file
+#' @export
+bdc_init_sqlite <- function(path = "database/local.sqlite") {
   if(file.exists(path)) unlink(path)
   dbConnect(RSQLite::SQLite(), path)
 }
 
-db_write_customers <- function(con, path = "setup/database/customers.csv") {
-  dbWriteTable(
-    con, 
-    "customers", 
-    readr::read_csv(path), 
-    overwrite = TRUE
-  )
-}
 
-db_write_products <- function(con, no_products) {
-  tibble(
-    price = round(runif(no_products, 4, 10), 2)
-  ) %>%
-    rowid_to_column("product_id") %>%
-    dbWriteTable(con, "products", .)
-}
 
-db_write_date <- function(con, start_date, days_in_segment, no_of_segments) {
-  step_id <- seq_len(days_in_segment * no_of_segments)
-  step_date <-  start_date + (step_id - 1)
-  tibble(
-    step_id,
-    order_date = as.character(step_date),
-    order_date_year = year(step_date),
-    order_date_month = month(step_date),
-    order_date_month_name = month(step_date, label = TRUE),
-    order_date_quarter = quarter(step_date), 
-    order_date_day = format(step_date, "%A")
-  ) %>%
-    dbWriteTable(con, "dates", .)
-}
-
-db_write_transactions <- function(con, days_in_segment, no_of_segments, avg_daily_orders, 
-                                  avg_no_items, no_customers, no_products) {
+db_write_transactions <- function(con, 
+                                  avg_daily_orders = 1000, 
+                                  no_products = 30, 
+                                  avg_no_items = 3,
+                                  days_in_segment = 10, 
+                                  no_of_segments = 100, 
+                                  no_customers = 90,
+                                  seed = 7878
+                                  ) {
+  set.seed(seed)
   print("Database ---")
   to <- 0
   for(i in 1:no_of_segments) {
@@ -181,14 +155,6 @@ db_create_file <- function(con, transactions_path, no_transactions, batch_size, 
   }
 }
 
-transaction_to_file <- function(filename = NULL, delimeter = NULL, ...) {
-  cat(
-    paste0(paste(..., sep = delimeter), "\n"),
-    file = filename,
-    append = TRUE
-  )
-}
-
 random_range <- function(from, to, size) {
   fctr <- 1000000
   from <- from * fctr
@@ -196,39 +162,24 @@ random_range <- function(from, to, size) {
   sample(from:to, size)  / fctr
 }
 
-save_customers <- function(no_customers = 90, 
-                           path = "assets/setup/database/customers.csv") {
-  init_process()
-  lat <- c(37.788432, 37.727631)
-  long <- c(-122.485262, -122.398601)
-  tibble(
-    customer_name = charlatan::ch_name(no_customers),
-    customer_phone = charlatan::ch_phone_number(no_customers),
-    customer_cc = charlatan::ch_credit_card_number(no_customers),
-    customer_lon = random_range(long[1], long[2], no_customers),
-    customer_lat = random_range(lat[1], lat[2], no_customers)
-  ) %>%
-    rowid_to_column("customer_id") %>%
-    readr::write_csv(path)
-}
 
-create_text_files <- function() {
-  library(gutenbergr)
-  library(dplyr)
-  
+
+
+create_doyle_twain <- function(path = "books") {
+  if(!dir.exists(path)) dir.create(path)
   gutenberg_works()  %>%
     filter(author == "Doyle, Arthur Conan") %>%
     pull(gutenberg_id) %>%
     gutenberg_download() %>%
     pull(text) %>%
-    writeLines("books/arthur_doyle.txt")
+    writeLines(file.path(path, "arthur_doyle.txt"))
   
   gutenberg_works()  %>%
     filter(author == "Twain, Mark") %>%
     pull(gutenberg_id) %>%
     gutenberg_download() %>%
     pull(text) %>%
-    writeLines("books/mark_twain.txt")
+    writeLines(file.path(path, "mark_twain.txt"))
 }
 
 copy_to_workbook <- function() {
