@@ -8,6 +8,18 @@ bdc_init_sqlite <- function(folder = "database") {
   dbConnect(RSQLite::SQLite(), path)
 }
 
+#' Initializes the database with the orders data
+#' @param con Database connection
+#' @param avg_daily_orders Number of average daily orders
+#' @param avg_no_items Average number of sales in an order
+#' @param days_in_segment Days in a segment
+#' @param no_of_segments Number of segments
+#' @param seed Seed to randomize to
+#' @param product_data Product data frame source
+#' @param customer_data Customer data frame source
+#' @param start_date The start date for the orders
+#' @param orders_view Name to give to the orders view
+#' @param lineitems_view Name to give the line items view
 #' @export
 bdc_init_database <- function(con,
                               avg_daily_orders = 100,

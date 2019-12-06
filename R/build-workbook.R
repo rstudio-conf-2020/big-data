@@ -1,3 +1,9 @@
+#' Uses bookdown to build the workbook inside a specified folder
+#' @param stage_folder The folder where the book will be compiled
+#' @param source The path of the workbook 
+#' @param db_folder Location of the source 'database' folder
+#' @param file_folder Location of the source 'files' folder
+#' @param book_folder Location of the source 'books' folder
 #' @export
 bdc_build_workbook <- function(stage_folder = tempdir(),
                                source = system.file("workbook", package = "bigdataclass"),

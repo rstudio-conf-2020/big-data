@@ -1,5 +1,12 @@
+#' Initializes the files based on a database connection
+#' @param con Database connection
+#' @param folder Folder path where to create the files
+#' @param no_transactions Number of transactions to save to file
+#' @param batch_size File batch size
+#' @param no_files Number of files
 #' @export
-bdc_init_files <- function(con, folder = "files",
+bdc_init_files <- function(con, 
+                           folder = "files",
                            no_transactions = 50000,
                            batch_size = 5000,
                            no_files = 5) {

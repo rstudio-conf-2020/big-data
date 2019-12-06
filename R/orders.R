@@ -1,3 +1,10 @@
+#' Creates the orders and line items table in a given database connection
+#' @param con Database connection
+#' @param avg_daily_orders Number of daily orders
+#' @param avg_no_items Number of average number of items per order
+#' @param days_in_segment Number of days inside a segment
+#' @param no_of_segments Number of segments
+#' @param seed Seed to randomize 
 #' @export
 bdc_db_orders <- function(con,
                           avg_daily_orders = 100,

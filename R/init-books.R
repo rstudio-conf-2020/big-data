@@ -1,3 +1,5 @@
+#' Creates and populates the 'books' folder
+#' @param folder Defaults to 'books'
 #' @export
 bdc_init_books <- function(folder = "books") {
   if (!dir.exists(folder)) dir.create(folder)

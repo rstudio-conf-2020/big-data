@@ -1,4 +1,7 @@
+#' Creates a view in a database based on a tbl query
 #' @export
+#' @param query A tbl based query
+#' @param name The name to give the new database view
 bdc_create_view <- function(query, name) {
   UseMethod("bdc_create_view")
 }
@@ -12,6 +15,9 @@ bdc_create_view.tbl_SQLiteConnection <- function(query, name) {
   dbClearResult(rs)
 }
 
+#' Creates the orders view
+#' @param con Database connection
+#' @param name Defaults to "v_orders"
 #' @export
 bdc_create_view_orders <- function(con, name = "v_orders") {
   qry <- tbl(con, "order") %>%
@@ -28,6 +34,9 @@ bdc_create_view_orders <- function(con, name = "v_orders") {
   bdc_create_view(query = qry, name = name)
 }
 
+#' Creates the line items view
+#' @param con Database connection
+#' @param name Defaults to "v_lineitems"
 #' @export
 bdc_create_view_lineitems <- function(con, name = "v_lineitems") {
   qry <- tbl(con, "order") %>%

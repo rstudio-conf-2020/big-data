@@ -1,3 +1,16 @@
+#' Creates a new RStudio project with the exercises and needed data sets
+#' @param folder Path to folder where to build the project
+#' @param avg_daily_orders Number of average daily orders
+#' @param avg_no_items Average number of sales in an order
+#' @param days_in_segment Days in a segment
+#' @param no_of_segments Number of segments
+#' @param seed Seed to randomize to
+#' @param product_data Product data frame source
+#' @param customer_data Customer data frame source
+#' @param start_date The start date for the orders
+#' @param no_transactions Number of transactions to save to file
+#' @param batch_size File batch size
+#' @param no_files Number of files
 #' @export
 bdc_init_class_sqlite <- function(folder = "big-data-class",
                                   avg_daily_orders = 100,
