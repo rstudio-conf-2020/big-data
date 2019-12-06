@@ -1,0 +1,34 @@
+Package: bigdataclass
+Title: Content and setup files for the Big Data with R class
+Version: 0.0.0.9000
+Authors@R: 
+    person(
+      given = "Edgar",
+      family = "Ruiz",
+      role = c("aut", "cre"),
+      email = "edgar@rstudio.com"
+      )
+Description: It has the content and setup files for the Big Data with R class.
+License: MIT + file LICENSE
+Encoding: UTF-8
+LazyData: true
+RoxygenNote: 7.0.2
+Depends:
+  R (>= 2.10)
+Imports:
+  charlatan,
+  gutenbergr,
+  progress,
+  dplyr,
+  vroom,
+  RSQLite,
+  here,
+  DBI,
+  bookdown,
+  usethis,
+  tibble,
+  readr,
+  magrittr,
+  purrr, 
+  glue,
+  dbplyr

@@ -55,7 +55,7 @@ For database background, please review the articles in the following links:
 
 For spark background, please review the following:
 
-* sparklyr’s webiste home page: http://spark.rstudio.com/
+* sparklyr’s website home page: http://spark.rstudio.com/
 * Using dplyr with sparklyr: http://spark.rstudio.com/dplyr/
 * Machine Learning: http://spark.rstudio.com/mlib/
 * Deployment options: http://spark.rstudio.com/deployment/

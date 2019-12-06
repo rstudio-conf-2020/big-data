@@ -1,0 +1,514 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="" xml:lang="">
+<head>
+
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <title>1 Introduction to vroom | _main.utf8</title>
+  <meta name="description" content="" />
+  <meta name="generator" content="bookdown 0.16 and GitBook 2.6.7" />
+
+  <meta property="og:title" content="1 Introduction to vroom | _main.utf8" />
+  <meta property="og:type" content="book" />
+  
+  
+  
+  
+
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:title" content="1 Introduction to vroom | _main.utf8" />
+  
+  
+  
+
+
+
+
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black" />
+  
+  
+<link rel="prev" href="index.html"/>
+<link rel="next" href="introduction-to-dtplyr.html"/>
+<script src="libs/jquery-2.2.3/jquery.min.js"></script>
+<link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-table.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-bookdown.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-highlight.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-search.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-fontsettings.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-clipboard.css" rel="stylesheet" />
+
+
+
+
+
+
+
+
+
+<script src="libs/htmlwidgets-1.5.1/htmlwidgets.js"></script>
+<link href="libs/leaflet-1.3.1/leaflet.css" rel="stylesheet" />
+<script src="libs/leaflet-1.3.1/leaflet.js"></script>
+<link href="libs/leafletfix-1.0.0/leafletfix.css" rel="stylesheet" />
+<script src="libs/Proj4Leaflet-1.0.1/proj4-compressed.js"></script>
+<script src="libs/Proj4Leaflet-1.0.1/proj4leaflet.js"></script>
+<link href="libs/rstudio_leaflet-1.3.1/rstudio_leaflet.css" rel="stylesheet" />
+<script src="libs/leaflet-binding-2.0.3/leaflet.js"></script>
+
+
+<style type="text/css">
+a.sourceLine { display: inline-block; line-height: 1.25; }
+a.sourceLine { pointer-events: none; color: inherit; text-decoration: inherit; }
+a.sourceLine:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode { white-space: pre; position: relative; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+code.sourceCode { white-space: pre-wrap; }
+a.sourceLine { text-indent: -1em; padding-left: 1em; }
+}
+pre.numberSource a.sourceLine
+  { position: relative; left: -4em; }
+pre.numberSource a.sourceLine::before
+  { content: attr(data-line-number);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; pointer-events: all; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+    color: #aaaaaa;
+  }
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+div.sourceCode
+  {  }
+@media screen {
+a.sourceLine::before { text-decoration: underline; }
+}
+code span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code span.at { color: #7d9029; } /* Attribute */
+code span.bn { color: #40a070; } /* BaseN */
+code span.bu { } /* BuiltIn */
+code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code span.ch { color: #4070a0; } /* Char */
+code span.cn { color: #880000; } /* Constant */
+code span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code span.dt { color: #902000; } /* DataType */
+code span.dv { color: #40a070; } /* DecVal */
+code span.er { color: #ff0000; font-weight: bold; } /* Error */
+code span.ex { } /* Extension */
+code span.fl { color: #40a070; } /* Float */
+code span.fu { color: #06287e; } /* Function */
+code span.im { } /* Import */
+code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+code span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code span.op { color: #666666; } /* Operator */
+code span.ot { color: #007020; } /* Other */
+code span.pp { color: #bc7a00; } /* Preprocessor */
+code span.sc { color: #4070a0; } /* SpecialChar */
+code span.ss { color: #bb6688; } /* SpecialString */
+code span.st { color: #4070a0; } /* String */
+code span.va { color: #19177c; } /* Variable */
+code span.vs { color: #4070a0; } /* VerbatimString */
+code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+</style>
+
+</head>
+
+<body>
+
+
+
+  <div class="book without-animation with-summary font-size-2 font-family-1" data-basepath=".">
+
+    <div class="book-summary">
+      <nav role="navigation">
+
+<ul class="summary">
+<li class="chapter" data-level="" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i>Big Data with R - Exercise book</a></li>
+<li class="chapter" data-level="1" data-path="introduction-to-vroom.html"><a href="introduction-to-vroom.html"><i class="fa fa-check"></i><b>1</b> Introduction to <code>vroom</code></a><ul>
+<li class="chapter" data-level="1.1" data-path="introduction-to-vroom.html"><a href="introduction-to-vroom.html#vroom-basics"><i class="fa fa-check"></i><b>1.1</b> <code>vroom</code> basics</a></li>
+<li class="chapter" data-level="1.2" data-path="introduction-to-vroom.html"><a href="introduction-to-vroom.html#load-multiple-files"><i class="fa fa-check"></i><b>1.2</b> Load multiple files</a></li>
+<li class="chapter" data-level="1.3" data-path="introduction-to-vroom.html"><a href="introduction-to-vroom.html#load-and-modify-multiple-files"><i class="fa fa-check"></i><b>1.3</b> Load and modify multiple files</a></li>
+</ul></li>
+<li class="chapter" data-level="2" data-path="introduction-to-dtplyr.html"><a href="introduction-to-dtplyr.html"><i class="fa fa-check"></i><b>2</b> Introduction to <code>dtplyr</code></a><ul>
+<li class="chapter" data-level="2.1" data-path="introduction-to-dtplyr.html"><a href="introduction-to-dtplyr.html#dtplyr-basics"><i class="fa fa-check"></i><b>2.1</b> <code>dtplyr</code> basics</a></li>
+<li class="chapter" data-level="2.2" data-path="introduction-to-dtplyr.html"><a href="introduction-to-dtplyr.html#object-sizes"><i class="fa fa-check"></i><b>2.2</b> Object sizes</a></li>
+<li class="chapter" data-level="2.3" data-path="introduction-to-dtplyr.html"><a href="introduction-to-dtplyr.html#how-dtplyr-works"><i class="fa fa-check"></i><b>2.3</b> How <code>dtplyr</code> works</a></li>
+<li class="chapter" data-level="2.4" data-path="introduction-to-dtplyr.html"><a href="introduction-to-dtplyr.html#working-with-dtplyr"><i class="fa fa-check"></i><b>2.4</b> Working with <code>dtplyr</code></a></li>
+<li class="chapter" data-level="2.5" data-path="introduction-to-dtplyr.html"><a href="introduction-to-dtplyr.html#pivot-data"><i class="fa fa-check"></i><b>2.5</b> Pivot data</a></li>
+<li class="chapter" data-level="2.6" data-path="introduction-to-dtplyr.html"><a href="introduction-to-dtplyr.html#the-mutate-verb"><i class="fa fa-check"></i><b>2.6</b> The <code>mutate()</code> verb</a></li>
+</ul></li>
+<li class="chapter" data-level="3" data-path="introduction-to-dbi.html"><a href="introduction-to-dbi.html"><i class="fa fa-check"></i><b>3</b> Introduction to <code>DBI</code></a><ul>
+<li class="chapter" data-level="3.1" data-path="introduction-to-dbi.html"><a href="introduction-to-dbi.html#local-database-basics"><i class="fa fa-check"></i><b>3.1</b> Local database basics</a></li>
+<li class="chapter" data-level="3.2" data-path="introduction-to-dbi.html"><a href="introduction-to-dbi.html#options-for-writing-tables"><i class="fa fa-check"></i><b>3.2</b> Options for writing tables</a></li>
+<li class="chapter" data-level="3.3" data-path="introduction-to-dbi.html"><a href="introduction-to-dbi.html#database-operations"><i class="fa fa-check"></i><b>3.3</b> Database operations</a></li>
+<li class="chapter" data-level="3.4" data-path="introduction-to-dbi.html"><a href="introduction-to-dbi.html#knitr-sql-engine"><i class="fa fa-check"></i><b>3.4</b> <code>knitr</code> SQL engine</a></li>
+</ul></li>
+<li class="chapter" data-level="4" data-path="databases-and-dplyr.html"><a href="databases-and-dplyr.html"><i class="fa fa-check"></i><b>4</b> Databases and <code>dplyr</code></a><ul>
+<li class="chapter" data-level="4.1" data-path="databases-and-dplyr.html"><a href="databases-and-dplyr.html#intro-to-connections"><i class="fa fa-check"></i><b>4.1</b> Intro to <code>connections</code></a></li>
+<li class="chapter" data-level="4.2" data-path="databases-and-dplyr.html"><a href="databases-and-dplyr.html#table-reference"><i class="fa fa-check"></i><b>4.2</b> Table reference</a></li>
+<li class="chapter" data-level="4.3" data-path="databases-and-dplyr.html"><a href="databases-and-dplyr.html#under-the-hood"><i class="fa fa-check"></i><b>4.3</b> Under the hood</a></li>
+<li class="chapter" data-level="4.4" data-path="databases-and-dplyr.html"><a href="databases-and-dplyr.html#un-translated-r-commands"><i class="fa fa-check"></i><b>4.4</b> Un-translated R commands</a></li>
+<li class="chapter" data-level="4.5" data-path="databases-and-dplyr.html"><a href="databases-and-dplyr.html#using-bang-bang"><i class="fa fa-check"></i><b>4.5</b> Using bang-bang</a></li>
+</ul></li>
+<li class="chapter" data-level="5" data-path="data-visualizations.html"><a href="data-visualizations.html"><i class="fa fa-check"></i><b>5</b> Data Visualizations</a><ul>
+<li class="chapter" data-level="5.1" data-path="data-visualizations.html"><a href="data-visualizations.html#simple-plot"><i class="fa fa-check"></i><b>5.1</b> Simple plot</a></li>
+<li class="chapter" data-level="5.2" data-path="data-visualizations.html"><a href="data-visualizations.html#plot-in-one-code-segment"><i class="fa fa-check"></i><b>5.2</b> Plot in one code segment</a></li>
+<li class="chapter" data-level="5.3" data-path="data-visualizations.html"><a href="data-visualizations.html#create-a-histogram"><i class="fa fa-check"></i><b>5.3</b> Create a histogram</a></li>
+<li class="chapter" data-level="5.4" data-path="data-visualizations.html"><a href="data-visualizations.html#raster-plot"><i class="fa fa-check"></i><b>5.4</b> Raster plot</a></li>
+<li class="chapter" data-level="5.5" data-path="data-visualizations.html"><a href="data-visualizations.html#using-the-calculate-functions"><i class="fa fa-check"></i><b>5.5</b> Using the <code>calculate</code> functions</a></li>
+</ul></li>
+<li class="chapter" data-level="6" data-path="modeling-with-databases.html"><a href="modeling-with-databases.html"><i class="fa fa-check"></i><b>6</b> Modeling with databases</a><ul>
+<li class="chapter" data-level="6.1" data-path="modeling-with-databases.html"><a href="modeling-with-databases.html#single-step-sampling"><i class="fa fa-check"></i><b>6.1</b> Single step sampling</a></li>
+<li class="chapter" data-level="6.2" data-path="modeling-with-databases.html"><a href="modeling-with-databases.html#multi-step-sampling"><i class="fa fa-check"></i><b>6.2</b> Multi-step sampling</a></li>
+<li class="chapter" data-level="6.3" data-path="modeling-with-databases.html"><a href="modeling-with-databases.html#use-job-panel-in-rstudio"><i class="fa fa-check"></i><b>6.3</b> Use Job panel in RStudio</a></li>
+<li class="chapter" data-level="6.4" data-path="modeling-with-databases.html"><a href="modeling-with-databases.html#run-predictions-in-db"><i class="fa fa-check"></i><b>6.4</b> Run predictions in DB</a></li>
+<li class="chapter" data-level="6.5" data-path="modeling-with-databases.html"><a href="modeling-with-databases.html#fit-model-in-r"><i class="fa fa-check"></i><b>6.5</b> Fit model in R</a></li>
+<li class="chapter" data-level="6.6" data-path="modeling-with-databases.html"><a href="modeling-with-databases.html#score-with-tidypredict"><i class="fa fa-check"></i><b>6.6</b> Score with <code>tidypredict</code></a></li>
+<li class="chapter" data-level="6.7" data-path="modeling-with-databases.html"><a href="modeling-with-databases.html#save-and-reload-models"><i class="fa fa-check"></i><b>6.7</b> Save and reload models</a></li>
+<li class="chapter" data-level="6.8" data-path="modeling-with-databases.html"><a href="modeling-with-databases.html#integration-with-tidymodels"><i class="fa fa-check"></i><b>6.8</b> Integration with <code>tidymodels</code></a></li>
+<li class="chapter" data-level="6.9" data-path="modeling-with-databases.html"><a href="modeling-with-databases.html#run-models-in-db"><i class="fa fa-check"></i><b>6.9</b> Run models in DB</a></li>
+<li class="chapter" data-level="6.10" data-path="modeling-with-databases.html"><a href="modeling-with-databases.html#intro-to-modeldb"><i class="fa fa-check"></i><b>6.10</b> Intro to <code>modeldb</code></a></li>
+<li class="chapter" data-level="6.11" data-path="modeling-with-databases.html"><a href="modeling-with-databases.html#modeldb-with-tidypredict"><i class="fa fa-check"></i><b>6.11</b> <code>modeldb</code> with <code>tidypredict</code></a></li>
+</ul></li>
+<li class="chapter" data-level="7" data-path="advanced-operations.html"><a href="advanced-operations.html"><i class="fa fa-check"></i><b>7</b> Advanced Operations</a><ul>
+<li class="chapter" data-level="7.1" data-path="advanced-operations.html"><a href="advanced-operations.html#simple-wrapper-function"><i class="fa fa-check"></i><b>7.1</b> Simple wrapper function</a></li>
+<li class="chapter" data-level="7.2" data-path="advanced-operations.html"><a href="advanced-operations.html#multiple-variables"><i class="fa fa-check"></i><b>7.2</b> Multiple variables</a></li>
+<li class="chapter" data-level="7.3" data-path="advanced-operations.html"><a href="advanced-operations.html#multiple-queries"><i class="fa fa-check"></i><b>7.3</b> Multiple queries</a></li>
+<li class="chapter" data-level="7.4" data-path="advanced-operations.html"><a href="advanced-operations.html#characters-to-field-names"><i class="fa fa-check"></i><b>7.4</b> Characters to field names</a></li>
+</ul></li>
+<li class="chapter" data-level="8" data-path="intro-to-sparklyr.html"><a href="intro-to-sparklyr.html"><i class="fa fa-check"></i><b>8</b> Intro to <code>sparklyr</code></a><ul>
+<li class="chapter" data-level="8.1" data-path="intro-to-sparklyr.html"><a href="intro-to-sparklyr.html#new-spark-session"><i class="fa fa-check"></i><b>8.1</b> New Spark session</a></li>
+<li class="chapter" data-level="8.2" data-path="intro-to-sparklyr.html"><a href="intro-to-sparklyr.html#data-transfer"><i class="fa fa-check"></i><b>8.2</b> Data transfer</a></li>
+<li class="chapter" data-level="8.3" data-path="intro-to-sparklyr.html"><a href="intro-to-sparklyr.html#spark-and-dplyr"><i class="fa fa-check"></i><b>8.3</b> Spark and <code>dplyr</code></a></li>
+</ul></li>
+<li class="chapter" data-level="9" data-path="text-mining-with-sparklyr.html"><a href="text-mining-with-sparklyr.html"><i class="fa fa-check"></i><b>9</b> Text mining with <code>sparklyr</code></a><ul>
+<li class="chapter" data-level="9.1" data-path="text-mining-with-sparklyr.html"><a href="text-mining-with-sparklyr.html#data-import"><i class="fa fa-check"></i><b>9.1</b> Data Import</a></li>
+<li class="chapter" data-level="9.2" data-path="text-mining-with-sparklyr.html"><a href="text-mining-with-sparklyr.html#tidying-data"><i class="fa fa-check"></i><b>9.2</b> Tidying data</a></li>
+<li class="chapter" data-level="9.3" data-path="text-mining-with-sparklyr.html"><a href="text-mining-with-sparklyr.html#transform-the-data"><i class="fa fa-check"></i><b>9.3</b> Transform the data</a></li>
+<li class="chapter" data-level="9.4" data-path="text-mining-with-sparklyr.html"><a href="text-mining-with-sparklyr.html#data-exploration"><i class="fa fa-check"></i><b>9.4</b> Data Exploration</a></li>
+</ul></li>
+<li class="chapter" data-level="10" data-path="spark-data-caching.html"><a href="spark-data-caching.html"><i class="fa fa-check"></i><b>10</b> Spark data caching</a><ul>
+<li class="chapter" data-level="10.1" data-path="spark-data-caching.html"><a href="spark-data-caching.html#map-data"><i class="fa fa-check"></i><b>10.1</b> Map data</a></li>
+<li class="chapter" data-level="10.2" data-path="spark-data-caching.html"><a href="spark-data-caching.html#caching-data"><i class="fa fa-check"></i><b>10.2</b> Caching data</a></li>
+</ul></li>
+</ul>
+
+      </nav>
+    </div>
+
+    <div class="book-body">
+      <div class="body-inner">
+        <div class="book-header" role="navigation">
+          <h1>
+            <i class="fa fa-circle-o-notch fa-spin"></i><a href="./"></a>
+          </h1>
+        </div>
+
+        <div class="page-wrapper" tabindex="-1" role="main">
+          <div class="page-inner">
+
+            <section class="normal" id="section-">
+<div id="introduction-to-vroom" class="section level1">
+<h1><span class="header-section-number">1</span> Introduction to <code>vroom</code></h1>
+<div id="vroom-basics" class="section level2">
+<h2><span class="header-section-number">1.1</span> <code>vroom</code> basics</h2>
+<p><em>Load data into R using <code>vroom</code></em></p>
+<ol style="list-style-type: decimal">
+<li><p>Load the <code>vroom()</code> library</p>
+<div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb1-1" data-line-number="1"><span class="kw">library</span>(vroom)</a></code></pre></div></li>
+<li><p>Use the <code>vroom()</code> function to read the <strong>transactions_1.csv</strong> file from the <strong>files</strong> folder</p>
+<div class="sourceCode" id="cb2"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb2-1" data-line-number="1"><span class="kw">vroom</span>(<span class="st">&quot;files/transactions_1.csv&quot;</span>)</a></code></pre></div>
+<pre><code>## Observations: 50,000
+## Variables: 14
+## chr  [4]: customer_name, customer_phone, date_month_name, date_day
+## dbl  [9]: order_id, customer_id, customer_cc, customer_lon, customer_lat, date_year, date_month, product_id, price
+## date [1]: date
+## 
+## Call `spec()` for a copy-pastable column specification
+## Specify the column types with `col_types` to quiet this message</code></pre>
+<pre><code>## # A tibble: 50,000 x 14
+##    order_id customer_id customer_name        customer_phone     customer_cc customer_lon customer_lat date       date_year date_month date_month_name date_day product_id price
+##       &lt;dbl&gt;       &lt;dbl&gt; &lt;chr&gt;                &lt;chr&gt;                    &lt;dbl&gt;        &lt;dbl&gt;        &lt;dbl&gt; &lt;date&gt;         &lt;dbl&gt;      &lt;dbl&gt; &lt;chr&gt;           &lt;chr&gt;         &lt;dbl&gt; &lt;dbl&gt;
+##  1     1001          36 Jeptha Ziemann       670.093.2858           8.70e17        -122.         37.7 2016-01-01      2016          1 Jan             Friday           25  5.47
+##  2     1001          36 Jeptha Ziemann       670.093.2858           8.70e17        -122.         37.7 2016-01-01      2016          1 Jan             Friday           25  5.47
+##  3     1002          21 Miss Azzie Jaskolski (634)363-1830x7533     6.01e18        -122.         37.8 2016-01-01      2016          1 Jan             Friday            6  9.88
+##  4     1002          21 Miss Azzie Jaskolski (634)363-1830x7533     6.01e18        -122.         37.8 2016-01-01      2016          1 Jan             Friday           14  8.05
+##  5     1002          21 Miss Azzie Jaskolski (634)363-1830x7533     6.01e18        -122.         37.8 2016-01-01      2016          1 Jan             Friday           25  5.47
+##  6     1002          21 Miss Azzie Jaskolski (634)363-1830x7533     6.01e18        -122.         37.8 2016-01-01      2016          1 Jan             Friday           29  5.95
+##  7     1003          64 Amber Harber         1-609-747-6670         6.01e18        -122.         37.8 2016-01-01      2016          1 Jan             Friday            7  5.65
+##  8     1003          64 Amber Harber         1-609-747-6670         6.01e18        -122.         37.8 2016-01-01      2016          1 Jan             Friday            8  6.5 
+##  9     1003          64 Amber Harber         1-609-747-6670         6.01e18        -122.         37.8 2016-01-01      2016          1 Jan             Friday           20  8.34
+## 10     1003          64 Amber Harber         1-609-747-6670         6.01e18        -122.         37.8 2016-01-01      2016          1 Jan             Friday           22  5.09
+## # … with 49,990 more rows</code></pre></li>
+<li><p>Use the <code>id</code> argument to add the file name to the data frame. Use <strong>file_name</strong> as the argument’s value</p>
+<div class="sourceCode" id="cb5"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb5-1" data-line-number="1"><span class="kw">vroom</span>(<span class="st">&quot;files/transactions_1.csv&quot;</span>, <span class="dt">id =</span> <span class="st">&quot;file_name&quot;</span>)</a></code></pre></div>
+<pre><code>## Observations: 50,000
+## Variables: 15
+## chr  [4]: customer_name, customer_phone, date_month_name, date_day
+## dbl  [9]: order_id, customer_id, customer_cc, customer_lon, customer_lat, date_year, date_month, product_id, price
+## date [1]: date
+## 
+## Call `spec()` for a copy-pastable column specification
+## Specify the column types with `col_types` to quiet this message</code></pre>
+<pre><code>## # A tibble: 50,000 x 15
+##    file_name                order_id customer_id customer_name        customer_phone     customer_cc customer_lon customer_lat date       date_year date_month date_month_name date_day product_id price
+##    &lt;chr&gt;                       &lt;dbl&gt;       &lt;dbl&gt; &lt;chr&gt;                &lt;chr&gt;                    &lt;dbl&gt;        &lt;dbl&gt;        &lt;dbl&gt; &lt;date&gt;         &lt;dbl&gt;      &lt;dbl&gt; &lt;chr&gt;           &lt;chr&gt;         &lt;dbl&gt; &lt;dbl&gt;
+##  1 files/transactions_1.csv     1001          36 Jeptha Ziemann       670.093.2858           8.70e17        -122.         37.7 2016-01-01      2016          1 Jan             Friday           25  5.47
+##  2 files/transactions_1.csv     1001          36 Jeptha Ziemann       670.093.2858           8.70e17        -122.         37.7 2016-01-01      2016          1 Jan             Friday           25  5.47
+##  3 files/transactions_1.csv     1002          21 Miss Azzie Jaskolski (634)363-1830x7533     6.01e18        -122.         37.8 2016-01-01      2016          1 Jan             Friday            6  9.88
+##  4 files/transactions_1.csv     1002          21 Miss Azzie Jaskolski (634)363-1830x7533     6.01e18        -122.         37.8 2016-01-01      2016          1 Jan             Friday           14  8.05
+##  5 files/transactions_1.csv     1002          21 Miss Azzie Jaskolski (634)363-1830x7533     6.01e18        -122.         37.8 2016-01-01      2016          1 Jan             Friday           25  5.47
+##  6 files/transactions_1.csv     1002          21 Miss Azzie Jaskolski (634)363-1830x7533     6.01e18        -122.         37.8 2016-01-01      2016          1 Jan             Friday           29  5.95
+##  7 files/transactions_1.csv     1003          64 Amber Harber         1-609-747-6670         6.01e18        -122.         37.8 2016-01-01      2016          1 Jan             Friday            7  5.65
+##  8 files/transactions_1.csv     1003          64 Amber Harber         1-609-747-6670         6.01e18        -122.         37.8 2016-01-01      2016          1 Jan             Friday            8  6.5 
+##  9 files/transactions_1.csv     1003          64 Amber Harber         1-609-747-6670         6.01e18        -122.         37.8 2016-01-01      2016          1 Jan             Friday           20  8.34
+## 10 files/transactions_1.csv     1003          64 Amber Harber         1-609-747-6670         6.01e18        -122.         37.8 2016-01-01      2016          1 Jan             Friday           22  5.09
+## # … with 49,990 more rows</code></pre></li>
+<li><p>Load the prior command into a variable called <code>vr_transactions</code></p>
+<div class="sourceCode" id="cb8"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb8-1" data-line-number="1">vr_transactions &lt;-<span class="st"> </span><span class="kw">vroom</span>(<span class="st">&quot;files/transactions_1.csv&quot;</span>, <span class="dt">id =</span> <span class="st">&quot;file_name&quot;</span>)</a></code></pre></div>
+<pre><code>## Observations: 50,000
+## Variables: 15
+## chr  [4]: customer_name, customer_phone, date_month_name, date_day
+## dbl  [9]: order_id, customer_id, customer_cc, customer_lon, customer_lat, date_year, date_month, product_id, price
+## date [1]: date
+## 
+## Call `spec()` for a copy-pastable column specification
+## Specify the column types with `col_types` to quiet this message</code></pre>
+<div class="sourceCode" id="cb10"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb10-1" data-line-number="1">vr_transactions</a></code></pre></div>
+<pre><code>## # A tibble: 50,000 x 15
+##    file_name                order_id customer_id customer_name        customer_phone     customer_cc customer_lon customer_lat date       date_year date_month date_month_name date_day product_id price
+##    &lt;chr&gt;                       &lt;dbl&gt;       &lt;dbl&gt; &lt;chr&gt;                &lt;chr&gt;                    &lt;dbl&gt;        &lt;dbl&gt;        &lt;dbl&gt; &lt;date&gt;         &lt;dbl&gt;      &lt;dbl&gt; &lt;chr&gt;           &lt;chr&gt;         &lt;dbl&gt; &lt;dbl&gt;
+##  1 files/transactions_1.csv     1001          36 Jeptha Ziemann       670.093.2858           8.70e17        -122.         37.7 2016-01-01      2016          1 Jan             Friday           25  5.47
+##  2 files/transactions_1.csv     1001          36 Jeptha Ziemann       670.093.2858           8.70e17        -122.         37.7 2016-01-01      2016          1 Jan             Friday           25  5.47
+##  3 files/transactions_1.csv     1002          21 Miss Azzie Jaskolski (634)363-1830x7533     6.01e18        -122.         37.8 2016-01-01      2016          1 Jan             Friday            6  9.88
+##  4 files/transactions_1.csv     1002          21 Miss Azzie Jaskolski (634)363-1830x7533     6.01e18        -122.         37.8 2016-01-01      2016          1 Jan             Friday           14  8.05
+##  5 files/transactions_1.csv     1002          21 Miss Azzie Jaskolski (634)363-1830x7533     6.01e18        -122.         37.8 2016-01-01      2016          1 Jan             Friday           25  5.47
+##  6 files/transactions_1.csv     1002          21 Miss Azzie Jaskolski (634)363-1830x7533     6.01e18        -122.         37.8 2016-01-01      2016          1 Jan             Friday           29  5.95
+##  7 files/transactions_1.csv     1003          64 Amber Harber         1-609-747-6670         6.01e18        -122.         37.8 2016-01-01      2016          1 Jan             Friday            7  5.65
+##  8 files/transactions_1.csv     1003          64 Amber Harber         1-609-747-6670         6.01e18        -122.         37.8 2016-01-01      2016          1 Jan             Friday            8  6.5 
+##  9 files/transactions_1.csv     1003          64 Amber Harber         1-609-747-6670         6.01e18        -122.         37.8 2016-01-01      2016          1 Jan             Friday           20  8.34
+## 10 files/transactions_1.csv     1003          64 Amber Harber         1-609-747-6670         6.01e18        -122.         37.8 2016-01-01      2016          1 Jan             Friday           22  5.09
+## # … with 49,990 more rows</code></pre></li>
+<li><p>Load the file spec into a variable called <code>vr_spec</code>, using the <code>spec()</code> command</p>
+<div class="sourceCode" id="cb12"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb12-1" data-line-number="1">vr_spec &lt;-<span class="st"> </span><span class="kw">spec</span>(vr_transactions)</a>
+<a class="sourceLine" id="cb12-2" data-line-number="2"></a>
+<a class="sourceLine" id="cb12-3" data-line-number="3">vr_spec</a></code></pre></div>
+<pre><code>## cols(
+##   order_id = col_double(),
+##   customer_id = col_double(),
+##   customer_name = col_character(),
+##   customer_phone = col_character(),
+##   customer_cc = col_double(),
+##   customer_lon = col_double(),
+##   customer_lat = col_double(),
+##   date = col_date(format = &quot;&quot;),
+##   date_year = col_double(),
+##   date_month = col_double(),
+##   date_month_name = col_character(),
+##   date_day = col_character(),
+##   product_id = col_double(),
+##   price = col_double()
+## )</code></pre></li>
+</ol>
+</div>
+<div id="load-multiple-files" class="section level2">
+<h2><span class="header-section-number">1.2</span> Load multiple files</h2>
+<ol style="list-style-type: decimal">
+<li><p>Load the <code>fs</code> and <code>dplyr</code> libraries</p>
+<div class="sourceCode" id="cb14"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb14-1" data-line-number="1"><span class="kw">library</span>(fs)</a>
+<a class="sourceLine" id="cb14-2" data-line-number="2"><span class="kw">library</span>(dplyr)</a></code></pre></div></li>
+<li><p>List files in the <strong>files</strong> folder using the <code>dir_ls()</code> function</p>
+<div class="sourceCode" id="cb15"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb15-1" data-line-number="1"><span class="kw">dir_ls</span>(<span class="st">&quot;files&quot;</span>)</a></code></pre></div>
+<pre><code>## files/transactions_1.csv files/transactions_2.csv files/transactions_3.csv files/transactions_4.csv files/transactions_5.csv</code></pre></li>
+<li><p>In the <code>dir_ls()</code> function, use the <code>glob</code> argument to pass a wildcard to list CSV files only. Load to a variable named <code>files</code></p>
+<div class="sourceCode" id="cb17"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb17-1" data-line-number="1">files &lt;-<span class="st"> </span><span class="kw">dir_ls</span>(<span class="st">&quot;files&quot;</span>, <span class="dt">glob =</span> <span class="st">&quot;*.csv&quot;</span>)</a></code></pre></div></li>
+<li><p>Pass the <code>files</code> variable to <code>vroom</code>. Set the <code>n_max</code> argument to 1,000 to limit the data load for now</p>
+<div class="sourceCode" id="cb18"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb18-1" data-line-number="1"><span class="kw">vroom</span>(files, <span class="dt">n_max =</span> <span class="dv">1000</span>)</a></code></pre></div>
+<pre><code>## Observations: 5,000
+## Variables: 14
+## chr  [4]: customer_name, customer_phone, date_month_name, date_day
+## dbl  [9]: order_id, customer_id, customer_cc, customer_lon, customer_lat, date_year, date_month, product_id, price
+## date [1]: date
+## 
+## Call `spec()` for a copy-pastable column specification
+## Specify the column types with `col_types` to quiet this message</code></pre>
+<pre><code>## # A tibble: 5,000 x 14
+##    order_id customer_id customer_name        customer_phone     customer_cc customer_lon customer_lat date       date_year date_month date_month_name date_day product_id price
+##       &lt;dbl&gt;       &lt;dbl&gt; &lt;chr&gt;                &lt;chr&gt;                    &lt;dbl&gt;        &lt;dbl&gt;        &lt;dbl&gt; &lt;date&gt;         &lt;dbl&gt;      &lt;dbl&gt; &lt;chr&gt;           &lt;chr&gt;         &lt;dbl&gt; &lt;dbl&gt;
+##  1     1001          36 Jeptha Ziemann       670.093.2858           8.70e17        -122.         37.7 2016-01-01      2016          1 Jan             Friday           25  5.47
+##  2     1001          36 Jeptha Ziemann       670.093.2858           8.70e17        -122.         37.7 2016-01-01      2016          1 Jan             Friday           25  5.47
+##  3     1002          21 Miss Azzie Jaskolski (634)363-1830x7533     6.01e18        -122.         37.8 2016-01-01      2016          1 Jan             Friday            6  9.88
+##  4     1002          21 Miss Azzie Jaskolski (634)363-1830x7533     6.01e18        -122.         37.8 2016-01-01      2016          1 Jan             Friday           14  8.05
+##  5     1002          21 Miss Azzie Jaskolski (634)363-1830x7533     6.01e18        -122.         37.8 2016-01-01      2016          1 Jan             Friday           25  5.47
+##  6     1002          21 Miss Azzie Jaskolski (634)363-1830x7533     6.01e18        -122.         37.8 2016-01-01      2016          1 Jan             Friday           29  5.95
+##  7     1003          64 Amber Harber         1-609-747-6670         6.01e18        -122.         37.8 2016-01-01      2016          1 Jan             Friday            7  5.65
+##  8     1003          64 Amber Harber         1-609-747-6670         6.01e18        -122.         37.8 2016-01-01      2016          1 Jan             Friday            8  6.5 
+##  9     1003          64 Amber Harber         1-609-747-6670         6.01e18        -122.         37.8 2016-01-01      2016          1 Jan             Friday           20  8.34
+## 10     1003          64 Amber Harber         1-609-747-6670         6.01e18        -122.         37.8 2016-01-01      2016          1 Jan             Friday           22  5.09
+## # … with 4,990 more rows</code></pre></li>
+<li><p>Add a <code>col_types</code> argument with <code>vr_specs</code> as its value</p>
+<div class="sourceCode" id="cb21"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb21-1" data-line-number="1"><span class="kw">vroom</span>(files, <span class="dt">n_max =</span> <span class="dv">1000</span>, <span class="dt">col_types =</span> vr_spec)</a></code></pre></div>
+<pre><code>## # A tibble: 5,000 x 14
+##    order_id customer_id customer_name        customer_phone     customer_cc customer_lon customer_lat date       date_year date_month date_month_name date_day product_id price
+##       &lt;dbl&gt;       &lt;dbl&gt; &lt;chr&gt;                &lt;chr&gt;                    &lt;dbl&gt;        &lt;dbl&gt;        &lt;dbl&gt; &lt;date&gt;         &lt;dbl&gt;      &lt;dbl&gt; &lt;chr&gt;           &lt;chr&gt;         &lt;dbl&gt; &lt;dbl&gt;
+##  1     1001          36 Jeptha Ziemann       670.093.2858           8.70e17        -122.         37.7 2016-01-01      2016          1 Jan             Friday           25  5.47
+##  2     1001          36 Jeptha Ziemann       670.093.2858           8.70e17        -122.         37.7 2016-01-01      2016          1 Jan             Friday           25  5.47
+##  3     1002          21 Miss Azzie Jaskolski (634)363-1830x7533     6.01e18        -122.         37.8 2016-01-01      2016          1 Jan             Friday            6  9.88
+##  4     1002          21 Miss Azzie Jaskolski (634)363-1830x7533     6.01e18        -122.         37.8 2016-01-01      2016          1 Jan             Friday           14  8.05
+##  5     1002          21 Miss Azzie Jaskolski (634)363-1830x7533     6.01e18        -122.         37.8 2016-01-01      2016          1 Jan             Friday           25  5.47
+##  6     1002          21 Miss Azzie Jaskolski (634)363-1830x7533     6.01e18        -122.         37.8 2016-01-01      2016          1 Jan             Friday           29  5.95
+##  7     1003          64 Amber Harber         1-609-747-6670         6.01e18        -122.         37.8 2016-01-01      2016          1 Jan             Friday            7  5.65
+##  8     1003          64 Amber Harber         1-609-747-6670         6.01e18        -122.         37.8 2016-01-01      2016          1 Jan             Friday            8  6.5 
+##  9     1003          64 Amber Harber         1-609-747-6670         6.01e18        -122.         37.8 2016-01-01      2016          1 Jan             Friday           20  8.34
+## 10     1003          64 Amber Harber         1-609-747-6670         6.01e18        -122.         37.8 2016-01-01      2016          1 Jan             Friday           22  5.09
+## # … with 4,990 more rows</code></pre></li>
+<li><p>Use the <code>col_select</code> argument to pass a <code>list</code> object containing the following variables: order_id, date, customer_name, and price</p>
+<div class="sourceCode" id="cb23"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb23-1" data-line-number="1"><span class="kw">vroom</span>(files, <span class="dt">n_max =</span> <span class="dv">1000</span>, <span class="dt">col_types =</span> vr_spec,</a>
+<a class="sourceLine" id="cb23-2" data-line-number="2">      <span class="dt">col_select =</span> <span class="kw">list</span>(order_id, date, customer_name, price)</a>
+<a class="sourceLine" id="cb23-3" data-line-number="3">      )</a></code></pre></div>
+<pre><code>## # A tibble: 5,000 x 4
+##    order_id date       customer_name        price
+##       &lt;dbl&gt; &lt;date&gt;     &lt;chr&gt;                &lt;dbl&gt;
+##  1     1001 2016-01-01 Jeptha Ziemann        5.47
+##  2     1001 2016-01-01 Jeptha Ziemann        5.47
+##  3     1002 2016-01-01 Miss Azzie Jaskolski  9.88
+##  4     1002 2016-01-01 Miss Azzie Jaskolski  8.05
+##  5     1002 2016-01-01 Miss Azzie Jaskolski  5.47
+##  6     1002 2016-01-01 Miss Azzie Jaskolski  5.95
+##  7     1003 2016-01-01 Amber Harber          5.65
+##  8     1003 2016-01-01 Amber Harber          6.5 
+##  9     1003 2016-01-01 Amber Harber          8.34
+## 10     1003 2016-01-01 Amber Harber          5.09
+## # … with 4,990 more rows</code></pre></li>
+</ol>
+</div>
+<div id="load-and-modify-multiple-files" class="section level2">
+<h2><span class="header-section-number">1.3</span> Load and modify multiple files</h2>
+<p><em>Files to large to have in memory, keep summarization</em></p>
+<ol style="list-style-type: decimal">
+<li><p>Use a <code>for()</code> loop to print the content of each vector inside <code>files</code></p>
+<div class="sourceCode" id="cb25"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb25-1" data-line-number="1"><span class="cf">for</span>(i <span class="cf">in</span> <span class="kw">seq_along</span>(files)) {</a>
+<a class="sourceLine" id="cb25-2" data-line-number="2">  <span class="kw">print</span>(files[i])</a>
+<a class="sourceLine" id="cb25-3" data-line-number="3">}</a></code></pre></div>
+<pre><code>## files/transactions_1.csv
+## files/transactions_2.csv
+## files/transactions_3.csv
+## files/transactions_4.csv
+## files/transactions_5.csv</code></pre></li>
+<li><p>Switch the <code>print()</code> command with the <code>vroom</code> command, using the same arguments, except the file name. Use the <code>files</code> variable. Load the results into a variable called <code>transactions</code>.</p>
+<div class="sourceCode" id="cb27"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb27-1" data-line-number="1"><span class="cf">for</span>(i <span class="cf">in</span> <span class="kw">seq_along</span>(files)) {</a>
+<a class="sourceLine" id="cb27-2" data-line-number="2">  transactions &lt;-<span class="st"> </span><span class="kw">vroom</span>(files[i], <span class="dt">n_max =</span> <span class="dv">1000</span>, <span class="dt">col_types =</span> vr_spec, </a>
+<a class="sourceLine" id="cb27-3" data-line-number="3">                       <span class="dt">col_select =</span> <span class="kw">list</span>(order_id, date, customer_name, price))</a>
+<a class="sourceLine" id="cb27-4" data-line-number="4"></a>
+<a class="sourceLine" id="cb27-5" data-line-number="5">}</a></code></pre></div></li>
+<li><p>Group <code>transactions</code> by <code>order_id</code> and get the total of <code>price</code> and the number of records. Name them <code>total_sales</code> and <code>no_items</code> respectively. Name the new variable <code>orders</code></p>
+<div class="sourceCode" id="cb28"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb28-1" data-line-number="1"><span class="cf">for</span>(i <span class="cf">in</span> <span class="kw">seq_along</span>(files)) {</a>
+<a class="sourceLine" id="cb28-2" data-line-number="2">  transactions &lt;-<span class="st"> </span><span class="kw">vroom</span>(files[i], <span class="dt">n_max =</span> <span class="dv">1000</span>, <span class="dt">col_types =</span> vr_spec, </a>
+<a class="sourceLine" id="cb28-3" data-line-number="3">                       <span class="dt">col_select =</span> <span class="kw">list</span>(order_id, date, customer_name, price))</a>
+<a class="sourceLine" id="cb28-4" data-line-number="4">  orders &lt;-<span class="st"> </span>transactions <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb28-5" data-line-number="5"><span class="st">    </span><span class="kw">group_by</span>(order_id) <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb28-6" data-line-number="6"><span class="st">    </span><span class="kw">summarise</span>(<span class="dt">total_sales =</span> <span class="kw">sum</span>(price), <span class="dt">no_items =</span> <span class="kw">n</span>())</a>
+<a class="sourceLine" id="cb28-7" data-line-number="7">}</a></code></pre></div></li>
+<li><p>Add a new variable called <code>all_orders</code> at the top. Set it to <code>NULL</code>. Add a <code>bind_rows()</code> step to <code>orders</code>, appending <code>all_orders</code></p>
+<div class="sourceCode" id="cb29"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb29-1" data-line-number="1">all_orders &lt;-<span class="st"> </span><span class="ot">NULL</span></a>
+<a class="sourceLine" id="cb29-2" data-line-number="2"><span class="cf">for</span>(i <span class="cf">in</span> <span class="kw">seq_along</span>(files)) {</a>
+<a class="sourceLine" id="cb29-3" data-line-number="3">  transactions &lt;-<span class="st"> </span><span class="kw">vroom</span>(files[i], <span class="dt">n_max =</span> <span class="dv">1000</span>, <span class="dt">col_types =</span> vr_spec, </a>
+<a class="sourceLine" id="cb29-4" data-line-number="4">                       <span class="dt">col_select =</span> <span class="kw">list</span>(order_id, date, customer_name, price))</a>
+<a class="sourceLine" id="cb29-5" data-line-number="5">  orders &lt;-<span class="st"> </span>transactions <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb29-6" data-line-number="6"><span class="st">    </span><span class="kw">group_by</span>(order_id) <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb29-7" data-line-number="7"><span class="st">    </span><span class="kw">summarise</span>(<span class="dt">total_sales =</span> <span class="kw">sum</span>(price), <span class="dt">no_items =</span> <span class="kw">n</span>()) <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb29-8" data-line-number="8"><span class="st">    </span><span class="kw">bind_rows</span>(all_orders)</a>
+<a class="sourceLine" id="cb29-9" data-line-number="9">}</a></code></pre></div></li>
+<li><p>Remove the <code>transactions</code> variable at the end of each cycle</p>
+<div class="sourceCode" id="cb30"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb30-1" data-line-number="1">all_orders &lt;-<span class="st"> </span><span class="ot">NULL</span></a>
+<a class="sourceLine" id="cb30-2" data-line-number="2"><span class="cf">for</span>(i <span class="cf">in</span> <span class="kw">seq_along</span>(files)) {</a>
+<a class="sourceLine" id="cb30-3" data-line-number="3">  transactions &lt;-<span class="st"> </span><span class="kw">vroom</span>(files[i], <span class="dt">n_max =</span> <span class="dv">1000</span>, <span class="dt">col_types =</span> vr_spec, </a>
+<a class="sourceLine" id="cb30-4" data-line-number="4">                       <span class="dt">col_select =</span> <span class="kw">list</span>(order_id, date, customer_name, price))</a>
+<a class="sourceLine" id="cb30-5" data-line-number="5">  orders &lt;-<span class="st"> </span>transactions <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb30-6" data-line-number="6"><span class="st">    </span><span class="kw">group_by</span>(order_id) <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb30-7" data-line-number="7"><span class="st">    </span><span class="kw">summarise</span>(<span class="dt">total_sales =</span> <span class="kw">sum</span>(price), <span class="dt">no_items =</span> <span class="kw">n</span>()) <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb30-8" data-line-number="8"><span class="st">    </span><span class="kw">bind_rows</span>(all_orders)</a>
+<a class="sourceLine" id="cb30-9" data-line-number="9">  <span class="kw">rm</span>(transactions)</a>
+<a class="sourceLine" id="cb30-10" data-line-number="10">}</a></code></pre></div></li>
+<li><p>Preview the <code>orders</code> variable</p>
+<div class="sourceCode" id="cb31"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb31-1" data-line-number="1">orders</a></code></pre></div>
+<pre><code>## # A tibble: 337 x 3
+##    order_id total_sales no_items
+##       &lt;dbl&gt;       &lt;dbl&gt;    &lt;int&gt;
+##  1   655497       15.8         2
+##  2   655498        8.29        1
+##  3   655499       12.1         2
+##  4   656500       14.0         2
+##  5   656501       20.8         3
+##  6   656502       10.6         2
+##  7   656503        8.29        1
+##  8   656504        6.7         1
+##  9   656505       33.7         5
+## 10   656506       17.3         3
+## # … with 327 more rows</code></pre></li>
+</ol>
+
+</div>
+</div>
+            </section>
+
+          </div>
+        </div>
+      </div>
+<a href="index.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+<a href="introduction-to-dtplyr.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
+    </div>
+  </div>
+<script src="libs/gitbook-2.6.7/js/app.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/lunr.js"></script>
+<script src="libs/gitbook-2.6.7/js/clipboard.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-search.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-sharing.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-fontsettings.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-bookdown.js"></script>
+<script src="libs/gitbook-2.6.7/js/jquery.highlight.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-clipboard.js"></script>
+<script>
+gitbook.require(["gitbook"], function(gitbook) {
+gitbook.start({
+"sharing": false,
+"fontsettings": {
+"theme": "white",
+"family": "sans",
+"size": 2
+},
+"edit": null,
+"history": {
+"link": null,
+"text": null
+},
+"view": {
+"link": null,
+"text": null
+},
+"download": null,
+"toc": {
+"collapse": "subsection",
+"scroll_highlight": true
+},
+"toolbar": {
+"position": "fixed"
+},
+"search": true
+});
+});
+</script>
+
+</body>
+
+</html>
