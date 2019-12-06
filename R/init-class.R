@@ -1,5 +1,5 @@
 #' @export
-bdc_init_class_sqlite <- function(folder = "bigdataclass", 
+bdc_init_class_sqlite <- function(folder = "big-data-class", 
                                   avg_daily_orders = 100,
                                   avg_no_items = 3,
                                   days_in_segment = 10,

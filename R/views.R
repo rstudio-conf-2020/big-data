@@ -8,7 +8,8 @@ bdc_create_view.tbl_SQLiteConnection  <- function(query, name) {
   sql_query <- remote_query(query)
   full_sql <- glue_sql("CREATE VIEW ", name," AS ", sql_query)
   con_sql <- remote_con(query)
-  dbSendQuery(con_sql, full_sql)
+  rs <- dbSendQuery(con_sql, full_sql)
+  dbClearResult(rs)
 }
 
 #' @export

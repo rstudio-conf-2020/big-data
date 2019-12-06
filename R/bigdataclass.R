@@ -3,6 +3,7 @@
 #' @import dplyr
 #' @import DBI
 #' @import bookdown
+#' @import progress
 #' @import usethis
 #' @importFrom tibble rowid_to_column
 #' @importFrom tibble tibble

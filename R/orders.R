@@ -37,8 +37,8 @@ bdc_db_orders.SQLiteConnection <- function(con,
   set.seed(seed)
   no_customers <- tbl(con, "customer") %>% count() %>% pull()
   no_products <- tbl(con, "product") %>% count() %>% pull()
-  print("Database ---")
   to <- 0
+  pb <- progress_bar$new(total = no_of_segments)
   for(i in 1:no_of_segments) {
     day_rpois <- rpois(1000, lambda = avg_daily_orders) 
     day_probs <- table(day_rpois) / sum(day_rpois)
@@ -77,8 +77,12 @@ bdc_db_orders.SQLiteConnection <- function(con,
       reduce(c)
     
     product_probs <- sample(100, size = no_products) / 100
-    product_id <- sample(no_products, size = order_size, 
-                         replace = TRUE, prob = product_probs )
+    product_id <- sample(
+      no_products, 
+      size = order_size, 
+      replace = TRUE, 
+      prob = product_probs 
+      )
     
     transactions <- tibble(
       order_id,
@@ -114,6 +118,7 @@ bdc_db_orders.SQLiteConnection <- function(con,
       dbWriteTable(con, "order", orders, append = TRUE)
       dbWriteTable(con, "line_item", line_items, append = TRUE)
     }
-    print(paste0(i, " of ", no_of_segments, " complete- From: ", from, " - to: ", to))
+    #print(paste0(i, " of ", no_of_segments, " complete- From: ", from, " - to: ", to))
+    pb$tick()
   }
 }

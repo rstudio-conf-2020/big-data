@@ -20,13 +20,15 @@ bdc_init_database <- function(con,
                               orders_view = "v_orders",
                               lineitems_view = "v_lineitems"
                               ) {
-  print("-- Creating product and customer tables")
+  ui_info("Creating product and customer tables")
   bdc_db_lookups(
     con = con, 
     product_data = product_data, 
     customer_data = customer_data
   )
-  print("-- Creating orders and line items tables")
+  ui_done("Product table created")
+  ui_done("Customer table created")
+  ui_info("Creating order and line item tables")
   bdc_db_orders(
     con = con,
     avg_daily_orders = avg_daily_orders,
@@ -35,18 +37,21 @@ bdc_init_database <- function(con,
     no_of_segments = no_of_segments,
     seed = seed
   )
-  print("-- Creating date table")
+  ui_done("Orders table created")
+  ui_done("Line items table created")
   bdc_db_create_dates(
     con = con, 
     start_date = start_date
     )
-  print("-- Creating view")
+  ui_done("Date table created")
   bdc_create_view_orders(
     con = con, 
     name = orders_view
     )
+  ui_done("Orders view created")
   bdc_create_view_lineitems(
     con = con, 
     name = lineitems_view
   )
+  ui_done("Line items view created")
 }

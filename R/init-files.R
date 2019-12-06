@@ -9,8 +9,8 @@ bdc_init_files <- function(con, folder = "files",
   csv_files <- list.files(folder, "*.csv")
   unlink(file.path(folder, csv_files))
   max_batch <- 0
+  ui_info("Create data files")
   for(j in seq_len(no_files)) {
-    print(paste0("Transaction file ", j, " of ", no_files," ---"))
     file_batch <- (j - 1) * no_transactions
     total_segments <- no_transactions/batch_size
     for(i in seq_len(total_segments)) {
@@ -28,7 +28,7 @@ bdc_init_files <- function(con, folder = "files",
       else {
         vroom::vroom_write(day_trans, file_path, ",", append = TRUE)
       }
-      print(paste0(i, " of ", total_segments, " complete - From: ", min_batch, " - to: ", max_batch))
     }
+    ui_done(paste0("Data file: ", j, " of ", no_files," ---"))
   }
 }
