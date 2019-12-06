@@ -1,5 +1,5 @@
 #' @export
-bdc_init_class_sqlite <- function(folder = ".", 
+bdc_init_class_sqlite <- function(folder = "bigdataclass", 
                                   avg_daily_orders = 100,
                                   avg_no_items = 3,
                                   days_in_segment = 10,
@@ -12,6 +12,7 @@ bdc_init_class_sqlite <- function(folder = ".",
                                   batch_size = 5000, 
                                   no_files = 5
                                   ) {
+  unlink(folder, recursive = TRUE, force = TRUE)
   if(!dir.exists(folder)) dir.create(folder)
   con <- bdc_init_sqlite(file.path(folder, "database"))
   bdc_init_database(con = con,
@@ -35,8 +36,12 @@ bdc_init_class_sqlite <- function(folder = ".",
     folder,
     overwrite = TRUE
   )
-  rproj_file <- file.path(folder, "bigdataclass.Rproj")
-  new <- use_template("template.Rproj", rproj_file)
+  proj_template <- system.file("templates/template.Rproj", package = "usethis")
+  file.copy(proj_template, folder)
+  file.rename(
+    file.path(folder, "template.Rproj"), 
+    file.path(folder, "bigdataclass.Rproj")
+  )
   proj_activate(folder)
 }
 
