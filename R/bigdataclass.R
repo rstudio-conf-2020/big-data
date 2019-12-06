@@ -2,6 +2,7 @@
 #' @import gutenbergr
 #' @import dplyr
 #' @import DBI
+#' @import bookdown
 #' @importFrom tibble rowid_to_column
 #' @importFrom tibble tibble
 #' @importFrom readr write_rds

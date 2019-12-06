@@ -1,5 +1,5 @@
 ```{r intro-to-vroom, include = FALSE}
-eval_vroom <- FALSE
+eval_vroom <- TRUE
 if(Sys.getenv("GLOBAL_EVAL") != "") eval_vroom <- Sys.getenv("GLOBAL_EVAL")
 ```
 
@@ -21,19 +21,19 @@ library(dplyr)
     library(vroom)
     ```
 
-1. Use the `vroom()` function to read the **transactions_1.csv** file from the **data** folder
+1. Use the `vroom()` function to read the **transactions_1.csv** file from the **files** folder
     ```{r, eval = eval_vroom}
-    vroom("data/transactions_1.csv")
+    vroom("files/transactions_1.csv")
     ```
 
 1. Use the `id` argument to add the file name to the data frame.  Use **file_name** as the argument's value
     ```{r, eval = eval_vroom}
-    vroom("data/transactions_1.csv", id = "file_name")
+    vroom("files/transactions_1.csv", id = "file_name")
     ```
 
 1. Load the prior command into a variable called `vr_transactions`
     ```{r, eval = eval_vroom}
-    vr_transactions <- vroom("data/transactions_1.csv", id = "file_name")
+    vr_transactions <- vroom("files/transactions_1.csv", id = "file_name")
     
     vr_transactions
     ```
@@ -53,14 +53,14 @@ library(dplyr)
     library(dplyr)
     ```
 
-1. List files in the **data** folder using the `dir_ls()` function
+1. List files in the **files** folder using the `dir_ls()` function
     ```{r, eval = eval_vroom}
-    dir_ls("data")
+    dir_ls("files")
     ```
 
 1. In the `dir_ls()` function, use the `glob` argument to pass a wildcard to list CSV files only. Load to a variable named `files`
     ```{r, eval = eval_vroom}
-    files <- dir_ls("data", glob = "*.csv")
+    files <- dir_ls("files", glob = "*.csv")
     ```
 
 1. Pass the `files` variable to `vroom`. Set the `n_max` argument to 1,000 to limit the data load for now
@@ -73,10 +73,10 @@ library(dplyr)
     vroom(files, n_max = 1000, col_types = vr_spec)
     ```
 
-1. Use the `col_select` argument to pass a `list` object containing the following variables: transaction_id, order_id, order_date, customer_name, and price
+1. Use the `col_select` argument to pass a `list` object containing the following variables: order_id, date, customer_name, and price
     ```{r, eval = eval_vroom}
     vroom(files, n_max = 1000, col_types = vr_spec,
-          col_select = list(transaction_id, order_id, order_date, customer_name, price)
+          col_select = list(order_id, date, customer_name, price)
           )
     ```
 
@@ -94,8 +94,7 @@ library(dplyr)
     ```{r, eval = eval_vroom}
     for(i in seq_along(files)) {
       transactions <- vroom(files[i], n_max = 1000, col_types = vr_spec, 
-                           col_select = list(transaction_id, order_id, 
-                                             order_date, customer_name, price))
+                           col_select = list(order_id, date, customer_name, price))
 
     }
     ```
@@ -104,8 +103,7 @@ library(dplyr)
     ```{r, eval = eval_vroom}
     for(i in seq_along(files)) {
       transactions <- vroom(files[i], n_max = 1000, col_types = vr_spec, 
-                           col_select = list(transaction_id, order_id, 
-                                             order_date, customer_name, price))
+                           col_select = list(order_id, date, customer_name, price))
       orders <- transactions %>%
         group_by(order_id) %>%
         summarise(total_sales = sum(price), no_items = n())
@@ -117,8 +115,7 @@ library(dplyr)
     all_orders <- NULL
     for(i in seq_along(files)) {
       transactions <- vroom(files[i], n_max = 1000, col_types = vr_spec, 
-                           col_select = list(transaction_id, order_id, 
-                                             order_date, customer_name, price))
+                           col_select = list(order_id, date, customer_name, price))
       orders <- transactions %>%
         group_by(order_id) %>%
         summarise(total_sales = sum(price), no_items = n()) %>%
@@ -131,8 +128,7 @@ library(dplyr)
     all_orders <- NULL
     for(i in seq_along(files)) {
       transactions <- vroom(files[i], n_max = 1000, col_types = vr_spec, 
-                           col_select = list(transaction_id, order_id, 
-                                             order_date, customer_name, price))
+                           col_select = list(order_id, date, customer_name, price))
       orders <- transactions %>%
         group_by(order_id) %>%
         summarise(total_sales = sum(price), no_items = n()) %>%
