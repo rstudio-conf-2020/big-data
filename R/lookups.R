@@ -49,7 +49,7 @@ bdc_create_products <- function(no_products = 30, seed = 7878,
 #' @param con Database connection
 #' @param start_date Start date
 #' @export
-bdc_create_dates <- function(con, start_date = "2016-01-01") {
+bdc_db_create_dates <- function(con, start_date = "2016-01-01") {
   step_max <- tbl(con, "order") %>% 
     summarise(max(step_id, na.rm = TRUE)) %>% 
     pull()
