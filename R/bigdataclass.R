@@ -14,5 +14,15 @@
 #' @importFrom glue glue_sql
 #' @importFrom dbplyr remote_query
 #' @importFrom dbplyr remote_con
+#' @importFrom graphics text
+#' @importFrom stats rpois
+#' @importFrom stats runif
+#' @importFrom utils head
 #' @keywords internal
 NULL
+gv <- c("order_id", "step_id", "order_id", "date_year", "date_month", "customer_id", "customer_name", 
+        "customer_lon", "customer_lat", "step_id", "transaction_id", "library_list", "author", "gutenberg_id", 
+        "price")
+utils::globalVariables(gv)
+
+

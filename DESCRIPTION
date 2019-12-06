@@ -8,15 +8,21 @@ Authors@R:
       role = c("aut", "cre"),
       email = "edgar@rstudio.com"
       )
-Description: Content and setup files for the Big Data with R class
-License: MIT
+Description: It has the content and setup files for the Big Data with R class.
+License: MIT + file LICENSE
 Encoding: UTF-8
 LazyData: true
 RoxygenNote: 7.0.2
+Depends:
+  R (>= 2.10)
 Imports:
   charlatan,
   gutenbergr,
+  progress,
   dplyr,
+  vroom,
+  RSQLite,
+  here,
   DBI,
   bookdown,
   usethis,

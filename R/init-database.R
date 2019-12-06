@@ -1,3 +1,4 @@
+#' Creates an empty SQLite database
 #' @param folder Folder location to place the database file
 #' @export
 bdc_init_sqlite <- function(folder = "database") {

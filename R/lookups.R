@@ -1,3 +1,4 @@
+#' Creates the product and customer tables
 #' @param con Database connection
 #' @param product_data Data for the products table
 #' @param customer_data Data for the customer table
@@ -42,6 +43,7 @@ bdc_create_products <- function(no_products = 30, seed = 7878,
   rowid_to_column(ts, "product_id")
 }
 
+#' Creates a table with multiple date values
 #' @param con Database connection
 #' @param start_date Start date
 #' @export
