@@ -25,9 +25,9 @@ library(purrr)
     library(fs)
     ```
 
-1. Read the **transactions.csv** file, from the **data** folder. Use the `fread()` function to load the data into a variable called `transactions`
+1. Read the **transactions.csv** file, from the **files** folder. Use the `fread()` function to load the data into a variable called `transactions`
     ```{r, eval = eval_dtplyr}
-    transactions <- dir_ls("data", glob = "*.csv") %>%
+    transactions <- dir_ls("files", glob = "*.csv") %>%
        map(fread) %>%
        rbindlist()
     ```
@@ -83,14 +83,14 @@ library(purrr)
 1. Use `dplyr` verbs on top of `dt_transactions` to obtain the total sales by month
     ```{r, eval = eval_dtplyr}
     dt_transactions %>%
-      group_by(order_date_month) %>%
+      group_by(date_month) %>%
       summarise(total_sales = sum(price))
     ```
 
 1. Load the above code into a variable called `by_month`
     ```{r, eval = eval_dtplyr}
     by_month <- dt_transactions %>%
-      group_by(order_date_month) %>%
+      group_by(date_month) %>%
       summarise(total_sales = sum(price))
     ```
 
@@ -124,7 +124,7 @@ library(purrr)
     by_month %>%
       as_tibble() %>%
       ggplot() +
-      geom_line(aes(order_date_month, total_sales))
+      geom_line(aes(date_month, total_sales))
     ```
 
 ## Pivot data
@@ -135,20 +135,20 @@ library(purrr)
     library(tidyr)
     ```
 
-1. Group `db_transactions` by `order_date_month` and `order_date_day`, then aggregate `price` into `total_sales`
+1. Group `db_transactions` by `date_month` and `date_day`, then aggregate `price` into `total_sales`
     ```{r, eval = eval_dtplyr}
     dt_transactions %>%
-      group_by(order_date_month, order_date_day) %>% 
+      group_by(date_month, date_day) %>% 
       summarise(total_sales = sum(price))
     ```
 
-1. Copy the aggregation code above, **then collect it into a `tibble`**, and then use `pivot_wider()` to make the `order_date_day` the column headers.
+1. Copy the aggregation code above, **then collect it into a `tibble`**, and then use `pivot_wider()` to make the `date_day` the column headers.
     ```{r, eval = eval_dtplyr}
     dt_transactions %>%
-      group_by(order_date_month, order_date_day) %>% 
+      group_by(date_month, date_day) %>% 
       summarise(total_sales = sum(price)) %>%
       as_tibble() %>%
-      pivot_wider(names_from = order_date_day, values_from = total_sales)
+      pivot_wider(names_from = date_day, values_from = total_sales)
     ```
 
 

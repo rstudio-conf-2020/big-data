@@ -38,7 +38,7 @@ library(leaflet)
 1. Use `collect()` bring back the aggregated results into a "pass-through" variable called `by_year`
     ```{r, eval = eval_viz}
     by_year <- orders %>%
-      count(order_date_year) %>%
+      count(date_year) %>%
       collect()
     ```
 
@@ -56,16 +56,16 @@ library(leaflet)
 1. Plot results using `ggplot2`
     ```{r, eval = eval_viz}
       ggplot(by_year) +
-      geom_col(aes(order_date_year, n)) 
+      geom_col(aes(date_year, n)) 
     ```
 
 1. Using the code in this section, create a single piped code set which also creates the plot
     ```{r, eval = eval_viz}
     orders %>%
-      count(order_date_year) %>%
+      count(date_year) %>%
       collect() %>%
       ggplot() +            # < Don't forget to switch to `+`
-      geom_col(aes(order_date_year, n)) 
+      geom_col(aes(date_year, n)) 
     ```
 
 ## Plot in one code segment
@@ -80,26 +80,26 @@ library(leaflet)
 1. Summarize the order totals in a new variable called: *sales*
     ```{r, eval = eval_viz}
     orders %>%
-      group_by(order_date_year) %>%
+      group_by(date_year) %>%
       summarise(sales = sum(order_total))
     ```
     
 1. Summarize the order totals in a new variable called: *sales*
     ```{r, eval = eval_viz}
     orders %>%
-      group_by(order_date_year) %>%
+      group_by(date_year) %>%
       summarise(sales = sum(order_total)) %>%
       ggplot() +
-      geom_col(aes(order_date_year, sales))
+      geom_col(aes(date_year, sales))
     ```
 
 1. Switch the calculation to reflect the average of the order sale total
     ```{r, eval = eval_viz}
     orders %>%
-      group_by(order_date_year) %>%
+      group_by(date_year) %>%
       summarise(sales = mean(order_total)) %>%
       ggplot() +
-      geom_col(aes(order_date_year, sales))
+      geom_col(aes(date_year, sales))
     ```
 
 ## Create a histogram
