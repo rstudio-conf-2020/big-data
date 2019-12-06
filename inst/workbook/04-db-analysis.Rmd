@@ -36,53 +36,53 @@ library(dbplyr)
     library(dplyr)
     ```
 
-1. Use the `tbl()` command to call the **transactions** table
+1. Use the `tbl()` command to call the **customer** table
     ```{r, eval = eval_db}
-    tbl(con, "transactions")
+    tbl(con, "customer")
     ```
 
 1. Add `in_schema()` as an argument to `tbl()` to specify the schema.  The default schema is called: "main"
     ```{r, eval = eval_db}
-    tbl(con, in_schema("main", "transactions"))
+    tbl(con, in_schema("main", "customer"))
     ```
 
-1. Load the results from the `tbl()` command to a variable called `transactions` 
+1. Load the results from the `tbl()` command that points to the table called **order** to a variable called `order` 
     ```{r, eval = eval_db}
-    transactions <- tbl(con, "transactions")
+    order <- tbl(con, "order")
     ```
     
     
 ## Under the hood 
 *Use `show_query()` to preview the SQL statement that will be sent to the database*
 
-1. Use `show_query()` to preview SQL statement that actually runs when we run `transactions` as a command
+1. Use `show_query()` to preview SQL statement that actually runs when we run `order` as a command
     ```{r, eval = eval_db}
-    show_query(transactions)
+    show_query(order)
     ```
 
 1. Easily view the resulting query by adding `show_query()` in another piped command
     ```{r, eval = eval_db}
-    transactions %>%
+    order %>%
       show_query()
     ```
 
 1. Insert `head()` in between the two statements to see how the SQL changes
     ```{r, eval = eval_db}
-    transactions %>%
+    order %>%
       head() %>%
       show_query()
     ```
 
 1. Use `sql_render()` and `simulate_mssql()` to see how the SQL statement changes from vendor to vendor
     ```{r, eval = eval_db}
-    transactions %>%
+    order %>%
       head() %>%
       sql_render(con = simulate_mssql()) 
     ```
 
 1. Use `explain()` to explore the query plan
     ```{r, eval = eval_db}
-    transactions %>% 
+    order %>% 
       head() %>% 
       explain()
     ```
@@ -92,21 +92,21 @@ library(dbplyr)
 
 1. Preview how `Sys.time()` is translated
     ```{r, eval = eval_db}
-    transactions %>%
+    order %>%
       mutate(today = Sys.time()) %>%
       show_query()
     ```
 
 1. Use SQLite's native commands, in this case `date()`
     ```{r, eval = eval_db}
-    transactions %>%
+    order %>%
       mutate(today = date('now')) %>%
       show_query()
     ```
 
 1. Run the `dplyr` code to confirm it works
     ```{r, eval = eval_db}
-    transactions %>%
+    order %>%
       mutate(today = date('now')) %>%
       select(today) %>%
       head()
@@ -117,146 +117,15 @@ library(dbplyr)
 
 1. Preview how `Sys.time()` is translated when prefixing `!!`
     ```{r, eval = eval_db}
-    transactions %>%
+    order %>%
       mutate(today = !!Sys.time()) %>%
       show_query()
     ```
 
 1. Preview how `Sys.time()` is translated when prefixing `!!`
     ```{r, eval = eval_db}
-    transactions %>%
+    order %>%
       mutate(today = !!Sys.time()) %>%
       select(today) %>%
       head()
     ```
-
-## Table joins
-*Quick review of how to join database tables with `dplyr`*
-
-1. Create a `tbl()` pointer to the **dates** table
-    ```{r, eval = eval_db}
-    dates <- tbl(con, "dates")
-    ```
-
-1. Use `inner_join()` to link the `dates` and `transactions` variables. Use the *step_id* field to join the tables
-    ```{r, eval = eval_db}
-    dates %>%
-      inner_join(transactions, by = "step_id")
-    ```
-
-1. Create a `tbl()` pointer to the **products** table
-    ```{r, eval = eval_db}
-    products <- tbl(con, "products")
-    ```
-
-1. Join the `dates`, `transactions` and `products` variables. Use *product_id* to as the identifier for the `products` data
-    ```{r, eval = eval_db}
-    dates %>%
-      inner_join(transactions, by = "step_id") %>%
-      inner_join(products, by = "product_id")
-    ```
-
-1. Create a `tbl()` pointer to the **customers** table
-    ```{r, eval = eval_db}
-    customers <- tbl(con, "customers")
-    ```
-
-1. Join the `dates`, `transactions`, `products` and `customers` variables. Use *customer_id* to as the identifier for the `customers` data
-    ```{r, eval = eval_db}
-    dates %>%
-      inner_join(transactions, by = "step_id") %>%
-      inner_join(products, by = "product_id") %>%
-      inner_join(customers, by = "customer_id")
-    ```
-
-
-## Custom view
-*Create a view of the dataset aggregated by orders*
-
-1. Join the `transactions` and `products` variables
-    ```{r, eval = eval_db}
-    transactions %>%
-      inner_join(products, by = "product_id") 
-    ```
-
-1. Add a grouping step, use *order_id* as the grouping field, then summarize by the total of *price*, name the new aggregation: *order_total*
-    ```{r, eval = eval_db}
-    transactions %>%
-      inner_join(products, by = "product_id") %>%
-      group_by(order_id) %>%
-      summarise(order_total = sum(price))
-    ```
-
-1. Add the number of products per order to the summarization, name the new aggregation: *order_qty*
-    ```{r, eval = eval_db}
-    transactions %>%
-      inner_join(products, by = "product_id") %>%
-      group_by(order_id) %>%
-      summarise(order_total = sum(price), order_qty = n())
-    ```
-
-1. Add a table join to the `dates` variable
-    ```{r, eval = eval_db}
-    transactions %>%
-      inner_join(products, by = "product_id") %>%
-      inner_join(dates, by = "step_id") %>%
-      group_by(order_id) %>%
-      summarise(order_total = sum(price), order_qty = n())
-    ```
-
-1. Add *order_date*, *order_date_year*, and *order_date_month* to the grouping
-    ```{r, eval = eval_db}
-    transactions %>%
-      inner_join(products, by = "product_id") %>%
-      inner_join(dates, by = "step_id") %>%
-      group_by(order_id, order_date, order_date_year, order_date_month) %>%
-      summarise(order_total = sum(price), order_qty = n())
-    ```
-
-1. Add a join to the `customers` variable
-    ```{r, eval = eval_db}
-    transactions %>%
-      inner_join(products, by = "product_id") %>%
-      inner_join(dates, by = "step_id") %>%
-      inner_join(customers, by = "customer_id") %>%
-      group_by(order_id, order_date, order_date_year, order_date_month) %>%
-      summarise(order_total = sum(price), order_qty = n())
-    ```
-
-1. Add *customer_name* and *customer_id* to the grouping
-    ```{r, eval = eval_db}
-    transactions %>%
-      inner_join(products, by = "product_id") %>%
-      inner_join(dates, by = "step_id") %>%
-      inner_join(customers, by = "customer_id") %>%
-      group_by(order_id, order_date, order_date_year, 
-               order_date_month, customer_id, customer_name) %>%
-      summarise(order_total = sum(price), order_qty = n())
-    ```
-
-1. Assign the entire code segment to a variable called: `orders`
-    ```{r, eval = eval_db}
-    orders <- transactions %>%
-      inner_join(products, by = "product_id") %>%
-      inner_join(dates, by = "step_id") %>%
-      inner_join(customers, by = "customer_id") %>%
-      group_by(order_id, order_date, order_date_year, 
-               order_date_month, customer_id, customer_name) %>%
-      summarise(order_total = sum(price), order_qty = n())
-    ```
-
-1. Preview the resulting SQL of the `orders` variable
-    ```{r, eval = eval_db}
-    show_query(orders)
-    ```
-
-1. Request the SQL plan of `order`, using `explain()`
-    ```{r, eval = eval_db}
-    explain(orders)
-    ```
-
-1. Close the connection
-    ```{r, eval = eval_db}
-    connection_close(con)
-    ```
-

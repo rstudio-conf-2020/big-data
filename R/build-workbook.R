@@ -6,6 +6,7 @@ bdc_build_workbook <- function(stage_folder = tempdir(),
                                book_folder = "books"
                            ) {
   if(!dir.exists(stage_folder)) dir.create(stage_folder)
+  unlink(file.path(stage_folder, "workbook"), recursive = TRUE, force = TRUE)
   file.copy(source, stage_folder, recursive = TRUE, overwrite = TRUE)
   wb_path <- file.path(stage_folder, "workbook")
   file.copy(db_folder, wb_path, recursive = TRUE)

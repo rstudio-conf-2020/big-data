@@ -1,5 +1,5 @@
 ```{r intro-to-vroom, include = FALSE}
-eval_vroom <- TRUE
+eval_vroom <- FALSE
 if(Sys.getenv("GLOBAL_EVAL") != "") eval_vroom <- Sys.getenv("GLOBAL_EVAL")
 ```
 
