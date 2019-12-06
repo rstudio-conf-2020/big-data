@@ -18,14 +18,16 @@ toc <- function(file_path) {
   paste0(paste(toc_list, collapse = "\n") , "\n")
 }
 
-book_files <- function(book_path = here::here("assets/workbook")) {
+#' @export
+book_files <- function(book_path = system.file("workbook", package = "bigdataclass")) {
   book_dir <- dir(book_path)
   book_files <- book_dir[grepl("Rmd", book_dir)]
   book_files <- book_files[book_files != "index.Rmd"]
   file.path(book_path, book_files)
 }
 
-cat_tocs <- function() {
+#' @export
+bdc_outline <- function() {
   all_tocs <- lapply(book_files(), toc)
   all_tocs <- paste0(all_tocs, collapse  = "")
   cat(all_tocs)
@@ -41,8 +43,9 @@ get_libraries <- function(file_path) {
   unique(libs)
 }
 
-library_list <- function() {
-  lib_list <- lapply(book_files(), get_libraries)
+#' @export
+bdc_libraries <- function(book_path = book_files()) {
+  lib_list <- lapply(book_path, get_libraries)
   lib_list <- Reduce(c, lib_list)
   unique(lib_list)
 }

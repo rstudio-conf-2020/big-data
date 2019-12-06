@@ -22,42 +22,7 @@ setup_sqlite <- function(avg_daily_orders = 1000, no_products = 30, avg_no_items
   copy_to_workbook()
 }
 
-#' @param path Folder and file name location to place the database file
-#' @export
-bdc_init_sqlite <- function(path = "database/local.sqlite") {
-  if(file.exists(path)) unlink(path)
-  dbConnect(RSQLite::SQLite(), path)
-}
 
-
-
-
-random_range <- function(from, to, size) {
-  fctr <- 1000000
-  from <- from * fctr
-  to <- to * fctr
-  sample(from:to, size)  / fctr
-}
-
-
-
-
-create_doyle_twain <- function(path = "books") {
-  if(!dir.exists(path)) dir.create(path)
-  gutenberg_works()  %>%
-    filter(author == "Doyle, Arthur Conan") %>%
-    pull(gutenberg_id) %>%
-    gutenberg_download() %>%
-    pull(text) %>%
-    writeLines(file.path(path, "arthur_doyle.txt"))
-  
-  gutenberg_works()  %>%
-    filter(author == "Twain, Mark") %>%
-    pull(gutenberg_id) %>%
-    gutenberg_download() %>%
-    pull(text) %>%
-    writeLines(file.path(path, "mark_twain.txt"))
-}
 
 copy_to_workbook <- function() {
   unlink("assets/workbook/data", recursive = TRUE, force = TRUE)

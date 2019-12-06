@@ -1,5 +1,12 @@
+#' @param path Folder and file name location to place the database file
 #' @export
-bdc_setup_database <- function(con,
+bdc_init_sqlite <- function(path = "database/local.sqlite") {
+  if(file.exists(path)) unlink(path)
+  dbConnect(RSQLite::SQLite(), path)
+}
+
+#' @export
+bdc_init_database <- function(con,
                                avg_daily_orders = 100,
                                avg_no_items = 3,
                                days_in_segment = 10,

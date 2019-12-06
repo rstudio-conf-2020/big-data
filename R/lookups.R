@@ -80,3 +80,10 @@ create_customers <- function(no_customers = 90, path = "data/customers.rds",
   customers <- rowid_to_column(tb, "customer_id") 
   usethis::use_data(customers)
 }
+
+random_range <- function(from, to, size) {
+  fctr <- 1000000
+  from <- from * fctr
+  to <- to * fctr
+  sample(from:to, size)  / fctr
+}
