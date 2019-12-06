@@ -8,5 +8,8 @@
 #' @importFrom magrittr %>%
 #' @importFrom purrr map
 #' @importFrom purrr reduce
+#' @importFrom glue glue_sql
+#' @importFrom dbplyr remote_query
+#' @importFrom dbplyr remote_con
 #' @keywords internal
 NULL

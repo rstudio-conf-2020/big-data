@@ -46,18 +46,16 @@ bdc_create_products <- function(no_products = 30, seed = 7878,
   rowid_to_column(ts, "product_id") 
 }
 
-#' Returns a tibble with date values
-#' @param no_of_segments Number of segments to be created
-#' @param days_in_segment Number of days in each segment
+#' @param con Database connection
 #' @param start_date Start date
 #' @export
-bdc_create_dates <- function(days_in_segment = 10, 
-                             no_of_segments = 100, 
-                             start_date = "2016-01-01"
-) {
-  step_id <- seq_len(days_in_segment * no_of_segments)
+bdc_create_dates <- function(con, start_date = "2016-01-01") {
+  step_max <- tbl(con, "order") %>% 
+    summarise(max(step_id, na.rm = TRUE)) %>% 
+    pull()
+  step_id <- seq_len(step_max)
   step_date <- as.Date(start_date) + (step_id - 1)
-  tibble(
+  tb <- tibble(
     step_id,
     date = as.character(step_date),
     date_year = as.integer(format(step_date, "%Y")),
@@ -65,6 +63,7 @@ bdc_create_dates <- function(days_in_segment = 10,
     date_month_name = month.abb[as.integer(format(step_date, "%m"))],
     date_day = format(step_date, "%A")
   ) 
+  dbWriteTable(con, "date", tb, overwrite = TRUE)
 }
 
 create_customers <- function(no_customers = 90, path = "data/customers.rds",
