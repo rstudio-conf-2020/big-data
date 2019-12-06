@@ -15,7 +15,7 @@ toc <- function(file_path) {
       paste0(pad, titles[x])
     }
   )
-  paste0(paste(toc_list, collapse = "\n") , "\n")
+  paste0(paste(toc_list, collapse = "\n"), "\n")
 }
 
 #' @export
@@ -29,7 +29,7 @@ book_files <- function(book_path = system.file("workbook", package = "bigdatacla
 #' @export
 bdc_outline <- function() {
   all_tocs <- lapply(book_files(), toc)
-  all_tocs <- paste0(all_tocs, collapse  = "")
+  all_tocs <- paste0(all_tocs, collapse = "")
   cat(all_tocs)
 }
 
@@ -37,8 +37,8 @@ get_libraries <- function(file_path) {
   re <- readLines(file_path)
   has_library <- grepl("library\\(", re)
   only_libs <- re[has_library]
-  libs <-  gsub("library\\(", "", only_libs) 
-  libs <-  gsub("\\)", "", libs) 
+  libs <- gsub("library\\(", "", only_libs)
+  libs <- gsub("\\)", "", libs)
   libs <- trimws(libs)
   unique(libs)
 }
@@ -52,5 +52,5 @@ bdc_libraries <- function(book_path = book_files()) {
 
 install_command <- function() {
   all_libs <- paste0("\"", library_list(), "\"", collapse = ", ")
-  cat(paste0("install.packages(c(", all_libs,"))"))
+  cat(paste0("install.packages(c(", all_libs, "))"))
 }

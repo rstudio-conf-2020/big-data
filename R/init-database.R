@@ -2,8 +2,8 @@
 #' @export
 bdc_init_sqlite <- function(folder = "database") {
   path <- file.path(folder, "local.sqlite")
-  if(file.exists(path)) unlink(path)
-  if(!dir.exists(folder)) dir.create(folder)
+  if (file.exists(path)) unlink(path)
+  if (!dir.exists(folder)) dir.create(folder)
   dbConnect(RSQLite::SQLite(), path)
 }
 
@@ -14,16 +14,15 @@ bdc_init_database <- function(con,
                               days_in_segment = 10,
                               no_of_segments = 100,
                               seed = 7878,
-                              product_data = bdc_create_products(), 
+                              product_data = bdc_create_products(),
                               customer_data = bigdataclass::customers,
                               start_date = "2016-01-01",
                               orders_view = "v_orders",
-                              lineitems_view = "v_lineitems"
-                              ) {
+                              lineitems_view = "v_lineitems") {
   ui_info("Creating product and customer tables")
   bdc_db_lookups(
-    con = con, 
-    product_data = product_data, 
+    con = con,
+    product_data = product_data,
     customer_data = customer_data
   )
   ui_done("Product table created")
@@ -40,17 +39,17 @@ bdc_init_database <- function(con,
   ui_done("Orders table created")
   ui_done("Line items table created")
   bdc_db_create_dates(
-    con = con, 
+    con = con,
     start_date = start_date
-    )
+  )
   ui_done("Date table created")
   bdc_create_view_orders(
-    con = con, 
+    con = con,
     name = orders_view
-    )
+  )
   ui_done("Orders view created")
   bdc_create_view_lineitems(
-    con = con, 
+    con = con,
     name = lineitems_view
   )
   ui_done("Line items view created")
