@@ -25,4 +25,14 @@ bdc_create_view_orders <- function(con, name = "v_orders") {
  bdc_create_view(query = qry, name = name)
 }
 
-
+#' @export
+bdc_create_view_lineitems <- function(con, name = "v_lineitems") {
+  qry <- tbl(con, "order") %>%
+    inner_join(tbl(con, "date"), by = "step_id") %>%
+    inner_join(tbl(con, "customer"), by = "customer_id") %>%
+    inner_join(tbl(con, "line_item"), by = "order_id") %>%
+    inner_join(tbl(con, "product"), by = "product_id") %>%
+    select(order_id, contains("order_date"), contains("customer_"), everything()) %>%
+    select(-step_id)
+  bdc_create_view(query = qry, name = name)
+}

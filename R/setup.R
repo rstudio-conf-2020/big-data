@@ -8,7 +8,8 @@ bdc_setup_database <- function(con,
                                product_data = bdc_create_products(), 
                                customer_data = bigdataclass::customers,
                                start_date = "2016-01-01",
-                               orders_view = "v_orders"
+                               orders_view = "v_orders",
+                               lineitems_view = "v_lineitems"
                                ) {
   print("Creating product and customer tables")
   bdc_db_lookups(
@@ -35,4 +36,8 @@ bdc_setup_database <- function(con,
     con = con, 
     name = orders_view
     )
+  bdc_create_view_lineitems(
+    con = con, 
+    name = lineitems_view
+  )
 }
