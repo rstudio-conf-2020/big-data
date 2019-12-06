@@ -1,3 +1,19 @@
+#' @export
+bdc_build_workbook <- function(stage_folder = tempdir(), 
+                           source = system.file("workbook", package = "bigdataclass"),
+                           db_folder = "database",
+                           file_folder = "files", 
+                           book_folder = "books"
+                           ) {
+  if(!dir.exists(stage_folder)) dir.create(stage_folder)
+  file.copy(source, stage_folder, recursive = TRUE, overwrite = TRUE)
+  wb_path <- file.path(stage_folder, "workbook")
+  file.copy(db_folder, wb_path, recursive = TRUE)
+  file.copy(file_folder, wb_path, recursive = TRUE)
+  file.copy(book_folder, wb_path, recursive = TRUE)
+  bookdown::serve_book(wb_path)
+}
+
 build_book <- function() {
   setwd(here::here("assets/workbook"))
   #Sys.setenv(GLOBAL_EVAL = TRUE)
