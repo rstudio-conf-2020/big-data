@@ -1,0 +1,479 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="" xml:lang="">
+<head>
+
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <title>5 Data Visualizations | _main.utf8</title>
+  <meta name="description" content="" />
+  <meta name="generator" content="bookdown 0.16 and GitBook 2.6.7" />
+
+  <meta property="og:title" content="5 Data Visualizations | _main.utf8" />
+  <meta property="og:type" content="book" />
+  
+  
+  
+  
+
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:title" content="5 Data Visualizations | _main.utf8" />
+  
+  
+  
+
+
+
+
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black" />
+  
+  
+<link rel="prev" href="databases-and-dplyr.html"/>
+<link rel="next" href="modeling-with-databases.html"/>
+<script src="libs/jquery-2.2.3/jquery.min.js"></script>
+<link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-table.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-bookdown.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-highlight.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-search.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-fontsettings.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-clipboard.css" rel="stylesheet" />
+
+
+
+
+
+
+
+
+
+<script src="libs/htmlwidgets-1.5.1/htmlwidgets.js"></script>
+<link href="libs/leaflet-1.3.1/leaflet.css" rel="stylesheet" />
+<script src="libs/leaflet-1.3.1/leaflet.js"></script>
+<link href="libs/leafletfix-1.0.0/leafletfix.css" rel="stylesheet" />
+<script src="libs/Proj4Leaflet-1.0.1/proj4-compressed.js"></script>
+<script src="libs/Proj4Leaflet-1.0.1/proj4leaflet.js"></script>
+<link href="libs/rstudio_leaflet-1.3.1/rstudio_leaflet.css" rel="stylesheet" />
+<script src="libs/leaflet-binding-2.0.3/leaflet.js"></script>
+
+
+<style type="text/css">
+a.sourceLine { display: inline-block; line-height: 1.25; }
+a.sourceLine { pointer-events: none; color: inherit; text-decoration: inherit; }
+a.sourceLine:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode { white-space: pre; position: relative; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+code.sourceCode { white-space: pre-wrap; }
+a.sourceLine { text-indent: -1em; padding-left: 1em; }
+}
+pre.numberSource a.sourceLine
+  { position: relative; left: -4em; }
+pre.numberSource a.sourceLine::before
+  { content: attr(data-line-number);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; pointer-events: all; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+    color: #aaaaaa;
+  }
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+div.sourceCode
+  {  }
+@media screen {
+a.sourceLine::before { text-decoration: underline; }
+}
+code span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code span.at { color: #7d9029; } /* Attribute */
+code span.bn { color: #40a070; } /* BaseN */
+code span.bu { } /* BuiltIn */
+code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code span.ch { color: #4070a0; } /* Char */
+code span.cn { color: #880000; } /* Constant */
+code span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code span.dt { color: #902000; } /* DataType */
+code span.dv { color: #40a070; } /* DecVal */
+code span.er { color: #ff0000; font-weight: bold; } /* Error */
+code span.ex { } /* Extension */
+code span.fl { color: #40a070; } /* Float */
+code span.fu { color: #06287e; } /* Function */
+code span.im { } /* Import */
+code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+code span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code span.op { color: #666666; } /* Operator */
+code span.ot { color: #007020; } /* Other */
+code span.pp { color: #bc7a00; } /* Preprocessor */
+code span.sc { color: #4070a0; } /* SpecialChar */
+code span.ss { color: #bb6688; } /* SpecialString */
+code span.st { color: #4070a0; } /* String */
+code span.va { color: #19177c; } /* Variable */
+code span.vs { color: #4070a0; } /* VerbatimString */
+code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+</style>
+
+</head>
+
+<body>
+
+
+
+  <div class="book without-animation with-summary font-size-2 font-family-1" data-basepath=".">
+
+    <div class="book-summary">
+      <nav role="navigation">
+
+<ul class="summary">
+<li class="chapter" data-level="" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i>Big Data with R - Exercise book</a></li>
+<li class="chapter" data-level="1" data-path="introduction-to-vroom.html"><a href="introduction-to-vroom.html"><i class="fa fa-check"></i><b>1</b> Introduction to <code>vroom</code></a><ul>
+<li class="chapter" data-level="1.1" data-path="introduction-to-vroom.html"><a href="introduction-to-vroom.html#vroom-basics"><i class="fa fa-check"></i><b>1.1</b> <code>vroom</code> basics</a></li>
+<li class="chapter" data-level="1.2" data-path="introduction-to-vroom.html"><a href="introduction-to-vroom.html#load-multiple-files"><i class="fa fa-check"></i><b>1.2</b> Load multiple files</a></li>
+<li class="chapter" data-level="1.3" data-path="introduction-to-vroom.html"><a href="introduction-to-vroom.html#load-and-modify-multiple-files"><i class="fa fa-check"></i><b>1.3</b> Load and modify multiple files</a></li>
+</ul></li>
+<li class="chapter" data-level="2" data-path="introduction-to-dtplyr.html"><a href="introduction-to-dtplyr.html"><i class="fa fa-check"></i><b>2</b> Introduction to <code>dtplyr</code></a><ul>
+<li class="chapter" data-level="2.1" data-path="introduction-to-dtplyr.html"><a href="introduction-to-dtplyr.html#dtplyr-basics"><i class="fa fa-check"></i><b>2.1</b> <code>dtplyr</code> basics</a></li>
+<li class="chapter" data-level="2.2" data-path="introduction-to-dtplyr.html"><a href="introduction-to-dtplyr.html#object-sizes"><i class="fa fa-check"></i><b>2.2</b> Object sizes</a></li>
+<li class="chapter" data-level="2.3" data-path="introduction-to-dtplyr.html"><a href="introduction-to-dtplyr.html#how-dtplyr-works"><i class="fa fa-check"></i><b>2.3</b> How <code>dtplyr</code> works</a></li>
+<li class="chapter" data-level="2.4" data-path="introduction-to-dtplyr.html"><a href="introduction-to-dtplyr.html#working-with-dtplyr"><i class="fa fa-check"></i><b>2.4</b> Working with <code>dtplyr</code></a></li>
+<li class="chapter" data-level="2.5" data-path="introduction-to-dtplyr.html"><a href="introduction-to-dtplyr.html#pivot-data"><i class="fa fa-check"></i><b>2.5</b> Pivot data</a></li>
+<li class="chapter" data-level="2.6" data-path="introduction-to-dtplyr.html"><a href="introduction-to-dtplyr.html#the-mutate-verb"><i class="fa fa-check"></i><b>2.6</b> The <code>mutate()</code> verb</a></li>
+</ul></li>
+<li class="chapter" data-level="3" data-path="introduction-to-dbi.html"><a href="introduction-to-dbi.html"><i class="fa fa-check"></i><b>3</b> Introduction to <code>DBI</code></a><ul>
+<li class="chapter" data-level="3.1" data-path="introduction-to-dbi.html"><a href="introduction-to-dbi.html#local-database-basics"><i class="fa fa-check"></i><b>3.1</b> Local database basics</a></li>
+<li class="chapter" data-level="3.2" data-path="introduction-to-dbi.html"><a href="introduction-to-dbi.html#options-for-writing-tables"><i class="fa fa-check"></i><b>3.2</b> Options for writing tables</a></li>
+<li class="chapter" data-level="3.3" data-path="introduction-to-dbi.html"><a href="introduction-to-dbi.html#database-operations"><i class="fa fa-check"></i><b>3.3</b> Database operations</a></li>
+<li class="chapter" data-level="3.4" data-path="introduction-to-dbi.html"><a href="introduction-to-dbi.html#knitr-sql-engine"><i class="fa fa-check"></i><b>3.4</b> <code>knitr</code> SQL engine</a></li>
+</ul></li>
+<li class="chapter" data-level="4" data-path="databases-and-dplyr.html"><a href="databases-and-dplyr.html"><i class="fa fa-check"></i><b>4</b> Databases and <code>dplyr</code></a><ul>
+<li class="chapter" data-level="4.1" data-path="databases-and-dplyr.html"><a href="databases-and-dplyr.html#intro-to-connections"><i class="fa fa-check"></i><b>4.1</b> Intro to <code>connections</code></a></li>
+<li class="chapter" data-level="4.2" data-path="databases-and-dplyr.html"><a href="databases-and-dplyr.html#table-reference"><i class="fa fa-check"></i><b>4.2</b> Table reference</a></li>
+<li class="chapter" data-level="4.3" data-path="databases-and-dplyr.html"><a href="databases-and-dplyr.html#under-the-hood"><i class="fa fa-check"></i><b>4.3</b> Under the hood</a></li>
+<li class="chapter" data-level="4.4" data-path="databases-and-dplyr.html"><a href="databases-and-dplyr.html#un-translated-r-commands"><i class="fa fa-check"></i><b>4.4</b> Un-translated R commands</a></li>
+<li class="chapter" data-level="4.5" data-path="databases-and-dplyr.html"><a href="databases-and-dplyr.html#using-bang-bang"><i class="fa fa-check"></i><b>4.5</b> Using bang-bang</a></li>
+</ul></li>
+<li class="chapter" data-level="5" data-path="data-visualizations.html"><a href="data-visualizations.html"><i class="fa fa-check"></i><b>5</b> Data Visualizations</a><ul>
+<li class="chapter" data-level="5.1" data-path="data-visualizations.html"><a href="data-visualizations.html#simple-plot"><i class="fa fa-check"></i><b>5.1</b> Simple plot</a></li>
+<li class="chapter" data-level="5.2" data-path="data-visualizations.html"><a href="data-visualizations.html#plot-in-one-code-segment"><i class="fa fa-check"></i><b>5.2</b> Plot in one code segment</a></li>
+<li class="chapter" data-level="5.3" data-path="data-visualizations.html"><a href="data-visualizations.html#create-a-histogram"><i class="fa fa-check"></i><b>5.3</b> Create a histogram</a></li>
+<li class="chapter" data-level="5.4" data-path="data-visualizations.html"><a href="data-visualizations.html#raster-plot"><i class="fa fa-check"></i><b>5.4</b> Raster plot</a></li>
+<li class="chapter" data-level="5.5" data-path="data-visualizations.html"><a href="data-visualizations.html#using-the-calculate-functions"><i class="fa fa-check"></i><b>5.5</b> Using the <code>calculate</code> functions</a></li>
+</ul></li>
+<li class="chapter" data-level="6" data-path="modeling-with-databases.html"><a href="modeling-with-databases.html"><i class="fa fa-check"></i><b>6</b> Modeling with databases</a><ul>
+<li class="chapter" data-level="6.1" data-path="modeling-with-databases.html"><a href="modeling-with-databases.html#single-step-sampling"><i class="fa fa-check"></i><b>6.1</b> Single step sampling</a></li>
+<li class="chapter" data-level="6.2" data-path="modeling-with-databases.html"><a href="modeling-with-databases.html#multi-step-sampling"><i class="fa fa-check"></i><b>6.2</b> Multi-step sampling</a></li>
+<li class="chapter" data-level="6.3" data-path="modeling-with-databases.html"><a href="modeling-with-databases.html#use-job-panel-in-rstudio"><i class="fa fa-check"></i><b>6.3</b> Use Job panel in RStudio</a></li>
+<li class="chapter" data-level="6.4" data-path="modeling-with-databases.html"><a href="modeling-with-databases.html#run-predictions-in-db"><i class="fa fa-check"></i><b>6.4</b> Run predictions in DB</a></li>
+<li class="chapter" data-level="6.5" data-path="modeling-with-databases.html"><a href="modeling-with-databases.html#fit-model-in-r"><i class="fa fa-check"></i><b>6.5</b> Fit model in R</a></li>
+<li class="chapter" data-level="6.6" data-path="modeling-with-databases.html"><a href="modeling-with-databases.html#score-with-tidypredict"><i class="fa fa-check"></i><b>6.6</b> Score with <code>tidypredict</code></a></li>
+<li class="chapter" data-level="6.7" data-path="modeling-with-databases.html"><a href="modeling-with-databases.html#save-and-reload-models"><i class="fa fa-check"></i><b>6.7</b> Save and reload models</a></li>
+<li class="chapter" data-level="6.8" data-path="modeling-with-databases.html"><a href="modeling-with-databases.html#integration-with-tidymodels"><i class="fa fa-check"></i><b>6.8</b> Integration with <code>tidymodels</code></a></li>
+<li class="chapter" data-level="6.9" data-path="modeling-with-databases.html"><a href="modeling-with-databases.html#run-models-in-db"><i class="fa fa-check"></i><b>6.9</b> Run models in DB</a></li>
+<li class="chapter" data-level="6.10" data-path="modeling-with-databases.html"><a href="modeling-with-databases.html#intro-to-modeldb"><i class="fa fa-check"></i><b>6.10</b> Intro to <code>modeldb</code></a></li>
+<li class="chapter" data-level="6.11" data-path="modeling-with-databases.html"><a href="modeling-with-databases.html#modeldb-with-tidypredict"><i class="fa fa-check"></i><b>6.11</b> <code>modeldb</code> with <code>tidypredict</code></a></li>
+</ul></li>
+<li class="chapter" data-level="7" data-path="advanced-operations.html"><a href="advanced-operations.html"><i class="fa fa-check"></i><b>7</b> Advanced Operations</a><ul>
+<li class="chapter" data-level="7.1" data-path="advanced-operations.html"><a href="advanced-operations.html#simple-wrapper-function"><i class="fa fa-check"></i><b>7.1</b> Simple wrapper function</a></li>
+<li class="chapter" data-level="7.2" data-path="advanced-operations.html"><a href="advanced-operations.html#multiple-variables"><i class="fa fa-check"></i><b>7.2</b> Multiple variables</a></li>
+<li class="chapter" data-level="7.3" data-path="advanced-operations.html"><a href="advanced-operations.html#multiple-queries"><i class="fa fa-check"></i><b>7.3</b> Multiple queries</a></li>
+<li class="chapter" data-level="7.4" data-path="advanced-operations.html"><a href="advanced-operations.html#characters-to-field-names"><i class="fa fa-check"></i><b>7.4</b> Characters to field names</a></li>
+</ul></li>
+<li class="chapter" data-level="8" data-path="intro-to-sparklyr.html"><a href="intro-to-sparklyr.html"><i class="fa fa-check"></i><b>8</b> Intro to <code>sparklyr</code></a><ul>
+<li class="chapter" data-level="8.1" data-path="intro-to-sparklyr.html"><a href="intro-to-sparklyr.html#new-spark-session"><i class="fa fa-check"></i><b>8.1</b> New Spark session</a></li>
+<li class="chapter" data-level="8.2" data-path="intro-to-sparklyr.html"><a href="intro-to-sparklyr.html#data-transfer"><i class="fa fa-check"></i><b>8.2</b> Data transfer</a></li>
+<li class="chapter" data-level="8.3" data-path="intro-to-sparklyr.html"><a href="intro-to-sparklyr.html#spark-and-dplyr"><i class="fa fa-check"></i><b>8.3</b> Spark and <code>dplyr</code></a></li>
+</ul></li>
+<li class="chapter" data-level="9" data-path="text-mining-with-sparklyr.html"><a href="text-mining-with-sparklyr.html"><i class="fa fa-check"></i><b>9</b> Text mining with <code>sparklyr</code></a><ul>
+<li class="chapter" data-level="9.1" data-path="text-mining-with-sparklyr.html"><a href="text-mining-with-sparklyr.html#data-import"><i class="fa fa-check"></i><b>9.1</b> Data Import</a></li>
+<li class="chapter" data-level="9.2" data-path="text-mining-with-sparklyr.html"><a href="text-mining-with-sparklyr.html#tidying-data"><i class="fa fa-check"></i><b>9.2</b> Tidying data</a></li>
+<li class="chapter" data-level="9.3" data-path="text-mining-with-sparklyr.html"><a href="text-mining-with-sparklyr.html#transform-the-data"><i class="fa fa-check"></i><b>9.3</b> Transform the data</a></li>
+<li class="chapter" data-level="9.4" data-path="text-mining-with-sparklyr.html"><a href="text-mining-with-sparklyr.html#data-exploration"><i class="fa fa-check"></i><b>9.4</b> Data Exploration</a></li>
+</ul></li>
+<li class="chapter" data-level="10" data-path="spark-data-caching.html"><a href="spark-data-caching.html"><i class="fa fa-check"></i><b>10</b> Spark data caching</a><ul>
+<li class="chapter" data-level="10.1" data-path="spark-data-caching.html"><a href="spark-data-caching.html#map-data"><i class="fa fa-check"></i><b>10.1</b> Map data</a></li>
+<li class="chapter" data-level="10.2" data-path="spark-data-caching.html"><a href="spark-data-caching.html#caching-data"><i class="fa fa-check"></i><b>10.2</b> Caching data</a></li>
+</ul></li>
+</ul>
+
+      </nav>
+    </div>
+
+    <div class="book-body">
+      <div class="body-inner">
+        <div class="book-header" role="navigation">
+          <h1>
+            <i class="fa fa-circle-o-notch fa-spin"></i><a href="./"></a>
+          </h1>
+        </div>
+
+        <div class="page-wrapper" tabindex="-1" role="main">
+          <div class="page-inner">
+
+            <section class="normal" id="section-">
+<div id="data-visualizations" class="section level1">
+<h1><span class="header-section-number">5</span> Data Visualizations</h1>
+<div id="simple-plot" class="section level2">
+<h2><span class="header-section-number">5.1</span> Simple plot</h2>
+<p><em>Practice pushing the calculations to the database</em></p>
+<ol style="list-style-type: decimal">
+<li><p>Load the <code>connections</code> and <code>dplyr</code> libraries</p>
+<div class="sourceCode" id="cb132"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb132-1" data-line-number="1"><span class="kw">library</span>(connections)</a>
+<a class="sourceLine" id="cb132-2" data-line-number="2"><span class="kw">library</span>(dplyr)</a></code></pre></div></li>
+<li><p>Use <code>connection_open()</code> to open a Database connection</p>
+<div class="sourceCode" id="cb133"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb133-1" data-line-number="1">con &lt;-<span class="st"> </span><span class="kw">connection_open</span>(RSQLite<span class="op">::</span><span class="kw">SQLite</span>(), <span class="st">&quot;database/local.sqlite&quot;</span>)</a></code></pre></div></li>
+<li><p>Use <code>tbl()</code> to create a pointer to the <strong>v_transactions</strong> table</p>
+<div class="sourceCode" id="cb134"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb134-1" data-line-number="1">orders &lt;-<span class="st"> </span><span class="kw">tbl</span>(con, <span class="st">&quot;v_orders&quot;</span>)</a></code></pre></div></li>
+<li><p>Use <code>collect()</code> bring back the aggregated results into a “pass-through” variable called <code>by_year</code></p>
+<div class="sourceCode" id="cb135"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb135-1" data-line-number="1">by_year &lt;-<span class="st"> </span>orders <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb135-2" data-line-number="2"><span class="st">  </span><span class="kw">count</span>(date_year) <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb135-3" data-line-number="3"><span class="st">  </span><span class="kw">collect</span>()</a></code></pre></div></li>
+<li><p>Preview the <code>by_year</code> variable</p>
+<div class="sourceCode" id="cb136"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb136-1" data-line-number="1">by_year</a></code></pre></div>
+<pre><code>## # A tibble: 3 x 2
+##   date_year     n
+##       &lt;int&gt; &lt;int&gt;
+## 1      2016 36283
+## 2      2017 36677
+## 3      2018 27121</code></pre></li>
+<li><p>Load the <code>ggplot2</code> library</p>
+<div class="sourceCode" id="cb138"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb138-1" data-line-number="1"><span class="kw">library</span>(ggplot2)</a></code></pre></div></li>
+<li><p>Plot results using <code>ggplot2</code></p>
+<div class="sourceCode" id="cb139"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb139-1" data-line-number="1">  <span class="kw">ggplot</span>(by_year) <span class="op">+</span></a>
+<a class="sourceLine" id="cb139-2" data-line-number="2"><span class="st">  </span><span class="kw">geom_col</span>(<span class="kw">aes</span>(date_year, n)) </a></code></pre></div>
+<p><img src="_main_files/figure-html/unnamed-chunk-92-1.png" width="672" /></p></li>
+<li><p>Using the code in this section, create a single piped code set which also creates the plot</p>
+<div class="sourceCode" id="cb140"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb140-1" data-line-number="1">orders <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb140-2" data-line-number="2"><span class="st">  </span><span class="kw">count</span>(date_year) <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb140-3" data-line-number="3"><span class="st">  </span><span class="kw">collect</span>() <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb140-4" data-line-number="4"><span class="st">  </span><span class="kw">ggplot</span>() <span class="op">+</span><span class="st">            </span><span class="co"># &lt; Don&#39;t forget to switch to `+`</span></a>
+<a class="sourceLine" id="cb140-5" data-line-number="5"><span class="st">  </span><span class="kw">geom_col</span>(<span class="kw">aes</span>(date_year, n)) </a></code></pre></div>
+<p><img src="_main_files/figure-html/unnamed-chunk-93-1.png" width="672" /></p></li>
+</ol>
+</div>
+<div id="plot-in-one-code-segment" class="section level2">
+<h2><span class="header-section-number">5.2</span> Plot in one code segment</h2>
+<p><em>Practice going from <code>dplyr</code> to <code>ggplot2</code> without using pass-through variable, great for EDA</em></p>
+<ol style="list-style-type: decimal">
+<li><p>Summarize the order totals in a new variable called: <em>sales</em></p>
+<div class="sourceCode" id="cb141"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb141-1" data-line-number="1">orders <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb141-2" data-line-number="2"><span class="st">  </span><span class="kw">summarise</span>(<span class="dt">sales =</span> <span class="kw">sum</span>(order_total))</a></code></pre></div>
+<pre><code>## Warning: Missing values are always removed in SQL.
+## Use `SUM(x, na.rm = TRUE)` to silence this warning
+## This warning is displayed only once per session.</code></pre>
+<pre><code>## # Source:   lazy query [?? x 1]
+## # Database: sqlite 3.29.0 [/home/edgar/bigdataclass/temp/workbook/database/local.sqlite]
+##      sales
+##      &lt;dbl&gt;
+## 1 2063264.</code></pre></li>
+<li><p>Summarize the order totals in a new variable called: <em>sales</em></p>
+<div class="sourceCode" id="cb144"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb144-1" data-line-number="1">orders <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb144-2" data-line-number="2"><span class="st">  </span><span class="kw">group_by</span>(date_year) <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb144-3" data-line-number="3"><span class="st">  </span><span class="kw">summarise</span>(<span class="dt">sales =</span> <span class="kw">sum</span>(order_total))</a></code></pre></div>
+<pre><code>## # Source:   lazy query [?? x 2]
+## # Database: sqlite 3.29.0 [/home/edgar/bigdataclass/temp/workbook/database/local.sqlite]
+##   date_year   sales
+##       &lt;int&gt;   &lt;dbl&gt;
+## 1      2016 742854.
+## 2      2017 762281.
+## 3      2018 558129.</code></pre></li>
+<li><p>Summarize the order totals in a new variable called: <em>sales</em></p>
+<div class="sourceCode" id="cb146"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb146-1" data-line-number="1">orders <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb146-2" data-line-number="2"><span class="st">  </span><span class="kw">group_by</span>(date_year) <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb146-3" data-line-number="3"><span class="st">  </span><span class="kw">summarise</span>(<span class="dt">sales =</span> <span class="kw">sum</span>(order_total)) <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb146-4" data-line-number="4"><span class="st">  </span><span class="kw">ggplot</span>() <span class="op">+</span></a>
+<a class="sourceLine" id="cb146-5" data-line-number="5"><span class="st">  </span><span class="kw">geom_col</span>(<span class="kw">aes</span>(date_year, sales))</a></code></pre></div>
+<p><img src="_main_files/figure-html/unnamed-chunk-96-1.png" width="672" /></p></li>
+<li><p>Switch the calculation to reflect the average of the order sale total</p>
+<div class="sourceCode" id="cb147"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb147-1" data-line-number="1">orders <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb147-2" data-line-number="2"><span class="st">  </span><span class="kw">group_by</span>(date_year) <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb147-3" data-line-number="3"><span class="st">  </span><span class="kw">summarise</span>(<span class="dt">sales =</span> <span class="kw">mean</span>(order_total)) <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb147-4" data-line-number="4"><span class="st">  </span><span class="kw">ggplot</span>() <span class="op">+</span></a>
+<a class="sourceLine" id="cb147-5" data-line-number="5"><span class="st">  </span><span class="kw">geom_col</span>(<span class="kw">aes</span>(date_year, sales))</a></code></pre></div>
+<pre><code>## Warning: Missing values are always removed in SQL.
+## Use `mean(x, na.rm = TRUE)` to silence this warning
+## This warning is displayed only once per session.</code></pre>
+<p><img src="_main_files/figure-html/unnamed-chunk-97-1.png" width="672" /></p></li>
+</ol>
+</div>
+<div id="create-a-histogram" class="section level2">
+<h2><span class="header-section-number">5.3</span> Create a histogram</h2>
+<p><em>Use the package’s function to easily create a histogram</em></p>
+<ol style="list-style-type: decimal">
+<li><p>Load the <code>dbplot</code> package</p>
+<div class="sourceCode" id="cb149"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb149-1" data-line-number="1"><span class="kw">library</span>(dbplot)</a></code></pre></div></li>
+<li><p>Use the <code>dbplot_histogram()</code> to build the histogram</p>
+<div class="sourceCode" id="cb150"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb150-1" data-line-number="1">orders <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb150-2" data-line-number="2"><span class="st">  </span><span class="kw">dbplot_histogram</span>(order_total)</a></code></pre></div>
+<p><img src="_main_files/figure-html/unnamed-chunk-99-1.png" width="672" /></p></li>
+<li><p>Adjust the <code>binwidth</code> to 300</p>
+<div class="sourceCode" id="cb151"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb151-1" data-line-number="1">orders <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb151-2" data-line-number="2"><span class="st">  </span><span class="kw">dbplot_histogram</span>(order_total, <span class="dt">binwidth =</span> <span class="dv">10</span>)</a></code></pre></div>
+<p><img src="_main_files/figure-html/unnamed-chunk-100-1.png" width="672" /></p></li>
+</ol>
+</div>
+<div id="raster-plot" class="section level2">
+<h2><span class="header-section-number">5.4</span> Raster plot</h2>
+<p><em>Use <code>dbplot</code>’s raster graph</em></p>
+<ol style="list-style-type: decimal">
+<li><p>Use a <code>dbplot_raster()</code> to visualize <code>order_qty</code> versus <code>order_total</code></p>
+<div class="sourceCode" id="cb152"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb152-1" data-line-number="1">orders <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb152-2" data-line-number="2"><span class="st">  </span><span class="kw">dbplot_raster</span>(order_qty, order_total)</a></code></pre></div>
+<p><img src="_main_files/figure-html/unnamed-chunk-101-1.png" width="672" /></p></li>
+<li><p>Change the plot’s resolution to 10</p>
+<div class="sourceCode" id="cb153"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb153-1" data-line-number="1">orders <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb153-2" data-line-number="2"><span class="st">  </span><span class="kw">dbplot_raster</span>(order_qty, order_total, <span class="dt">resolution =</span> <span class="dv">10</span>)</a></code></pre></div>
+<p><img src="_main_files/figure-html/unnamed-chunk-102-1.png" width="672" /></p></li>
+</ol>
+</div>
+<div id="using-the-calculate-functions" class="section level2">
+<h2><span class="header-section-number">5.5</span> Using the <code>calculate</code> functions</h2>
+<ol style="list-style-type: decimal">
+<li><p>Use the <code>db_compute_raster()</code> function to get the underlying results that feed the plot</p>
+<div class="sourceCode" id="cb154"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb154-1" data-line-number="1">locations &lt;-<span class="st"> </span>orders <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb154-2" data-line-number="2"><span class="st">  </span><span class="kw">db_compute_raster2</span>(customer_lon, customer_lat, <span class="dt">resolution =</span> <span class="dv">10</span>)</a></code></pre></div></li>
+<li><p>Preview the <code>locations</code> variable</p>
+<div class="sourceCode" id="cb155"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb155-1" data-line-number="1">locations</a></code></pre></div>
+<pre><code>## # A tibble: 58 x 5
+##    customer_lon customer_lat `n()` customer_lon_2 customer_lat_2
+##           &lt;dbl&gt;        &lt;dbl&gt; &lt;dbl&gt;          &lt;dbl&gt;          &lt;dbl&gt;
+##  1        -122.         37.7  1070          -122.           37.7
+##  2        -122.         37.7  2182          -122.           37.7
+##  3        -122.         37.7  4400          -122.           37.7
+##  4        -122.         37.7  4427          -122.           37.8
+##  5        -122.         37.8  2220          -122.           37.8
+##  6        -122.         37.8  2360          -122.           37.8
+##  7        -122.         37.8  1172          -122.           37.8
+##  8        -122.         37.8  1004          -122.           37.8
+##  9        -122.         37.8  2118          -122.           37.8
+## 10        -122.         37.7  2225          -122.           37.7
+## # … with 48 more rows</code></pre></li>
+<li><p>Load the <code>leaflet</code> library</p>
+<div class="sourceCode" id="cb157"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb157-1" data-line-number="1"><span class="kw">library</span>(leaflet)</a></code></pre></div></li>
+<li><p>Pipe <code>location</code> into the <code>leaflet()</code> function, and then pipe that into the <code>addTiles()</code> function</p>
+<div class="sourceCode" id="cb158"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb158-1" data-line-number="1">locations <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb158-2" data-line-number="2"><span class="st">  </span><span class="kw">leaflet</span>() <span class="op">%&gt;%</span><span class="st"> </span></a>
+<a class="sourceLine" id="cb158-3" data-line-number="3"><span class="st">    </span><span class="kw">addTiles</span>() </a></code></pre></div>
+<div id="htmlwidget-058a520feed147d687aa" style="width:672px;height:480px;" class="leaflet html-widget"></div>
+    <script type="application/json" data-for="htmlwidget-058a520feed147d687aa">{"x":{"options":{"crs":{"crsClass":"L.CRS.EPSG3857","code":null,"proj4def":null,"projectedBounds":null,"options":{}}},"calls":[{"method":"addTiles","args":["//{s}.tile.openstreetmap.org/{z}/{x}/{y}.png",null,null,{"minZoom":0,"maxZoom":18,"tileSize":256,"subdomains":"abc","errorTileUrl":"","tms":false,"noWrap":false,"zoomOffset":0,"zoomReverse":false,"opacity":1,"zIndex":1,"detectRetina":false,"attribution":"&copy; <a href=\"http://openstreetmap.org\">OpenStreetMap<\/a> contributors, <a href=\"http://creativecommons.org/licenses/by-sa/2.0/\">CC-BY-SA<\/a>"}]}]},"evals":[],"jsHooks":[]}</script></li>
+<li><p>Add the <code>addRectangles()</code> function using the longitude and latitude variables</p></li>
+</ol>
+<div class="sourceCode" id="cb159"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb159-1" data-line-number="1">locations <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb159-2" data-line-number="2"><span class="st">  </span><span class="kw">leaflet</span>() <span class="op">%&gt;%</span><span class="st"> </span></a>
+<a class="sourceLine" id="cb159-3" data-line-number="3"><span class="st">    </span><span class="kw">addTiles</span>() <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb159-4" data-line-number="4"><span class="st">    </span><span class="kw">addRectangles</span>(</a>
+<a class="sourceLine" id="cb159-5" data-line-number="5">      <span class="op">~</span>customer_lon, </a>
+<a class="sourceLine" id="cb159-6" data-line-number="6">      <span class="op">~</span>customer_lat, </a>
+<a class="sourceLine" id="cb159-7" data-line-number="7">      <span class="op">~</span>customer_lon_<span class="dv">2</span>,</a>
+<a class="sourceLine" id="cb159-8" data-line-number="8">      <span class="op">~</span>customer_lat_<span class="dv">2</span></a>
+<a class="sourceLine" id="cb159-9" data-line-number="9">    )</a></code></pre></div>
+<div id="htmlwidget-1e4d870fc243c79f50ad" style="width:672px;height:480px;" class="leaflet html-widget"></div>
+<script type="application/json" data-for="htmlwidget-1e4d870fc243c79f50ad">{"x":{"options":{"crs":{"crsClass":"L.CRS.EPSG3857","code":null,"proj4def":null,"projectedBounds":null,"options":{}}},"calls":[{"method":"addTiles","args":["//{s}.tile.openstreetmap.org/{z}/{x}/{y}.png",null,null,{"minZoom":0,"maxZoom":18,"tileSize":256,"subdomains":"abc","errorTileUrl":"","tms":false,"noWrap":false,"zoomOffset":0,"zoomReverse":false,"opacity":1,"zIndex":1,"detectRetina":false,"attribution":"&copy; <a href=\"http://openstreetmap.org\">OpenStreetMap<\/a> contributors, <a href=\"http://creativecommons.org/licenses/by-sa/2.0/\">CC-BY-SA<\/a>"}]},{"method":"addRectangles","args":[[37.728129,37.7340115,37.739894,37.7457765,37.751659,37.7575415,37.763424,37.7693065,37.7810715,37.728129,37.7457765,37.751659,37.7575415,37.7693065,37.7810715,37.7340115,37.7575415,37.7693065,37.775189,37.728129,37.739894,37.7457765,37.7693065,37.728129,37.7340115,37.7457765,37.763424,37.7693065,37.775189,37.7810715,37.728129,37.7457765,37.7693065,37.775189,37.728129,37.7340115,37.751659,37.7575415,37.763424,37.7810715,37.728129,37.739894,37.7457765,37.751659,37.7575415,37.763424,37.775189,37.739894,37.751659,37.7693065,37.775189,37.7810715,37.739894,37.7457765,37.7575415,37.763424,37.7693065,37.7810715],[-122.484909,-122.484909,-122.484909,-122.484909,-122.484909,-122.484909,-122.484909,-122.484909,-122.484909,-122.4763403,-122.4763403,-122.4763403,-122.4763403,-122.4763403,-122.4763403,-122.4677716,-122.4677716,-122.4677716,-122.4677716,-122.4592029,-122.4592029,-122.4592029,-122.4592029,-122.4506342,-122.4506342,-122.4506342,-122.4506342,-122.4506342,-122.4506342,-122.4506342,-122.4420655,-122.4420655,-122.4420655,-122.4420655,-122.4334968,-122.4334968,-122.4334968,-122.4334968,-122.4334968,-122.4334968,-122.4249281,-122.4249281,-122.4249281,-122.4249281,-122.4249281,-122.4249281,-122.4249281,-122.4163594,-122.4163594,-122.4163594,-122.4163594,-122.4163594,-122.4077907,-122.4077907,-122.4077907,-122.4077907,-122.4077907,-122.4077907],[37.7340115,37.739894,37.7457765,37.751659,37.7575415,37.763424,37.7693065,37.775189,37.786954,37.7340115,37.751659,37.7575415,37.763424,37.775189,37.786954,37.739894,37.763424,37.775189,37.7810715,37.7340115,37.7457765,37.751659,37.775189,37.7340115,37.739894,37.751659,37.7693065,37.775189,37.7810715,37.786954,37.7340115,37.751659,37.775189,37.7810715,37.7340115,37.739894,37.7575415,37.763424,37.7693065,37.786954,37.7340115,37.7457765,37.751659,37.7575415,37.763424,37.7693065,37.7810715,37.7457765,37.7575415,37.775189,37.7810715,37.786954,37.7457765,37.751659,37.763424,37.7693065,37.775189,37.786954],[-122.4763403,-122.4763403,-122.4763403,-122.4763403,-122.4763403,-122.4763403,-122.4763403,-122.4763403,-122.4763403,-122.4677716,-122.4677716,-122.4677716,-122.4677716,-122.4677716,-122.4677716,-122.4592029,-122.4592029,-122.4592029,-122.4592029,-122.4506342,-122.4506342,-122.4506342,-122.4506342,-122.4420655,-122.4420655,-122.4420655,-122.4420655,-122.4420655,-122.4420655,-122.4420655,-122.4334968,-122.4334968,-122.4334968,-122.4334968,-122.4249281,-122.4249281,-122.4249281,-122.4249281,-122.4249281,-122.4249281,-122.4163594,-122.4163594,-122.4163594,-122.4163594,-122.4163594,-122.4163594,-122.4163594,-122.4077907,-122.4077907,-122.4077907,-122.4077907,-122.4077907,-122.399222,-122.399222,-122.399222,-122.399222,-122.399222,-122.399222],null,null,{"interactive":true,"className":"","stroke":true,"color":"#03F","weight":5,"opacity":0.5,"fill":true,"fillColor":"#03F","fillOpacity":0.2,"smoothFactor":1,"noClip":false},null,null,null,{"interactive":false,"permanent":false,"direction":"auto","opacity":1,"offset":[0,0],"textsize":"10px","textOnly":false,"className":"","sticky":true},null]}],"limits":{"lat":[37.728129,37.786954],"lng":[-122.484909,-122.399222]}},"evals":[],"jsHooks":[]}</script>
+<ol style="list-style-type: decimal">
+<li>Add the <code>fillOpacity</code> argument to the <code>addRectangles()</code> step, use <code>n()</code> as the value for it</li>
+</ol>
+<div class="sourceCode" id="cb160"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb160-1" data-line-number="1">locations <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb160-2" data-line-number="2"><span class="st">  </span><span class="kw">leaflet</span>() <span class="op">%&gt;%</span><span class="st"> </span></a>
+<a class="sourceLine" id="cb160-3" data-line-number="3"><span class="st">    </span><span class="kw">addTiles</span>() <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb160-4" data-line-number="4"><span class="st">    </span><span class="kw">addRectangles</span>(</a>
+<a class="sourceLine" id="cb160-5" data-line-number="5">      <span class="op">~</span>customer_lon, </a>
+<a class="sourceLine" id="cb160-6" data-line-number="6">      <span class="op">~</span>customer_lat, </a>
+<a class="sourceLine" id="cb160-7" data-line-number="7">      <span class="op">~</span>customer_lon_<span class="dv">2</span>,</a>
+<a class="sourceLine" id="cb160-8" data-line-number="8">      <span class="op">~</span>customer_lat_<span class="dv">2</span>,</a>
+<a class="sourceLine" id="cb160-9" data-line-number="9">      <span class="dt">fillOpacity =</span> <span class="op">~</span><span class="st">`</span><span class="dt">n()</span><span class="st">`</span></a>
+<a class="sourceLine" id="cb160-10" data-line-number="10">    )</a></code></pre></div>
+<div id="htmlwidget-a9dd7e0e8f96b08fa3f1" style="width:672px;height:480px;" class="leaflet html-widget"></div>
+<script type="application/json" data-for="htmlwidget-a9dd7e0e8f96b08fa3f1">{"x":{"options":{"crs":{"crsClass":"L.CRS.EPSG3857","code":null,"proj4def":null,"projectedBounds":null,"options":{}}},"calls":[{"method":"addTiles","args":["//{s}.tile.openstreetmap.org/{z}/{x}/{y}.png",null,null,{"minZoom":0,"maxZoom":18,"tileSize":256,"subdomains":"abc","errorTileUrl":"","tms":false,"noWrap":false,"zoomOffset":0,"zoomReverse":false,"opacity":1,"zIndex":1,"detectRetina":false,"attribution":"&copy; <a href=\"http://openstreetmap.org\">OpenStreetMap<\/a> contributors, <a href=\"http://creativecommons.org/licenses/by-sa/2.0/\">CC-BY-SA<\/a>"}]},{"method":"addRectangles","args":[[37.728129,37.7340115,37.739894,37.7457765,37.751659,37.7575415,37.763424,37.7693065,37.7810715,37.728129,37.7457765,37.751659,37.7575415,37.7693065,37.7810715,37.7340115,37.7575415,37.7693065,37.775189,37.728129,37.739894,37.7457765,37.7693065,37.728129,37.7340115,37.7457765,37.763424,37.7693065,37.775189,37.7810715,37.728129,37.7457765,37.7693065,37.775189,37.728129,37.7340115,37.751659,37.7575415,37.763424,37.7810715,37.728129,37.739894,37.7457765,37.751659,37.7575415,37.763424,37.775189,37.739894,37.751659,37.7693065,37.775189,37.7810715,37.739894,37.7457765,37.7575415,37.763424,37.7693065,37.7810715],[-122.484909,-122.484909,-122.484909,-122.484909,-122.484909,-122.484909,-122.484909,-122.484909,-122.484909,-122.4763403,-122.4763403,-122.4763403,-122.4763403,-122.4763403,-122.4763403,-122.4677716,-122.4677716,-122.4677716,-122.4677716,-122.4592029,-122.4592029,-122.4592029,-122.4592029,-122.4506342,-122.4506342,-122.4506342,-122.4506342,-122.4506342,-122.4506342,-122.4506342,-122.4420655,-122.4420655,-122.4420655,-122.4420655,-122.4334968,-122.4334968,-122.4334968,-122.4334968,-122.4334968,-122.4334968,-122.4249281,-122.4249281,-122.4249281,-122.4249281,-122.4249281,-122.4249281,-122.4249281,-122.4163594,-122.4163594,-122.4163594,-122.4163594,-122.4163594,-122.4077907,-122.4077907,-122.4077907,-122.4077907,-122.4077907,-122.4077907],[37.7340115,37.739894,37.7457765,37.751659,37.7575415,37.763424,37.7693065,37.775189,37.786954,37.7340115,37.751659,37.7575415,37.763424,37.775189,37.786954,37.739894,37.763424,37.775189,37.7810715,37.7340115,37.7457765,37.751659,37.775189,37.7340115,37.739894,37.751659,37.7693065,37.775189,37.7810715,37.786954,37.7340115,37.751659,37.775189,37.7810715,37.7340115,37.739894,37.7575415,37.763424,37.7693065,37.786954,37.7340115,37.7457765,37.751659,37.7575415,37.763424,37.7693065,37.7810715,37.7457765,37.7575415,37.775189,37.7810715,37.786954,37.7457765,37.751659,37.763424,37.7693065,37.775189,37.786954],[-122.4763403,-122.4763403,-122.4763403,-122.4763403,-122.4763403,-122.4763403,-122.4763403,-122.4763403,-122.4763403,-122.4677716,-122.4677716,-122.4677716,-122.4677716,-122.4677716,-122.4677716,-122.4592029,-122.4592029,-122.4592029,-122.4592029,-122.4506342,-122.4506342,-122.4506342,-122.4506342,-122.4420655,-122.4420655,-122.4420655,-122.4420655,-122.4420655,-122.4420655,-122.4420655,-122.4334968,-122.4334968,-122.4334968,-122.4334968,-122.4249281,-122.4249281,-122.4249281,-122.4249281,-122.4249281,-122.4249281,-122.4163594,-122.4163594,-122.4163594,-122.4163594,-122.4163594,-122.4163594,-122.4163594,-122.4077907,-122.4077907,-122.4077907,-122.4077907,-122.4077907,-122.399222,-122.399222,-122.399222,-122.399222,-122.399222,-122.399222],null,null,{"interactive":true,"className":"","stroke":true,"color":"#03F","weight":5,"opacity":0.5,"fill":true,"fillColor":"#03F","fillOpacity":[1070,2182,4400,4427,2220,2360,1172,1004,2118,2225,1122,2185,3313,985,1051,1233,2210,1177,2154,1214,1076,2177,1072,1140,1109,2164,1129,1136,1148,1071,2340,2325,1161,2394,2371,1226,1136,2179,2006,1013,2137,2092,1159,2255,2282,1081,1017,1153,2166,996,2238,1194,1120,2500,2098,990,1192,1216],"smoothFactor":1,"noClip":false},null,null,null,{"interactive":false,"permanent":false,"direction":"auto","opacity":1,"offset":[0,0],"textsize":"10px","textOnly":false,"className":"","sticky":true},null]}],"limits":{"lat":[37.728129,37.786954],"lng":[-122.484909,-122.399222]}},"evals":[],"jsHooks":[]}</script>
+<ol style="list-style-type: decimal">
+<li>Modify <code>fillOpacity</code> to be calculated as a percentage against the maximum number of oders</li>
+</ol>
+<div class="sourceCode" id="cb161"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb161-1" data-line-number="1">locations <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb161-2" data-line-number="2"><span class="st">  </span><span class="kw">leaflet</span>() <span class="op">%&gt;%</span><span class="st"> </span></a>
+<a class="sourceLine" id="cb161-3" data-line-number="3"><span class="st">    </span><span class="kw">addTiles</span>() <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb161-4" data-line-number="4"><span class="st">    </span><span class="kw">addRectangles</span>(</a>
+<a class="sourceLine" id="cb161-5" data-line-number="5">      <span class="op">~</span>customer_lon, </a>
+<a class="sourceLine" id="cb161-6" data-line-number="6">      <span class="op">~</span>customer_lat, </a>
+<a class="sourceLine" id="cb161-7" data-line-number="7">      <span class="op">~</span>customer_lon_<span class="dv">2</span>,</a>
+<a class="sourceLine" id="cb161-8" data-line-number="8">      <span class="op">~</span>customer_lat_<span class="dv">2</span>,</a>
+<a class="sourceLine" id="cb161-9" data-line-number="9">      <span class="dt">fillOpacity =</span> <span class="op">~</span>(<span class="st">`</span><span class="dt">n()</span><span class="st">`</span> <span class="op">/</span><span class="st"> </span><span class="kw">max</span>(<span class="st">`</span><span class="dt">n()</span><span class="st">`</span>))</a>
+<a class="sourceLine" id="cb161-10" data-line-number="10">    )</a></code></pre></div>
+<div id="htmlwidget-8b394a427ee22fb0ca1e" style="width:672px;height:480px;" class="leaflet html-widget"></div>
+<script type="application/json" data-for="htmlwidget-8b394a427ee22fb0ca1e">{"x":{"options":{"crs":{"crsClass":"L.CRS.EPSG3857","code":null,"proj4def":null,"projectedBounds":null,"options":{}}},"calls":[{"method":"addTiles","args":["//{s}.tile.openstreetmap.org/{z}/{x}/{y}.png",null,null,{"minZoom":0,"maxZoom":18,"tileSize":256,"subdomains":"abc","errorTileUrl":"","tms":false,"noWrap":false,"zoomOffset":0,"zoomReverse":false,"opacity":1,"zIndex":1,"detectRetina":false,"attribution":"&copy; <a href=\"http://openstreetmap.org\">OpenStreetMap<\/a> contributors, <a href=\"http://creativecommons.org/licenses/by-sa/2.0/\">CC-BY-SA<\/a>"}]},{"method":"addRectangles","args":[[37.728129,37.7340115,37.739894,37.7457765,37.751659,37.7575415,37.763424,37.7693065,37.7810715,37.728129,37.7457765,37.751659,37.7575415,37.7693065,37.7810715,37.7340115,37.7575415,37.7693065,37.775189,37.728129,37.739894,37.7457765,37.7693065,37.728129,37.7340115,37.7457765,37.763424,37.7693065,37.775189,37.7810715,37.728129,37.7457765,37.7693065,37.775189,37.728129,37.7340115,37.751659,37.7575415,37.763424,37.7810715,37.728129,37.739894,37.7457765,37.751659,37.7575415,37.763424,37.775189,37.739894,37.751659,37.7693065,37.775189,37.7810715,37.739894,37.7457765,37.7575415,37.763424,37.7693065,37.7810715],[-122.484909,-122.484909,-122.484909,-122.484909,-122.484909,-122.484909,-122.484909,-122.484909,-122.484909,-122.4763403,-122.4763403,-122.4763403,-122.4763403,-122.4763403,-122.4763403,-122.4677716,-122.4677716,-122.4677716,-122.4677716,-122.4592029,-122.4592029,-122.4592029,-122.4592029,-122.4506342,-122.4506342,-122.4506342,-122.4506342,-122.4506342,-122.4506342,-122.4506342,-122.4420655,-122.4420655,-122.4420655,-122.4420655,-122.4334968,-122.4334968,-122.4334968,-122.4334968,-122.4334968,-122.4334968,-122.4249281,-122.4249281,-122.4249281,-122.4249281,-122.4249281,-122.4249281,-122.4249281,-122.4163594,-122.4163594,-122.4163594,-122.4163594,-122.4163594,-122.4077907,-122.4077907,-122.4077907,-122.4077907,-122.4077907,-122.4077907],[37.7340115,37.739894,37.7457765,37.751659,37.7575415,37.763424,37.7693065,37.775189,37.786954,37.7340115,37.751659,37.7575415,37.763424,37.775189,37.786954,37.739894,37.763424,37.775189,37.7810715,37.7340115,37.7457765,37.751659,37.775189,37.7340115,37.739894,37.751659,37.7693065,37.775189,37.7810715,37.786954,37.7340115,37.751659,37.775189,37.7810715,37.7340115,37.739894,37.7575415,37.763424,37.7693065,37.786954,37.7340115,37.7457765,37.751659,37.7575415,37.763424,37.7693065,37.7810715,37.7457765,37.7575415,37.775189,37.7810715,37.786954,37.7457765,37.751659,37.763424,37.7693065,37.775189,37.786954],[-122.4763403,-122.4763403,-122.4763403,-122.4763403,-122.4763403,-122.4763403,-122.4763403,-122.4763403,-122.4763403,-122.4677716,-122.4677716,-122.4677716,-122.4677716,-122.4677716,-122.4677716,-122.4592029,-122.4592029,-122.4592029,-122.4592029,-122.4506342,-122.4506342,-122.4506342,-122.4506342,-122.4420655,-122.4420655,-122.4420655,-122.4420655,-122.4420655,-122.4420655,-122.4420655,-122.4334968,-122.4334968,-122.4334968,-122.4334968,-122.4249281,-122.4249281,-122.4249281,-122.4249281,-122.4249281,-122.4249281,-122.4163594,-122.4163594,-122.4163594,-122.4163594,-122.4163594,-122.4163594,-122.4163594,-122.4077907,-122.4077907,-122.4077907,-122.4077907,-122.4077907,-122.399222,-122.399222,-122.399222,-122.399222,-122.399222,-122.399222],null,null,{"interactive":true,"className":"","stroke":true,"color":"#03F","weight":5,"opacity":0.5,"fill":true,"fillColor":"#03F","fillOpacity":[0.241698667269031,0.492884571944884,0.993901061667043,1,0.501468262932008,0.533092387621414,0.264739100971312,0.226790151344025,0.478427829229727,0.50259769595663,0.253444770725096,0.493562231759657,0.748362322114299,0.222498305850463,0.237406821775469,0.278518183871696,0.499209396882765,0.265868533995934,0.486559747007002,0.274226338378134,0.243053986898577,0.491755138920262,0.24215044047888,0.257510729613734,0.25050824486108,0.488818613056246,0.255025976959566,0.256607183194037,0.259317822453129,0.241924553873955,0.528574655522927,0.525186356449063,0.262254348317145,0.540772532188841,0.535577140275582,0.276936977637226,0.256607183194037,0.492206912130111,0.453128529478202,0.228823130788344,0.482719674723289,0.472554777501694,0.261802575107296,0.50937429410436,0.515473232437316,0.244183419923199,0.229726677208042,0.26044725547775,0.489270386266094,0.224983058504631,0.505534221820646,0.269708606279648,0.252992997515247,0.56471651231082,0.47391009713124,0.223627738875085,0.269256833069799,0.274678111587983],"smoothFactor":1,"noClip":false},null,null,null,{"interactive":false,"permanent":false,"direction":"auto","opacity":1,"offset":[0,0],"textsize":"10px","textOnly":false,"className":"","sticky":true},null]}],"limits":{"lat":[37.728129,37.786954],"lng":[-122.484909,-122.399222]}},"evals":[],"jsHooks":[]}</script>
+<ol style="list-style-type: decimal">
+<li>Add the <code>popup</code> argument with the following instruction as its value: <code>~paste0(&quot;&lt;p&gt;No of orders: &quot;,</code>n()<code>,&quot;&lt;/p&gt;&quot;)</code></li>
+</ol>
+<div class="sourceCode" id="cb162"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb162-1" data-line-number="1">locations <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb162-2" data-line-number="2"><span class="st">  </span><span class="kw">leaflet</span>() <span class="op">%&gt;%</span><span class="st"> </span></a>
+<a class="sourceLine" id="cb162-3" data-line-number="3"><span class="st">    </span><span class="kw">addTiles</span>() <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb162-4" data-line-number="4"><span class="st">    </span><span class="kw">addRectangles</span>(</a>
+<a class="sourceLine" id="cb162-5" data-line-number="5">      <span class="op">~</span>customer_lon, </a>
+<a class="sourceLine" id="cb162-6" data-line-number="6">      <span class="op">~</span>customer_lat, </a>
+<a class="sourceLine" id="cb162-7" data-line-number="7">      <span class="op">~</span>customer_lon_<span class="dv">2</span>,</a>
+<a class="sourceLine" id="cb162-8" data-line-number="8">      <span class="op">~</span>customer_lat_<span class="dv">2</span>,</a>
+<a class="sourceLine" id="cb162-9" data-line-number="9">      <span class="dt">fillOpacity =</span> <span class="op">~</span>(<span class="st">`</span><span class="dt">n()</span><span class="st">`</span> <span class="op">/</span><span class="st"> </span><span class="kw">max</span>(<span class="st">`</span><span class="dt">n()</span><span class="st">`</span>)),</a>
+<a class="sourceLine" id="cb162-10" data-line-number="10">      <span class="dt">popup =</span> <span class="op">~</span><span class="kw">paste0</span>(<span class="st">&quot;&lt;p&gt;No of orders: &quot;</span>,  <span class="st">`</span><span class="dt">n()</span><span class="st">`</span>,<span class="st">&quot;&lt;/p&gt;&quot;</span>)</a>
+<a class="sourceLine" id="cb162-11" data-line-number="11">    )</a></code></pre></div>
+<div id="htmlwidget-5e13da6486dc76f71119" style="width:672px;height:480px;" class="leaflet html-widget"></div>
+<script type="application/json" data-for="htmlwidget-5e13da6486dc76f71119">{"x":{"options":{"crs":{"crsClass":"L.CRS.EPSG3857","code":null,"proj4def":null,"projectedBounds":null,"options":{}}},"calls":[{"method":"addTiles","args":["//{s}.tile.openstreetmap.org/{z}/{x}/{y}.png",null,null,{"minZoom":0,"maxZoom":18,"tileSize":256,"subdomains":"abc","errorTileUrl":"","tms":false,"noWrap":false,"zoomOffset":0,"zoomReverse":false,"opacity":1,"zIndex":1,"detectRetina":false,"attribution":"&copy; <a href=\"http://openstreetmap.org\">OpenStreetMap<\/a> contributors, <a href=\"http://creativecommons.org/licenses/by-sa/2.0/\">CC-BY-SA<\/a>"}]},{"method":"addRectangles","args":[[37.728129,37.7340115,37.739894,37.7457765,37.751659,37.7575415,37.763424,37.7693065,37.7810715,37.728129,37.7457765,37.751659,37.7575415,37.7693065,37.7810715,37.7340115,37.7575415,37.7693065,37.775189,37.728129,37.739894,37.7457765,37.7693065,37.728129,37.7340115,37.7457765,37.763424,37.7693065,37.775189,37.7810715,37.728129,37.7457765,37.7693065,37.775189,37.728129,37.7340115,37.751659,37.7575415,37.763424,37.7810715,37.728129,37.739894,37.7457765,37.751659,37.7575415,37.763424,37.775189,37.739894,37.751659,37.7693065,37.775189,37.7810715,37.739894,37.7457765,37.7575415,37.763424,37.7693065,37.7810715],[-122.484909,-122.484909,-122.484909,-122.484909,-122.484909,-122.484909,-122.484909,-122.484909,-122.484909,-122.4763403,-122.4763403,-122.4763403,-122.4763403,-122.4763403,-122.4763403,-122.4677716,-122.4677716,-122.4677716,-122.4677716,-122.4592029,-122.4592029,-122.4592029,-122.4592029,-122.4506342,-122.4506342,-122.4506342,-122.4506342,-122.4506342,-122.4506342,-122.4506342,-122.4420655,-122.4420655,-122.4420655,-122.4420655,-122.4334968,-122.4334968,-122.4334968,-122.4334968,-122.4334968,-122.4334968,-122.4249281,-122.4249281,-122.4249281,-122.4249281,-122.4249281,-122.4249281,-122.4249281,-122.4163594,-122.4163594,-122.4163594,-122.4163594,-122.4163594,-122.4077907,-122.4077907,-122.4077907,-122.4077907,-122.4077907,-122.4077907],[37.7340115,37.739894,37.7457765,37.751659,37.7575415,37.763424,37.7693065,37.775189,37.786954,37.7340115,37.751659,37.7575415,37.763424,37.775189,37.786954,37.739894,37.763424,37.775189,37.7810715,37.7340115,37.7457765,37.751659,37.775189,37.7340115,37.739894,37.751659,37.7693065,37.775189,37.7810715,37.786954,37.7340115,37.751659,37.775189,37.7810715,37.7340115,37.739894,37.7575415,37.763424,37.7693065,37.786954,37.7340115,37.7457765,37.751659,37.7575415,37.763424,37.7693065,37.7810715,37.7457765,37.7575415,37.775189,37.7810715,37.786954,37.7457765,37.751659,37.763424,37.7693065,37.775189,37.786954],[-122.4763403,-122.4763403,-122.4763403,-122.4763403,-122.4763403,-122.4763403,-122.4763403,-122.4763403,-122.4763403,-122.4677716,-122.4677716,-122.4677716,-122.4677716,-122.4677716,-122.4677716,-122.4592029,-122.4592029,-122.4592029,-122.4592029,-122.4506342,-122.4506342,-122.4506342,-122.4506342,-122.4420655,-122.4420655,-122.4420655,-122.4420655,-122.4420655,-122.4420655,-122.4420655,-122.4334968,-122.4334968,-122.4334968,-122.4334968,-122.4249281,-122.4249281,-122.4249281,-122.4249281,-122.4249281,-122.4249281,-122.4163594,-122.4163594,-122.4163594,-122.4163594,-122.4163594,-122.4163594,-122.4163594,-122.4077907,-122.4077907,-122.4077907,-122.4077907,-122.4077907,-122.399222,-122.399222,-122.399222,-122.399222,-122.399222,-122.399222],null,null,{"interactive":true,"className":"","stroke":true,"color":"#03F","weight":5,"opacity":0.5,"fill":true,"fillColor":"#03F","fillOpacity":[0.241698667269031,0.492884571944884,0.993901061667043,1,0.501468262932008,0.533092387621414,0.264739100971312,0.226790151344025,0.478427829229727,0.50259769595663,0.253444770725096,0.493562231759657,0.748362322114299,0.222498305850463,0.237406821775469,0.278518183871696,0.499209396882765,0.265868533995934,0.486559747007002,0.274226338378134,0.243053986898577,0.491755138920262,0.24215044047888,0.257510729613734,0.25050824486108,0.488818613056246,0.255025976959566,0.256607183194037,0.259317822453129,0.241924553873955,0.528574655522927,0.525186356449063,0.262254348317145,0.540772532188841,0.535577140275582,0.276936977637226,0.256607183194037,0.492206912130111,0.453128529478202,0.228823130788344,0.482719674723289,0.472554777501694,0.261802575107296,0.50937429410436,0.515473232437316,0.244183419923199,0.229726677208042,0.26044725547775,0.489270386266094,0.224983058504631,0.505534221820646,0.269708606279648,0.252992997515247,0.56471651231082,0.47391009713124,0.223627738875085,0.269256833069799,0.274678111587983],"smoothFactor":1,"noClip":false},["<p>No of orders: 1070<\/p>","<p>No of orders: 2182<\/p>","<p>No of orders: 4400<\/p>","<p>No of orders: 4427<\/p>","<p>No of orders: 2220<\/p>","<p>No of orders: 2360<\/p>","<p>No of orders: 1172<\/p>","<p>No of orders: 1004<\/p>","<p>No of orders: 2118<\/p>","<p>No of orders: 2225<\/p>","<p>No of orders: 1122<\/p>","<p>No of orders: 2185<\/p>","<p>No of orders: 3313<\/p>","<p>No of orders: 985<\/p>","<p>No of orders: 1051<\/p>","<p>No of orders: 1233<\/p>","<p>No of orders: 2210<\/p>","<p>No of orders: 1177<\/p>","<p>No of orders: 2154<\/p>","<p>No of orders: 1214<\/p>","<p>No of orders: 1076<\/p>","<p>No of orders: 2177<\/p>","<p>No of orders: 1072<\/p>","<p>No of orders: 1140<\/p>","<p>No of orders: 1109<\/p>","<p>No of orders: 2164<\/p>","<p>No of orders: 1129<\/p>","<p>No of orders: 1136<\/p>","<p>No of orders: 1148<\/p>","<p>No of orders: 1071<\/p>","<p>No of orders: 2340<\/p>","<p>No of orders: 2325<\/p>","<p>No of orders: 1161<\/p>","<p>No of orders: 2394<\/p>","<p>No of orders: 2371<\/p>","<p>No of orders: 1226<\/p>","<p>No of orders: 1136<\/p>","<p>No of orders: 2179<\/p>","<p>No of orders: 2006<\/p>","<p>No of orders: 1013<\/p>","<p>No of orders: 2137<\/p>","<p>No of orders: 2092<\/p>","<p>No of orders: 1159<\/p>","<p>No of orders: 2255<\/p>","<p>No of orders: 2282<\/p>","<p>No of orders: 1081<\/p>","<p>No of orders: 1017<\/p>","<p>No of orders: 1153<\/p>","<p>No of orders: 2166<\/p>","<p>No of orders: 996<\/p>","<p>No of orders: 2238<\/p>","<p>No of orders: 1194<\/p>","<p>No of orders: 1120<\/p>","<p>No of orders: 2500<\/p>","<p>No of orders: 2098<\/p>","<p>No of orders: 990<\/p>","<p>No of orders: 1192<\/p>","<p>No of orders: 1216<\/p>"],null,null,{"interactive":false,"permanent":false,"direction":"auto","opacity":1,"offset":[0,0],"textsize":"10px","textOnly":false,"className":"","sticky":true},null]}],"limits":{"lat":[37.728129,37.786954],"lng":[-122.484909,-122.399222]}},"evals":[],"jsHooks":[]}</script>
+
+</div>
+</div>
+            </section>
+
+          </div>
+        </div>
+      </div>
+<a href="databases-and-dplyr.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+<a href="modeling-with-databases.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
+    </div>
+  </div>
+<script src="libs/gitbook-2.6.7/js/app.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/lunr.js"></script>
+<script src="libs/gitbook-2.6.7/js/clipboard.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-search.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-sharing.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-fontsettings.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-bookdown.js"></script>
+<script src="libs/gitbook-2.6.7/js/jquery.highlight.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-clipboard.js"></script>
+<script>
+gitbook.require(["gitbook"], function(gitbook) {
+gitbook.start({
+"sharing": false,
+"fontsettings": {
+"theme": "white",
+"family": "sans",
+"size": 2
+},
+"edit": null,
+"history": {
+"link": null,
+"text": null
+},
+"view": {
+"link": null,
+"text": null
+},
+"download": null,
+"toc": {
+"collapse": "subsection",
+"scroll_highlight": true
+},
+"toolbar": {
+"position": "fixed"
+},
+"search": true
+});
+});
+</script>
+
+</body>
+
+</html>
