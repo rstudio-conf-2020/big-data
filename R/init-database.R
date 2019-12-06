@@ -1,23 +1,25 @@
-#' @param path Folder and file name location to place the database file
+#' @param folder Folder location to place the database file
 #' @export
-bdc_init_sqlite <- function(path = "database/local.sqlite") {
+bdc_init_sqlite <- function(folder = "database") {
+  path <- file.path(folder, "local.sqlite")
   if(file.exists(path)) unlink(path)
+  if(!dir.exists(folder)) dir.create(folder)
   dbConnect(RSQLite::SQLite(), path)
 }
 
 #' @export
 bdc_init_database <- function(con,
-                               avg_daily_orders = 100,
-                               avg_no_items = 3,
-                               days_in_segment = 10,
-                               no_of_segments = 100,
-                               seed = 7878,
-                               product_data = bdc_create_products(), 
-                               customer_data = bigdataclass::customers,
-                               start_date = "2016-01-01",
-                               orders_view = "v_orders",
-                               lineitems_view = "v_lineitems"
-                               ) {
+                              avg_daily_orders = 100,
+                              avg_no_items = 3,
+                              days_in_segment = 10,
+                              no_of_segments = 100,
+                              seed = 7878,
+                              product_data = bdc_create_products(), 
+                              customer_data = bigdataclass::customers,
+                              start_date = "2016-01-01",
+                              orders_view = "v_orders",
+                              lineitems_view = "v_lineitems"
+                              ) {
   print("Creating product and customer tables")
   bdc_db_lookups(
     con = con, 
