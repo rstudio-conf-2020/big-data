@@ -35,6 +35,9 @@ bdc_init_class_sqlite <- function(folder = ".",
     folder,
     overwrite = TRUE
   )
+  rproj_file <- file.path(folder, "bigdataclass.Rproj")
+  new <- use_template("template.Rproj", rproj_file)
+  proj_activate(folder)
 }
 
 
