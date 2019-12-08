@@ -7,7 +7,7 @@ bdc_create_view <- function(query, name) {
 }
 
 #' @export
-bdc_create_view.tbl_SQLiteConnection <- function(query, name) {
+bdc_create_view.default <- function(query, name) {
   sql_query <- remote_query(query)
   full_sql <- glue_sql("CREATE VIEW ", name, " AS ", sql_query)
   con_sql <- remote_con(query)
@@ -20,7 +20,7 @@ bdc_create_view.tbl_SQLiteConnection <- function(query, name) {
 #' @param name Defaults to "v_orders"
 #' @export
 bdc_create_view_orders <- function(con, name = "v_orders") {
-  qry <- tbl(con, "order") %>%
+  qry <- tbl(con, "orders") %>%
     inner_join(tbl(con, "date"), by = "step_id") %>%
     inner_join(tbl(con, "customer"), by = "customer_id") %>%
     inner_join(tbl(con, "line_item"), by = "order_id") %>%
@@ -39,7 +39,7 @@ bdc_create_view_orders <- function(con, name = "v_orders") {
 #' @param name Defaults to "v_lineitems"
 #' @export
 bdc_create_view_lineitems <- function(con, name = "v_lineitems") {
-  qry <- tbl(con, "order") %>%
+  qry <- tbl(con, "orders") %>%
     inner_join(tbl(con, "date"), by = "step_id") %>%
     inner_join(tbl(con, "customer"), by = "customer_id") %>%
     inner_join(tbl(con, "line_item"), by = "order_id") %>%

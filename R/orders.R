@@ -32,12 +32,12 @@ bdc_db_orders.connConnection <- function(con,
   )
 }
 
-bdc_db_orders.SQLiteConnection <- function(con,
-                                           avg_daily_orders = 100,
-                                           avg_no_items = 3,
-                                           days_in_segment = 10,
-                                           no_of_segments = 100,
-                                           seed = 7878) {
+bdc_db_orders.default <- function(con,
+                                  avg_daily_orders = 100,
+                                  avg_no_items = 3,
+                                  days_in_segment = 10,
+                                  no_of_segments = 100,
+                                  seed = 7878) {
   set.seed(seed)
   no_customers <- tbl(con, "customer") %>%
     count() %>%
@@ -120,10 +120,10 @@ bdc_db_orders.SQLiteConnection <- function(con,
       select(-customer_id, -step_id, -transaction_id)
 
     if (i == 1) {
-      dbWriteTable(con, "order", orders, overwrite = TRUE)
+      dbWriteTable(con, "orders", orders, overwrite = TRUE)
       dbWriteTable(con, "line_item", line_items, overwrite = TRUE)
     } else {
-      dbWriteTable(con, "order", orders, append = TRUE)
+      dbWriteTable(con, "orders", orders, append = TRUE)
       dbWriteTable(con, "line_item", line_items, append = TRUE)
     }
     # print(paste0(i, " of ", no_of_segments, " complete- From: ", from, " - to: ", to))

@@ -21,7 +21,7 @@ bdc_db_lookups.connConnection <- function(con,
 }
 
 #' @export
-bdc_db_lookups.SQLiteConnection <- function(con,
+bdc_db_lookups.default <- function(con,
                                             product_data = bdc_create_products(),
                                             customer_data = bigdataclass::customers) {
   dbWriteTable(con, "product", product_data, overwrite = TRUE)
@@ -48,7 +48,7 @@ bdc_create_products <- function(no_products = 30, seed = 7878,
 #' @param start_date Start date
 #' @export
 bdc_db_create_dates <- function(con, start_date = "2016-01-01") {
-  step_max <- tbl(con, "order") %>%
+  step_max <- tbl(con, "orders") %>%
     summarise(max(step_id, na.rm = TRUE)) %>%
     pull()
   step_id <- seq_len(step_max)
