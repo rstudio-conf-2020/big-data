@@ -1,13 +1,3 @@
-#' Creates an empty SQLite database
-#' @param folder Folder location to place the database file
-#' @export
-bdc_init_sqlite <- function(folder = "database") {
-  path <- file.path(folder, "local.sqlite")
-  if (file.exists(path)) unlink(path)
-  if (!dir.exists(folder)) dir.create(folder)
-  dbConnect(RSQLite::SQLite(), path)
-}
-
 #' Initializes the database with the orders data
 #' @param con Database connection
 #' @param avg_daily_orders Number of average daily orders
