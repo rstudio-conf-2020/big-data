@@ -11,7 +11,8 @@ bdc_db_orders <- function(con,
                           avg_no_items = 3,
                           days_in_segment = 10,
                           no_of_segments = 100,
-                          seed = 7878) {
+                          seed = 7878
+                          ) {
   UseMethod("bdc_db_orders")
 }
 
@@ -21,7 +22,8 @@ bdc_db_orders.connConnection <- function(con,
                                          avg_no_items = 3,
                                          days_in_segment = 10,
                                          no_of_segments = 100,
-                                         seed = 7878) {
+                                         seed = 7878
+                                         ) {
   bdc_db_orders(
     con@con,
     avg_daily_orders = avg_daily_orders,

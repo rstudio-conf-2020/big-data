@@ -4,10 +4,14 @@
 \alias{bdc_init_db}
 \title{Initializes schema, tables and views}
 \usage{
-bdc_init_db(con)
+bdc_init_db(con, schema_name = "retail", overwrite = FALSE)
 }
 \arguments{
 \item{con}{PostgreSQL database connection}
+
+\item{schema_name}{Name of the schema to use}
+
+\item{overwrite}{If exists, it will delete the existing schema and replace it with the new content}
 }
 \description{
 Initializes schema, tables and views

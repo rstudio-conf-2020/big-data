@@ -9,7 +9,9 @@ bdc_build_workbook(
   source = system.file("workbook", package = "bigdataclass"),
   db_folder = "database",
   file_folder = "files",
-  book_folder = "books"
+  book_folder = "books",
+  db_connection = "con <- connection_open(RSQLite::SQLite(), 'database/local.sqlite')",
+  dbi_connection = "con <- dbConnect(RSQLite::SQLite(), 'database/local.sqlite')"
 )
 }
 \arguments{

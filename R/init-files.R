@@ -9,7 +9,8 @@ bdc_init_files <- function(con,
                            folder = "files",
                            no_transactions = 50000,
                            batch_size = 5000,
-                           no_files = 5) {
+                           no_files = 5
+                           ) {
   if (!dir.exists(folder)) dir.create(folder)
   lineitems <- tbl(con, "v_lineitems")
   csv_files <- list.files(folder, "*.csv")

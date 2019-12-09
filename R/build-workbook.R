@@ -9,21 +9,34 @@ bdc_build_workbook <- function(stage_folder = tempdir(),
                                source = system.file("workbook", package = "bigdataclass"),
                                db_folder = "database",
                                file_folder = "files",
-                               book_folder = "books") {
+                               book_folder = "books",
+                               db_connection = "con <- connection_open(RSQLite::SQLite(), 'database/local.sqlite')",
+                               dbi_connection = "con <- dbConnect(RSQLite::SQLite(), 'database/local.sqlite')"
+                               ) {
   if (!dir.exists(stage_folder)) dir.create(stage_folder)
   unlink(file.path(stage_folder, "workbook"), recursive = TRUE, force = TRUE)
-  file.copy(source, stage_folder, recursive = TRUE, overwrite = TRUE)
+  file.copy(
+    source, 
+    stage_folder, 
+    recursive = TRUE, 
+    overwrite = TRUE
+    )
   wb_path <- file.path(stage_folder, "workbook")
-  file.copy(db_folder, wb_path, recursive = TRUE)
+  if(!is.null(db_folder)) file.copy(db_folder, wb_path, recursive = TRUE)
   file.copy(file_folder, wb_path, recursive = TRUE)
   file.copy(book_folder, wb_path, recursive = TRUE)
+  tag_replace(wb_path, "files", file_folder)
+  tag_replace(wb_path, "books", book_folder)
+  tag_replace(wb_path, "db_connection", db_connection)
+  tag_replace(wb_path, "dbi_connection", dbi_connection)
   bookdown::serve_book(wb_path)
 }
 
 workbook_data <- function(wb_path = "inst/workbook",
                           db_folder = "database",
                           file_folder = "files",
-                          book_folder = "books") {
+                          book_folder = "books"
+                          ) {
   file.copy(db_folder, wb_path, recursive = TRUE)
   file.copy(file_folder, wb_path, recursive = TRUE)
   file.copy(book_folder, wb_path, recursive = TRUE)

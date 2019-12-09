@@ -22,7 +22,7 @@ library(dbplyr)
 
 1. Use `connection_open()` to open a Database connection
     ```{r, eval = eval_db}
-    con <- connection_open(RSQLite::SQLite(), "database/local.sqlite")
+    {{db_connection}}
     ```
     
 1. The RStudio Connections pane should show the tables in the database

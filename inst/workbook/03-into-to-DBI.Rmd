@@ -5,7 +5,6 @@ if(Sys.getenv("GLOBAL_EVAL") != "") eval_dbi <- Sys.getenv("GLOBAL_EVAL")
 
 ```{r, eval = TRUE, include = FALSE}
 library(DBI)
-library(RSQLite)
 ```
 
 # Introduction to `DBI` 
@@ -20,7 +19,7 @@ library(RSQLite)
 
 1. Use `dbConnect()` to open a Database connection
     ```{r, eval = TRUE}
-    con <- dbConnect(RSQLite::SQLite(), "mydatabase.sqlite")
+    {{dbi_connection}}
     ```
     
 1. Use `dbListTables()` to view existing tables, there should be 0 tables

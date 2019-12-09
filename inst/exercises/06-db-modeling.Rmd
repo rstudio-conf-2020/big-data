@@ -4,7 +4,11 @@ if(Sys.getenv("GLOBAL_EVAL") != "") eval_model <- Sys.getenv("GLOBAL_EVAL")
 ```
 
 ```{r, eval = eval_model, include = FALSE}
-
+library(tidymodels)
+library(modeldb)
+library(pins)
+library(dbplyr)
+library(RPostgres)
 ```
 
 # Modeling with databases

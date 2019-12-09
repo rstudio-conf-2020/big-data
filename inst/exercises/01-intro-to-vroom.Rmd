@@ -21,19 +21,19 @@ library(dplyr)
     library(vroom)
     ```
 
-1. Use the `vroom()` function to read the **transactions_1.csv** file from the **files** folder
+1. Use the `vroom()` function to read the **transactions_1.csv** file from the **{{files}}** folder
     ```{r, eval = eval_vroom}
-    vroom("files/transactions_1.csv")
+    vroom("{{files}}/transactions_1.csv")
     ```
 
 1. Use the `id` argument to add the file name to the data frame.  Use **file_name** as the argument's value
     ```{r, eval = eval_vroom}
-    vroom("files/transactions_1.csv", id = "file_name")
+    vroom("{{files}}/transactions_1.csv", id = "file_name")
     ```
 
 1. Load the prior command into a variable called `vr_transactions`
     ```{r, eval = eval_vroom}
-    vr_transactions <- vroom("files/transactions_1.csv", id = "file_name")
+    vr_transactions <- vroom("{{files}}/transactions_1.csv", id = "file_name")
     
     vr_transactions
     ```
@@ -53,14 +53,14 @@ library(dplyr)
     library(dplyr)
     ```
 
-1. List files in the **files** folder using the `dir_ls()` function
+1. List files in the **{{files}}** folder using the `dir_ls()` function
     ```{r, eval = eval_vroom}
-    dir_ls("files")
+    dir_ls("{{files}}")
     ```
 
 1. In the `dir_ls()` function, use the `glob` argument to pass a wildcard to list CSV files only. Load to a variable named `files`
     ```{r, eval = eval_vroom}
-    files <- dir_ls("files", glob = "*.csv")
+    files <- dir_ls("{{files}}", glob = "*.csv")
     ```
 
 1. Pass the `files` variable to `vroom`. Set the `n_max` argument to 1,000 to limit the data load for now

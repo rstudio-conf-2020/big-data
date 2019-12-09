@@ -27,7 +27,7 @@ library(leaflet)
 
 1. Use `connection_open()` to open a Database connection
     ```{r, eval = eval_viz}
-    con <- connection_open(RSQLite::SQLite(), "database/local.sqlite")
+    {{db_connection}}
     ```
 
 1. Use `tbl()` to create a pointer to the **v_transactions** table
