@@ -18,9 +18,11 @@ library(purrr)
 ## `dtplyr` basics
 *Load data into R via `data.table`, and then wrap it with `dtplyr`*
 
-1. Load the `data.table`, `purrr` and `fs` libraries
+1. Load the `data.table`, `dplyr`, `dtplyr`, `purrr` and `fs` libraries
     ```{r, eval = eval_dtplyr}
     library(data.table)
+    library(dplyr)
+    library(dtplyr)
     library(purrr)
     library(fs)
     ```
@@ -32,9 +34,9 @@ library(purrr)
        rbindlist()
     ```
 
-1. Preview the data using `str()`
+1. Preview the data using `glimpse()`
     ```{r, eval = eval_dtplyr}
-    str(transactions)
+    glimpse(transactions)
     ```
 
 1. Load the `dplyr` and `dtplyr` libraries
@@ -49,9 +51,9 @@ library(purrr)
     ```
 
 
-1. View the `dt_transactions` variable's structure with `str()`
+1. View the `dt_transactions` variable's structure with `glimpse()`
     ```{r, eval = eval_dtplyr}
-    str(dt_transactions)
+    glimpse(dt_transactions)
     ```
 
 ## Object sizes
@@ -99,9 +101,9 @@ library(purrr)
     show_query(by_month)
     ```
 
-1. Use `str()` to view how `by_month`, instead of modifying the data, it only adds steps that will later be operated by `data.table`
+1. Use `glimpse()` to view how `by_month`, instead of modifying the data, only adds steps that will later be executed by `data.table`
     ```{r, eval = eval_dtplyr}
-    str(by_month)
+    glimpse(by_month)
     ```
 
 ## Working with `dtplyr`
@@ -114,7 +116,6 @@ library(purrr)
     ```
 
 1. Load the `ggplot2` library
-
     ```{r, eval = eval_dtplyr}
     library(ggplot2)
     ```
