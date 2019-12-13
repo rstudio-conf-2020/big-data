@@ -91,7 +91,7 @@ library(DBI)
     rs <- dbSendStatement(con, "delete from db_mtcars where am = 1")
     ```
 
-1. Call the `rs` variable to view information about the results of the requeted change
+1. Call the `rs` variable to view information about the results of the requested change
     ```{r, eval = eval_dbi}
     rs
     ```
