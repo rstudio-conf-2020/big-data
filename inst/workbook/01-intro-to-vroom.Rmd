@@ -81,7 +81,7 @@ library(dplyr)
     ```
 
 ## Load and modify multiple files
-*Files to large to have in memory, keep summarization*
+*For files that are too large to have in memory, keep a summarization*
 
 1. Use a `for()` loop to print the content of each vector inside `files`
     ```{r, eval = eval_vroom}
@@ -110,16 +110,16 @@ library(dplyr)
     }
     ```
 
-1. Add a new variable called `all_orders` at the top. Set it to `NULL`. Add a `bind_rows()` step to `orders`, appending `all_orders`
+1. Define the `orders` variable as `NULL` prior to the for loop and add a `bind_rows()` step to `orders` to preserve each summarized view.
     ```{r, eval = eval_vroom}
-    all_orders <- NULL
+    orders <- NULL
     for(i in seq_along(files)) {
       transactions <- vroom(files[i], n_max = 1000, col_types = vr_spec, 
                            col_select = list(order_id, date, customer_name, price))
       orders <- transactions %>%
         group_by(order_id) %>%
         summarise(total_sales = sum(price), no_items = n()) %>%
-        bind_rows(all_orders)
+        bind_rows(orders)
     }
     ```
     
