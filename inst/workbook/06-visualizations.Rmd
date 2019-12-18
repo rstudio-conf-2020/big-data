@@ -30,7 +30,7 @@ library(leaflet)
     {{db_connection}}
     ```
 
-1. Use `tbl()` to create a pointer to the **v_transactions** table
+1. Use `tbl()` to create a pointer to the **v_orders** table
     ```{r, eval = eval_viz}
     orders <- tbl(con, "v_orders")
     ```
@@ -103,7 +103,7 @@ library(leaflet)
     ```
 
 ## Create a histogram
-*Use the package's function to easily create a histogram*
+*Use the `dbplot` package to easily create a histogram*
 
 1. Load the `dbplot` package
     ```{r, eval = eval_viz}
@@ -139,7 +139,7 @@ library(leaflet)
       dbplot_raster(order_qty, order_total, resolution = 10)
     ```
 
-## Using the `calculate` functions
+## Using the `compute` functions
 
 1. Use the `db_compute_raster()` function to get the underlying results that feed the plot
     ```{r, eval = eval_viz}
@@ -191,7 +191,7 @@ locations %>%
     )
 ```
 
-1. Modify `fillOpacity` to be calculated as a percentage against the maximum number of oders
+1. Modify `fillOpacity` to be calculated as a percentage against the maximum number of orders
 ```{r, eval = eval_viz}
 locations %>%
   leaflet() %>% 

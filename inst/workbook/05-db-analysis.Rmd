@@ -46,43 +46,43 @@ library(dbplyr)
     tbl(con, in_schema("main", "customer"))
     ```
 
-1. Load the results from the `tbl()` command that points to the table called **order** to a variable called `order` 
+1. Load the results from the `tbl()` command that points the table called **orders** to a variable called `orders` 
     ```{r, eval = eval_db}
-    order <- tbl(con, "order")
+    orders <- tbl(con, "orders")
     ```
     
     
 ## Under the hood 
 *Use `show_query()` to preview the SQL statement that will be sent to the database*
 
-1. Use `show_query()` to preview SQL statement that actually runs when we run `order` as a command
+1. Use `show_query()` to preview SQL statement that actually runs when we run `orders` as a command
     ```{r, eval = eval_db}
-    show_query(order)
+    show_query(orders)
     ```
 
 1. Easily view the resulting query by adding `show_query()` in another piped command
     ```{r, eval = eval_db}
-    order %>%
+    orders %>%
       show_query()
     ```
 
 1. Insert `head()` in between the two statements to see how the SQL changes
     ```{r, eval = eval_db}
-    order %>%
+    orders %>%
       head() %>%
       show_query()
     ```
 
 1. Use `sql_render()` and `simulate_mssql()` to see how the SQL statement changes from vendor to vendor
     ```{r, eval = eval_db}
-    order %>%
+    orders %>%
       head() %>%
       sql_render(con = simulate_mssql()) 
     ```
 
 1. Use `explain()` to explore the query plan
     ```{r, eval = eval_db}
-    order %>% 
+    orders %>% 
       head() %>% 
       explain()
     ```
@@ -92,21 +92,21 @@ library(dbplyr)
 
 1. Preview how `Sys.time()` is translated
     ```{r, eval = eval_db}
-    order %>%
+    orders %>%
       mutate(today = Sys.time()) %>%
       show_query()
     ```
 
 1. Use SQLite's native commands, in this case `date()`
     ```{r, eval = eval_db}
-    order %>%
+    orders %>%
       mutate(today = date('now')) %>%
       show_query()
     ```
 
 1. Run the `dplyr` code to confirm it works
     ```{r, eval = eval_db}
-    order %>%
+    orders %>%
       mutate(today = date('now')) %>%
       select(today) %>%
       head()
@@ -117,12 +117,12 @@ library(dbplyr)
 
 1. Preview how `Sys.time()` is translated when prefixing `!!`
     ```{r, eval = eval_db}
-    order %>%
+    orders %>%
       mutate(today = !!Sys.time()) %>%
       show_query()
     ```
 
-1. Preview how `Sys.time()` is translated when prefixing `!!`
+1. View resulting table when `Sys.time()` is translated when prefixing `!!`
     ```{r, eval = eval_db}
     order %>%
       mutate(today = !!Sys.time()) %>%
