@@ -1,0 +1,3 @@
+PG_HOST = localhost
+PG_USER = postgres
+PG_PWD = postgres
