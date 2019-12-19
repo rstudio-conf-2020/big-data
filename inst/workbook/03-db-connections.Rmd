@@ -1,0 +1,143 @@
+```{r db-connections, include = FALSE}
+eval_connections <- FALSE
+if(Sys.getenv("GLOBAL_EVAL") != "") eval_connections <- Sys.getenv("GLOBAL_EVAL")
+```
+
+```{r, eval = TRUE, include = FALSE}
+library(DBI)
+library(odbc)
+library(config)
+library(keyring)
+```
+
+# Introduction to database connections
+
+## Connecting via DSN
+*Connect using defined Data Source Name (DSN). This requires an ODBC driver.*
+
+1. Load the `DBI` and `odbc` packages
+    ```{r, eval = TRUE}
+    library(DBI)
+    library(odbc)
+    ```
+
+1. Use `odbcListDatasources` to list available DSNs
+    ```{r, eval = TRUE}
+    odbcListDataSources()
+    ```
+    
+1. Use `dbConnect` to connect to a database using the `odbc` function and a DSN
+    ```{r, eval = eval_connections}
+    con <- dbConnect(odbc(), "Postgres DSN")
+    ```
+    
+1. Disconnect using `dbDisconnect`
+    ```{r, eval = eval_connections}
+    dbDisconnect(con)
+    ```
+
+## Connect with a connection string
+*Connect by specifying all connection details in `dbConnect`*
+
+1. Use `dbConnect` and `odbc` to connect to a database, but this time all connection details are provided
+    ```{r, eval = eval_connections}
+    con <- dbConnect(odbc(),
+                     driver = "postgresql",
+                     host = "localhost",
+                     user = "postgres",
+                     pwd = "postgres",
+                     port = 5432,
+                     database = "postgres",
+                     bigint = "integer")
+    ```
+    
+1. Disconnect using `dbDisconnect`
+    ```{r, eval = eval_connections}
+    dbDisconnect(con)
+    ```
+    
+## Secure connection details
+*Use `config`, `keyring`, or environment variables to secure connection credentials*
+
+1. Load the `config` package
+    ```{r, eval = eval_connections}
+    library(config)
+    ```
+    
+1. Get the current config using the `get` function and store the results in an object called `config`
+    ```{r, eval = eval_connections}
+    config <- get()
+    ```
+
+1. Use `str` to investigate the contents of `config`
+    ```{r, eval = eval_connections}
+    str(config)
+    ```
+
+1. Connect using details provided in `config`
+    ```{r, eval = eval_connections}
+    con <- dbConnect(odbc(),
+                     driver = config$driver,
+                     host = config$host,
+                     user = config$user,
+                     pwd = config$pwd,
+                     port = config$port,
+                     database = config$dbname,
+                     bigint = config$bigint)
+    ```
+    
+1. Disconnect using `dbDisconnect`
+    ```{r, eval = eval_connections}
+    dbDisconnect(con)
+    ```
+    
+1. Load the `keyring` package
+    ```{r, eval = eval_connections}
+    library(keyring)
+    ```
+
+1. Store the database host, username, and password using `keyring`
+    ```{r, eval = eval_connections}
+    key_set("postgres", "host")
+    key_set("postgres", "username")
+    key_set("postgres", "password")
+    ```
+    
+1. Use the stored credentials along with `dbConnect` to connect to the database
+    ```{r, eval = eval_connections}
+    con <- dbConnect(odbc(),
+                     driver = "postgresql",
+                     host = key_get("postgres", "host"),
+                     user = key_get("postgres", "username"),
+                     pwd = key_get("postgres", "password"),
+                     port = 5432,
+                     database = "postgres",
+                     bigint = "integer")
+    ```
+
+1. Discnonect using `dbDisconnect`
+    ```{r, eval = eval_connections}
+    dbDisconnect(con)
+    ```
+
+1. The `.Renviron` file contains entries to create environment variables for `PG_HOST`, `PG_USER`, and `PG_PWD`. These variables can be read using `Sys.getenv()`.
+    ```{r, eval = eval_connections}
+    Sys.getenv("PG_HOST")
+    ```
+
+1. Connect to the database using the credentials stored in `.Renviron` and `Sys.getenv()`
+    ```{r, eval = eval_connections}
+    con <- dbConnect(odbc(),
+                     driver = "postgresql",
+                     host = Sys.getenv("PG_HOST"),
+                     user = Sys.getenv("PG_USER"),
+                     pwd = Sys.getenv("PG_PWD"),
+                     port = 5432,
+                     database = "postgres",
+                     bigint = "integer")
+    ```
+    
+1. Discnonect using `dbDisconnect`
+    ```{r, eval = eval_connections}
+    dbDisconnect(con)
+    ```

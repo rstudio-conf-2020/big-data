@@ -1,0 +1,8 @@
+default:
+  driver: "postgresql"
+  host: "localhost"
+  user: "postgres"
+  port: 5432
+  pwd: "postgres"
+  dbname: "postgres"
+  bigint: "integer"
