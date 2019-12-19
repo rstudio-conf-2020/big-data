@@ -60,7 +60,7 @@ library(DBI)
     dbWriteTable(con, "db_mtcars", mtcars)
     ```
 ```
-## Error: Table db_mtcars exists in database, and both overwrite and append are FALSE
+ Error: Table db_mtcars exists in database, and both overwrite and append are FALSE
 ```
 
 1. Use the `append` argument in `dbWriteTable()` to add the data in the **db_mtcars** table

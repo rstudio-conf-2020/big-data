@@ -113,10 +113,13 @@ The following is a tentative outline of the subjects that will be covered during
     - Working with `dtplyr`
     - Pivot data
     - The `mutate()` verb
+  - Introduction to database connections
+    - Connecting via DSN
+    - Connect with a connection string
+    - Secure connection details
   - Introduction to `DBI`
     - Local database basics
     - Options for writing tables
-    - Error: Table db_mtcars exists in database, and both overwrite and append are FALSE
     - Database operations
     - `knitr` SQL engine
   - Databases and `dplyr`
@@ -125,14 +128,12 @@ The following is a tentative outline of the subjects that will be covered during
     - Under the hood
     - Un-translated R commands
     - Using bang-bang
-    - Table joins
-    - Custom view
   - Data Visualizations
     - Simple plot
     - Plot in one code segment
     - Create a histogram
     - Raster plot
-    - Using the `calculate` functions
+    - Using the `compute` functions
   - Modeling with databases
     - Single step sampling
     - Multi-step sampling

@@ -1,5 +1,5 @@
 setwd(here::here("workbook"))
-Sys.setenv(GLOBAL_EVAL = TRUE)
+#Sys.setenv(GLOBAL_EVAL = TRUE)
 files <- c(
   "derby.log",
   "parsedmodel.csv",
@@ -40,3 +40,16 @@ bookdown::serve_book(output_dir = here::here("docs"))
 .rs.restartR(
   afterRestartCommand = "setwd(here::here()); browseURL('docs/index.html')"
 )
+
+get_outline <- function() {
+  rmds <- fs::dir_ls("workbook", glob = "*.Rmd")
+  rmd <- rmds[rmds != "workbook/index.Rmd"]
+  bdc_utils_outline(rmd) 
+}
+
+get_libraries <- function() {
+  rmds <- fs::dir_ls("workbook", glob = "*.Rmd")
+  rmd <- rmds[rmds != "workbook/index.Rmd"]
+  bdc_utils_libraries(rmd) 
+}
+
