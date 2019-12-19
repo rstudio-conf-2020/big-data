@@ -1,15 +1,162 @@
 ```{r db-advanced, include = FALSE}
-eval_adv <- FALSE
+eval_adv <- TRUE
 if(Sys.getenv("GLOBAL_EVAL") != "") eval_adv <- Sys.getenv("GLOBAL_EVAL")
 ```
 
 ```{r, eval = eval_adv, include = FALSE}
-
+library(connections)
+library(dplyr)
+library(rlang)
+library(config)
+library(dbplyr)
 ```
 
 # Advanced Operations
 
 ## Simple wrapper function
+
+1. Load the `connections` and `dplyr` libraries
+    ```{r, eval = eval_adv}
+    library(connections)
+    library(dplyr)
+    library(dbplyr)
+    library(config)
+    ```
+
+1. Use `connection_open()` to open a Database connection
+    ```{r, eval = eval_adv}
+    con <- connection_open(
+      RPostgres::Postgres(),
+      host =  "localhost",
+      user = get("user", config = "datawarehouse"),
+      password = get("password", config = "datawarehouse"),
+      port = 5432,
+      dbname = "postgres",
+      bigint = "integer"
+    )
+    ```
+
+1. Create a variable that points to the **v_orders** table
+    ```{r, eval = eval_adv}
+    orders <- tbl(con, in_schema("datawarehouse", "v_orders"))
+    ```
+
+
+1. Create a simple `dplyr` call that gets the average of all order totals
+    ```{r, eval = eval_adv}
+    orders %>%
+      summarise(mean = mean(order_total, na.rm = TRUE))
+    ```
+
+1. Load the `rlang` library
+    ```{r, eval = eval_adv}
+    library(rlang)
+    ```
+
+1. Create a new function call `my_mean()` that will take an argument, `x`, and then returns the results of `enquo(x)`
+    ```{r, eval = eval_adv}
+    my_mean <- function(x){
+      enquo(x)
+    }
+    ```
+
+1. Test the new function. It should return the same variable name, but inside quosure. Use `order_total` as its argument's value to test
+    ```{r, eval = eval_adv}
+    my_mean(order_total)
+    ```
+
+1. In the function, re-assign `x` to the result of `enquo(x)`, and then return `x`
+    ```{r, eval = eval_adv}
+    my_mean <- function(x){
+      x <- enquo(x)
+      x
+    }
+    ```
+
+1. Test the same way again, the output should match to what it was as before
+    ```{r, eval = eval_adv}
+    my_mean(order_total)
+    ```
+
+1. Remove the last line that has `x`,  add the contents of the function with the initial `dplyr` code from step 3.  Then replace `order_total` with `!! x`
+    ```{r, eval = eval_adv}
+    my_mean <- function(x){
+      x <- enquo(x)
+      orders %>%
+        summarise(mean = mean(!! x, na.rm = TRUE))
+    }
+    ```
+
+1. Test the new function by passing `order_total` as `x`
+    ```{r, eval = TRUE}
+    my_mean(order_total)
+    ```
+
+1. In the `summarise()` step, replace the name `mean`, with `!! as_label(x)`, also replace the `=` sign, with `:=`
+    ```{r, eval = eval_adv}
+    my_mean <- function(x){
+      x <- enquo(x)
+      orders %>%
+        summarise(!! as_label(x) := mean(!! x, na.rm = TRUE))
+    }
+    ```
+
+1. Run the function again, the name of the column should match the argument value
+    ```{r, eval = eval_adv}
+    my_mean(order_total)
+    ```
+
+1. Test the function by passing a formula, such as `order_total / order_qty`
+
+    ```{r, eval = eval_adv}
+    my_mean(order_total / order_qty)
+    ```
+
+1. Make the function generic, add a new argument called: `.data`. Inisde the function, replace `orders` with `.data`
+    ```{r, eval = eval_adv}
+    my_mean <- function(.data, x){
+      x <- enquo(x)
+      .data %>%
+        summarise(!! as_label(x) := mean(!! x, na.rm = TRUE))
+    }
+    ```
+
+1. The function now behaves more like a `dplyr` verb. Start with `orders` and then pipe into the function
+    ```{r, eval = eval_adv}
+    orders %>% 
+      my_mean(order_total)
+    ```
+
+1. Clean up the code by removing the pipe that inside the function
+    ```{r, eval = eval_adv}
+    my_mean <- function(.data, x){
+      x <- enquo(x)
+      summarise(
+        .data,
+        !! as_label(x) := mean(!! x, na.rm = TRUE)
+        )
+    }
+    ```
+
+1. Confirm that there is no change in the behavior of the function
+    ```{r, eval = eval_adv}
+    orders %>% 
+      my_mean(order_total)
+    ```
+
+1. Add a `show_query()` step to preview the resulting SQL statement
+    ```{r, eval = eval_adv}
+    orders %>% 
+      my_mean(order_total) %>%
+      show_query()
+    ```
+
+1. Try the function with a non-DB backed variable, such as `mtcars`. Use `mpg` as the aggregating variable
+    ```{r, eval = eval_adv}
+    mtcars %>% 
+      my_mean(mpg)
+    ```
+
 ## Multiple variables
 ## Multiple queries
 ## Characters to field names
