@@ -6,3 +6,10 @@ default:
   pwd: "postgres"
   dbname: "postgres"
   bigint: "integer"
+datawarehouse:
+  host: "localhost"
+  user: "rstudio_admin"
+  port: 5432
+  password: "admin_user_be_careful"
+  dbname: "postgres"
+  bigint: "integer"

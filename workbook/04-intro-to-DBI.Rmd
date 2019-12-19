@@ -19,7 +19,7 @@ library(DBI)
 
 1. Use `dbConnect()` to open a Database connection
     ```{r, eval = TRUE}
-    {{dbi_connection}}
+    con <- dbConnect(RSQLite::SQLite(), "mydatabase.sqlite")
     ```
     
 1. Use `dbListTables()` to view existing tables, there should be 0 tables

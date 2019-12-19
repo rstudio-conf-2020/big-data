@@ -13,7 +13,7 @@ if(Sys.getenv("GLOBAL_EVAL") != "") eval_caching <- Sys.getenv("GLOBAL_EVAL")
 ## Map data
 *See the machanics of how Spark is able to use files as a data source*
 
-1. Examine the contents of the **files** folder
+1. Examine the contents of the **/usr/share/class/files** folder
 
 1. Load the `sparklyr` library
     ```{r, eval = eval_caching}
@@ -33,7 +33,7 @@ if(Sys.getenv("GLOBAL_EVAL") != "") eval_caching <- Sys.getenv("GLOBAL_EVAL")
     
 1. Read the top 5 rows of the **transactions_1** CSV file
     ```{r, eval = eval_caching}
-    top_rows <- read_csv("files/transactions_1.csv", n_max = 5)
+    top_rows <- read_csv("/usr/share/class/files/transactions_1.csv", n_max = 5)
     ```
 
 1. Create a list based on the column names, and add a list item with "character" as its value. Name the variable `file_columns`
@@ -53,7 +53,7 @@ if(Sys.getenv("GLOBAL_EVAL") != "") eval_caching <- Sys.getenv("GLOBAL_EVAL")
     spark_lineitems <- spark_read_csv(
       sc,
       name = "orders",
-      path = "files",
+      path = "/usr/share/class/files",
       memory = FALSE,
       columns = file_columns,
       infer_schema = FALSE
@@ -94,3 +94,8 @@ if(Sys.getenv("GLOBAL_EVAL") != "") eval_caching <- Sys.getenv("GLOBAL_EVAL")
 1. Click the **Storage** button
 
 1. Notice that "orders" is now cached into Spark memory 
+
+```{r, include = FALSE, eval = eval_caching}
+spark_disconnect(sc)
+```
+

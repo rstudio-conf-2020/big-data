@@ -1,9 +1,9 @@
 ```{r db-connections, include = FALSE}
-eval_connections <- FALSE
 if(Sys.getenv("GLOBAL_EVAL") != "") eval_connections <- Sys.getenv("GLOBAL_EVAL")
+eval_connections <- FALSE
 ```
 
-```{r, eval = TRUE, include = FALSE}
+```{r, eval = eval_connections, include = FALSE}
 library(DBI)
 library(odbc)
 library(config)
@@ -16,13 +16,13 @@ library(keyring)
 *Connect using defined Data Source Name (DSN). This requires an ODBC driver.*
 
 1. Load the `DBI` and `odbc` packages
-    ```{r, eval = TRUE}
+    ```{r, eval_connections = eval_connections}
     library(DBI)
     library(odbc)
     ```
 
 1. Use `odbcListDatasources` to list available DSNs
-    ```{r, eval = TRUE}
+    ```{r, eval = eval_connections}
     odbcListDataSources()
     ```
     

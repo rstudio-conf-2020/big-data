@@ -4,11 +4,11 @@
 
   <meta charset="utf-8" />
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-  <title>2 Introduction to dtplyr | _main.utf8</title>
+  <title>2 Introduction to dtplyr | _main.utf8.md</title>
   <meta name="description" content="" />
   <meta name="generator" content="bookdown 0.16 and GitBook 2.6.7" />
 
-  <meta property="og:title" content="2 Introduction to dtplyr | _main.utf8" />
+  <meta property="og:title" content="2 Introduction to dtplyr | _main.utf8.md" />
   <meta property="og:type" content="book" />
   
   
@@ -16,7 +16,7 @@
   
 
   <meta name="twitter:card" content="summary" />
-  <meta name="twitter:title" content="2 Introduction to dtplyr | _main.utf8" />
+  <meta name="twitter:title" content="2 Introduction to dtplyr | _main.utf8.md" />
   
   
   
@@ -30,7 +30,7 @@
   
   
 <link rel="prev" href="introduction-to-vroom.html"/>
-<link rel="next" href="introduction-to-dbi.html"/>
+<link rel="next" href="introduction-to-database-connections.html"/>
 <script src="libs/jquery-2.2.3/jquery.min.js"></script>
 <link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
 <link href="libs/gitbook-2.6.7/css/plugin-table.css" rel="stylesheet" />
@@ -147,59 +147,64 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="2.5" data-path="introduction-to-dtplyr.html"><a href="introduction-to-dtplyr.html#pivot-data"><i class="fa fa-check"></i><b>2.5</b> Pivot data</a></li>
 <li class="chapter" data-level="2.6" data-path="introduction-to-dtplyr.html"><a href="introduction-to-dtplyr.html#the-mutate-verb"><i class="fa fa-check"></i><b>2.6</b> The <code>mutate()</code> verb</a></li>
 </ul></li>
-<li class="chapter" data-level="3" data-path="introduction-to-dbi.html"><a href="introduction-to-dbi.html"><i class="fa fa-check"></i><b>3</b> Introduction to <code>DBI</code></a><ul>
-<li class="chapter" data-level="3.1" data-path="introduction-to-dbi.html"><a href="introduction-to-dbi.html#local-database-basics"><i class="fa fa-check"></i><b>3.1</b> Local database basics</a></li>
-<li class="chapter" data-level="3.2" data-path="introduction-to-dbi.html"><a href="introduction-to-dbi.html#options-for-writing-tables"><i class="fa fa-check"></i><b>3.2</b> Options for writing tables</a></li>
-<li class="chapter" data-level="3.3" data-path="introduction-to-dbi.html"><a href="introduction-to-dbi.html#database-operations"><i class="fa fa-check"></i><b>3.3</b> Database operations</a></li>
-<li class="chapter" data-level="3.4" data-path="introduction-to-dbi.html"><a href="introduction-to-dbi.html#knitr-sql-engine"><i class="fa fa-check"></i><b>3.4</b> <code>knitr</code> SQL engine</a></li>
+<li class="chapter" data-level="3" data-path="introduction-to-database-connections.html"><a href="introduction-to-database-connections.html"><i class="fa fa-check"></i><b>3</b> Introduction to database connections</a><ul>
+<li class="chapter" data-level="3.1" data-path="introduction-to-database-connections.html"><a href="introduction-to-database-connections.html#connecting-via-dsn"><i class="fa fa-check"></i><b>3.1</b> Connecting via DSN</a></li>
+<li class="chapter" data-level="3.2" data-path="introduction-to-database-connections.html"><a href="introduction-to-database-connections.html#connect-with-a-connection-string"><i class="fa fa-check"></i><b>3.2</b> Connect with a connection string</a></li>
+<li class="chapter" data-level="3.3" data-path="introduction-to-database-connections.html"><a href="introduction-to-database-connections.html#secure-connection-details"><i class="fa fa-check"></i><b>3.3</b> Secure connection details</a></li>
 </ul></li>
-<li class="chapter" data-level="4" data-path="databases-and-dplyr.html"><a href="databases-and-dplyr.html"><i class="fa fa-check"></i><b>4</b> Databases and <code>dplyr</code></a><ul>
-<li class="chapter" data-level="4.1" data-path="databases-and-dplyr.html"><a href="databases-and-dplyr.html#intro-to-connections"><i class="fa fa-check"></i><b>4.1</b> Intro to <code>connections</code></a></li>
-<li class="chapter" data-level="4.2" data-path="databases-and-dplyr.html"><a href="databases-and-dplyr.html#table-reference"><i class="fa fa-check"></i><b>4.2</b> Table reference</a></li>
-<li class="chapter" data-level="4.3" data-path="databases-and-dplyr.html"><a href="databases-and-dplyr.html#under-the-hood"><i class="fa fa-check"></i><b>4.3</b> Under the hood</a></li>
-<li class="chapter" data-level="4.4" data-path="databases-and-dplyr.html"><a href="databases-and-dplyr.html#un-translated-r-commands"><i class="fa fa-check"></i><b>4.4</b> Un-translated R commands</a></li>
-<li class="chapter" data-level="4.5" data-path="databases-and-dplyr.html"><a href="databases-and-dplyr.html#using-bang-bang"><i class="fa fa-check"></i><b>4.5</b> Using bang-bang</a></li>
+<li class="chapter" data-level="4" data-path="introduction-to-dbi.html"><a href="introduction-to-dbi.html"><i class="fa fa-check"></i><b>4</b> Introduction to <code>DBI</code></a><ul>
+<li class="chapter" data-level="4.1" data-path="introduction-to-dbi.html"><a href="introduction-to-dbi.html#local-database-basics"><i class="fa fa-check"></i><b>4.1</b> Local database basics</a></li>
+<li class="chapter" data-level="4.2" data-path="introduction-to-dbi.html"><a href="introduction-to-dbi.html#options-for-writing-tables"><i class="fa fa-check"></i><b>4.2</b> Options for writing tables</a></li>
+<li class="chapter" data-level="4.3" data-path="introduction-to-dbi.html"><a href="introduction-to-dbi.html#database-operations"><i class="fa fa-check"></i><b>4.3</b> Database operations</a></li>
+<li class="chapter" data-level="4.4" data-path="introduction-to-dbi.html"><a href="introduction-to-dbi.html#knitr-sql-engine"><i class="fa fa-check"></i><b>4.4</b> <code>knitr</code> SQL engine</a></li>
 </ul></li>
-<li class="chapter" data-level="5" data-path="data-visualizations.html"><a href="data-visualizations.html"><i class="fa fa-check"></i><b>5</b> Data Visualizations</a><ul>
-<li class="chapter" data-level="5.1" data-path="data-visualizations.html"><a href="data-visualizations.html#simple-plot"><i class="fa fa-check"></i><b>5.1</b> Simple plot</a></li>
-<li class="chapter" data-level="5.2" data-path="data-visualizations.html"><a href="data-visualizations.html#plot-in-one-code-segment"><i class="fa fa-check"></i><b>5.2</b> Plot in one code segment</a></li>
-<li class="chapter" data-level="5.3" data-path="data-visualizations.html"><a href="data-visualizations.html#create-a-histogram"><i class="fa fa-check"></i><b>5.3</b> Create a histogram</a></li>
-<li class="chapter" data-level="5.4" data-path="data-visualizations.html"><a href="data-visualizations.html#raster-plot"><i class="fa fa-check"></i><b>5.4</b> Raster plot</a></li>
-<li class="chapter" data-level="5.5" data-path="data-visualizations.html"><a href="data-visualizations.html#using-the-calculate-functions"><i class="fa fa-check"></i><b>5.5</b> Using the <code>calculate</code> functions</a></li>
+<li class="chapter" data-level="5" data-path="databases-and-dplyr.html"><a href="databases-and-dplyr.html"><i class="fa fa-check"></i><b>5</b> Databases and <code>dplyr</code></a><ul>
+<li class="chapter" data-level="5.1" data-path="databases-and-dplyr.html"><a href="databases-and-dplyr.html#intro-to-connections"><i class="fa fa-check"></i><b>5.1</b> Intro to <code>connections</code></a></li>
+<li class="chapter" data-level="5.2" data-path="databases-and-dplyr.html"><a href="databases-and-dplyr.html#table-reference"><i class="fa fa-check"></i><b>5.2</b> Table reference</a></li>
+<li class="chapter" data-level="5.3" data-path="databases-and-dplyr.html"><a href="databases-and-dplyr.html#under-the-hood"><i class="fa fa-check"></i><b>5.3</b> Under the hood</a></li>
+<li class="chapter" data-level="5.4" data-path="databases-and-dplyr.html"><a href="databases-and-dplyr.html#un-translated-r-commands"><i class="fa fa-check"></i><b>5.4</b> Un-translated R commands</a></li>
+<li class="chapter" data-level="5.5" data-path="databases-and-dplyr.html"><a href="databases-and-dplyr.html#using-bang-bang"><i class="fa fa-check"></i><b>5.5</b> Using bang-bang</a></li>
 </ul></li>
-<li class="chapter" data-level="6" data-path="modeling-with-databases.html"><a href="modeling-with-databases.html"><i class="fa fa-check"></i><b>6</b> Modeling with databases</a><ul>
-<li class="chapter" data-level="6.1" data-path="modeling-with-databases.html"><a href="modeling-with-databases.html#single-step-sampling"><i class="fa fa-check"></i><b>6.1</b> Single step sampling</a></li>
-<li class="chapter" data-level="6.2" data-path="modeling-with-databases.html"><a href="modeling-with-databases.html#multi-step-sampling"><i class="fa fa-check"></i><b>6.2</b> Multi-step sampling</a></li>
-<li class="chapter" data-level="6.3" data-path="modeling-with-databases.html"><a href="modeling-with-databases.html#use-job-panel-in-rstudio"><i class="fa fa-check"></i><b>6.3</b> Use Job panel in RStudio</a></li>
-<li class="chapter" data-level="6.4" data-path="modeling-with-databases.html"><a href="modeling-with-databases.html#run-predictions-in-db"><i class="fa fa-check"></i><b>6.4</b> Run predictions in DB</a></li>
-<li class="chapter" data-level="6.5" data-path="modeling-with-databases.html"><a href="modeling-with-databases.html#fit-model-in-r"><i class="fa fa-check"></i><b>6.5</b> Fit model in R</a></li>
-<li class="chapter" data-level="6.6" data-path="modeling-with-databases.html"><a href="modeling-with-databases.html#score-with-tidypredict"><i class="fa fa-check"></i><b>6.6</b> Score with <code>tidypredict</code></a></li>
-<li class="chapter" data-level="6.7" data-path="modeling-with-databases.html"><a href="modeling-with-databases.html#save-and-reload-models"><i class="fa fa-check"></i><b>6.7</b> Save and reload models</a></li>
-<li class="chapter" data-level="6.8" data-path="modeling-with-databases.html"><a href="modeling-with-databases.html#integration-with-tidymodels"><i class="fa fa-check"></i><b>6.8</b> Integration with <code>tidymodels</code></a></li>
-<li class="chapter" data-level="6.9" data-path="modeling-with-databases.html"><a href="modeling-with-databases.html#run-models-in-db"><i class="fa fa-check"></i><b>6.9</b> Run models in DB</a></li>
-<li class="chapter" data-level="6.10" data-path="modeling-with-databases.html"><a href="modeling-with-databases.html#intro-to-modeldb"><i class="fa fa-check"></i><b>6.10</b> Intro to <code>modeldb</code></a></li>
-<li class="chapter" data-level="6.11" data-path="modeling-with-databases.html"><a href="modeling-with-databases.html#modeldb-with-tidypredict"><i class="fa fa-check"></i><b>6.11</b> <code>modeldb</code> with <code>tidypredict</code></a></li>
+<li class="chapter" data-level="6" data-path="data-visualizations.html"><a href="data-visualizations.html"><i class="fa fa-check"></i><b>6</b> Data Visualizations</a><ul>
+<li class="chapter" data-level="6.1" data-path="data-visualizations.html"><a href="data-visualizations.html#simple-plot"><i class="fa fa-check"></i><b>6.1</b> Simple plot</a></li>
+<li class="chapter" data-level="6.2" data-path="data-visualizations.html"><a href="data-visualizations.html#plot-in-one-code-segment"><i class="fa fa-check"></i><b>6.2</b> Plot in one code segment</a></li>
+<li class="chapter" data-level="6.3" data-path="data-visualizations.html"><a href="data-visualizations.html#create-a-histogram"><i class="fa fa-check"></i><b>6.3</b> Create a histogram</a></li>
+<li class="chapter" data-level="6.4" data-path="data-visualizations.html"><a href="data-visualizations.html#raster-plot"><i class="fa fa-check"></i><b>6.4</b> Raster plot</a></li>
+<li class="chapter" data-level="6.5" data-path="data-visualizations.html"><a href="data-visualizations.html#using-the-compute-functions"><i class="fa fa-check"></i><b>6.5</b> Using the <code>compute</code> functions</a></li>
 </ul></li>
-<li class="chapter" data-level="7" data-path="advanced-operations.html"><a href="advanced-operations.html"><i class="fa fa-check"></i><b>7</b> Advanced Operations</a><ul>
-<li class="chapter" data-level="7.1" data-path="advanced-operations.html"><a href="advanced-operations.html#simple-wrapper-function"><i class="fa fa-check"></i><b>7.1</b> Simple wrapper function</a></li>
-<li class="chapter" data-level="7.2" data-path="advanced-operations.html"><a href="advanced-operations.html#multiple-variables"><i class="fa fa-check"></i><b>7.2</b> Multiple variables</a></li>
-<li class="chapter" data-level="7.3" data-path="advanced-operations.html"><a href="advanced-operations.html#multiple-queries"><i class="fa fa-check"></i><b>7.3</b> Multiple queries</a></li>
-<li class="chapter" data-level="7.4" data-path="advanced-operations.html"><a href="advanced-operations.html#characters-to-field-names"><i class="fa fa-check"></i><b>7.4</b> Characters to field names</a></li>
+<li class="chapter" data-level="7" data-path="modeling-with-databases.html"><a href="modeling-with-databases.html"><i class="fa fa-check"></i><b>7</b> Modeling with databases</a><ul>
+<li class="chapter" data-level="7.1" data-path="modeling-with-databases.html"><a href="modeling-with-databases.html#single-step-sampling"><i class="fa fa-check"></i><b>7.1</b> Single step sampling</a></li>
+<li class="chapter" data-level="7.2" data-path="modeling-with-databases.html"><a href="modeling-with-databases.html#multi-step-sampling"><i class="fa fa-check"></i><b>7.2</b> Multi-step sampling</a></li>
+<li class="chapter" data-level="7.3" data-path="modeling-with-databases.html"><a href="modeling-with-databases.html#use-job-panel-in-rstudio"><i class="fa fa-check"></i><b>7.3</b> Use Job panel in RStudio</a></li>
+<li class="chapter" data-level="7.4" data-path="modeling-with-databases.html"><a href="modeling-with-databases.html#run-predictions-in-db"><i class="fa fa-check"></i><b>7.4</b> Run predictions in DB</a></li>
+<li class="chapter" data-level="7.5" data-path="modeling-with-databases.html"><a href="modeling-with-databases.html#fit-model-in-r"><i class="fa fa-check"></i><b>7.5</b> Fit model in R</a></li>
+<li class="chapter" data-level="7.6" data-path="modeling-with-databases.html"><a href="modeling-with-databases.html#score-with-tidypredict"><i class="fa fa-check"></i><b>7.6</b> Score with <code>tidypredict</code></a></li>
+<li class="chapter" data-level="7.7" data-path="modeling-with-databases.html"><a href="modeling-with-databases.html#save-and-reload-models"><i class="fa fa-check"></i><b>7.7</b> Save and reload models</a></li>
+<li class="chapter" data-level="7.8" data-path="modeling-with-databases.html"><a href="modeling-with-databases.html#integration-with-tidymodels"><i class="fa fa-check"></i><b>7.8</b> Integration with <code>tidymodels</code></a></li>
+<li class="chapter" data-level="7.9" data-path="modeling-with-databases.html"><a href="modeling-with-databases.html#run-models-in-db"><i class="fa fa-check"></i><b>7.9</b> Run models in DB</a></li>
+<li class="chapter" data-level="7.10" data-path="modeling-with-databases.html"><a href="modeling-with-databases.html#intro-to-modeldb"><i class="fa fa-check"></i><b>7.10</b> Intro to <code>modeldb</code></a></li>
+<li class="chapter" data-level="7.11" data-path="modeling-with-databases.html"><a href="modeling-with-databases.html#modeldb-with-tidypredict"><i class="fa fa-check"></i><b>7.11</b> <code>modeldb</code> with <code>tidypredict</code></a></li>
 </ul></li>
-<li class="chapter" data-level="8" data-path="intro-to-sparklyr.html"><a href="intro-to-sparklyr.html"><i class="fa fa-check"></i><b>8</b> Intro to <code>sparklyr</code></a><ul>
-<li class="chapter" data-level="8.1" data-path="intro-to-sparklyr.html"><a href="intro-to-sparklyr.html#new-spark-session"><i class="fa fa-check"></i><b>8.1</b> New Spark session</a></li>
-<li class="chapter" data-level="8.2" data-path="intro-to-sparklyr.html"><a href="intro-to-sparklyr.html#data-transfer"><i class="fa fa-check"></i><b>8.2</b> Data transfer</a></li>
-<li class="chapter" data-level="8.3" data-path="intro-to-sparklyr.html"><a href="intro-to-sparklyr.html#spark-and-dplyr"><i class="fa fa-check"></i><b>8.3</b> Spark and <code>dplyr</code></a></li>
+<li class="chapter" data-level="8" data-path="advanced-operations.html"><a href="advanced-operations.html"><i class="fa fa-check"></i><b>8</b> Advanced Operations</a><ul>
+<li class="chapter" data-level="8.1" data-path="advanced-operations.html"><a href="advanced-operations.html#simple-wrapper-function"><i class="fa fa-check"></i><b>8.1</b> Simple wrapper function</a></li>
+<li class="chapter" data-level="8.2" data-path="advanced-operations.html"><a href="advanced-operations.html#multiple-variables"><i class="fa fa-check"></i><b>8.2</b> Multiple variables</a></li>
+<li class="chapter" data-level="8.3" data-path="advanced-operations.html"><a href="advanced-operations.html#multiple-queries"><i class="fa fa-check"></i><b>8.3</b> Multiple queries</a></li>
+<li class="chapter" data-level="8.4" data-path="advanced-operations.html"><a href="advanced-operations.html#characters-to-field-names"><i class="fa fa-check"></i><b>8.4</b> Characters to field names</a></li>
 </ul></li>
-<li class="chapter" data-level="9" data-path="text-mining-with-sparklyr.html"><a href="text-mining-with-sparklyr.html"><i class="fa fa-check"></i><b>9</b> Text mining with <code>sparklyr</code></a><ul>
-<li class="chapter" data-level="9.1" data-path="text-mining-with-sparklyr.html"><a href="text-mining-with-sparklyr.html#data-import"><i class="fa fa-check"></i><b>9.1</b> Data Import</a></li>
-<li class="chapter" data-level="9.2" data-path="text-mining-with-sparklyr.html"><a href="text-mining-with-sparklyr.html#tidying-data"><i class="fa fa-check"></i><b>9.2</b> Tidying data</a></li>
-<li class="chapter" data-level="9.3" data-path="text-mining-with-sparklyr.html"><a href="text-mining-with-sparklyr.html#transform-the-data"><i class="fa fa-check"></i><b>9.3</b> Transform the data</a></li>
-<li class="chapter" data-level="9.4" data-path="text-mining-with-sparklyr.html"><a href="text-mining-with-sparklyr.html#data-exploration"><i class="fa fa-check"></i><b>9.4</b> Data Exploration</a></li>
+<li class="chapter" data-level="9" data-path="intro-to-sparklyr.html"><a href="intro-to-sparklyr.html"><i class="fa fa-check"></i><b>9</b> Intro to <code>sparklyr</code></a><ul>
+<li class="chapter" data-level="9.1" data-path="intro-to-sparklyr.html"><a href="intro-to-sparklyr.html#new-spark-session"><i class="fa fa-check"></i><b>9.1</b> New Spark session</a></li>
+<li class="chapter" data-level="9.2" data-path="intro-to-sparklyr.html"><a href="intro-to-sparklyr.html#data-transfer"><i class="fa fa-check"></i><b>9.2</b> Data transfer</a></li>
+<li class="chapter" data-level="9.3" data-path="intro-to-sparklyr.html"><a href="intro-to-sparklyr.html#spark-and-dplyr"><i class="fa fa-check"></i><b>9.3</b> Spark and <code>dplyr</code></a></li>
 </ul></li>
-<li class="chapter" data-level="10" data-path="spark-data-caching.html"><a href="spark-data-caching.html"><i class="fa fa-check"></i><b>10</b> Spark data caching</a><ul>
-<li class="chapter" data-level="10.1" data-path="spark-data-caching.html"><a href="spark-data-caching.html#map-data"><i class="fa fa-check"></i><b>10.1</b> Map data</a></li>
-<li class="chapter" data-level="10.2" data-path="spark-data-caching.html"><a href="spark-data-caching.html#caching-data"><i class="fa fa-check"></i><b>10.2</b> Caching data</a></li>
+<li class="chapter" data-level="10" data-path="text-mining-with-sparklyr.html"><a href="text-mining-with-sparklyr.html"><i class="fa fa-check"></i><b>10</b> Text mining with <code>sparklyr</code></a><ul>
+<li class="chapter" data-level="10.1" data-path="text-mining-with-sparklyr.html"><a href="text-mining-with-sparklyr.html#data-import"><i class="fa fa-check"></i><b>10.1</b> Data Import</a></li>
+<li class="chapter" data-level="10.2" data-path="text-mining-with-sparklyr.html"><a href="text-mining-with-sparklyr.html#tidying-data"><i class="fa fa-check"></i><b>10.2</b> Tidying data</a></li>
+<li class="chapter" data-level="10.3" data-path="text-mining-with-sparklyr.html"><a href="text-mining-with-sparklyr.html#transform-the-data"><i class="fa fa-check"></i><b>10.3</b> Transform the data</a></li>
+<li class="chapter" data-level="10.4" data-path="text-mining-with-sparklyr.html"><a href="text-mining-with-sparklyr.html#data-exploration"><i class="fa fa-check"></i><b>10.4</b> Data Exploration</a></li>
+</ul></li>
+<li class="chapter" data-level="11" data-path="spark-data-caching.html"><a href="spark-data-caching.html"><i class="fa fa-check"></i><b>11</b> Spark data caching</a><ul>
+<li class="chapter" data-level="11.1" data-path="spark-data-caching.html"><a href="spark-data-caching.html#map-data"><i class="fa fa-check"></i><b>11.1</b> Map data</a></li>
+<li class="chapter" data-level="11.2" data-path="spark-data-caching.html"><a href="spark-data-caching.html#caching-data"><i class="fa fa-check"></i><b>11.2</b> Caching data</a></li>
 </ul></li>
 </ul>
 
@@ -224,55 +229,57 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <h2><span class="header-section-number">2.1</span> <code>dtplyr</code> basics</h2>
 <p><em>Load data into R via <code>data.table</code>, and then wrap it with <code>dtplyr</code></em></p>
 <ol style="list-style-type: decimal">
-<li><p>Load the <code>data.table</code>, <code>purrr</code> and <code>fs</code> libraries</p>
+<li><p>Load the <code>data.table</code>, <code>dplyr</code>, <code>dtplyr</code>, <code>purrr</code> and <code>fs</code> libraries</p>
 <div class="sourceCode" id="cb33"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb33-1" data-line-number="1"><span class="kw">library</span>(data.table)</a>
-<a class="sourceLine" id="cb33-2" data-line-number="2"><span class="kw">library</span>(purrr)</a>
-<a class="sourceLine" id="cb33-3" data-line-number="3"><span class="kw">library</span>(fs)</a></code></pre></div></li>
-<li><p>Read the <strong>transactions.csv</strong> file, from the <strong>files</strong> folder. Use the <code>fread()</code> function to load the data into a variable called <code>transactions</code></p>
-<div class="sourceCode" id="cb34"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb34-1" data-line-number="1">transactions &lt;-<span class="st"> </span><span class="kw">dir_ls</span>(<span class="st">&quot;files&quot;</span>, <span class="dt">glob =</span> <span class="st">&quot;*.csv&quot;</span>) <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb33-2" data-line-number="2"><span class="kw">library</span>(dplyr)</a>
+<a class="sourceLine" id="cb33-3" data-line-number="3"><span class="kw">library</span>(dtplyr)</a>
+<a class="sourceLine" id="cb33-4" data-line-number="4"><span class="kw">library</span>(purrr)</a>
+<a class="sourceLine" id="cb33-5" data-line-number="5"><span class="kw">library</span>(fs)</a></code></pre></div></li>
+<li><p>Read the <strong>transactions.csv</strong> file, from the <strong>/usr/share/class/files</strong> folder. Use the <code>fread()</code> function to load the data into a variable called <code>transactions</code></p>
+<div class="sourceCode" id="cb34"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb34-1" data-line-number="1">transactions &lt;-<span class="st"> </span><span class="kw">dir_ls</span>(<span class="st">&quot;/usr/share/class/files&quot;</span>, <span class="dt">glob =</span> <span class="st">&quot;*.csv&quot;</span>) <span class="op">%&gt;%</span></a>
 <a class="sourceLine" id="cb34-2" data-line-number="2"><span class="st">   </span><span class="kw">map</span>(fread) <span class="op">%&gt;%</span></a>
 <a class="sourceLine" id="cb34-3" data-line-number="3"><span class="st">   </span><span class="kw">rbindlist</span>()</a></code></pre></div></li>
-<li><p>Preview the data using <code>str()</code></p>
-<div class="sourceCode" id="cb35"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb35-1" data-line-number="1"><span class="kw">str</span>(transactions)</a></code></pre></div>
-<pre><code>## Classes &#39;data.table&#39; and &#39;data.frame&#39;:   250000 obs. of  14 variables:
-##  $ order_id       : int  1001 1001 1002 1002 1002 1002 1003 1003 1003 1003 ...
-##  $ customer_id    : int  36 36 21 21 21 21 64 64 64 64 ...
-##  $ customer_name  : chr  &quot;Jeptha Ziemann&quot; &quot;Jeptha Ziemann&quot; &quot;Miss Azzie Jaskolski&quot; &quot;Miss Azzie Jaskolski&quot; ...
-##  $ customer_phone : chr  &quot;670.093.2858&quot; &quot;670.093.2858&quot; &quot;(634)363-1830x7533&quot; &quot;(634)363-1830x7533&quot; ...
-##  $ customer_cc    :integer64 869989038460747839 869989038460747839 6011469689707342998 6011469689707342998 6011469689707342998 6011469689707342998 6011829607227923753 6011829607227923753 ... 
-##  $ customer_lon   : num  -122 -122 -122 -122 -122 ...
-##  $ customer_lat   : num  37.7 37.7 37.8 37.8 37.8 ...
-##  $ date           : chr  &quot;2016-01-01&quot; &quot;2016-01-01&quot; &quot;2016-01-01&quot; &quot;2016-01-01&quot; ...
-##  $ date_year      : int  2016 2016 2016 2016 2016 2016 2016 2016 2016 2016 ...
-##  $ date_month     : int  1 1 1 1 1 1 1 1 1 1 ...
-##  $ date_month_name: chr  &quot;Jan&quot; &quot;Jan&quot; &quot;Jan&quot; &quot;Jan&quot; ...
-##  $ date_day       : chr  &quot;Friday&quot; &quot;Friday&quot; &quot;Friday&quot; &quot;Friday&quot; ...
-##  $ product_id     : int  25 25 6 14 25 29 7 8 20 22 ...
-##  $ price          : num  5.47 5.47 9.88 8.05 5.47 5.95 5.65 6.5 8.34 5.09 ...
-##  - attr(*, &quot;.internal.selfref&quot;)=&lt;externalptr&gt;</code></pre></li>
+<li><p>Preview the data using <code>glimpse()</code></p>
+<div class="sourceCode" id="cb35"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb35-1" data-line-number="1"><span class="kw">glimpse</span>(transactions)</a></code></pre></div>
+<pre><code>## Observations: 250,000
+## Variables: 14
+## $ order_id        &lt;int&gt; 1001, 1001, 1001, 1001, 1002, 1002, 1002, 1002, 1003, 1003, 1003, 1003, 1003, 1003, 1004, 1004, 1004, 1005, 1005, 1005, 1005, 1005, 1006, 1007, 1007, 1007, 1007, 1007, 1007, 1008, 1…
+## $ customer_id     &lt;int&gt; 22, 22, 22, 22, 6, 6, 6, 6, 80, 80, 80, 80, 80, 80, 55, 55, 55, 73, 73, 73, 73, 73, 70, 55, 55, 55, 55, 55, 55, 40, 40, 78, 78, 35, 35, 35, 66, 66, 35, 35, 41, 41, 13, 13, 13, 37, 3…
+## $ customer_name   &lt;chr&gt; &quot;Dr. Birdie Kessler&quot;, &quot;Dr. Birdie Kessler&quot;, &quot;Dr. Birdie Kessler&quot;, &quot;Dr. Birdie Kessler&quot;, &quot;Meggan Bruen&quot;, &quot;Meggan Bruen&quot;, &quot;Meggan Bruen&quot;, &quot;Meggan Bruen&quot;, &quot;Jessee Rodriguez Jr.&quot;, &quot;Jess…
+## $ customer_phone  &lt;chr&gt; &quot;684.226.0455&quot;, &quot;684.226.0455&quot;, &quot;684.226.0455&quot;, &quot;684.226.0455&quot;, &quot;326-151-4331&quot;, &quot;326-151-4331&quot;, &quot;326-151-4331&quot;, &quot;326-151-4331&quot;, &quot;539.176.3896&quot;, &quot;539.176.3896&quot;, &quot;539.176.3896&quot;, &quot;539.…
+## $ customer_cc     &lt;int64&gt; 6011608753104063698, 6011608753104063698, 6011608753104063698, 6011608753104063698, 4964180480255037, 4964180480255037, 4964180480255037, 4964180480255037, 4502507196983, 45025071…
+## $ customer_lon    &lt;dbl&gt; -122.484, -122.484, -122.484, -122.484, -122.429, -122.429, -122.429, -122.429, -122.457, -122.457, -122.457, -122.457, -122.457, -122.457, -122.429, -122.429, -122.429, -122.440, -…
+## $ customer_lat    &lt;dbl&gt; 37.7395, 37.7395, 37.7395, 37.7395, 37.7298, 37.7298, 37.7298, 37.7298, 37.7284, 37.7284, 37.7284, 37.7284, 37.7284, 37.7284, 37.7562, 37.7562, 37.7562, 37.7290, 37.7290, 37.7290, 3…
+## $ date            &lt;chr&gt; &quot;2016-01-01&quot;, &quot;2016-01-01&quot;, &quot;2016-01-01&quot;, &quot;2016-01-01&quot;, &quot;2016-01-01&quot;, &quot;2016-01-01&quot;, &quot;2016-01-01&quot;, &quot;2016-01-01&quot;, &quot;2016-01-01&quot;, &quot;2016-01-01&quot;, &quot;2016-01-01&quot;, &quot;2016-01-01&quot;, &quot;2016-01-01&quot;,…
+## $ date_year       &lt;int&gt; 2016, 2016, 2016, 2016, 2016, 2016, 2016, 2016, 2016, 2016, 2016, 2016, 2016, 2016, 2016, 2016, 2016, 2016, 2016, 2016, 2016, 2016, 2016, 2016, 2016, 2016, 2016, 2016, 2016, 2016, 2…
+## $ date_month      &lt;int&gt; 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1…
+## $ date_month_name &lt;chr&gt; &quot;Jan&quot;, &quot;Jan&quot;, &quot;Jan&quot;, &quot;Jan&quot;, &quot;Jan&quot;, &quot;Jan&quot;, &quot;Jan&quot;, &quot;Jan&quot;, &quot;Jan&quot;, &quot;Jan&quot;, &quot;Jan&quot;, &quot;Jan&quot;, &quot;Jan&quot;, &quot;Jan&quot;, &quot;Jan&quot;, &quot;Jan&quot;, &quot;Jan&quot;, &quot;Jan&quot;, &quot;Jan&quot;, &quot;Jan&quot;, &quot;Jan&quot;, &quot;Jan&quot;, &quot;Jan&quot;, &quot;Jan&quot;, &quot;Jan&quot;, &quot;Jan&quot;,…
+## $ date_day        &lt;chr&gt; &quot;Friday&quot;, &quot;Friday&quot;, &quot;Friday&quot;, &quot;Friday&quot;, &quot;Friday&quot;, &quot;Friday&quot;, &quot;Friday&quot;, &quot;Friday&quot;, &quot;Friday&quot;, &quot;Friday&quot;, &quot;Friday&quot;, &quot;Friday&quot;, &quot;Friday&quot;, &quot;Friday&quot;, &quot;Friday&quot;, &quot;Friday&quot;, &quot;Friday&quot;, &quot;Friday&quot;, &quot;…
+## $ product_id      &lt;int&gt; 6, 27, 30, 2, 17, 1, 5, 4, 27, 16, 30, 6, 11, 30, 30, 18, 5, 29, 25, 25, 4, 20, 1, 17, 18, 18, 6, 26, 3, 6, 29, 10, 24, 5, 27, 21, 6, 12, 8, 13, 27, 8, 8, 6, 17, 10, 27, 6, 3, 3, 13…
+## $ price           &lt;dbl&gt; 9.88, 7.53, 5.64, 4.89, 6.48, 6.70, 4.27, 7.38, 7.53, 5.21, 5.64, 9.88, 8.29, 5.64, 5.64, 6.64, 4.27, 5.95, 5.47, 5.47, 7.38, 8.34, 6.70, 6.48, 6.64, 6.64, 9.88, 9.44, 7.72, 9.88, 5…</code></pre></li>
 <li><p>Load the <code>dplyr</code> and <code>dtplyr</code> libraries</p>
 <div class="sourceCode" id="cb37"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb37-1" data-line-number="1"><span class="kw">library</span>(dplyr)</a>
 <a class="sourceLine" id="cb37-2" data-line-number="2"><span class="kw">library</span>(dtplyr)</a></code></pre></div></li>
 <li><p>Use the <code>lazy_dt()</code> to “wrap” the <code>transactions</code> variable, into a new variable called <code>dt_transactions</code></p>
 <div class="sourceCode" id="cb38"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb38-1" data-line-number="1">dt_transactions &lt;-<span class="st"> </span><span class="kw">lazy_dt</span>(transactions)</a></code></pre></div></li>
-<li><p>View the <code>dt_transactions</code> variable’s structure with <code>str()</code></p>
-<div class="sourceCode" id="cb39"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb39-1" data-line-number="1"><span class="kw">str</span>(dt_transactions)</a></code></pre></div>
+<li><p>View the <code>dt_transactions</code> variable’s structure with <code>glimpse()</code></p>
+<div class="sourceCode" id="cb39"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb39-1" data-line-number="1"><span class="kw">glimpse</span>(dt_transactions)</a></code></pre></div>
 <pre><code>## List of 7
 ##  $ parent       :Classes &#39;data.table&#39; and &#39;data.frame&#39;:  250000 obs. of  14 variables:
-##   ..$ order_id       : int [1:250000] 1001 1001 1002 1002 1002 1002 1003 1003 1003 1003 ...
-##   ..$ customer_id    : int [1:250000] 36 36 21 21 21 21 64 64 64 64 ...
-##   ..$ customer_name  : chr [1:250000] &quot;Jeptha Ziemann&quot; &quot;Jeptha Ziemann&quot; &quot;Miss Azzie Jaskolski&quot; &quot;Miss Azzie Jaskolski&quot; ...
-##   ..$ customer_phone : chr [1:250000] &quot;670.093.2858&quot; &quot;670.093.2858&quot; &quot;(634)363-1830x7533&quot; &quot;(634)363-1830x7533&quot; ...
-##   ..$ customer_cc    :integer64 [1:250000] 869989038460747839 869989038460747839 6011469689707342998 6011469689707342998 6011469689707342998 6011469689707342998 6011829607227923753 6011829607227923753 ... 
+##   ..$ order_id       : int [1:250000] 1001 1001 1001 1001 1002 1002 1002 1002 1003 1003 ...
+##   ..$ customer_id    : int [1:250000] 22 22 22 22 6 6 6 6 80 80 ...
+##   ..$ customer_name  : chr [1:250000] &quot;Dr. Birdie Kessler&quot; &quot;Dr. Birdie Kessler&quot; &quot;Dr. Birdie Kessler&quot; &quot;Dr. Birdie Kessler&quot; ...
+##   ..$ customer_phone : chr [1:250000] &quot;684.226.0455&quot; &quot;684.226.0455&quot; &quot;684.226.0455&quot; &quot;684.226.0455&quot; ...
+##   ..$ customer_cc    :integer64 [1:250000] 6011608753104063698 6011608753104063698 6011608753104063698 6011608753104063698 4964180480255037 4964180480255037 4964180480255037 4964180480255037 ... 
 ##   ..$ customer_lon   : num [1:250000] -122 -122 -122 -122 -122 ...
-##   ..$ customer_lat   : num [1:250000] 37.7 37.7 37.8 37.8 37.8 ...
+##   ..$ customer_lat   : num [1:250000] 37.7 37.7 37.7 37.7 37.7 ...
 ##   ..$ date           : chr [1:250000] &quot;2016-01-01&quot; &quot;2016-01-01&quot; &quot;2016-01-01&quot; &quot;2016-01-01&quot; ...
 ##   ..$ date_year      : int [1:250000] 2016 2016 2016 2016 2016 2016 2016 2016 2016 2016 ...
 ##   ..$ date_month     : int [1:250000] 1 1 1 1 1 1 1 1 1 1 ...
 ##   ..$ date_month_name: chr [1:250000] &quot;Jan&quot; &quot;Jan&quot; &quot;Jan&quot; &quot;Jan&quot; ...
 ##   ..$ date_day       : chr [1:250000] &quot;Friday&quot; &quot;Friday&quot; &quot;Friday&quot; &quot;Friday&quot; ...
-##   ..$ product_id     : int [1:250000] 25 25 6 14 25 29 7 8 20 22 ...
-##   ..$ price          : num [1:250000] 5.47 5.47 9.88 8.05 5.47 5.95 5.65 6.5 8.34 5.09 ...
+##   ..$ product_id     : int [1:250000] 6 27 30 2 17 1 5 4 27 16 ...
+##   ..$ price          : num [1:250000] 9.88 7.53 5.64 4.89 6.48 6.7 4.27 7.38 7.53 5.21 ...
 ##   ..- attr(*, &quot;.internal.selfref&quot;)=&lt;externalptr&gt; 
 ##  $ vars         : chr [1:14] &quot;order_id&quot; &quot;customer_id&quot; &quot;customer_name&quot; &quot;customer_phone&quot; ...
 ##  $ groups       : chr(0) 
@@ -291,13 +298,13 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <div class="sourceCode" id="cb41"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb41-1" data-line-number="1"><span class="kw">library</span>(lobstr)</a></code></pre></div></li>
 <li><p>Use <code>obj_size()</code> to obtain <code>transactions</code>’s size in memory</p>
 <div class="sourceCode" id="cb42"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb42-1" data-line-number="1"><span class="kw">obj_size</span>(transactions)</a></code></pre></div>
-<pre><code>## 23,069,208 B</code></pre></li>
+<pre><code>## 23,019,560 B</code></pre></li>
 <li><p>Use <code>obj_size()</code> to obtain <code>dt_transactions</code>’s size in memory</p>
 <div class="sourceCode" id="cb44"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb44-1" data-line-number="1"><span class="kw">obj_size</span>(dt_transactions)</a></code></pre></div>
-<pre><code>## 23,070,320 B</code></pre></li>
+<pre><code>## 23,020,672 B</code></pre></li>
 <li><p>Use <code>obj_size()</code> to obtain <code>dt_transactions</code> and <code>transactions</code> size in memory together</p>
 <div class="sourceCode" id="cb46"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb46-1" data-line-number="1"><span class="kw">obj_size</span>(transactions, dt_transactions)</a></code></pre></div>
-<pre><code>## 23,070,320 B</code></pre></li>
+<pre><code>## 23,020,672 B</code></pre></li>
 </ol>
 </div>
 <div id="how-dtplyr-works" class="section level2">
@@ -313,12 +320,8 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 ## 
 ##   date_month total_sales
 ##        &lt;int&gt;       &lt;dbl&gt;
-## 1          1     190662.
-## 2          2     176576.
-## 3          3     178563.
-## 4          4     122322.
-## 5          5     124623.
-## 6          6     127250.
+## 1          1    1120615.
+## 2          2     562702.
 ## 
 ## # Use as.data.table()/as.data.frame()/as_tibble() to access results</code></pre></li>
 <li><p>Load the above code into a variable called <code>by_month</code></p>
@@ -328,34 +331,12 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li><p>Use <code>show_query()</code> to see the <code>data.table</code> code that <code>by_month</code> actually runs</p>
 <div class="sourceCode" id="cb51"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb51-1" data-line-number="1"><span class="kw">show_query</span>(by_month)</a></code></pre></div>
 <pre><code>## `_DT1`[, .(total_sales = sum(price)), keyby = .(date_month)]</code></pre></li>
-<li><p>Use <code>str()</code> to view how <code>by_month</code>, instead of modifying the data, it only adds steps that will later be operated by <code>data.table</code></p>
-<div class="sourceCode" id="cb53"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb53-1" data-line-number="1"><span class="kw">str</span>(by_month)</a></code></pre></div>
+<li><p>Use <code>glimpse()</code> to view how <code>by_month</code>, instead of modifying the data, only adds steps that will later be executed by <code>data.table</code></p>
+<div class="sourceCode" id="cb53"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb53-1" data-line-number="1"><span class="kw">glimpse</span>(by_month)</a></code></pre></div>
 <pre><code>## List of 6
 ##  $ parent       :List of 9
 ##   ..$ parent       :List of 6
 ##   .. ..$ parent       :List of 7
-##   .. .. ..$ parent       :Classes &#39;data.table&#39; and &#39;data.frame&#39;: 250000 obs. of  14 variables:
-##   .. .. .. ..$ order_id       : int [1:250000] 1001 1001 1002 1002 1002 1002 1003 1003 1003 1003 ...
-##   .. .. .. ..$ customer_id    : int [1:250000] 36 36 21 21 21 21 64 64 64 64 ...
-##   .. .. .. ..$ customer_name  : chr [1:250000] &quot;Jeptha Ziemann&quot; &quot;Jeptha Ziemann&quot; &quot;Miss Azzie Jaskolski&quot; &quot;Miss Azzie Jaskolski&quot; ...
-##   .. .. .. ..$ customer_phone : chr [1:250000] &quot;670.093.2858&quot; &quot;670.093.2858&quot; &quot;(634)363-1830x7533&quot; &quot;(634)363-1830x7533&quot; ...
-##   .. .. .. ..$ customer_cc    :integer64 [1:250000] 869989038460747839 869989038460747839 6011469689707342998 6011469689707342998 6011469689707342998 6011469689707342998 6011829607227923753 6011829607227923753 ... 
-##   .. .. .. ..$ customer_lon   : num [1:250000] -122 -122 -122 -122 -122 ...
-##   .. .. .. ..$ customer_lat   : num [1:250000] 37.7 37.7 37.8 37.8 37.8 ...
-##   .. .. .. ..$ date           : chr [1:250000] &quot;2016-01-01&quot; &quot;2016-01-01&quot; &quot;2016-01-01&quot; &quot;2016-01-01&quot; ...
-##   .. .. .. ..$ date_year      : int [1:250000] 2016 2016 2016 2016 2016 2016 2016 2016 2016 2016 ...
-##   .. .. .. ..$ date_month     : int [1:250000] 1 1 1 1 1 1 1 1 1 1 ...
-##   .. .. .. ..$ date_month_name: chr [1:250000] &quot;Jan&quot; &quot;Jan&quot; &quot;Jan&quot; &quot;Jan&quot; ...
-##   .. .. .. ..$ date_day       : chr [1:250000] &quot;Friday&quot; &quot;Friday&quot; &quot;Friday&quot; &quot;Friday&quot; ...
-##   .. .. .. ..$ product_id     : int [1:250000] 25 25 6 14 25 29 7 8 20 22 ...
-##   .. .. .. ..$ price          : num [1:250000] 5.47 5.47 9.88 8.05 5.47 5.95 5.65 6.5 8.34 5.09 ...
-##   .. .. .. ..- attr(*, &quot;.internal.selfref&quot;)=&lt;externalptr&gt; 
-##   .. .. ..$ vars         : chr [1:14] &quot;order_id&quot; &quot;customer_id&quot; &quot;customer_name&quot; &quot;customer_phone&quot; ...
-##   .. .. ..$ groups       : chr(0) 
-##   .. .. ..$ implicit_copy: logi FALSE
-##   .. .. ..$ needs_copy   : logi FALSE
-##   .. .. ..$ env          :&lt;environment: R_GlobalEnv&gt; 
-##   .. .. ..$ name         : symbol _DT1
 ##   .. .. ..- attr(*, &quot;class&quot;)= chr [1:2] &quot;dtplyr_step_first&quot; &quot;dtplyr_step&quot;
 ##   .. ..$ vars         : chr [1:14] &quot;order_id&quot; &quot;customer_id&quot; &quot;customer_name&quot; &quot;customer_phone&quot; ...
 ##   .. ..$ groups       : chr &quot;date_month&quot;
@@ -387,21 +368,11 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li><p>Use <code>as_tibble()</code> to convert the results of <code>by_month</code> into a <code>tibble</code></p>
 <div class="sourceCode" id="cb55"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb55-1" data-line-number="1">by_month <span class="op">%&gt;%</span></a>
 <a class="sourceLine" id="cb55-2" data-line-number="2"><span class="st">  </span><span class="kw">as_tibble</span>()</a></code></pre></div>
-<pre><code>## # A tibble: 12 x 2
-##    date_month total_sales
-##         &lt;int&gt;       &lt;dbl&gt;
-##  1          1     190662.
-##  2          2     176576.
-##  3          3     178563.
-##  4          4     122322.
-##  5          5     124623.
-##  6          6     127250.
-##  7          7     124709.
-##  8          8     127061.
-##  9          9     123480.
-## 10         10     129477.
-## 11         11     121596.
-## 12         12     129657.</code></pre></li>
+<pre><code>## # A tibble: 2 x 2
+##   date_month total_sales
+##        &lt;int&gt;       &lt;dbl&gt;
+## 1          1    1120615.
+## 2          2     562702.</code></pre></li>
 <li><p>Load the <code>ggplot2</code> library</p>
 <div class="sourceCode" id="cb57"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb57-1" data-line-number="1"><span class="kw">library</span>(ggplot2)</a></code></pre></div></li>
 <li><p>Use <code>as_tibble()</code> to convert before creating a line plot</p>
@@ -427,12 +398,12 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 ## 
 ##   date_month date_day total_sales
 ##        &lt;int&gt; &lt;chr&gt;          &lt;dbl&gt;
-## 1          1 Friday        26794.
-## 2          1 Monday        27979.
-## 3          1 Saturday      28784.
-## 4          1 Sunday        28845.
-## 5          1 Thursday      23130.
-## 6          1 Tuesday       27982.
+## 1          1 Friday       173792.
+## 2          1 Monday       139352.
+## 3          1 Saturday     177204.
+## 4          1 Sunday       177674.
+## 5          1 Thursday     156394.
+## 6          1 Tuesday      141114.
 ## 
 ## # Use as.data.table()/as.data.frame()/as_tibble() to access results</code></pre></li>
 <li><p>Copy the aggregation code above, <strong>then collect it into a <code>tibble</code></strong>, and then use <code>pivot_wider()</code> to make the <code>date_day</code> the column headers.</p>
@@ -441,21 +412,11 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <a class="sourceLine" id="cb62-3" data-line-number="3"><span class="st">  </span><span class="kw">summarise</span>(<span class="dt">total_sales =</span> <span class="kw">sum</span>(price)) <span class="op">%&gt;%</span></a>
 <a class="sourceLine" id="cb62-4" data-line-number="4"><span class="st">  </span><span class="kw">as_tibble</span>() <span class="op">%&gt;%</span></a>
 <a class="sourceLine" id="cb62-5" data-line-number="5"><span class="st">  </span><span class="kw">pivot_wider</span>(<span class="dt">names_from =</span> date_day, <span class="dt">values_from =</span> total_sales)</a></code></pre></div>
-<pre><code>## # A tibble: 12 x 8
-##    date_month Friday Monday Saturday Sunday Thursday Tuesday Wednesday
-##         &lt;int&gt;  &lt;dbl&gt;  &lt;dbl&gt;    &lt;dbl&gt;  &lt;dbl&gt;    &lt;dbl&gt;   &lt;dbl&gt;     &lt;dbl&gt;
-##  1          1 26794. 27979.   28784. 28845.   23130.  27982.    27148.
-##  2          2 25563. 29165.   24096. 23912.   26444.  24098.    23299.
-##  3          3 27397. 22200.   24656. 23597.   29247.  25391.    26074.
-##  4          4 19018. 16856.   20020. 18899.   15820.  15464.    16246.
-##  5          5 16041. 20272.   15213. 17462.   15842.  21911.    17882.
-##  6          6 19265. 15604.   17439. 16459.   20383.  17516.    20582.
-##  7          7 19046. 18848.   18914. 19808.   16089.  15179.    16825.
-##  8          8 15997. 18127.   15788. 16653.   18651.  20516.    21329.
-##  9          9 21518. 17148.   17977. 15869.   18397.  16733.    15838.
-## 10         10 16034. 19202.   18308. 21106.   17453.  18968.    18406.
-## 11         11 15873. 15581.   16836. 16673.   19718.  17894.    19021.
-## 12         12 21329. 17214.   19855. 18481.   18616.  16098.    18064.</code></pre></li>
+<pre><code>## # A tibble: 2 x 8
+##   date_month  Friday  Monday Saturday  Sunday Thursday Tuesday Wednesday
+##        &lt;int&gt;   &lt;dbl&gt;   &lt;dbl&gt;    &lt;dbl&gt;   &lt;dbl&gt;    &lt;dbl&gt;   &lt;dbl&gt;     &lt;dbl&gt;
+## 1          1 173792. 139352.  177204. 177674.  156394. 141114.   155085.
+## 2          2  80570.  83116.   84951.  80778.   77837.  79283.    76166.</code></pre></li>
 </ol>
 </div>
 <div id="the-mutate-verb" class="section level2">
@@ -482,7 +443,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
         </div>
       </div>
 <a href="introduction-to-vroom.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
-<a href="introduction-to-dbi.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
+<a href="introduction-to-database-connections.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
     </div>
   </div>
 <script src="libs/gitbook-2.6.7/js/app.min.js"></script>

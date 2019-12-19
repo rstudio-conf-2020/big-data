@@ -14,7 +14,7 @@ library(dplyr)
 For this example, there are two files that will be analyzed.  They are both the full works of Sir Arthur Conan Doyle and Mark Twain.  The files were downloaded from the [Gutenberg Project](https://www.gutenberg.org/) site via the `gutenbergr` package.  Intentionally, no data cleanup was done to the files prior to this analysis.  See the appendix below to see how the data was downloaded and prepared.
 
 ```{r, eval = eval_mining}
-readLines("{{books}}/arthur_doyle.txt", 30) 
+readLines("/usr/share/class/books/arthur_doyle.txt", 30) 
 ```
 
 
@@ -33,12 +33,12 @@ readLines("{{books}}/arthur_doyle.txt", 30)
 
 1. Use the `spark_read_text()` function to read the **mark_twain.txt** file, assign it to a variable called `twain`
     ```{r, eval = eval_mining}
-    twain <- spark_read_text(sc, "twain", "{{books}}/mark_twain.txt") 
+    twain <- spark_read_text(sc, "twain", "/usr/share/class/books/mark_twain.txt") 
     ```
 
 1. Use the `spark_read_text()` function to read the **arthur_doyle.txt** file, assign it to a variable called `doyle`
     ```{r, eval = eval_mining}
-    doyle <- spark_read_text(sc, "doyle", "{{books}}/arthur_doyle.txt") 
+    doyle <- spark_read_text(sc, "doyle", "/usr/share/class/books/arthur_doyle.txt") 
     ```
 
 

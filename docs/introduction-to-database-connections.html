@@ -4,11 +4,11 @@
 
   <meta charset="utf-8" />
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-  <title>9 Intro to sparklyr | _main.utf8.md</title>
+  <title>3 Introduction to database connections | _main.utf8.md</title>
   <meta name="description" content="" />
   <meta name="generator" content="bookdown 0.16 and GitBook 2.6.7" />
 
-  <meta property="og:title" content="9 Intro to sparklyr | _main.utf8.md" />
+  <meta property="og:title" content="3 Introduction to database connections | _main.utf8.md" />
   <meta property="og:type" content="book" />
   
   
@@ -16,7 +16,7 @@
   
 
   <meta name="twitter:card" content="summary" />
-  <meta name="twitter:title" content="9 Intro to sparklyr | _main.utf8.md" />
+  <meta name="twitter:title" content="3 Introduction to database connections | _main.utf8.md" />
   
   
   
@@ -29,8 +29,8 @@
   <meta name="apple-mobile-web-app-status-bar-style" content="black" />
   
   
-<link rel="prev" href="advanced-operations.html"/>
-<link rel="next" href="text-mining-with-sparklyr.html"/>
+<link rel="prev" href="introduction-to-dtplyr.html"/>
+<link rel="next" href="introduction-to-dbi.html"/>
 <script src="libs/jquery-2.2.3/jquery.min.js"></script>
 <link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
 <link href="libs/gitbook-2.6.7/css/plugin-table.css" rel="stylesheet" />
@@ -223,51 +223,91 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
           <div class="page-inner">
 
             <section class="normal" id="section-">
-<div id="intro-to-sparklyr" class="section level1">
-<h1><span class="header-section-number">9</span> Intro to <code>sparklyr</code></h1>
-<div id="new-spark-session" class="section level2">
-<h2><span class="header-section-number">9.1</span> New Spark session</h2>
-<p><em>Learn to open a new Spark session</em></p>
+<div id="introduction-to-database-connections" class="section level1">
+<h1><span class="header-section-number">3</span> Introduction to database connections</h1>
+<div id="connecting-via-dsn" class="section level2">
+<h2><span class="header-section-number">3.1</span> Connecting via DSN</h2>
+<p><em>Connect using defined Data Source Name (DSN). This requires an ODBC driver.</em></p>
 <ol style="list-style-type: decimal">
-<li><p>Load the <code>sparklyr</code> library</p>
-<div class="sourceCode" id="cb182"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb182-1" data-line-number="1"><span class="kw">library</span>(sparklyr)</a></code></pre></div></li>
-<li><p>Use <code>spark_connect()</code> to create a new local Spark session</p>
-<div class="sourceCode" id="cb183"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb183-1" data-line-number="1">sc &lt;-<span class="st"> </span><span class="kw">spark_connect</span>(<span class="dt">master =</span> <span class="st">&quot;local&quot;</span>)</a></code></pre></div>
-<pre><code>## * Using Spark: 2.4.0</code></pre></li>
-<li><p>Click on the <code>Spark</code> button to view the current Spark session’s UI</p></li>
-<li><p>Click on the <code>Log</code> button to see the message history</p></li>
+<li><p>Load the <code>DBI</code> and <code>odbc</code> packages</p>
+<div class="sourceCode" id="cb68"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb68-1" data-line-number="1"><span class="kw">library</span>(DBI)</a>
+<a class="sourceLine" id="cb68-2" data-line-number="2"><span class="kw">library</span>(odbc)</a></code></pre></div></li>
+<li><p>Use <code>odbcListDatasources</code> to list available DSNs</p>
+<div class="sourceCode" id="cb69"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb69-1" data-line-number="1"><span class="kw">odbcListDataSources</span>()</a></code></pre></div></li>
+<li><p>Use <code>dbConnect</code> to connect to a database using the <code>odbc</code> function and a DSN</p>
+<div class="sourceCode" id="cb70"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb70-1" data-line-number="1">con &lt;-<span class="st"> </span><span class="kw">dbConnect</span>(<span class="kw">odbc</span>(), <span class="st">&quot;Postgres DSN&quot;</span>)</a></code></pre></div></li>
+<li><p>Disconnect using <code>dbDisconnect</code></p>
+<div class="sourceCode" id="cb71"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb71-1" data-line-number="1"><span class="kw">dbDisconnect</span>(con)</a></code></pre></div></li>
 </ol>
 </div>
-<div id="data-transfer" class="section level2">
-<h2><span class="header-section-number">9.2</span> Data transfer</h2>
-<p><em>Practice uploading data to Spark</em></p>
+<div id="connect-with-a-connection-string" class="section level2">
+<h2><span class="header-section-number">3.2</span> Connect with a connection string</h2>
+<p><em>Connect by specifying all connection details in <code>dbConnect</code></em></p>
 <ol style="list-style-type: decimal">
-<li><p>Load the <code>dplyr</code> library</p>
-<div class="sourceCode" id="cb185"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb185-1" data-line-number="1"><span class="kw">library</span>(dplyr)</a></code></pre></div></li>
-<li><p>Copy the <code>mtcars</code> dataset into the session</p>
-<div class="sourceCode" id="cb186"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb186-1" data-line-number="1">spark_mtcars &lt;-<span class="st"> </span><span class="kw">copy_to</span>(sc, mtcars, <span class="st">&quot;my_mtcars&quot;</span>)</a></code></pre></div></li>
-<li><p>In the <strong>Connections</strong> pane, expande the <code>my_mtcars</code> table</p></li>
-<li><p>Go to the Spark UI, note the new jobs</p></li>
-<li><p>In the UI, click the Storage button, note the new table</p></li>
-<li><p>Click on the <strong>In-memory table my_mtcars</strong> link</p></li>
+<li><p>Use <code>dbConnect</code> and <code>odbc</code> to connect to a database, but this time all connection details are provided</p>
+<div class="sourceCode" id="cb72"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb72-1" data-line-number="1">con &lt;-<span class="st"> </span><span class="kw">dbConnect</span>(<span class="kw">odbc</span>(),</a>
+<a class="sourceLine" id="cb72-2" data-line-number="2">                 <span class="dt">driver =</span> <span class="st">&quot;postgresql&quot;</span>,</a>
+<a class="sourceLine" id="cb72-3" data-line-number="3">                 <span class="dt">host =</span> <span class="st">&quot;localhost&quot;</span>,</a>
+<a class="sourceLine" id="cb72-4" data-line-number="4">                 <span class="dt">user =</span> <span class="st">&quot;postgres&quot;</span>,</a>
+<a class="sourceLine" id="cb72-5" data-line-number="5">                 <span class="dt">pwd =</span> <span class="st">&quot;postgres&quot;</span>,</a>
+<a class="sourceLine" id="cb72-6" data-line-number="6">                 <span class="dt">port =</span> <span class="dv">5432</span>,</a>
+<a class="sourceLine" id="cb72-7" data-line-number="7">                 <span class="dt">database =</span> <span class="st">&quot;postgres&quot;</span>,</a>
+<a class="sourceLine" id="cb72-8" data-line-number="8">                 <span class="dt">bigint =</span> <span class="st">&quot;integer&quot;</span>)</a></code></pre></div></li>
+<li><p>Disconnect using <code>dbDisconnect</code></p>
+<div class="sourceCode" id="cb73"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb73-1" data-line-number="1"><span class="kw">dbDisconnect</span>(con)</a></code></pre></div></li>
 </ol>
 </div>
-<div id="spark-and-dplyr" class="section level2">
-<h2><span class="header-section-number">9.3</span> Spark and <code>dplyr</code></h2>
-<p><em>See how Spark handles <code>dplyr</code> commands</em></p>
+<div id="secure-connection-details" class="section level2">
+<h2><span class="header-section-number">3.3</span> Secure connection details</h2>
+<p><em>Use <code>config</code>, <code>keyring</code>, or environment variables to secure connection credentials</em></p>
 <ol style="list-style-type: decimal">
-<li><p>Run the following code snipett</p>
-<div class="sourceCode" id="cb187"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb187-1" data-line-number="1">spark_mtcars <span class="op">%&gt;%</span></a>
-<a class="sourceLine" id="cb187-2" data-line-number="2"><span class="st">  </span><span class="kw">group_by</span>(am) <span class="op">%&gt;%</span></a>
-<a class="sourceLine" id="cb187-3" data-line-number="3"><span class="st">  </span><span class="kw">summarise</span>(<span class="dt">mpg_mean =</span> <span class="kw">mean</span>(mpg, <span class="dt">na.rm =</span> <span class="ot">TRUE</span>))</a></code></pre></div>
-<pre><code>## # Source: spark&lt;?&gt; [?? x 2]
-##      am mpg_mean
-##   &lt;dbl&gt;    &lt;dbl&gt;
-## 1     0     17.1
-## 2     1     24.4</code></pre></li>
-<li><p>Go to the Spark UI and click the <strong>SQL</strong> button</p></li>
-<li><p>Click on the top item inside the <strong>Completed Queries</strong> table</p></li>
-<li><p>At the bottom of the diagram, expand <strong>Details</strong></p></li>
+<li><p>Load the <code>config</code> package</p>
+<div class="sourceCode" id="cb74"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb74-1" data-line-number="1"><span class="kw">library</span>(config)</a></code></pre></div></li>
+<li><p>Get the current config using the <code>get</code> function and store the results in an object called <code>config</code></p>
+<div class="sourceCode" id="cb75"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb75-1" data-line-number="1">config &lt;-<span class="st"> </span><span class="kw">get</span>()</a></code></pre></div></li>
+<li><p>Use <code>str</code> to investigate the contents of <code>config</code></p>
+<div class="sourceCode" id="cb76"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb76-1" data-line-number="1"><span class="kw">str</span>(config)</a></code></pre></div></li>
+<li><p>Connect using details provided in <code>config</code></p>
+<div class="sourceCode" id="cb77"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb77-1" data-line-number="1">con &lt;-<span class="st"> </span><span class="kw">dbConnect</span>(<span class="kw">odbc</span>(),</a>
+<a class="sourceLine" id="cb77-2" data-line-number="2">                 <span class="dt">driver =</span> config<span class="op">$</span>driver,</a>
+<a class="sourceLine" id="cb77-3" data-line-number="3">                 <span class="dt">host =</span> config<span class="op">$</span>host,</a>
+<a class="sourceLine" id="cb77-4" data-line-number="4">                 <span class="dt">user =</span> config<span class="op">$</span>user,</a>
+<a class="sourceLine" id="cb77-5" data-line-number="5">                 <span class="dt">pwd =</span> config<span class="op">$</span>pwd,</a>
+<a class="sourceLine" id="cb77-6" data-line-number="6">                 <span class="dt">port =</span> config<span class="op">$</span>port,</a>
+<a class="sourceLine" id="cb77-7" data-line-number="7">                 <span class="dt">database =</span> config<span class="op">$</span>dbname,</a>
+<a class="sourceLine" id="cb77-8" data-line-number="8">                 <span class="dt">bigint =</span> config<span class="op">$</span>bigint)</a></code></pre></div></li>
+<li><p>Disconnect using <code>dbDisconnect</code></p>
+<div class="sourceCode" id="cb78"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb78-1" data-line-number="1"><span class="kw">dbDisconnect</span>(con)</a></code></pre></div></li>
+<li><p>Load the <code>keyring</code> package</p>
+<div class="sourceCode" id="cb79"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb79-1" data-line-number="1"><span class="kw">library</span>(keyring)</a></code></pre></div></li>
+<li><p>Store the database host, username, and password using <code>keyring</code></p>
+<div class="sourceCode" id="cb80"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb80-1" data-line-number="1"><span class="kw">key_set</span>(<span class="st">&quot;postgres&quot;</span>, <span class="st">&quot;host&quot;</span>)</a>
+<a class="sourceLine" id="cb80-2" data-line-number="2"><span class="kw">key_set</span>(<span class="st">&quot;postgres&quot;</span>, <span class="st">&quot;username&quot;</span>)</a>
+<a class="sourceLine" id="cb80-3" data-line-number="3"><span class="kw">key_set</span>(<span class="st">&quot;postgres&quot;</span>, <span class="st">&quot;password&quot;</span>)</a></code></pre></div></li>
+<li><p>Use the stored credentials along with <code>dbConnect</code> to connect to the database</p>
+<div class="sourceCode" id="cb81"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb81-1" data-line-number="1">con &lt;-<span class="st"> </span><span class="kw">dbConnect</span>(<span class="kw">odbc</span>(),</a>
+<a class="sourceLine" id="cb81-2" data-line-number="2">                 <span class="dt">driver =</span> <span class="st">&quot;postgresql&quot;</span>,</a>
+<a class="sourceLine" id="cb81-3" data-line-number="3">                 <span class="dt">host =</span> <span class="kw">key_get</span>(<span class="st">&quot;postgres&quot;</span>, <span class="st">&quot;host&quot;</span>),</a>
+<a class="sourceLine" id="cb81-4" data-line-number="4">                 <span class="dt">user =</span> <span class="kw">key_get</span>(<span class="st">&quot;postgres&quot;</span>, <span class="st">&quot;username&quot;</span>),</a>
+<a class="sourceLine" id="cb81-5" data-line-number="5">                 <span class="dt">pwd =</span> <span class="kw">key_get</span>(<span class="st">&quot;postgres&quot;</span>, <span class="st">&quot;password&quot;</span>),</a>
+<a class="sourceLine" id="cb81-6" data-line-number="6">                 <span class="dt">port =</span> <span class="dv">5432</span>,</a>
+<a class="sourceLine" id="cb81-7" data-line-number="7">                 <span class="dt">database =</span> <span class="st">&quot;postgres&quot;</span>,</a>
+<a class="sourceLine" id="cb81-8" data-line-number="8">                 <span class="dt">bigint =</span> <span class="st">&quot;integer&quot;</span>)</a></code></pre></div></li>
+<li><p>Discnonect using <code>dbDisconnect</code></p>
+<div class="sourceCode" id="cb82"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb82-1" data-line-number="1"><span class="kw">dbDisconnect</span>(con)</a></code></pre></div></li>
+<li><p>The <code>.Renviron</code> file contains entries to create environment variables for <code>PG_HOST</code>, <code>PG_USER</code>, and <code>PG_PWD</code>. These variables can be read using <code>Sys.getenv()</code>.</p>
+<div class="sourceCode" id="cb83"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb83-1" data-line-number="1"><span class="kw">Sys.getenv</span>(<span class="st">&quot;PG_HOST&quot;</span>)</a></code></pre></div></li>
+<li><p>Connect to the database using the credentials stored in <code>.Renviron</code> and <code>Sys.getenv()</code></p>
+<div class="sourceCode" id="cb84"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb84-1" data-line-number="1">con &lt;-<span class="st"> </span><span class="kw">dbConnect</span>(<span class="kw">odbc</span>(),</a>
+<a class="sourceLine" id="cb84-2" data-line-number="2">                 <span class="dt">driver =</span> <span class="st">&quot;postgresql&quot;</span>,</a>
+<a class="sourceLine" id="cb84-3" data-line-number="3">                 <span class="dt">host =</span> <span class="kw">Sys.getenv</span>(<span class="st">&quot;PG_HOST&quot;</span>),</a>
+<a class="sourceLine" id="cb84-4" data-line-number="4">                 <span class="dt">user =</span> <span class="kw">Sys.getenv</span>(<span class="st">&quot;PG_USER&quot;</span>),</a>
+<a class="sourceLine" id="cb84-5" data-line-number="5">                 <span class="dt">pwd =</span> <span class="kw">Sys.getenv</span>(<span class="st">&quot;PG_PWD&quot;</span>),</a>
+<a class="sourceLine" id="cb84-6" data-line-number="6">                 <span class="dt">port =</span> <span class="dv">5432</span>,</a>
+<a class="sourceLine" id="cb84-7" data-line-number="7">                 <span class="dt">database =</span> <span class="st">&quot;postgres&quot;</span>,</a>
+<a class="sourceLine" id="cb84-8" data-line-number="8">                 <span class="dt">bigint =</span> <span class="st">&quot;integer&quot;</span>)</a></code></pre></div></li>
+<li><p>Discnonect using <code>dbDisconnect</code></p>
+<div class="sourceCode" id="cb85"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb85-1" data-line-number="1"><span class="kw">dbDisconnect</span>(con)</a></code></pre></div></li>
 </ol>
 
 </div>
@@ -277,8 +317,8 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
           </div>
         </div>
       </div>
-<a href="advanced-operations.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
-<a href="text-mining-with-sparklyr.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
+<a href="introduction-to-dtplyr.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+<a href="introduction-to-dbi.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
     </div>
   </div>
 <script src="libs/gitbook-2.6.7/js/app.min.js"></script>

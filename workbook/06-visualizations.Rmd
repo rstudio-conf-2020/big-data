@@ -11,6 +11,7 @@ library(dbplyr)
 library(dbplot)
 library(ggplot2)
 library(leaflet)
+library(config)
 ```
 
 
@@ -23,16 +24,25 @@ library(leaflet)
     ```{r, eval = eval_viz}
     library(connections)
     library(dplyr)
+    library(config)
     ```
 
 1. Use `connection_open()` to open a Database connection
     ```{r, eval = eval_viz}
-    {{db_connection}}
+    con <- connection_open(
+      RPostgres::Postgres(),
+      host =  "localhost",
+      user = get("user", config = "datawarehouse"),
+      password = get("password", config = "datawarehouse"),
+      port = 5432,
+      dbname = "postgres",
+      bigint = "integer"
+    )
     ```
 
 1. Use `tbl()` to create a pointer to the **v_orders** table
     ```{r, eval = eval_viz}
-    orders <- tbl(con, "v_orders")
+    orders <- tbl(con, in_schema("datawarehouse", "v_orders"))
     ```
 
 1. Use `collect()` bring back the aggregated results into a "pass-through" variable called `by_year`
