@@ -1,3 +1,0 @@
-#' List of customers
-#'
-"customers"
