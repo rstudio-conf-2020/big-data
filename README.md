@@ -136,20 +136,70 @@ The following is a tentative outline of the subjects that will be covered during
     - Using the `compute` functions
   - Modeling with databases
     - Single step sampling
-    - Multi-step sampling
-    - Use Job panel in RStudio
-    - Run predictions in DB
-    - Fit model in R
+    - Using `tidymodels` for modeling
     - Score with `tidypredict`
-    - Save and reload models
-    - Integration with `tidymodels`
-    - Run models in DB
-    - Intro to `modeldb`
-    - `modeldb` with `tidypredict`
+    - Run predictions in DB
   - Advanced Operations
     - Simple wrapper function
     - Multiple variables
     - Multiple queries
+    - Multiple queries with an overlapping range
+    - Characters to field names
+  - Intro to `sparklyr`
+    - New Spark session
+    - Data transfer
+    - Spark and `dplyr`
+  - Text mining with `sparklyr`
+    - Data Import
+    - Tidying data
+    - Transform the data
+    - Data Exploration
+  - Spark data caching
+    - Map data
+    - Caching data
+  - Big Data with R - Exercise book {-}
+  - Introduction to `vroom`
+    - `vroom` basics
+    - Load multiple files
+    - Load and modify multiple files
+  - Introduction to `dtplyr`
+    - `dtplyr` basics
+    - Object sizes
+    - How `dtplyr` works
+    - Working with `dtplyr`
+    - Pivot data
+    - The `mutate()` verb
+  - Introduction to database connections
+    - Connecting via DSN
+    - Connect with a connection string
+    - Secure connection details
+  - Introduction to `DBI`
+    - Local database basics
+    - Options for writing tables
+    - Database operations
+    - `knitr` SQL engine
+  - Databases and `dplyr`
+    - Intro to `connections`
+    - Table reference
+    - Under the hood
+    - Un-translated R commands
+    - Using bang-bang
+  - Data Visualizations
+    - Simple plot
+    - Plot in one code segment
+    - Create a histogram
+    - Raster plot
+    - Using the `compute` functions
+  - Modeling with databases
+    - Single step sampling
+    - Using `tidymodels` for modeling
+    - Score with `tidypredict`
+    - Run predictions in DB
+  - Advanced Operations
+    - Simple wrapper function
+    - Multiple variables
+    - Multiple queries
+    - Multiple queries with an overlapping range
     - Characters to field names
   - Intro to `sparklyr`
     - New Spark session
