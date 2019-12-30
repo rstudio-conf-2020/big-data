@@ -6,14 +6,131 @@ if(Sys.getenv("GLOBAL_EVAL") != "") eval_model <- Sys.getenv("GLOBAL_EVAL")
 ```{r, eval = eval_model, include = FALSE}
 library(tidymodels)
 library(modeldb)
+library(dbplot)
 library(pins)
 library(dbplyr)
 library(RPostgres)
+library(connections)
+library(config)
 ```
 
 # Modeling with databases
 
 ## Single step sampling
+*Use PostgreSQL TABLESAMPLE clause*
+
+1. Use `connection_open()` to open a Database connection
+    ```{r, eval = eval_model}
+    con <- connection_open(
+      RPostgres::Postgres(),
+      host =  "localhost",
+      user = get("user", config = "datawarehouse"),
+      password = get("password", config = "datawarehouse"),
+      port = 5432,
+      dbname = "postgres",
+      bigint = "integer"
+    )
+    ```
+
+1. Set the `orders` variable to point to the **orders** table
+    ```{r, eval = eval_model}
+    orders <- tbl(con, in_schema("datawarehouse", "orders"))
+    ```
+
+1. Set the `orders_view` variable to point to the **v_orders** table
+    ```{r, eval = eval_model}
+    orders_view <- tbl(con, in_schema("datawarehouse", "v_orders"))
+    ```
+
+1. Pipe `orders` into the function `show_query()`
+    ```{r, eval = eval_model}
+    orders %>%
+      show_query()
+    ```
+
+1. Pipe the previous command into the `class()` function to see the kind of output `show_query()` returns
+    ```{r, eval = eval_model}
+    orders %>%
+      show_query() %>%
+      class()
+    ```
+
+1. Replace `show_query()` with `remote_query()` to compare the output types
+    ```{r, eval = eval_model}
+    orders %>%
+      remote_query() %>%
+      class()
+    ```
+
+1. Replace `class()` with `build_sql()`.  Use `con` as the value for the `con` argument
+    ```{r, eval = eval_model}
+    orders %>%
+      remote_query() %>%
+      build_sql(con = con)
+    ```
+
+1. Add *" TABLESAMPLE BERNOULLI (0.1)"* to `build_sql()` as another `...` argument
+    ```{r, eval = eval_model}
+    orders %>%
+      remote_query() %>%
+      build_sql(con = con, " TABLESAMPLE BERNOULLI (0.1)")
+    ```
+
+1. Pipe the code into `tbl()`.  Use `con` for the `con` argument, and `.` for the rest
+    ```{r, eval = eval_model}
+    orders %>%
+      remote_query() %>%
+      build_sql(con = con, " TABLESAMPLE BERNOULLI (0.1)") %>%
+      tbl(con, .) 
+    ```
+
+1. Use `inner_join()` to add the information from the `orders_view` pointer, use `order_id` as the matching field
+    ```{r, eval = eval_model}
+    orders %>%
+      remote_query() %>%
+      build_sql(con = con, " TABLESAMPLE BERNOULLI (0.1)") %>%
+      tbl(con, .)  %>%
+      inner_join(orders_view, by = "order_id") 
+    ```
+
+1. Assign the resulting code to a variable `order_sample`
+    ```{r, eval = eval_model}
+    orders_sample <- orders %>%
+      remote_query() %>%
+      build_sql(con = con, " TABLESAMPLE BERNOULLI (0.1)") %>%
+      tbl(con, .)  %>%
+      inner_join(orders_view, by = "order_id") 
+    ```
+
+1. Pipe the code into the `collect()` function
+    ```{r, eval = eval_model}
+    orders_sample <- orders %>%
+      remote_query() %>%
+      build_sql(con = con, " TABLESAMPLE BERNOULLI (0.1)") %>%
+      tbl(con, .) %>%
+      inner_join(orders_view, by = "order_id") %>% 
+      collect()
+    ```
+
+1. Load the `dbplot` library
+    ```{r, eval = eval_model}
+    library(dbplot)
+    ```
+
+
+1. Use `dbplot_histogram()` to visualize the distribution of `order_total` from `orders_sample` 
+    ```{r, eval = eval_model}
+    orders_sample %>% 
+      dbplot_histogram(order_total, binwidth = 5)
+    ```
+
+1. Use `dbplot_histogram()` to visualize the distribution of `order_total` from `orders_view`
+    ```{r, eval = eval_model}
+    orders_view %>% 
+      dbplot_histogram(order_total, binwidth = 5)
+    ```
+
+
 ## Multi-step sampling
 ## Use Job panel in RStudio
 ## Run predictions in DB
