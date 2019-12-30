@@ -1,55 +1,34 @@
-setwd(here::here("workbook"))
-#Sys.setenv(GLOBAL_EVAL = TRUE)
-files <- c(
-  "derby.log",
-  "parsedmodel.csv",
-  "_bookdown_files",
-  "_main.Rmd",
-  "saved_model",
-  "saved_pipeline",
-  "new_model",
-  "logs",
-  "_book",
-  "my_model.yml",
-  "mydatabase.sqlite",
-  "spark-warehouse",
-  list.files(pattern = "\\.md"),
-  list.files(pattern = "\\.rds")
-)
-unlink(files, recursive = TRUE, force = TRUE)
-copy_data <- function() {
-  unlink("data", recursive = TRUE, force = TRUE)
-  dir.create("data")
-  file.copy("../../data", ".", recursive = TRUE)
-  # Books for the text mining unit
-  unlink("books", recursive = TRUE, force = TRUE)
-  dir.create("books")
-  file.copy("../../books", ".", recursive = TRUE)
-  # Books for the text mining unit
-  unlink("books", recursive = TRUE, force = TRUE)
-  dir.create("books")
-  file.copy("../../books", ".", recursive = TRUE)
-  # Database
-  unlink("database", recursive = TRUE, force = TRUE)
-  dir.create("database")
-  file.copy("../../database", ".", recursive = TRUE)
-}
-#copy_data()
-bookdown::serve_book(output_dir = here::here("docs"))
-.rs.removeAllObjects(TRUE, globalenv())
-.rs.restartR(
-  afterRestartCommand = "setwd(here::here()); browseURL('docs/index.html')"
-)
+## Install development version of bigdataclass
+library(devtools)
+install_github("edgararuiz/bigdataclass", ref = "3f323")
 
-get_outline <- function() {
-  rmds <- fs::dir_ls("workbook", glob = "*.Rmd")
-  rmd <- rmds[rmds != "workbook/index.Rmd"]
-  bdc_utils_outline(rmd) 
-}
+## Load libraries
+library(bigdataclass)
+library(DBI)
 
-get_libraries <- function() {
-  rmds <- fs::dir_ls("workbook", glob = "*.Rmd")
-  rmd <- rmds[rmds != "workbook/index.Rmd"]
-  bdc_utils_libraries(rmd) 
-}
+## Open database connection
+con <- dbConnect(RPostgres::Postgres(),
+                 host = "localhost",
+                 user = "rstudio_admin",
+                 port = 5432,
+                 password = "admin_user_be_careful",
+                 dbname = "postgres",
+                 bigint = "integer")
+folder <- "/usr/share/class"
+if(!dir.exists(folder)) stop("Folder ", folder, " not found. Please create it and re-run")
 
+## Creates the "retail" schema inside the database connection
+con <- bdc_db_init(con, overwrite = TRUE)
+
+## Creates the tables and views inside the schema
+bdc_db_tables(con = con, avg_daily_orders = 1000)
+
+## Builds the files and saves them to the path in "folder" 
+files_folder <- file.path(folder, "files")
+if(!dir.exists(files_folder)) dir.create(files_folder)
+bdc_data_files(con = con, folder = files_folder)
+
+## Downloads the books from the Gutenbergh API and saves them to the "folder"
+books_folder <- file.path(folder, "books")
+if(!dir.exists(books_folder)) dir.create(books_folder)
+bdc_data_books(file.path(folder, "books"))
