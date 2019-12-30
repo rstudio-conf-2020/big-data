@@ -130,6 +130,46 @@ library(config)
       dbplot_histogram(order_total, binwidth = 5)
     ```
 
+## Using `tidymodels` for modeling
+*Fit and measure the model's performance using functions from `parsnip` and `yardstick`*
+
+1. Load the `tidymodels` library
+    ```{r, eval = eval_model}
+    library(tidymodels)
+    ```
+
+1. Start with the `linear_reg()` command, pipe into `set_engine()`, and use *"lm"* as its sole argument
+    ```{r, eval = eval_model}
+    linear_reg() %>%
+      set_engine("lm") 
+    ```
+
+1. Pipe into the `fit()` command. Use the formula: `order_total ~ order_qty`, and `orders_sample` as the `data` argument
+    ```{r, eval = eval_model}
+    linear_reg() %>%
+      set_engine("lm") %>%
+      fit(order_total ~ order_qty, data = orders_sample)
+    ```
+
+1. Assign the previous code to a variable called `parsnip_model`
+    ```{r, eval = eval_model}
+    parsnip_model <- linear_reg() %>%
+      set_engine("lm") %>%
+      fit(order_total ~ order_qty, data = orders_sample)
+    ```
+
+1. Use `bind_cols()` to add the predictions to `order_sample`.  Calculate the prediction with `predict()`
+    ```{r, eval = eval_model}
+    orders_sample %>% 
+      bind_cols(predict(parsnip_model, orders_sample))
+    ```
+
+1. Pipe the code into the `metrics()` function.  Use `order_total` as the `truth` argument, and `.pred` as the `estimate` argument
+    ```{r, eval = eval_model}
+    orders_sample %>% 
+      bind_cols(predict(parsnip_model, orders_sample)) %>%
+      metrics(truth = order_total, estimate = .pred)
+    ```
 
 ## Multi-step sampling
 ## Use Job panel in RStudio
