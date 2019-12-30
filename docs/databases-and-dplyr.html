@@ -174,22 +174,16 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </ul></li>
 <li class="chapter" data-level="7" data-path="modeling-with-databases.html"><a href="modeling-with-databases.html"><i class="fa fa-check"></i><b>7</b> Modeling with databases</a><ul>
 <li class="chapter" data-level="7.1" data-path="modeling-with-databases.html"><a href="modeling-with-databases.html#single-step-sampling"><i class="fa fa-check"></i><b>7.1</b> Single step sampling</a></li>
-<li class="chapter" data-level="7.2" data-path="modeling-with-databases.html"><a href="modeling-with-databases.html#multi-step-sampling"><i class="fa fa-check"></i><b>7.2</b> Multi-step sampling</a></li>
-<li class="chapter" data-level="7.3" data-path="modeling-with-databases.html"><a href="modeling-with-databases.html#use-job-panel-in-rstudio"><i class="fa fa-check"></i><b>7.3</b> Use Job panel in RStudio</a></li>
+<li class="chapter" data-level="7.2" data-path="modeling-with-databases.html"><a href="modeling-with-databases.html#using-tidymodels-for-modeling"><i class="fa fa-check"></i><b>7.2</b> Using <code>tidymodels</code> for modeling</a></li>
+<li class="chapter" data-level="7.3" data-path="modeling-with-databases.html"><a href="modeling-with-databases.html#score-with-tidypredict"><i class="fa fa-check"></i><b>7.3</b> Score with <code>tidypredict</code></a></li>
 <li class="chapter" data-level="7.4" data-path="modeling-with-databases.html"><a href="modeling-with-databases.html#run-predictions-in-db"><i class="fa fa-check"></i><b>7.4</b> Run predictions in DB</a></li>
-<li class="chapter" data-level="7.5" data-path="modeling-with-databases.html"><a href="modeling-with-databases.html#fit-model-in-r"><i class="fa fa-check"></i><b>7.5</b> Fit model in R</a></li>
-<li class="chapter" data-level="7.6" data-path="modeling-with-databases.html"><a href="modeling-with-databases.html#score-with-tidypredict"><i class="fa fa-check"></i><b>7.6</b> Score with <code>tidypredict</code></a></li>
-<li class="chapter" data-level="7.7" data-path="modeling-with-databases.html"><a href="modeling-with-databases.html#save-and-reload-models"><i class="fa fa-check"></i><b>7.7</b> Save and reload models</a></li>
-<li class="chapter" data-level="7.8" data-path="modeling-with-databases.html"><a href="modeling-with-databases.html#integration-with-tidymodels"><i class="fa fa-check"></i><b>7.8</b> Integration with <code>tidymodels</code></a></li>
-<li class="chapter" data-level="7.9" data-path="modeling-with-databases.html"><a href="modeling-with-databases.html#run-models-in-db"><i class="fa fa-check"></i><b>7.9</b> Run models in DB</a></li>
-<li class="chapter" data-level="7.10" data-path="modeling-with-databases.html"><a href="modeling-with-databases.html#intro-to-modeldb"><i class="fa fa-check"></i><b>7.10</b> Intro to <code>modeldb</code></a></li>
-<li class="chapter" data-level="7.11" data-path="modeling-with-databases.html"><a href="modeling-with-databases.html#modeldb-with-tidypredict"><i class="fa fa-check"></i><b>7.11</b> <code>modeldb</code> with <code>tidypredict</code></a></li>
 </ul></li>
 <li class="chapter" data-level="8" data-path="advanced-operations.html"><a href="advanced-operations.html"><i class="fa fa-check"></i><b>8</b> Advanced Operations</a><ul>
 <li class="chapter" data-level="8.1" data-path="advanced-operations.html"><a href="advanced-operations.html#simple-wrapper-function"><i class="fa fa-check"></i><b>8.1</b> Simple wrapper function</a></li>
 <li class="chapter" data-level="8.2" data-path="advanced-operations.html"><a href="advanced-operations.html#multiple-variables"><i class="fa fa-check"></i><b>8.2</b> Multiple variables</a></li>
 <li class="chapter" data-level="8.3" data-path="advanced-operations.html"><a href="advanced-operations.html#multiple-queries"><i class="fa fa-check"></i><b>8.3</b> Multiple queries</a></li>
-<li class="chapter" data-level="8.4" data-path="advanced-operations.html"><a href="advanced-operations.html#characters-to-field-names"><i class="fa fa-check"></i><b>8.4</b> Characters to field names</a></li>
+<li class="chapter" data-level="8.4" data-path="advanced-operations.html"><a href="advanced-operations.html#multiple-queries-with-an-overlapping-range"><i class="fa fa-check"></i><b>8.4</b> Multiple queries with an overlapping range</a></li>
+<li class="chapter" data-level="8.5" data-path="advanced-operations.html"><a href="advanced-operations.html#characters-to-field-names"><i class="fa fa-check"></i><b>8.5</b> Characters to field names</a></li>
 </ul></li>
 <li class="chapter" data-level="9" data-path="intro-to-sparklyr.html"><a href="intro-to-sparklyr.html"><i class="fa fa-check"></i><b>9</b> Intro to <code>sparklyr</code></a><ul>
 <li class="chapter" data-level="9.1" data-path="intro-to-sparklyr.html"><a href="intro-to-sparklyr.html#new-spark-session"><i class="fa fa-check"></i><b>9.1</b> New Spark session</a></li>
@@ -343,12 +337,12 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 ## # Database: postgres [rstudio_admin@localhost:5432/postgres]
 ##   today     
 ##   &lt;date&gt;    
-## 1 2019-12-19
-## 2 2019-12-19
-## 3 2019-12-19
-## 4 2019-12-19
-## 5 2019-12-19
-## 6 2019-12-19</code></pre></li>
+## 1 2019-12-30
+## 2 2019-12-30
+## 3 2019-12-30
+## 4 2019-12-30
+## 5 2019-12-30
+## 6 2019-12-30</code></pre></li>
 </ol>
 </div>
 <div id="using-bang-bang" class="section level2">
@@ -360,7 +354,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <a class="sourceLine" id="cb147-2" data-line-number="2"><span class="st">  </span><span class="kw">mutate</span>(<span class="dt">today =</span> <span class="op">!!</span><span class="kw">Sys.time</span>()) <span class="op">%&gt;%</span></a>
 <a class="sourceLine" id="cb147-3" data-line-number="3"><span class="st">  </span><span class="kw">show_query</span>()</a></code></pre></div>
 <pre><code>## &lt;SQL&gt;
-## SELECT &quot;order_id&quot;, &quot;customer_id&quot;, &quot;step_id&quot;, &#39;2019-12-19T21:13:58Z&#39; AS &quot;today&quot;
+## SELECT &quot;order_id&quot;, &quot;customer_id&quot;, &quot;step_id&quot;, &#39;2019-12-30T20:45:15Z&#39; AS &quot;today&quot;
 ## FROM datawarehouse.orders</code></pre></li>
 <li><p>View resulting table when <code>Sys.time()</code> is translated when prefixing <code>!!</code></p>
 <div class="sourceCode" id="cb149"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb149-1" data-line-number="1">orders <span class="op">%&gt;%</span></a>
@@ -371,12 +365,12 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 ## # Database: postgres [rstudio_admin@localhost:5432/postgres]
 ##   today               
 ##   &lt;chr&gt;               
-## 1 2019-12-19T21:13:58Z
-## 2 2019-12-19T21:13:58Z
-## 3 2019-12-19T21:13:58Z
-## 4 2019-12-19T21:13:58Z
-## 5 2019-12-19T21:13:58Z
-## 6 2019-12-19T21:13:58Z</code></pre></li>
+## 1 2019-12-30T20:45:15Z
+## 2 2019-12-30T20:45:15Z
+## 3 2019-12-30T20:45:15Z
+## 4 2019-12-30T20:45:15Z
+## 5 2019-12-30T20:45:15Z
+## 6 2019-12-30T20:45:15Z</code></pre></li>
 </ol>
 
 </div>

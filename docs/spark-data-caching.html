@@ -174,22 +174,16 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </ul></li>
 <li class="chapter" data-level="7" data-path="modeling-with-databases.html"><a href="modeling-with-databases.html"><i class="fa fa-check"></i><b>7</b> Modeling with databases</a><ul>
 <li class="chapter" data-level="7.1" data-path="modeling-with-databases.html"><a href="modeling-with-databases.html#single-step-sampling"><i class="fa fa-check"></i><b>7.1</b> Single step sampling</a></li>
-<li class="chapter" data-level="7.2" data-path="modeling-with-databases.html"><a href="modeling-with-databases.html#multi-step-sampling"><i class="fa fa-check"></i><b>7.2</b> Multi-step sampling</a></li>
-<li class="chapter" data-level="7.3" data-path="modeling-with-databases.html"><a href="modeling-with-databases.html#use-job-panel-in-rstudio"><i class="fa fa-check"></i><b>7.3</b> Use Job panel in RStudio</a></li>
+<li class="chapter" data-level="7.2" data-path="modeling-with-databases.html"><a href="modeling-with-databases.html#using-tidymodels-for-modeling"><i class="fa fa-check"></i><b>7.2</b> Using <code>tidymodels</code> for modeling</a></li>
+<li class="chapter" data-level="7.3" data-path="modeling-with-databases.html"><a href="modeling-with-databases.html#score-with-tidypredict"><i class="fa fa-check"></i><b>7.3</b> Score with <code>tidypredict</code></a></li>
 <li class="chapter" data-level="7.4" data-path="modeling-with-databases.html"><a href="modeling-with-databases.html#run-predictions-in-db"><i class="fa fa-check"></i><b>7.4</b> Run predictions in DB</a></li>
-<li class="chapter" data-level="7.5" data-path="modeling-with-databases.html"><a href="modeling-with-databases.html#fit-model-in-r"><i class="fa fa-check"></i><b>7.5</b> Fit model in R</a></li>
-<li class="chapter" data-level="7.6" data-path="modeling-with-databases.html"><a href="modeling-with-databases.html#score-with-tidypredict"><i class="fa fa-check"></i><b>7.6</b> Score with <code>tidypredict</code></a></li>
-<li class="chapter" data-level="7.7" data-path="modeling-with-databases.html"><a href="modeling-with-databases.html#save-and-reload-models"><i class="fa fa-check"></i><b>7.7</b> Save and reload models</a></li>
-<li class="chapter" data-level="7.8" data-path="modeling-with-databases.html"><a href="modeling-with-databases.html#integration-with-tidymodels"><i class="fa fa-check"></i><b>7.8</b> Integration with <code>tidymodels</code></a></li>
-<li class="chapter" data-level="7.9" data-path="modeling-with-databases.html"><a href="modeling-with-databases.html#run-models-in-db"><i class="fa fa-check"></i><b>7.9</b> Run models in DB</a></li>
-<li class="chapter" data-level="7.10" data-path="modeling-with-databases.html"><a href="modeling-with-databases.html#intro-to-modeldb"><i class="fa fa-check"></i><b>7.10</b> Intro to <code>modeldb</code></a></li>
-<li class="chapter" data-level="7.11" data-path="modeling-with-databases.html"><a href="modeling-with-databases.html#modeldb-with-tidypredict"><i class="fa fa-check"></i><b>7.11</b> <code>modeldb</code> with <code>tidypredict</code></a></li>
 </ul></li>
 <li class="chapter" data-level="8" data-path="advanced-operations.html"><a href="advanced-operations.html"><i class="fa fa-check"></i><b>8</b> Advanced Operations</a><ul>
 <li class="chapter" data-level="8.1" data-path="advanced-operations.html"><a href="advanced-operations.html#simple-wrapper-function"><i class="fa fa-check"></i><b>8.1</b> Simple wrapper function</a></li>
 <li class="chapter" data-level="8.2" data-path="advanced-operations.html"><a href="advanced-operations.html#multiple-variables"><i class="fa fa-check"></i><b>8.2</b> Multiple variables</a></li>
 <li class="chapter" data-level="8.3" data-path="advanced-operations.html"><a href="advanced-operations.html#multiple-queries"><i class="fa fa-check"></i><b>8.3</b> Multiple queries</a></li>
-<li class="chapter" data-level="8.4" data-path="advanced-operations.html"><a href="advanced-operations.html#characters-to-field-names"><i class="fa fa-check"></i><b>8.4</b> Characters to field names</a></li>
+<li class="chapter" data-level="8.4" data-path="advanced-operations.html"><a href="advanced-operations.html#multiple-queries-with-an-overlapping-range"><i class="fa fa-check"></i><b>8.4</b> Multiple queries with an overlapping range</a></li>
+<li class="chapter" data-level="8.5" data-path="advanced-operations.html"><a href="advanced-operations.html#characters-to-field-names"><i class="fa fa-check"></i><b>8.5</b> Characters to field names</a></li>
 </ul></li>
 <li class="chapter" data-level="9" data-path="intro-to-sparklyr.html"><a href="intro-to-sparklyr.html"><i class="fa fa-check"></i><b>9</b> Intro to <code>sparklyr</code></a><ul>
 <li class="chapter" data-level="9.1" data-path="intro-to-sparklyr.html"><a href="intro-to-sparklyr.html#new-spark-session"><i class="fa fa-check"></i><b>9.1</b> New Spark session</a></li>
@@ -231,12 +225,12 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <ol style="list-style-type: decimal">
 <li><p>Examine the contents of the <strong>/usr/share/class/files</strong> folder</p></li>
 <li><p>Load the <code>sparklyr</code> library</p>
-<div class="sourceCode" id="cb221"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb221-1" data-line-number="1"><span class="kw">library</span>(sparklyr)</a></code></pre></div></li>
+<div class="sourceCode" id="cb355"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb355-1" data-line-number="1"><span class="kw">library</span>(sparklyr)</a></code></pre></div></li>
 <li><p>Use <code>spark_connect()</code> to create a new local Spark session</p>
-<div class="sourceCode" id="cb222"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb222-1" data-line-number="1">sc &lt;-<span class="st"> </span><span class="kw">spark_connect</span>(<span class="dt">master =</span> <span class="st">&quot;local&quot;</span>)</a></code></pre></div>
+<div class="sourceCode" id="cb356"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb356-1" data-line-number="1">sc &lt;-<span class="st"> </span><span class="kw">spark_connect</span>(<span class="dt">master =</span> <span class="st">&quot;local&quot;</span>)</a></code></pre></div>
 <pre><code>## * Using Spark: 2.4.0</code></pre></li>
 <li><p>Load the <code>readr</code> and <code>purrr</code> libraries</p>
-<div class="sourceCode" id="cb224"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb224-1" data-line-number="1"><span class="kw">library</span>(readr)</a></code></pre></div>
+<div class="sourceCode" id="cb358"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb358-1" data-line-number="1"><span class="kw">library</span>(readr)</a></code></pre></div>
 <pre><code>## Registered S3 methods overwritten by &#39;readr&#39;:
 ##   method           from 
 ##   format.col_spec  vroom
@@ -255,11 +249,12 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 ##     col_factor</code></pre>
 <pre><code>## The following objects are masked from &#39;package:vroom&#39;:
 ## 
-##     as.col_spec, col_character, col_date, col_datetime, col_double, col_factor, col_guess, col_integer, col_logical, col_number, col_skip, col_time, cols, cols_condense, cols_only,
-##     date_names, date_names_lang, date_names_langs, default_locale, fwf_cols, fwf_empty, fwf_positions, fwf_widths, locale, output_column, spec</code></pre>
-<div class="sourceCode" id="cb230"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb230-1" data-line-number="1"><span class="kw">library</span>(purrr)</a></code></pre></div></li>
+##     as.col_spec, col_character, col_date, col_datetime, col_double, col_factor, col_guess, col_integer, col_logical, col_number, col_skip,
+##     col_time, cols, cols_condense, cols_only, date_names, date_names_lang, date_names_langs, default_locale, fwf_cols, fwf_empty,
+##     fwf_positions, fwf_widths, locale, output_column, spec</code></pre>
+<div class="sourceCode" id="cb364"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb364-1" data-line-number="1"><span class="kw">library</span>(purrr)</a></code></pre></div></li>
 <li><p>Read the top 5 rows of the <strong>transactions_1</strong> CSV file</p>
-<div class="sourceCode" id="cb231"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb231-1" data-line-number="1">top_rows &lt;-<span class="st"> </span><span class="kw">read_csv</span>(<span class="st">&quot;/usr/share/class/files/transactions_1.csv&quot;</span>, <span class="dt">n_max =</span> <span class="dv">5</span>)</a></code></pre></div>
+<div class="sourceCode" id="cb365"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb365-1" data-line-number="1">top_rows &lt;-<span class="st"> </span><span class="kw">read_csv</span>(<span class="st">&quot;/usr/share/class/files/transactions_1.csv&quot;</span>, <span class="dt">n_max =</span> <span class="dv">5</span>)</a></code></pre></div>
 <pre><code>## Parsed with column specification:
 ## cols(
 ##   order_id = col_double(),
@@ -278,11 +273,11 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 ##   price = col_double()
 ## )</code></pre></li>
 <li><p>Create a list based on the column names, and add a list item with “character” as its value. Name the variable <code>file_columns</code></p>
-<div class="sourceCode" id="cb233"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb233-1" data-line-number="1">file_columns &lt;-<span class="st"> </span>top_rows <span class="op">%&gt;%</span></a>
-<a class="sourceLine" id="cb233-2" data-line-number="2"><span class="st">  </span><span class="kw">rename_all</span>(tolower) <span class="op">%&gt;%</span></a>
-<a class="sourceLine" id="cb233-3" data-line-number="3"><span class="st">  </span><span class="kw">map</span>(<span class="cf">function</span>(x) <span class="st">&quot;character&quot;</span>)</a></code></pre></div></li>
+<div class="sourceCode" id="cb367"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb367-1" data-line-number="1">file_columns &lt;-<span class="st"> </span>top_rows <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb367-2" data-line-number="2"><span class="st">  </span><span class="kw">rename_all</span>(tolower) <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb367-3" data-line-number="3"><span class="st">  </span><span class="kw">map</span>(<span class="cf">function</span>(x) <span class="st">&quot;character&quot;</span>)</a></code></pre></div></li>
 <li><p>Preview the contents of the <code>file_columns</code> variable</p>
-<div class="sourceCode" id="cb234"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb234-1" data-line-number="1"><span class="kw">head</span>(file_columns)</a></code></pre></div>
+<div class="sourceCode" id="cb368"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb368-1" data-line-number="1"><span class="kw">head</span>(file_columns)</a></code></pre></div>
 <pre><code>## $order_id
 ## [1] &quot;character&quot;
 ## 
@@ -301,18 +296,18 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 ## $customer_lon
 ## [1] &quot;character&quot;</code></pre></li>
 <li><p>Use <code>spark_read()</code> to “map” the file’s structure and location to the Spark context. Assign it to the <code>spark_lineitems</code> variable</p>
-<div class="sourceCode" id="cb236"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb236-1" data-line-number="1">spark_lineitems &lt;-<span class="st"> </span><span class="kw">spark_read_csv</span>(</a>
-<a class="sourceLine" id="cb236-2" data-line-number="2">  sc,</a>
-<a class="sourceLine" id="cb236-3" data-line-number="3">  <span class="dt">name =</span> <span class="st">&quot;orders&quot;</span>,</a>
-<a class="sourceLine" id="cb236-4" data-line-number="4">  <span class="dt">path =</span> <span class="st">&quot;/usr/share/class/files&quot;</span>,</a>
-<a class="sourceLine" id="cb236-5" data-line-number="5">  <span class="dt">memory =</span> <span class="ot">FALSE</span>,</a>
-<a class="sourceLine" id="cb236-6" data-line-number="6">  <span class="dt">columns =</span> file_columns,</a>
-<a class="sourceLine" id="cb236-7" data-line-number="7">  <span class="dt">infer_schema =</span> <span class="ot">FALSE</span></a>
-<a class="sourceLine" id="cb236-8" data-line-number="8">)</a></code></pre></div></li>
+<div class="sourceCode" id="cb370"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb370-1" data-line-number="1">spark_lineitems &lt;-<span class="st"> </span><span class="kw">spark_read_csv</span>(</a>
+<a class="sourceLine" id="cb370-2" data-line-number="2">  sc,</a>
+<a class="sourceLine" id="cb370-3" data-line-number="3">  <span class="dt">name =</span> <span class="st">&quot;orders&quot;</span>,</a>
+<a class="sourceLine" id="cb370-4" data-line-number="4">  <span class="dt">path =</span> <span class="st">&quot;/usr/share/class/files&quot;</span>,</a>
+<a class="sourceLine" id="cb370-5" data-line-number="5">  <span class="dt">memory =</span> <span class="ot">FALSE</span>,</a>
+<a class="sourceLine" id="cb370-6" data-line-number="6">  <span class="dt">columns =</span> file_columns,</a>
+<a class="sourceLine" id="cb370-7" data-line-number="7">  <span class="dt">infer_schema =</span> <span class="ot">FALSE</span></a>
+<a class="sourceLine" id="cb370-8" data-line-number="8">)</a></code></pre></div></li>
 <li><p>In the Connections pane, click on the table icon by the <code>transactions</code> variable</p></li>
 <li><p>Verify that the new variable pointer works by using <code>tally()</code></p>
-<div class="sourceCode" id="cb237"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb237-1" data-line-number="1">spark_lineitems <span class="op">%&gt;%</span></a>
-<a class="sourceLine" id="cb237-2" data-line-number="2"><span class="st">  </span><span class="kw">tally</span>()</a></code></pre></div>
+<div class="sourceCode" id="cb371"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb371-1" data-line-number="1">spark_lineitems <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb371-2" data-line-number="2"><span class="st">  </span><span class="kw">tally</span>()</a></code></pre></div>
 <pre><code>## # Source: spark&lt;?&gt; [?? x 1]
 ##        n
 ##    &lt;dbl&gt;
@@ -324,14 +319,14 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <p><em>Learn how to cache a subset of the data in Spark</em></p>
 <ol style="list-style-type: decimal">
 <li><p>Create a subset of the <em>orders</em> table object. Summarize by <strong>date</strong>, careate a total price and number of items sold.</p>
-<div class="sourceCode" id="cb239"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb239-1" data-line-number="1">daily_orders &lt;-<span class="st"> </span>spark_lineitems <span class="op">%&gt;%</span></a>
-<a class="sourceLine" id="cb239-2" data-line-number="2"><span class="st">  </span><span class="kw">mutate</span>(<span class="dt">price =</span> <span class="kw">as.double</span>(price)) <span class="op">%&gt;%</span></a>
-<a class="sourceLine" id="cb239-3" data-line-number="3"><span class="st">  </span><span class="kw">group_by</span>(date) <span class="op">%&gt;%</span></a>
-<a class="sourceLine" id="cb239-4" data-line-number="4"><span class="st">  </span><span class="kw">summarise</span>(<span class="dt">total_sales =</span> <span class="kw">sum</span>(price, <span class="dt">na.rm =</span> <span class="ot">TRUE</span>), <span class="dt">no_items =</span> <span class="kw">n</span>())</a></code></pre></div></li>
+<div class="sourceCode" id="cb373"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb373-1" data-line-number="1">daily_orders &lt;-<span class="st"> </span>spark_lineitems <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb373-2" data-line-number="2"><span class="st">  </span><span class="kw">mutate</span>(<span class="dt">price =</span> <span class="kw">as.double</span>(price)) <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb373-3" data-line-number="3"><span class="st">  </span><span class="kw">group_by</span>(date) <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb373-4" data-line-number="4"><span class="st">  </span><span class="kw">summarise</span>(<span class="dt">total_sales =</span> <span class="kw">sum</span>(price, <span class="dt">na.rm =</span> <span class="ot">TRUE</span>), <span class="dt">no_items =</span> <span class="kw">n</span>())</a></code></pre></div></li>
 <li><p>Use <code>compute()</code> to extract the data into Spark memory</p>
-<div class="sourceCode" id="cb240"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb240-1" data-line-number="1">cached_orders &lt;-<span class="st"> </span><span class="kw">compute</span>(daily_orders, <span class="st">&quot;daily&quot;</span>)</a></code></pre></div></li>
+<div class="sourceCode" id="cb374"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb374-1" data-line-number="1">cached_orders &lt;-<span class="st"> </span><span class="kw">compute</span>(daily_orders, <span class="st">&quot;daily&quot;</span>)</a></code></pre></div></li>
 <li><p>Confirm new variable pointer works</p>
-<div class="sourceCode" id="cb241"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb241-1" data-line-number="1"><span class="kw">head</span>(cached_orders)</a></code></pre></div>
+<div class="sourceCode" id="cb375"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb375-1" data-line-number="1"><span class="kw">head</span>(cached_orders)</a></code></pre></div>
 <pre><code>## # Source: spark&lt;?&gt; [?? x 3]
 ##   date       total_sales no_items
 ##   &lt;chr&gt;            &lt;dbl&gt;    &lt;dbl&gt;

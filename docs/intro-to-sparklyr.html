@@ -174,22 +174,16 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </ul></li>
 <li class="chapter" data-level="7" data-path="modeling-with-databases.html"><a href="modeling-with-databases.html"><i class="fa fa-check"></i><b>7</b> Modeling with databases</a><ul>
 <li class="chapter" data-level="7.1" data-path="modeling-with-databases.html"><a href="modeling-with-databases.html#single-step-sampling"><i class="fa fa-check"></i><b>7.1</b> Single step sampling</a></li>
-<li class="chapter" data-level="7.2" data-path="modeling-with-databases.html"><a href="modeling-with-databases.html#multi-step-sampling"><i class="fa fa-check"></i><b>7.2</b> Multi-step sampling</a></li>
-<li class="chapter" data-level="7.3" data-path="modeling-with-databases.html"><a href="modeling-with-databases.html#use-job-panel-in-rstudio"><i class="fa fa-check"></i><b>7.3</b> Use Job panel in RStudio</a></li>
+<li class="chapter" data-level="7.2" data-path="modeling-with-databases.html"><a href="modeling-with-databases.html#using-tidymodels-for-modeling"><i class="fa fa-check"></i><b>7.2</b> Using <code>tidymodels</code> for modeling</a></li>
+<li class="chapter" data-level="7.3" data-path="modeling-with-databases.html"><a href="modeling-with-databases.html#score-with-tidypredict"><i class="fa fa-check"></i><b>7.3</b> Score with <code>tidypredict</code></a></li>
 <li class="chapter" data-level="7.4" data-path="modeling-with-databases.html"><a href="modeling-with-databases.html#run-predictions-in-db"><i class="fa fa-check"></i><b>7.4</b> Run predictions in DB</a></li>
-<li class="chapter" data-level="7.5" data-path="modeling-with-databases.html"><a href="modeling-with-databases.html#fit-model-in-r"><i class="fa fa-check"></i><b>7.5</b> Fit model in R</a></li>
-<li class="chapter" data-level="7.6" data-path="modeling-with-databases.html"><a href="modeling-with-databases.html#score-with-tidypredict"><i class="fa fa-check"></i><b>7.6</b> Score with <code>tidypredict</code></a></li>
-<li class="chapter" data-level="7.7" data-path="modeling-with-databases.html"><a href="modeling-with-databases.html#save-and-reload-models"><i class="fa fa-check"></i><b>7.7</b> Save and reload models</a></li>
-<li class="chapter" data-level="7.8" data-path="modeling-with-databases.html"><a href="modeling-with-databases.html#integration-with-tidymodels"><i class="fa fa-check"></i><b>7.8</b> Integration with <code>tidymodels</code></a></li>
-<li class="chapter" data-level="7.9" data-path="modeling-with-databases.html"><a href="modeling-with-databases.html#run-models-in-db"><i class="fa fa-check"></i><b>7.9</b> Run models in DB</a></li>
-<li class="chapter" data-level="7.10" data-path="modeling-with-databases.html"><a href="modeling-with-databases.html#intro-to-modeldb"><i class="fa fa-check"></i><b>7.10</b> Intro to <code>modeldb</code></a></li>
-<li class="chapter" data-level="7.11" data-path="modeling-with-databases.html"><a href="modeling-with-databases.html#modeldb-with-tidypredict"><i class="fa fa-check"></i><b>7.11</b> <code>modeldb</code> with <code>tidypredict</code></a></li>
 </ul></li>
 <li class="chapter" data-level="8" data-path="advanced-operations.html"><a href="advanced-operations.html"><i class="fa fa-check"></i><b>8</b> Advanced Operations</a><ul>
 <li class="chapter" data-level="8.1" data-path="advanced-operations.html"><a href="advanced-operations.html#simple-wrapper-function"><i class="fa fa-check"></i><b>8.1</b> Simple wrapper function</a></li>
 <li class="chapter" data-level="8.2" data-path="advanced-operations.html"><a href="advanced-operations.html#multiple-variables"><i class="fa fa-check"></i><b>8.2</b> Multiple variables</a></li>
 <li class="chapter" data-level="8.3" data-path="advanced-operations.html"><a href="advanced-operations.html#multiple-queries"><i class="fa fa-check"></i><b>8.3</b> Multiple queries</a></li>
-<li class="chapter" data-level="8.4" data-path="advanced-operations.html"><a href="advanced-operations.html#characters-to-field-names"><i class="fa fa-check"></i><b>8.4</b> Characters to field names</a></li>
+<li class="chapter" data-level="8.4" data-path="advanced-operations.html"><a href="advanced-operations.html#multiple-queries-with-an-overlapping-range"><i class="fa fa-check"></i><b>8.4</b> Multiple queries with an overlapping range</a></li>
+<li class="chapter" data-level="8.5" data-path="advanced-operations.html"><a href="advanced-operations.html#characters-to-field-names"><i class="fa fa-check"></i><b>8.5</b> Characters to field names</a></li>
 </ul></li>
 <li class="chapter" data-level="9" data-path="intro-to-sparklyr.html"><a href="intro-to-sparklyr.html"><i class="fa fa-check"></i><b>9</b> Intro to <code>sparklyr</code></a><ul>
 <li class="chapter" data-level="9.1" data-path="intro-to-sparklyr.html"><a href="intro-to-sparklyr.html#new-spark-session"><i class="fa fa-check"></i><b>9.1</b> New Spark session</a></li>
@@ -230,9 +224,9 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <p><em>Learn to open a new Spark session</em></p>
 <ol style="list-style-type: decimal">
 <li><p>Load the <code>sparklyr</code> library</p>
-<div class="sourceCode" id="cb182"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb182-1" data-line-number="1"><span class="kw">library</span>(sparklyr)</a></code></pre></div></li>
+<div class="sourceCode" id="cb316"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb316-1" data-line-number="1"><span class="kw">library</span>(sparklyr)</a></code></pre></div></li>
 <li><p>Use <code>spark_connect()</code> to create a new local Spark session</p>
-<div class="sourceCode" id="cb183"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb183-1" data-line-number="1">sc &lt;-<span class="st"> </span><span class="kw">spark_connect</span>(<span class="dt">master =</span> <span class="st">&quot;local&quot;</span>)</a></code></pre></div>
+<div class="sourceCode" id="cb317"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb317-1" data-line-number="1">sc &lt;-<span class="st"> </span><span class="kw">spark_connect</span>(<span class="dt">master =</span> <span class="st">&quot;local&quot;</span>)</a></code></pre></div>
 <pre><code>## * Using Spark: 2.4.0</code></pre></li>
 <li><p>Click on the <code>Spark</code> button to view the current Spark session’s UI</p></li>
 <li><p>Click on the <code>Log</code> button to see the message history</p></li>
@@ -243,9 +237,9 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <p><em>Practice uploading data to Spark</em></p>
 <ol style="list-style-type: decimal">
 <li><p>Load the <code>dplyr</code> library</p>
-<div class="sourceCode" id="cb185"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb185-1" data-line-number="1"><span class="kw">library</span>(dplyr)</a></code></pre></div></li>
+<div class="sourceCode" id="cb319"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb319-1" data-line-number="1"><span class="kw">library</span>(dplyr)</a></code></pre></div></li>
 <li><p>Copy the <code>mtcars</code> dataset into the session</p>
-<div class="sourceCode" id="cb186"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb186-1" data-line-number="1">spark_mtcars &lt;-<span class="st"> </span><span class="kw">copy_to</span>(sc, mtcars, <span class="st">&quot;my_mtcars&quot;</span>)</a></code></pre></div></li>
+<div class="sourceCode" id="cb320"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb320-1" data-line-number="1">spark_mtcars &lt;-<span class="st"> </span><span class="kw">copy_to</span>(sc, mtcars, <span class="st">&quot;my_mtcars&quot;</span>)</a></code></pre></div></li>
 <li><p>In the <strong>Connections</strong> pane, expande the <code>my_mtcars</code> table</p></li>
 <li><p>Go to the Spark UI, note the new jobs</p></li>
 <li><p>In the UI, click the Storage button, note the new table</p></li>
@@ -257,9 +251,9 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <p><em>See how Spark handles <code>dplyr</code> commands</em></p>
 <ol style="list-style-type: decimal">
 <li><p>Run the following code snipett</p>
-<div class="sourceCode" id="cb187"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb187-1" data-line-number="1">spark_mtcars <span class="op">%&gt;%</span></a>
-<a class="sourceLine" id="cb187-2" data-line-number="2"><span class="st">  </span><span class="kw">group_by</span>(am) <span class="op">%&gt;%</span></a>
-<a class="sourceLine" id="cb187-3" data-line-number="3"><span class="st">  </span><span class="kw">summarise</span>(<span class="dt">mpg_mean =</span> <span class="kw">mean</span>(mpg, <span class="dt">na.rm =</span> <span class="ot">TRUE</span>))</a></code></pre></div>
+<div class="sourceCode" id="cb321"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb321-1" data-line-number="1">spark_mtcars <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb321-2" data-line-number="2"><span class="st">  </span><span class="kw">group_by</span>(am) <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb321-3" data-line-number="3"><span class="st">  </span><span class="kw">summarise</span>(<span class="dt">mpg_mean =</span> <span class="kw">mean</span>(mpg, <span class="dt">na.rm =</span> <span class="ot">TRUE</span>))</a></code></pre></div>
 <pre><code>## # Source: spark&lt;?&gt; [?? x 2]
 ##      am mpg_mean
 ##   &lt;dbl&gt;    &lt;dbl&gt;

@@ -174,22 +174,16 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </ul></li>
 <li class="chapter" data-level="7" data-path="modeling-with-databases.html"><a href="modeling-with-databases.html"><i class="fa fa-check"></i><b>7</b> Modeling with databases</a><ul>
 <li class="chapter" data-level="7.1" data-path="modeling-with-databases.html"><a href="modeling-with-databases.html#single-step-sampling"><i class="fa fa-check"></i><b>7.1</b> Single step sampling</a></li>
-<li class="chapter" data-level="7.2" data-path="modeling-with-databases.html"><a href="modeling-with-databases.html#multi-step-sampling"><i class="fa fa-check"></i><b>7.2</b> Multi-step sampling</a></li>
-<li class="chapter" data-level="7.3" data-path="modeling-with-databases.html"><a href="modeling-with-databases.html#use-job-panel-in-rstudio"><i class="fa fa-check"></i><b>7.3</b> Use Job panel in RStudio</a></li>
+<li class="chapter" data-level="7.2" data-path="modeling-with-databases.html"><a href="modeling-with-databases.html#using-tidymodels-for-modeling"><i class="fa fa-check"></i><b>7.2</b> Using <code>tidymodels</code> for modeling</a></li>
+<li class="chapter" data-level="7.3" data-path="modeling-with-databases.html"><a href="modeling-with-databases.html#score-with-tidypredict"><i class="fa fa-check"></i><b>7.3</b> Score with <code>tidypredict</code></a></li>
 <li class="chapter" data-level="7.4" data-path="modeling-with-databases.html"><a href="modeling-with-databases.html#run-predictions-in-db"><i class="fa fa-check"></i><b>7.4</b> Run predictions in DB</a></li>
-<li class="chapter" data-level="7.5" data-path="modeling-with-databases.html"><a href="modeling-with-databases.html#fit-model-in-r"><i class="fa fa-check"></i><b>7.5</b> Fit model in R</a></li>
-<li class="chapter" data-level="7.6" data-path="modeling-with-databases.html"><a href="modeling-with-databases.html#score-with-tidypredict"><i class="fa fa-check"></i><b>7.6</b> Score with <code>tidypredict</code></a></li>
-<li class="chapter" data-level="7.7" data-path="modeling-with-databases.html"><a href="modeling-with-databases.html#save-and-reload-models"><i class="fa fa-check"></i><b>7.7</b> Save and reload models</a></li>
-<li class="chapter" data-level="7.8" data-path="modeling-with-databases.html"><a href="modeling-with-databases.html#integration-with-tidymodels"><i class="fa fa-check"></i><b>7.8</b> Integration with <code>tidymodels</code></a></li>
-<li class="chapter" data-level="7.9" data-path="modeling-with-databases.html"><a href="modeling-with-databases.html#run-models-in-db"><i class="fa fa-check"></i><b>7.9</b> Run models in DB</a></li>
-<li class="chapter" data-level="7.10" data-path="modeling-with-databases.html"><a href="modeling-with-databases.html#intro-to-modeldb"><i class="fa fa-check"></i><b>7.10</b> Intro to <code>modeldb</code></a></li>
-<li class="chapter" data-level="7.11" data-path="modeling-with-databases.html"><a href="modeling-with-databases.html#modeldb-with-tidypredict"><i class="fa fa-check"></i><b>7.11</b> <code>modeldb</code> with <code>tidypredict</code></a></li>
 </ul></li>
 <li class="chapter" data-level="8" data-path="advanced-operations.html"><a href="advanced-operations.html"><i class="fa fa-check"></i><b>8</b> Advanced Operations</a><ul>
 <li class="chapter" data-level="8.1" data-path="advanced-operations.html"><a href="advanced-operations.html#simple-wrapper-function"><i class="fa fa-check"></i><b>8.1</b> Simple wrapper function</a></li>
 <li class="chapter" data-level="8.2" data-path="advanced-operations.html"><a href="advanced-operations.html#multiple-variables"><i class="fa fa-check"></i><b>8.2</b> Multiple variables</a></li>
 <li class="chapter" data-level="8.3" data-path="advanced-operations.html"><a href="advanced-operations.html#multiple-queries"><i class="fa fa-check"></i><b>8.3</b> Multiple queries</a></li>
-<li class="chapter" data-level="8.4" data-path="advanced-operations.html"><a href="advanced-operations.html#characters-to-field-names"><i class="fa fa-check"></i><b>8.4</b> Characters to field names</a></li>
+<li class="chapter" data-level="8.4" data-path="advanced-operations.html"><a href="advanced-operations.html#multiple-queries-with-an-overlapping-range"><i class="fa fa-check"></i><b>8.4</b> Multiple queries with an overlapping range</a></li>
+<li class="chapter" data-level="8.5" data-path="advanced-operations.html"><a href="advanced-operations.html#characters-to-field-names"><i class="fa fa-check"></i><b>8.5</b> Characters to field names</a></li>
 </ul></li>
 <li class="chapter" data-level="9" data-path="intro-to-sparklyr.html"><a href="intro-to-sparklyr.html"><i class="fa fa-check"></i><b>9</b> Intro to <code>sparklyr</code></a><ul>
 <li class="chapter" data-level="9.1" data-path="intro-to-sparklyr.html"><a href="intro-to-sparklyr.html#new-spark-session"><i class="fa fa-check"></i><b>9.1</b> New Spark session</a></li>
@@ -242,19 +236,19 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 ## Call `spec()` for a copy-pastable column specification
 ## Specify the column types with `col_types` to quiet this message</code></pre>
 <pre><code>## # A tibble: 50,000 x 14
-##    order_id customer_id customer_name        customer_phone customer_cc customer_lon customer_lat date       date_year date_month date_month_name date_day product_id price
-##       &lt;dbl&gt;       &lt;dbl&gt; &lt;chr&gt;                &lt;chr&gt;                &lt;dbl&gt;        &lt;dbl&gt;        &lt;dbl&gt; &lt;date&gt;         &lt;dbl&gt;      &lt;dbl&gt; &lt;chr&gt;           &lt;chr&gt;         &lt;dbl&gt; &lt;dbl&gt;
-##  1     1001          22 Dr. Birdie Kessler   684.226.0455       6.01e18        -122.         37.7 2016-01-01      2016          1 Jan             Friday            6  9.88
-##  2     1001          22 Dr. Birdie Kessler   684.226.0455       6.01e18        -122.         37.7 2016-01-01      2016          1 Jan             Friday           27  7.53
-##  3     1001          22 Dr. Birdie Kessler   684.226.0455       6.01e18        -122.         37.7 2016-01-01      2016          1 Jan             Friday           30  5.64
-##  4     1001          22 Dr. Birdie Kessler   684.226.0455       6.01e18        -122.         37.7 2016-01-01      2016          1 Jan             Friday            2  4.89
-##  5     1002           6 Meggan Bruen         326-151-4331       4.96e15        -122.         37.7 2016-01-01      2016          1 Jan             Friday           17  6.48
-##  6     1002           6 Meggan Bruen         326-151-4331       4.96e15        -122.         37.7 2016-01-01      2016          1 Jan             Friday            1  6.7 
-##  7     1002           6 Meggan Bruen         326-151-4331       4.96e15        -122.         37.7 2016-01-01      2016          1 Jan             Friday            5  4.27
-##  8     1002           6 Meggan Bruen         326-151-4331       4.96e15        -122.         37.7 2016-01-01      2016          1 Jan             Friday            4  7.38
-##  9     1003          80 Jessee Rodriguez Jr. 539.176.3896       4.50e12        -122.         37.7 2016-01-01      2016          1 Jan             Friday           27  7.53
-## 10     1003          80 Jessee Rodriguez Jr. 539.176.3896       4.50e12        -122.         37.7 2016-01-01      2016          1 Jan             Friday           16  5.21
-## # … with 49,990 more rows</code></pre></li>
+##    order_id customer_id customer_name customer_phone customer_cc customer_lon customer_lat date       date_year date_month date_month_name date_day product_id
+##       &lt;dbl&gt;       &lt;dbl&gt; &lt;chr&gt;         &lt;chr&gt;                &lt;dbl&gt;        &lt;dbl&gt;        &lt;dbl&gt; &lt;date&gt;         &lt;dbl&gt;      &lt;dbl&gt; &lt;chr&gt;           &lt;chr&gt;         &lt;dbl&gt;
+##  1     1001          22 Dr. Birdie K… 684.226.0455       6.01e18        -122.         37.7 2016-01-01      2016          1 Jan             Friday            6
+##  2     1001          22 Dr. Birdie K… 684.226.0455       6.01e18        -122.         37.7 2016-01-01      2016          1 Jan             Friday           27
+##  3     1001          22 Dr. Birdie K… 684.226.0455       6.01e18        -122.         37.7 2016-01-01      2016          1 Jan             Friday           30
+##  4     1001          22 Dr. Birdie K… 684.226.0455       6.01e18        -122.         37.7 2016-01-01      2016          1 Jan             Friday            2
+##  5     1002           6 Meggan Bruen  326-151-4331       4.96e15        -122.         37.7 2016-01-01      2016          1 Jan             Friday           17
+##  6     1002           6 Meggan Bruen  326-151-4331       4.96e15        -122.         37.7 2016-01-01      2016          1 Jan             Friday            1
+##  7     1002           6 Meggan Bruen  326-151-4331       4.96e15        -122.         37.7 2016-01-01      2016          1 Jan             Friday            5
+##  8     1002           6 Meggan Bruen  326-151-4331       4.96e15        -122.         37.7 2016-01-01      2016          1 Jan             Friday            4
+##  9     1003          80 Jessee Rodri… 539.176.3896       4.50e12        -122.         37.7 2016-01-01      2016          1 Jan             Friday           27
+## 10     1003          80 Jessee Rodri… 539.176.3896       4.50e12        -122.         37.7 2016-01-01      2016          1 Jan             Friday           16
+## # … with 49,990 more rows, and 1 more variable: price &lt;dbl&gt;</code></pre></li>
 <li><p>Use the <code>id</code> argument to add the file name to the data frame. Use <strong>file_name</strong> as the argument’s value</p>
 <div class="sourceCode" id="cb5"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb5-1" data-line-number="1"><span class="kw">vroom</span>(<span class="st">&quot;/usr/share/class/files/transactions_1.csv&quot;</span>, <span class="dt">id =</span> <span class="st">&quot;file_name&quot;</span>)</a></code></pre></div>
 <pre><code>## Observations: 50,000
@@ -266,19 +260,19 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 ## Call `spec()` for a copy-pastable column specification
 ## Specify the column types with `col_types` to quiet this message</code></pre>
 <pre><code>## # A tibble: 50,000 x 15
-##    file_name                             order_id customer_id customer_name       customer_phone customer_cc customer_lon customer_lat date       date_year date_month date_month_name date_day product_id price
-##    &lt;chr&gt;                                    &lt;dbl&gt;       &lt;dbl&gt; &lt;chr&gt;               &lt;chr&gt;                &lt;dbl&gt;        &lt;dbl&gt;        &lt;dbl&gt; &lt;date&gt;         &lt;dbl&gt;      &lt;dbl&gt; &lt;chr&gt;           &lt;chr&gt;         &lt;dbl&gt; &lt;dbl&gt;
-##  1 /usr/share/class/files/transactions_…     1001          22 Dr. Birdie Kessler  684.226.0455       6.01e18        -122.         37.7 2016-01-01      2016          1 Jan             Friday            6  9.88
-##  2 /usr/share/class/files/transactions_…     1001          22 Dr. Birdie Kessler  684.226.0455       6.01e18        -122.         37.7 2016-01-01      2016          1 Jan             Friday           27  7.53
-##  3 /usr/share/class/files/transactions_…     1001          22 Dr. Birdie Kessler  684.226.0455       6.01e18        -122.         37.7 2016-01-01      2016          1 Jan             Friday           30  5.64
-##  4 /usr/share/class/files/transactions_…     1001          22 Dr. Birdie Kessler  684.226.0455       6.01e18        -122.         37.7 2016-01-01      2016          1 Jan             Friday            2  4.89
-##  5 /usr/share/class/files/transactions_…     1002           6 Meggan Bruen        326-151-4331       4.96e15        -122.         37.7 2016-01-01      2016          1 Jan             Friday           17  6.48
-##  6 /usr/share/class/files/transactions_…     1002           6 Meggan Bruen        326-151-4331       4.96e15        -122.         37.7 2016-01-01      2016          1 Jan             Friday            1  6.7 
-##  7 /usr/share/class/files/transactions_…     1002           6 Meggan Bruen        326-151-4331       4.96e15        -122.         37.7 2016-01-01      2016          1 Jan             Friday            5  4.27
-##  8 /usr/share/class/files/transactions_…     1002           6 Meggan Bruen        326-151-4331       4.96e15        -122.         37.7 2016-01-01      2016          1 Jan             Friday            4  7.38
-##  9 /usr/share/class/files/transactions_…     1003          80 Jessee Rodriguez J… 539.176.3896       4.50e12        -122.         37.7 2016-01-01      2016          1 Jan             Friday           27  7.53
-## 10 /usr/share/class/files/transactions_…     1003          80 Jessee Rodriguez J… 539.176.3896       4.50e12        -122.         37.7 2016-01-01      2016          1 Jan             Friday           16  5.21
-## # … with 49,990 more rows</code></pre></li>
+##    file_name order_id customer_id customer_name customer_phone customer_cc customer_lon customer_lat date       date_year date_month date_month_name date_day
+##    &lt;chr&gt;        &lt;dbl&gt;       &lt;dbl&gt; &lt;chr&gt;         &lt;chr&gt;                &lt;dbl&gt;        &lt;dbl&gt;        &lt;dbl&gt; &lt;date&gt;         &lt;dbl&gt;      &lt;dbl&gt; &lt;chr&gt;           &lt;chr&gt;   
+##  1 /usr/sha…     1001          22 Dr. Birdie K… 684.226.0455       6.01e18        -122.         37.7 2016-01-01      2016          1 Jan             Friday  
+##  2 /usr/sha…     1001          22 Dr. Birdie K… 684.226.0455       6.01e18        -122.         37.7 2016-01-01      2016          1 Jan             Friday  
+##  3 /usr/sha…     1001          22 Dr. Birdie K… 684.226.0455       6.01e18        -122.         37.7 2016-01-01      2016          1 Jan             Friday  
+##  4 /usr/sha…     1001          22 Dr. Birdie K… 684.226.0455       6.01e18        -122.         37.7 2016-01-01      2016          1 Jan             Friday  
+##  5 /usr/sha…     1002           6 Meggan Bruen  326-151-4331       4.96e15        -122.         37.7 2016-01-01      2016          1 Jan             Friday  
+##  6 /usr/sha…     1002           6 Meggan Bruen  326-151-4331       4.96e15        -122.         37.7 2016-01-01      2016          1 Jan             Friday  
+##  7 /usr/sha…     1002           6 Meggan Bruen  326-151-4331       4.96e15        -122.         37.7 2016-01-01      2016          1 Jan             Friday  
+##  8 /usr/sha…     1002           6 Meggan Bruen  326-151-4331       4.96e15        -122.         37.7 2016-01-01      2016          1 Jan             Friday  
+##  9 /usr/sha…     1003          80 Jessee Rodri… 539.176.3896       4.50e12        -122.         37.7 2016-01-01      2016          1 Jan             Friday  
+## 10 /usr/sha…     1003          80 Jessee Rodri… 539.176.3896       4.50e12        -122.         37.7 2016-01-01      2016          1 Jan             Friday  
+## # … with 49,990 more rows, and 2 more variables: product_id &lt;dbl&gt;, price &lt;dbl&gt;</code></pre></li>
 <li><p>Load the prior command into a variable called <code>vr_transactions</code></p>
 <div class="sourceCode" id="cb8"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb8-1" data-line-number="1">vr_transactions &lt;-<span class="st"> </span><span class="kw">vroom</span>(<span class="st">&quot;/usr/share/class/files/transactions_1.csv&quot;</span>, <span class="dt">id =</span> <span class="st">&quot;file_name&quot;</span>)</a></code></pre></div>
 <pre><code>## Observations: 50,000
@@ -291,19 +285,19 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 ## Specify the column types with `col_types` to quiet this message</code></pre>
 <div class="sourceCode" id="cb10"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb10-1" data-line-number="1">vr_transactions</a></code></pre></div>
 <pre><code>## # A tibble: 50,000 x 15
-##    file_name                             order_id customer_id customer_name       customer_phone customer_cc customer_lon customer_lat date       date_year date_month date_month_name date_day product_id price
-##    &lt;chr&gt;                                    &lt;dbl&gt;       &lt;dbl&gt; &lt;chr&gt;               &lt;chr&gt;                &lt;dbl&gt;        &lt;dbl&gt;        &lt;dbl&gt; &lt;date&gt;         &lt;dbl&gt;      &lt;dbl&gt; &lt;chr&gt;           &lt;chr&gt;         &lt;dbl&gt; &lt;dbl&gt;
-##  1 /usr/share/class/files/transactions_…     1001          22 Dr. Birdie Kessler  684.226.0455       6.01e18        -122.         37.7 2016-01-01      2016          1 Jan             Friday            6  9.88
-##  2 /usr/share/class/files/transactions_…     1001          22 Dr. Birdie Kessler  684.226.0455       6.01e18        -122.         37.7 2016-01-01      2016          1 Jan             Friday           27  7.53
-##  3 /usr/share/class/files/transactions_…     1001          22 Dr. Birdie Kessler  684.226.0455       6.01e18        -122.         37.7 2016-01-01      2016          1 Jan             Friday           30  5.64
-##  4 /usr/share/class/files/transactions_…     1001          22 Dr. Birdie Kessler  684.226.0455       6.01e18        -122.         37.7 2016-01-01      2016          1 Jan             Friday            2  4.89
-##  5 /usr/share/class/files/transactions_…     1002           6 Meggan Bruen        326-151-4331       4.96e15        -122.         37.7 2016-01-01      2016          1 Jan             Friday           17  6.48
-##  6 /usr/share/class/files/transactions_…     1002           6 Meggan Bruen        326-151-4331       4.96e15        -122.         37.7 2016-01-01      2016          1 Jan             Friday            1  6.7 
-##  7 /usr/share/class/files/transactions_…     1002           6 Meggan Bruen        326-151-4331       4.96e15        -122.         37.7 2016-01-01      2016          1 Jan             Friday            5  4.27
-##  8 /usr/share/class/files/transactions_…     1002           6 Meggan Bruen        326-151-4331       4.96e15        -122.         37.7 2016-01-01      2016          1 Jan             Friday            4  7.38
-##  9 /usr/share/class/files/transactions_…     1003          80 Jessee Rodriguez J… 539.176.3896       4.50e12        -122.         37.7 2016-01-01      2016          1 Jan             Friday           27  7.53
-## 10 /usr/share/class/files/transactions_…     1003          80 Jessee Rodriguez J… 539.176.3896       4.50e12        -122.         37.7 2016-01-01      2016          1 Jan             Friday           16  5.21
-## # … with 49,990 more rows</code></pre></li>
+##    file_name order_id customer_id customer_name customer_phone customer_cc customer_lon customer_lat date       date_year date_month date_month_name date_day
+##    &lt;chr&gt;        &lt;dbl&gt;       &lt;dbl&gt; &lt;chr&gt;         &lt;chr&gt;                &lt;dbl&gt;        &lt;dbl&gt;        &lt;dbl&gt; &lt;date&gt;         &lt;dbl&gt;      &lt;dbl&gt; &lt;chr&gt;           &lt;chr&gt;   
+##  1 /usr/sha…     1001          22 Dr. Birdie K… 684.226.0455       6.01e18        -122.         37.7 2016-01-01      2016          1 Jan             Friday  
+##  2 /usr/sha…     1001          22 Dr. Birdie K… 684.226.0455       6.01e18        -122.         37.7 2016-01-01      2016          1 Jan             Friday  
+##  3 /usr/sha…     1001          22 Dr. Birdie K… 684.226.0455       6.01e18        -122.         37.7 2016-01-01      2016          1 Jan             Friday  
+##  4 /usr/sha…     1001          22 Dr. Birdie K… 684.226.0455       6.01e18        -122.         37.7 2016-01-01      2016          1 Jan             Friday  
+##  5 /usr/sha…     1002           6 Meggan Bruen  326-151-4331       4.96e15        -122.         37.7 2016-01-01      2016          1 Jan             Friday  
+##  6 /usr/sha…     1002           6 Meggan Bruen  326-151-4331       4.96e15        -122.         37.7 2016-01-01      2016          1 Jan             Friday  
+##  7 /usr/sha…     1002           6 Meggan Bruen  326-151-4331       4.96e15        -122.         37.7 2016-01-01      2016          1 Jan             Friday  
+##  8 /usr/sha…     1002           6 Meggan Bruen  326-151-4331       4.96e15        -122.         37.7 2016-01-01      2016          1 Jan             Friday  
+##  9 /usr/sha…     1003          80 Jessee Rodri… 539.176.3896       4.50e12        -122.         37.7 2016-01-01      2016          1 Jan             Friday  
+## 10 /usr/sha…     1003          80 Jessee Rodri… 539.176.3896       4.50e12        -122.         37.7 2016-01-01      2016          1 Jan             Friday  
+## # … with 49,990 more rows, and 2 more variables: product_id &lt;dbl&gt;, price &lt;dbl&gt;</code></pre></li>
 <li><p>Load the file spec into a variable called <code>vr_spec</code>, using the <code>spec()</code> command</p>
 <div class="sourceCode" id="cb12"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb12-1" data-line-number="1">vr_spec &lt;-<span class="st"> </span><span class="kw">spec</span>(vr_transactions)</a>
 <a class="sourceLine" id="cb12-2" data-line-number="2"></a>
@@ -334,8 +328,8 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <a class="sourceLine" id="cb14-2" data-line-number="2"><span class="kw">library</span>(dplyr)</a></code></pre></div></li>
 <li><p>List files in the <strong>/usr/share/class/files</strong> folder using the <code>dir_ls()</code> function</p>
 <div class="sourceCode" id="cb15"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb15-1" data-line-number="1"><span class="kw">dir_ls</span>(<span class="st">&quot;/usr/share/class/files&quot;</span>)</a></code></pre></div>
-<pre><code>## /usr/share/class/files/transactions_1.csv /usr/share/class/files/transactions_2.csv /usr/share/class/files/transactions_3.csv /usr/share/class/files/transactions_4.csv 
-## /usr/share/class/files/transactions_5.csv</code></pre></li>
+<pre><code>## /usr/share/class/files/transactions_1.csv /usr/share/class/files/transactions_2.csv /usr/share/class/files/transactions_3.csv 
+## /usr/share/class/files/transactions_4.csv /usr/share/class/files/transactions_5.csv</code></pre></li>
 <li><p>In the <code>dir_ls()</code> function, use the <code>glob</code> argument to pass a wildcard to list CSV files only. Load to a variable named <code>files</code></p>
 <div class="sourceCode" id="cb17"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb17-1" data-line-number="1">files &lt;-<span class="st"> </span><span class="kw">dir_ls</span>(<span class="st">&quot;/usr/share/class/files&quot;</span>, <span class="dt">glob =</span> <span class="st">&quot;*.csv&quot;</span>)</a></code></pre></div></li>
 <li><p>Pass the <code>files</code> variable to <code>vroom</code>. Set the <code>n_max</code> argument to 1,000 to limit the data load for now</p>
@@ -349,35 +343,35 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 ## Call `spec()` for a copy-pastable column specification
 ## Specify the column types with `col_types` to quiet this message</code></pre>
 <pre><code>## # A tibble: 5,000 x 14
-##    order_id customer_id customer_name        customer_phone customer_cc customer_lon customer_lat date       date_year date_month date_month_name date_day product_id price
-##       &lt;dbl&gt;       &lt;dbl&gt; &lt;chr&gt;                &lt;chr&gt;                &lt;dbl&gt;        &lt;dbl&gt;        &lt;dbl&gt; &lt;date&gt;         &lt;dbl&gt;      &lt;dbl&gt; &lt;chr&gt;           &lt;chr&gt;         &lt;dbl&gt; &lt;dbl&gt;
-##  1     1001          22 Dr. Birdie Kessler   684.226.0455       6.01e18        -122.         37.7 2016-01-01      2016          1 Jan             Friday            6  9.88
-##  2     1001          22 Dr. Birdie Kessler   684.226.0455       6.01e18        -122.         37.7 2016-01-01      2016          1 Jan             Friday           27  7.53
-##  3     1001          22 Dr. Birdie Kessler   684.226.0455       6.01e18        -122.         37.7 2016-01-01      2016          1 Jan             Friday           30  5.64
-##  4     1001          22 Dr. Birdie Kessler   684.226.0455       6.01e18        -122.         37.7 2016-01-01      2016          1 Jan             Friday            2  4.89
-##  5     1002           6 Meggan Bruen         326-151-4331       4.96e15        -122.         37.7 2016-01-01      2016          1 Jan             Friday           17  6.48
-##  6     1002           6 Meggan Bruen         326-151-4331       4.96e15        -122.         37.7 2016-01-01      2016          1 Jan             Friday            1  6.7 
-##  7     1002           6 Meggan Bruen         326-151-4331       4.96e15        -122.         37.7 2016-01-01      2016          1 Jan             Friday            5  4.27
-##  8     1002           6 Meggan Bruen         326-151-4331       4.96e15        -122.         37.7 2016-01-01      2016          1 Jan             Friday            4  7.38
-##  9     1003          80 Jessee Rodriguez Jr. 539.176.3896       4.50e12        -122.         37.7 2016-01-01      2016          1 Jan             Friday           27  7.53
-## 10     1003          80 Jessee Rodriguez Jr. 539.176.3896       4.50e12        -122.         37.7 2016-01-01      2016          1 Jan             Friday           16  5.21
-## # … with 4,990 more rows</code></pre></li>
+##    order_id customer_id customer_name customer_phone customer_cc customer_lon customer_lat date       date_year date_month date_month_name date_day product_id
+##       &lt;dbl&gt;       &lt;dbl&gt; &lt;chr&gt;         &lt;chr&gt;                &lt;dbl&gt;        &lt;dbl&gt;        &lt;dbl&gt; &lt;date&gt;         &lt;dbl&gt;      &lt;dbl&gt; &lt;chr&gt;           &lt;chr&gt;         &lt;dbl&gt;
+##  1     1001          22 Dr. Birdie K… 684.226.0455       6.01e18        -122.         37.7 2016-01-01      2016          1 Jan             Friday            6
+##  2     1001          22 Dr. Birdie K… 684.226.0455       6.01e18        -122.         37.7 2016-01-01      2016          1 Jan             Friday           27
+##  3     1001          22 Dr. Birdie K… 684.226.0455       6.01e18        -122.         37.7 2016-01-01      2016          1 Jan             Friday           30
+##  4     1001          22 Dr. Birdie K… 684.226.0455       6.01e18        -122.         37.7 2016-01-01      2016          1 Jan             Friday            2
+##  5     1002           6 Meggan Bruen  326-151-4331       4.96e15        -122.         37.7 2016-01-01      2016          1 Jan             Friday           17
+##  6     1002           6 Meggan Bruen  326-151-4331       4.96e15        -122.         37.7 2016-01-01      2016          1 Jan             Friday            1
+##  7     1002           6 Meggan Bruen  326-151-4331       4.96e15        -122.         37.7 2016-01-01      2016          1 Jan             Friday            5
+##  8     1002           6 Meggan Bruen  326-151-4331       4.96e15        -122.         37.7 2016-01-01      2016          1 Jan             Friday            4
+##  9     1003          80 Jessee Rodri… 539.176.3896       4.50e12        -122.         37.7 2016-01-01      2016          1 Jan             Friday           27
+## 10     1003          80 Jessee Rodri… 539.176.3896       4.50e12        -122.         37.7 2016-01-01      2016          1 Jan             Friday           16
+## # … with 4,990 more rows, and 1 more variable: price &lt;dbl&gt;</code></pre></li>
 <li><p>Add a <code>col_types</code> argument with <code>vr_specs</code> as its value</p>
 <div class="sourceCode" id="cb21"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb21-1" data-line-number="1"><span class="kw">vroom</span>(files, <span class="dt">n_max =</span> <span class="dv">1000</span>, <span class="dt">col_types =</span> vr_spec)</a></code></pre></div>
 <pre><code>## # A tibble: 5,000 x 14
-##    order_id customer_id customer_name        customer_phone customer_cc customer_lon customer_lat date       date_year date_month date_month_name date_day product_id price
-##       &lt;dbl&gt;       &lt;dbl&gt; &lt;chr&gt;                &lt;chr&gt;                &lt;dbl&gt;        &lt;dbl&gt;        &lt;dbl&gt; &lt;date&gt;         &lt;dbl&gt;      &lt;dbl&gt; &lt;chr&gt;           &lt;chr&gt;         &lt;dbl&gt; &lt;dbl&gt;
-##  1     1001          22 Dr. Birdie Kessler   684.226.0455       6.01e18        -122.         37.7 2016-01-01      2016          1 Jan             Friday            6  9.88
-##  2     1001          22 Dr. Birdie Kessler   684.226.0455       6.01e18        -122.         37.7 2016-01-01      2016          1 Jan             Friday           27  7.53
-##  3     1001          22 Dr. Birdie Kessler   684.226.0455       6.01e18        -122.         37.7 2016-01-01      2016          1 Jan             Friday           30  5.64
-##  4     1001          22 Dr. Birdie Kessler   684.226.0455       6.01e18        -122.         37.7 2016-01-01      2016          1 Jan             Friday            2  4.89
-##  5     1002           6 Meggan Bruen         326-151-4331       4.96e15        -122.         37.7 2016-01-01      2016          1 Jan             Friday           17  6.48
-##  6     1002           6 Meggan Bruen         326-151-4331       4.96e15        -122.         37.7 2016-01-01      2016          1 Jan             Friday            1  6.7 
-##  7     1002           6 Meggan Bruen         326-151-4331       4.96e15        -122.         37.7 2016-01-01      2016          1 Jan             Friday            5  4.27
-##  8     1002           6 Meggan Bruen         326-151-4331       4.96e15        -122.         37.7 2016-01-01      2016          1 Jan             Friday            4  7.38
-##  9     1003          80 Jessee Rodriguez Jr. 539.176.3896       4.50e12        -122.         37.7 2016-01-01      2016          1 Jan             Friday           27  7.53
-## 10     1003          80 Jessee Rodriguez Jr. 539.176.3896       4.50e12        -122.         37.7 2016-01-01      2016          1 Jan             Friday           16  5.21
-## # … with 4,990 more rows</code></pre></li>
+##    order_id customer_id customer_name customer_phone customer_cc customer_lon customer_lat date       date_year date_month date_month_name date_day product_id
+##       &lt;dbl&gt;       &lt;dbl&gt; &lt;chr&gt;         &lt;chr&gt;                &lt;dbl&gt;        &lt;dbl&gt;        &lt;dbl&gt; &lt;date&gt;         &lt;dbl&gt;      &lt;dbl&gt; &lt;chr&gt;           &lt;chr&gt;         &lt;dbl&gt;
+##  1     1001          22 Dr. Birdie K… 684.226.0455       6.01e18        -122.         37.7 2016-01-01      2016          1 Jan             Friday            6
+##  2     1001          22 Dr. Birdie K… 684.226.0455       6.01e18        -122.         37.7 2016-01-01      2016          1 Jan             Friday           27
+##  3     1001          22 Dr. Birdie K… 684.226.0455       6.01e18        -122.         37.7 2016-01-01      2016          1 Jan             Friday           30
+##  4     1001          22 Dr. Birdie K… 684.226.0455       6.01e18        -122.         37.7 2016-01-01      2016          1 Jan             Friday            2
+##  5     1002           6 Meggan Bruen  326-151-4331       4.96e15        -122.         37.7 2016-01-01      2016          1 Jan             Friday           17
+##  6     1002           6 Meggan Bruen  326-151-4331       4.96e15        -122.         37.7 2016-01-01      2016          1 Jan             Friday            1
+##  7     1002           6 Meggan Bruen  326-151-4331       4.96e15        -122.         37.7 2016-01-01      2016          1 Jan             Friday            5
+##  8     1002           6 Meggan Bruen  326-151-4331       4.96e15        -122.         37.7 2016-01-01      2016          1 Jan             Friday            4
+##  9     1003          80 Jessee Rodri… 539.176.3896       4.50e12        -122.         37.7 2016-01-01      2016          1 Jan             Friday           27
+## 10     1003          80 Jessee Rodri… 539.176.3896       4.50e12        -122.         37.7 2016-01-01      2016          1 Jan             Friday           16
+## # … with 4,990 more rows, and 1 more variable: price &lt;dbl&gt;</code></pre></li>
 <li><p>Use the <code>col_select</code> argument to pass a <code>list</code> object containing the following variables: order_id, date, customer_name, and price</p>
 <div class="sourceCode" id="cb23"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb23-1" data-line-number="1"><span class="kw">vroom</span>(files, <span class="dt">n_max =</span> <span class="dv">1000</span>, <span class="dt">col_types =</span> vr_spec,</a>
 <a class="sourceLine" id="cb23-2" data-line-number="2">      <span class="dt">col_select =</span> <span class="kw">list</span>(order_id, date, customer_name, price)</a>

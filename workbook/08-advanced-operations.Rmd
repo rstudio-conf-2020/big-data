@@ -89,7 +89,7 @@ library(purrr)
     ```
 
 1. Test the new function by passing `order_total` as `x`
-    ```{r, eval = TRUE}
+    ```{r, eval = eval_adv}
     my_mean(order_total)
     ```
 
