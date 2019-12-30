@@ -1,10 +1,11 @@
 ```{r db-modeling, include = FALSE}
-eval_model <- FALSE
+eval_model <- TRUE
 if(Sys.getenv("GLOBAL_EVAL") != "") eval_model <- Sys.getenv("GLOBAL_EVAL")
 ```
 
 ```{r, eval = eval_model, include = FALSE}
 library(tidymodels)
+library(yaml)
 library(modeldb)
 library(dbplot)
 library(pins)
@@ -171,11 +172,75 @@ library(config)
       metrics(truth = order_total, estimate = .pred)
     ```
 
+## Score with `tidypredict`
+
+1. Load the `tidypredict` library
+    ```{r, eval = eval_model}
+    library(tidypredict)
+    ```
+
+
+1. Use the `parse_model()` function to parse `parsnip_model`, and assign it to a variable called `parsed_parsnip`
+    ```{r, eval = eval_model}
+    parsed_parsnip <- parse_model(parsnip_model)
+    ```
+
+1. Use `str()` to see the `parsed_parsnip` object's structure
+    ```{r, eval = eval_model}
+    str(parsed_parsnip)
+    ```
+
+1. Use `tidypredict_fit()` to view the `dplyr` formula that calculates the prediction 
+    ```{r, eval = eval_model}
+    tidypredict_fit(parsed_parsnip)
+    ```
+
+1. Use `head()` to get the first 10 records from `orders_view`
+    ```{r, eval = eval_model}
+    orders_view %>%
+      head(10)
+    ```
+
+1. Pipe the code into `mutate()`.  Assign to a new `my_pred` variable the results of `tidypredict_fit()`.  Make sure to prefix `tidypredict_fit()` with the bang-bang operator so that the formula is evaluated. 
+    ```{r, eval = eval_model}
+    orders_view %>%
+      head(10) %>%
+      mutate(my_pred = !! tidypredict_fit(parsed_parsnip))
+    ```
+
+1. Replace the `mutate()` command with `tidypredict_to_column()`
+    ```{r, eval = eval_model}
+    orders_view %>%
+      head(10) %>%
+      tidypredict_to_column(parsnip_model)
+    ```
+
+1 Load the `yaml` library
+    ```{r, eval = eval_model}
+    library(yaml)
+    ```
+
+1 Use `write_yaml()` to save the contents of `parsed_parsnip` into a file called **model.yaml**
+    ```{r, eval = eval_model}
+    write_yaml(parsed_parsnip, "model.yaml")
+    ```
+    
+1. Using `read_yaml()`, read the contents of the **model.yaml** file into the a new variable called `loaded_model`
+    ```{r, eval = eval_model}
+    loaded_model <- read_yaml("model.yaml")
+    ```
+
+1. Use `as_parsed_model()` to convert the `loaded_model` variable into a `tidypredict` parsed model object, assign the results to `loaded_model_2`
+    ```{r, eval = eval_model}
+    loaded_model_2 <- as_parsed_model(loaded_model)
+    ```
+
+
+
 ## Multi-step sampling
 ## Use Job panel in RStudio
 ## Run predictions in DB
 ## Fit model in R
-## Score with `tidypredict`
 ## Save and reload models
 ## Integration with `tidymodels`
 ## Run models in DB
