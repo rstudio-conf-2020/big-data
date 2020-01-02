@@ -4,11 +4,11 @@
 
   <meta charset="utf-8" />
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-  <title>8 Advanced Operations | _main.utf8.md</title>
+  <title>8 Advanced Operations | _main.utf8</title>
   <meta name="description" content="" />
   <meta name="generator" content="bookdown 0.16 and GitBook 2.6.7" />
 
-  <meta property="og:title" content="8 Advanced Operations | _main.utf8.md" />
+  <meta property="og:title" content="8 Advanced Operations | _main.utf8" />
   <meta property="og:type" content="book" />
   
   
@@ -16,7 +16,7 @@
   
 
   <meta name="twitter:card" content="summary" />
-  <meta name="twitter:title" content="8 Advanced Operations | _main.utf8.md" />
+  <meta name="twitter:title" content="8 Advanced Operations | _main.utf8" />
   
   
   
@@ -364,12 +364,12 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 ## [[1]]
 ## &lt;quosure&gt;
 ## expr: ^order_id
-## env:  0x56247771d970
+## env:  0x55febe46a9b8
 ## 
 ## [[2]]
 ## &lt;quosure&gt;
 ## expr: ^date
-## env:  0x56247771d970</code></pre></li>
+## env:  0x55febe46a9b8</code></pre></li>
 <li><p>Add a step to the function that iterates through each quosure and prefixes a minus sign to tell <code>select()</code> to drop that specific field. Use <code>map()</code> for the iteration, and <code>quo()</code> to create the prefixed expression.</p>
 <div class="sourceCode" id="cb274"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb274-1" data-line-number="1">de_select &lt;-<span class="st"> </span><span class="cf">function</span>(.data, ...){</a>
 <a class="sourceLine" id="cb274-2" data-line-number="2">  vars &lt;-<span class="st"> </span><span class="kw">enquos</span>(...)</a>
@@ -382,12 +382,12 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <pre><code>## [[1]]
 ## &lt;quosure&gt;
 ## expr: ^-^order_id
-## env:  0x56246ff86808
+## env:  0x55febda8e410
 ## 
 ## [[2]]
 ## &lt;quosure&gt;
 ## expr: ^-^date
-## env:  0x562470108858</code></pre></li>
+## env:  0x55febda8b920</code></pre></li>
 <li><p>Add the <code>select()</code> step. Use <em>!!!</em> to parse the <em>vars</em> variable inside <code>select()</code></p>
 <div class="sourceCode" id="cb277"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb277-1" data-line-number="1">de_select &lt;-<span class="st"> </span><span class="cf">function</span>(.data, ...){</a>
 <a class="sourceLine" id="cb277-2" data-line-number="2">  vars &lt;-<span class="st"> </span><span class="kw">enquos</span>(...)</a>
@@ -399,19 +399,19 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <a class="sourceLine" id="cb278-2" data-line-number="2"><span class="st">  </span><span class="kw">de_select</span>(order_id, date)</a></code></pre></div>
 <pre><code>## # Source:   lazy query [?? x 8]
 ## # Database: postgres [rstudio_admin@localhost:5432/postgres]
-##    date_year date_month customer_id customer_name            customer_lon customer_lat order_total order_qty
-##        &lt;int&gt;      &lt;int&gt;       &lt;int&gt; &lt;chr&gt;                           &lt;dbl&gt;        &lt;dbl&gt;       &lt;dbl&gt;     &lt;int&gt;
-##  1      2016          1          36 Jeptha Ziemann                  -122.         37.7       10.9          2
-##  2      2016          1          21 Miss Azzie Jaskolski            -122.         37.8       29.4          4
-##  3      2016          1          64 Amber Harber                    -122.         37.8       31.0          5
-##  4      2016          1          85 Mat Luettgen                    -122.         37.8       42            6
-##  5      2016          1          41 Dr. Dionte Quigley Jr.          -122.         37.8       27.2          4
-##  6      2016          1          70 Reggie Mills                    -122.         37.7       12.7          2
-##  7      2016          1          10 Ms. Ciarra Borer                -122.         37.8       11.3          2
-##  8      2016          1          78 Pricilla Goodwin                -122.         37.8        5.47         1
-##  9      2016          1          56 Kimora Bergnaum                 -122.         37.7       19.9          3
-## 10      2016          1          71 Erle Christiansen-Larkin        -122.         37.7       18.6          3
-## # … with more rows</code></pre></li>
+##    date_year date_month customer_id customer_name customer_lon customer_lat
+##        &lt;int&gt;      &lt;int&gt;       &lt;int&gt; &lt;chr&gt;                &lt;dbl&gt;        &lt;dbl&gt;
+##  1      2016          1          36 Jeptha Ziema…        -122.         37.7
+##  2      2016          1          21 Miss Azzie J…        -122.         37.8
+##  3      2016          1          64 Amber Harber         -122.         37.8
+##  4      2016          1          85 Mat Luettgen         -122.         37.8
+##  5      2016          1          41 Dr. Dionte Q…        -122.         37.8
+##  6      2016          1          70 Reggie Mills         -122.         37.7
+##  7      2016          1          10 Ms. Ciarra B…        -122.         37.8
+##  8      2016          1          78 Pricilla Goo…        -122.         37.8
+##  9      2016          1          56 Kimora Bergn…        -122.         37.7
+## 10      2016          1          71 Erle Christi…        -122.         37.7
+## # … with more rows, and 2 more variables: order_total &lt;dbl&gt;, order_qty &lt;int&gt;</code></pre></li>
 <li><p>Add a <code>show_query()</code> step to see the resulting SQL</p>
 <div class="sourceCode" id="cb280"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb280-1" data-line-number="1">orders <span class="op">%&gt;%</span></a>
 <a class="sourceLine" id="cb280-2" data-line-number="2"><span class="st">  </span><span class="kw">de_select</span>(order_id, date) <span class="op">%&gt;%</span></a>

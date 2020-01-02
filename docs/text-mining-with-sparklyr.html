@@ -4,11 +4,11 @@
 
   <meta charset="utf-8" />
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-  <title>10 Text mining with sparklyr | _main.utf8.md</title>
+  <title>10 Text mining with sparklyr | _main.utf8</title>
   <meta name="description" content="" />
   <meta name="generator" content="bookdown 0.16 and GitBook 2.6.7" />
 
-  <meta property="og:title" content="10 Text mining with sparklyr | _main.utf8.md" />
+  <meta property="og:title" content="10 Text mining with sparklyr | _main.utf8" />
   <meta property="og:type" content="book" />
   
   
@@ -16,7 +16,7 @@
   
 
   <meta name="twitter:card" content="summary" />
-  <meta name="twitter:title" content="10 Text mining with sparklyr | _main.utf8.md" />
+  <meta name="twitter:title" content="10 Text mining with sparklyr | _main.utf8" />
   
   
   
@@ -221,16 +221,36 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <h1><span class="header-section-number">10</span> Text mining with <code>sparklyr</code></h1>
 <p>For this example, there are two files that will be analyzed. They are both the full works of Sir Arthur Conan Doyle and Mark Twain. The files were downloaded from the <a href="https://www.gutenberg.org/">Gutenberg Project</a> site via the <code>gutenbergr</code> package. Intentionally, no data cleanup was done to the files prior to this analysis. See the appendix below to see how the data was downloaded and prepared.</p>
 <div class="sourceCode" id="cb323"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb323-1" data-line-number="1"><span class="kw">readLines</span>(<span class="st">&quot;/usr/share/class/books/arthur_doyle.txt&quot;</span>, <span class="dv">30</span>) </a></code></pre></div>
-<pre><code>##  [1] &quot;THE RETURN OF SHERLOCK HOLMES,&quot;                   &quot;&quot;                                                 &quot;A Collection of Holmes Adventures&quot;               
-##  [4] &quot;&quot;                                                 &quot;&quot;                                                 &quot;by Sir Arthur Conan Doyle&quot;                       
-##  [7] &quot;&quot;                                                 &quot;&quot;                                                 &quot;&quot;                                                
-## [10] &quot;&quot;                                                 &quot;CONTENTS:&quot;                                        &quot;&quot;                                                
-## [13] &quot;     The Adventure Of The Empty House&quot;            &quot;&quot;                                                 &quot;     The Adventure Of The Norwood Builder&quot;       
-## [16] &quot;&quot;                                                 &quot;     The Adventure Of The Dancing Men&quot;            &quot;&quot;                                                
-## [19] &quot;     The Adventure Of The Solitary Cyclist&quot;       &quot;&quot;                                                 &quot;     The Adventure Of The Priory School&quot;         
-## [22] &quot;&quot;                                                 &quot;     The Adventure Of Black Peter&quot;                &quot;&quot;                                                
-## [25] &quot;     The Adventure Of Charles Augustus Milverton&quot; &quot;&quot;                                                 &quot;     The Adventure Of The Six Napoleons&quot;         
-## [28] &quot;&quot;                                                 &quot;     The Adventure Of The Three Students&quot;         &quot;&quot;</code></pre>
+<pre><code>##  [1] &quot;THE RETURN OF SHERLOCK HOLMES,&quot;                  
+##  [2] &quot;&quot;                                                
+##  [3] &quot;A Collection of Holmes Adventures&quot;               
+##  [4] &quot;&quot;                                                
+##  [5] &quot;&quot;                                                
+##  [6] &quot;by Sir Arthur Conan Doyle&quot;                       
+##  [7] &quot;&quot;                                                
+##  [8] &quot;&quot;                                                
+##  [9] &quot;&quot;                                                
+## [10] &quot;&quot;                                                
+## [11] &quot;CONTENTS:&quot;                                       
+## [12] &quot;&quot;                                                
+## [13] &quot;     The Adventure Of The Empty House&quot;           
+## [14] &quot;&quot;                                                
+## [15] &quot;     The Adventure Of The Norwood Builder&quot;       
+## [16] &quot;&quot;                                                
+## [17] &quot;     The Adventure Of The Dancing Men&quot;           
+## [18] &quot;&quot;                                                
+## [19] &quot;     The Adventure Of The Solitary Cyclist&quot;      
+## [20] &quot;&quot;                                                
+## [21] &quot;     The Adventure Of The Priory School&quot;         
+## [22] &quot;&quot;                                                
+## [23] &quot;     The Adventure Of Black Peter&quot;               
+## [24] &quot;&quot;                                                
+## [25] &quot;     The Adventure Of Charles Augustus Milverton&quot;
+## [26] &quot;&quot;                                                
+## [27] &quot;     The Adventure Of The Six Napoleons&quot;         
+## [28] &quot;&quot;                                                
+## [29] &quot;     The Adventure Of The Three Students&quot;        
+## [30] &quot;&quot;</code></pre>
 <div id="data-import" class="section level2">
 <h2><span class="header-section-number">10.1</span> Data Import</h2>
 <p><em>Read the book data into Spark</em></p>
@@ -264,18 +284,18 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li><p>Preview <code>both</code></p>
 <div class="sourceCode" id="cb334"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb334-1" data-line-number="1">both</a></code></pre></div>
 <pre><code>## # Source: spark&lt;?&gt; [?? x 2]
-##    line                              author
-##    &lt;chr&gt;                             &lt;chr&gt; 
-##  1 THE RETURN OF SHERLOCK HOLMES,    doyle 
-##  2 &quot;&quot;                                doyle 
-##  3 A Collection of Holmes Adventures doyle 
-##  4 &quot;&quot;                                doyle 
-##  5 &quot;&quot;                                doyle 
-##  6 by Sir Arthur Conan Doyle         doyle 
-##  7 &quot;&quot;                                doyle 
-##  8 &quot;&quot;                                doyle 
-##  9 &quot;&quot;                                doyle 
-## 10 &quot;&quot;                                doyle 
+##    line                                author
+##    &lt;chr&gt;                               &lt;chr&gt; 
+##  1 &quot;THE RETURN OF SHERLOCK HOLMES,&quot;    doyle 
+##  2 &quot;&quot;                                  doyle 
+##  3 &quot;A Collection of Holmes Adventures&quot; doyle 
+##  4 &quot;&quot;                                  doyle 
+##  5 &quot;&quot;                                  doyle 
+##  6 &quot;by Sir Arthur Conan Doyle&quot;         doyle 
+##  7 &quot;&quot;                                  doyle 
+##  8 &quot;&quot;                                  doyle 
+##  9 &quot;&quot;                                  doyle 
+## 10 &quot;&quot;                                  doyle 
 ## # … with more rows</code></pre></li>
 <li><p>Filter out empty lines into a variable called <code>all_lines</code></p>
 <div class="sourceCode" id="cb336"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb336-1" data-line-number="1">all_lines &lt;-<span class="st"> </span>both <span class="op">%&gt;%</span></a>
@@ -332,7 +352,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <a class="sourceLine" id="cb345-6" data-line-number="6">    n,</a>
 <a class="sourceLine" id="cb345-7" data-line-number="7">    <span class="dt">colors =</span> <span class="kw">c</span>(<span class="st">&quot;#999999&quot;</span>, <span class="st">&quot;#E69F00&quot;</span>, <span class="st">&quot;#56B4E9&quot;</span>,<span class="st">&quot;#56B4E9&quot;</span>))</a>
 <a class="sourceLine" id="cb345-8" data-line-number="8">    )</a></code></pre></div>
-<p><img src="_main_files/figure-html/unnamed-chunk-245-1.png" width="672" /></p></li>
+<p><img src="_main_files/figure-html/unnamed-chunk-246-1.png" width="672" /></p></li>
 <li><p>Filter <code>word_cout</code> to only retain “doyle”, assign it to <code>doyle_most</code></p>
 <div class="sourceCode" id="cb346"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb346-1" data-line-number="1">doyle_most &lt;-<span class="st"> </span>word_count <span class="op">%&gt;%</span></a>
 <a class="sourceLine" id="cb346-2" data-line-number="2"><span class="st">  </span><span class="kw">filter</span>(author <span class="op">==</span><span class="st"> &quot;doyle&quot;</span>)</a></code></pre></div></li>
@@ -346,7 +366,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <a class="sourceLine" id="cb347-7" data-line-number="7">    n,</a>
 <a class="sourceLine" id="cb347-8" data-line-number="8">    <span class="dt">colors =</span> <span class="kw">c</span>(<span class="st">&quot;#999999&quot;</span>, <span class="st">&quot;#E69F00&quot;</span>, <span class="st">&quot;#56B4E9&quot;</span>,<span class="st">&quot;#56B4E9&quot;</span>)</a>
 <a class="sourceLine" id="cb347-9" data-line-number="9">    ))</a></code></pre></div>
-<p><img src="_main_files/figure-html/unnamed-chunk-247-1.png" width="672" /></p></li>
+<p><img src="_main_files/figure-html/unnamed-chunk-248-1.png" width="672" /></p></li>
 <li><p>Use <code>anti_join()</code> to figure out which words are used by Doyle but not Twain. Order the results by number of words.</p>
 <div class="sourceCode" id="cb348"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb348-1" data-line-number="1">doyle_unique &lt;-<span class="st"> </span>doyle_most <span class="op">%&gt;%</span></a>
 <a class="sourceLine" id="cb348-2" data-line-number="2"><span class="st">  </span><span class="kw">anti_join</span>(twain_most, <span class="dt">by =</span> <span class="st">&quot;word&quot;</span>) <span class="op">%&gt;%</span></a>
@@ -360,7 +380,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <a class="sourceLine" id="cb349-6" data-line-number="6">    n,</a>
 <a class="sourceLine" id="cb349-7" data-line-number="7">    <span class="dt">colors =</span> <span class="kw">c</span>(<span class="st">&quot;#999999&quot;</span>, <span class="st">&quot;#E69F00&quot;</span>, <span class="st">&quot;#56B4E9&quot;</span>,<span class="st">&quot;#56B4E9&quot;</span>))</a>
 <a class="sourceLine" id="cb349-8" data-line-number="8">    )</a></code></pre></div>
-<p><img src="_main_files/figure-html/unnamed-chunk-249-1.png" width="672" /></p></li>
+<p><img src="_main_files/figure-html/unnamed-chunk-250-1.png" width="672" /></p></li>
 <li><p>Find out how many times Twain used the word “sherlock”</p>
 <div class="sourceCode" id="cb350"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb350-1" data-line-number="1">all_words <span class="op">%&gt;%</span></a>
 <a class="sourceLine" id="cb350-2" data-line-number="2"><span class="st">  </span><span class="kw">filter</span>(author <span class="op">==</span><span class="st"> &quot;twain&quot;</span>, word <span class="op">==</span><span class="st"> &quot;sherlock&quot;</span>) <span class="op">%&gt;%</span></a>
@@ -374,29 +394,52 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <a class="sourceLine" id="cb352-2" data-line-number="2"><span class="st">  </span><span class="kw">mutate</span>(<span class="dt">line =</span> <span class="kw">lower</span>(line)) <span class="op">%&gt;%</span></a>
 <a class="sourceLine" id="cb352-3" data-line-number="3"><span class="st">  </span><span class="kw">filter</span>(<span class="kw">instr</span>(line, <span class="st">&quot;sherlock&quot;</span>) <span class="op">&gt;</span><span class="st"> </span><span class="dv">0</span>) <span class="op">%&gt;%</span></a>
 <a class="sourceLine" id="cb352-4" data-line-number="4"><span class="st">  </span><span class="kw">pull</span>(line)</a></code></pre></div>
-<pre><code>##  [1] &quot;late sherlock holmes, and yet discernible by a member of a race charged&quot;   &quot;sherlock holmes.&quot;                                                         
-##  [3] &quot;\&quot;uncle sherlock! the mean luck of it!--that he should come just&quot;          &quot;another trouble presented itself. \&quot;uncle sherlock &#39;ll be wanting to talk&quot;
-##  [5] &quot;flint buckner&#39;s cabin in the frosty gloom. they were sherlock holmes and&quot;  &quot;\&quot;uncle sherlock&#39;s got some work to do, gentlemen, that &#39;ll keep him till&quot;
-##  [7] &quot;\&quot;by george, he&#39;s just a duke, boys! three cheers for sherlock holmes,&quot;    &quot;he brought sherlock holmes to the billiard-room, which was jammed with&quot;   
-##  [9] &quot;of interest was there--sherlock holmes. the miners stood silent and&quot;       &quot;the room; the chair was on it; sherlock holmes, stately, imposing,&quot;       
-## [11] &quot;\&quot;you have hunted me around the world, sherlock holmes, yet god is my&quot;     &quot;\&quot;if it&#39;s only sherlock holmes that&#39;s troubling you, you needn&#39;t worry&quot;   
-## [13] &quot;they sighed; then one said: \&quot;we must bring sherlock holmes. he can be&quot;    &quot;i had small desire that sherlock holmes should hang for my deeds, as you&quot; 
-## [15] &quot;\&quot;my name is sherlock holmes, and i have not been doing anything.\&quot;&quot;       &quot;late sherlock holmes, and yet discernible by a member of a race charged&quot;  
-## [17] &quot;plus fort que sherlock holmes&quot;                                             &quot;sherlock holmes entre en scene&quot;                                           
-## [19] &quot;sherlock holmes&quot;                                                           &quot;--l&#39;oncle sherlock! quelle guigne!&quot;                                       
-## [21] &quot;bien! cette fois sherlock sera tres embarrasse; il manquera de preuve et&quot;  &quot;--l&#39;oncle sherlock va vouloir, ce soir, causer avec moi de notre&quot;         
-## [23] &quot;passage etroit sur la chambre de sherlock holmes; ils s&#39;y embusquerent&quot;    &quot;d&#39;archy, il ne peut etre nullement compare au genie de sherlock holmes,&quot;  
-## [25] &quot;flint buckner. c&#39;etait sherlock holmes et son neveu.&quot;                      &quot;--messieurs, mon oncle sherlock a un travail pressant a faire qui le&quot;     
-## [27] &quot;--mes amis! trois vivats a sherlock holmes, le plus grand homme qui ait&quot;   &quot;mettaient de coeur a leur reception. arrive dans sa chambre, sherlock&quot;    
-## [29] &quot;il introduisit sherlock holmes dans la salle de billard qui etait comble&quot;  &quot;de mineurs, tous impatients de le voir arriver. sherlock commanda les&quot;    
-## [31] &quot;sherlock holmes. les mineurs se tenaient en demi-cercle en observant un&quot;   &quot;sherlock au milieu de nous? dit ferguson.&quot;                                
-## [33] &quot;arracher; quand sherlock y met la main, il faut qu&#39;ils parlent, qu&#39;ils&quot;    &quot;plus complexe; sherlock va pouvoir etaler devant nous son art et sa&quot;      
-## [35] &quot;regardant comment sherlock procede. mais non, au lieu de cela, il a&quot;       &quot;sherlock holmes etait assis sur cette chaise, l&#39;air grave, imposant et&quot;   
-## [37] &quot;sherlock holmes leva la main pour concentrer sur lui l&#39;attention du&quot;       &quot;pas baisse pavillon devant sherlock holmes.\&quot; la serenite de ce dernier&quot;  
-## [39] &quot;objets, il y a une heure a peine pendant que maitre sherlock holmes se&quot;    &quot;sherlock regardait avec la volonte bien arretee de conserver son&quot;         
-## [41] &quot;silence complet qui suivit, maitre sherlock prit la parole, disant avec&quot;   &quot;--vous m&#39;avez pourchasse dans tout l&#39;univers, sherlock holmes, et&quot;        
-## [43] &quot;--si c&#39;est uniquement sherlock holmes qui vous inquiete, inutile de vous&quot;  &quot;\&quot;elles soupirerent, puis l&#39;une dit: \&quot;il faut que nous amenions sherlock&quot;
-## [45] &quot;d&#39;assister de sang-froid a la pendaison de sherlock holmes. j&#39;avais&quot;       &quot;--je m&#39;appelle sherlock holmes; je n&#39;ai rien a me reprocher.&quot;             
+<pre><code>##  [1] &quot;late sherlock holmes, and yet discernible by a member of a race charged&quot;  
+##  [2] &quot;sherlock holmes.&quot;                                                         
+##  [3] &quot;\&quot;uncle sherlock! the mean luck of it!--that he should come just&quot;         
+##  [4] &quot;another trouble presented itself. \&quot;uncle sherlock &#39;ll be wanting to talk&quot;
+##  [5] &quot;flint buckner&#39;s cabin in the frosty gloom. they were sherlock holmes and&quot; 
+##  [6] &quot;\&quot;uncle sherlock&#39;s got some work to do, gentlemen, that &#39;ll keep him till&quot;
+##  [7] &quot;\&quot;by george, he&#39;s just a duke, boys! three cheers for sherlock holmes,&quot;   
+##  [8] &quot;he brought sherlock holmes to the billiard-room, which was jammed with&quot;   
+##  [9] &quot;of interest was there--sherlock holmes. the miners stood silent and&quot;      
+## [10] &quot;the room; the chair was on it; sherlock holmes, stately, imposing,&quot;       
+## [11] &quot;\&quot;you have hunted me around the world, sherlock holmes, yet god is my&quot;    
+## [12] &quot;\&quot;if it&#39;s only sherlock holmes that&#39;s troubling you, you needn&#39;t worry&quot;   
+## [13] &quot;they sighed; then one said: \&quot;we must bring sherlock holmes. he can be&quot;   
+## [14] &quot;i had small desire that sherlock holmes should hang for my deeds, as you&quot; 
+## [15] &quot;\&quot;my name is sherlock holmes, and i have not been doing anything.\&quot;&quot;      
+## [16] &quot;late sherlock holmes, and yet discernible by a member of a race charged&quot;  
+## [17] &quot;plus fort que sherlock holmes&quot;                                            
+## [18] &quot;sherlock holmes entre en scene&quot;                                           
+## [19] &quot;sherlock holmes&quot;                                                          
+## [20] &quot;--l&#39;oncle sherlock! quelle guigne!&quot;                                       
+## [21] &quot;bien! cette fois sherlock sera tres embarrasse; il manquera de preuve et&quot; 
+## [22] &quot;--l&#39;oncle sherlock va vouloir, ce soir, causer avec moi de notre&quot;         
+## [23] &quot;passage etroit sur la chambre de sherlock holmes; ils s&#39;y embusquerent&quot;   
+## [24] &quot;d&#39;archy, il ne peut etre nullement compare au genie de sherlock holmes,&quot;  
+## [25] &quot;flint buckner. c&#39;etait sherlock holmes et son neveu.&quot;                     
+## [26] &quot;--messieurs, mon oncle sherlock a un travail pressant a faire qui le&quot;     
+## [27] &quot;--mes amis! trois vivats a sherlock holmes, le plus grand homme qui ait&quot;  
+## [28] &quot;mettaient de coeur a leur reception. arrive dans sa chambre, sherlock&quot;    
+## [29] &quot;il introduisit sherlock holmes dans la salle de billard qui etait comble&quot; 
+## [30] &quot;de mineurs, tous impatients de le voir arriver. sherlock commanda les&quot;    
+## [31] &quot;sherlock holmes. les mineurs se tenaient en demi-cercle en observant un&quot;  
+## [32] &quot;sherlock au milieu de nous? dit ferguson.&quot;                                
+## [33] &quot;arracher; quand sherlock y met la main, il faut qu&#39;ils parlent, qu&#39;ils&quot;   
+## [34] &quot;plus complexe; sherlock va pouvoir etaler devant nous son art et sa&quot;      
+## [35] &quot;regardant comment sherlock procede. mais non, au lieu de cela, il a&quot;      
+## [36] &quot;sherlock holmes etait assis sur cette chaise, l&#39;air grave, imposant et&quot;   
+## [37] &quot;sherlock holmes leva la main pour concentrer sur lui l&#39;attention du&quot;      
+## [38] &quot;pas baisse pavillon devant sherlock holmes.\&quot; la serenite de ce dernier&quot;  
+## [39] &quot;objets, il y a une heure a peine pendant que maitre sherlock holmes se&quot;   
+## [40] &quot;sherlock regardait avec la volonte bien arretee de conserver son&quot;         
+## [41] &quot;silence complet qui suivit, maitre sherlock prit la parole, disant avec&quot;  
+## [42] &quot;--vous m&#39;avez pourchasse dans tout l&#39;univers, sherlock holmes, et&quot;        
+## [43] &quot;--si c&#39;est uniquement sherlock holmes qui vous inquiete, inutile de vous&quot; 
+## [44] &quot;\&quot;elles soupirerent, puis l&#39;une dit: \&quot;il faut que nous amenions sherlock&quot;
+## [45] &quot;d&#39;assister de sang-froid a la pendaison de sherlock holmes. j&#39;avais&quot;      
+## [46] &quot;--je m&#39;appelle sherlock holmes; je n&#39;ai rien a me reprocher.&quot;             
 ## [47] &quot;plus fort que sherlock holmes&quot;</code></pre></li>
 <li><p>Close Spark session</p>
 <div class="sourceCode" id="cb354"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb354-1" data-line-number="1"><span class="kw">spark_disconnect</span>(sc)</a></code></pre></div></li>

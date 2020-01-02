@@ -4,11 +4,11 @@
 
   <meta charset="utf-8" />
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-  <title>11 Spark data caching | _main.utf8.md</title>
+  <title>11 Spark data caching | _main.utf8</title>
   <meta name="description" content="" />
   <meta name="generator" content="bookdown 0.16 and GitBook 2.6.7" />
 
-  <meta property="og:title" content="11 Spark data caching | _main.utf8.md" />
+  <meta property="og:title" content="11 Spark data caching | _main.utf8" />
   <meta property="og:type" content="book" />
   
   
@@ -16,7 +16,7 @@
   
 
   <meta name="twitter:card" content="summary" />
-  <meta name="twitter:title" content="11 Spark data caching | _main.utf8.md" />
+  <meta name="twitter:title" content="11 Spark data caching | _main.utf8" />
   
   
   
@@ -241,17 +241,19 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 ##   str.col_spec     vroom</code></pre>
 <pre><code>## 
 ## Attaching package: &#39;readr&#39;</code></pre>
+<pre><code>## The following objects are masked from &#39;package:vroom&#39;:
+## 
+##     as.col_spec, col_character, col_date, col_datetime, col_double,
+##     col_factor, col_guess, col_integer, col_logical, col_number,
+##     col_skip, col_time, cols, cols_condense, cols_only, date_names,
+##     date_names_lang, date_names_langs, default_locale, fwf_cols,
+##     fwf_empty, fwf_positions, fwf_widths, locale, output_column, spec</code></pre>
 <pre><code>## The following object is masked from &#39;package:yardstick&#39;:
 ## 
 ##     spec</code></pre>
 <pre><code>## The following object is masked from &#39;package:scales&#39;:
 ## 
 ##     col_factor</code></pre>
-<pre><code>## The following objects are masked from &#39;package:vroom&#39;:
-## 
-##     as.col_spec, col_character, col_date, col_datetime, col_double, col_factor, col_guess, col_integer, col_logical, col_number, col_skip,
-##     col_time, cols, cols_condense, cols_only, date_names, date_names_lang, date_names_langs, default_locale, fwf_cols, fwf_empty,
-##     fwf_positions, fwf_widths, locale, output_column, spec</code></pre>
 <div class="sourceCode" id="cb364"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb364-1" data-line-number="1"><span class="kw">library</span>(purrr)</a></code></pre></div></li>
 <li><p>Read the top 5 rows of the <strong>transactions_1</strong> CSV file</p>
 <div class="sourceCode" id="cb365"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb365-1" data-line-number="1">top_rows &lt;-<span class="st"> </span><span class="kw">read_csv</span>(<span class="st">&quot;/usr/share/class/files/transactions_1.csv&quot;</span>, <span class="dt">n_max =</span> <span class="dv">5</span>)</a></code></pre></div>
@@ -330,12 +332,12 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <pre><code>## # Source: spark&lt;?&gt; [?? x 3]
 ##   date       total_sales no_items
 ##   &lt;chr&gt;            &lt;dbl&gt;    &lt;dbl&gt;
-## 1 2016-01-27      39310.     5866
-## 2 2016-01-28      38419.     5771
+## 1 2016-01-27      39311.     5866
+## 2 2016-01-28      38424.     5771
 ## 3 2016-02-03      37666.     5659
 ## 4 2016-01-29      37582.     5652
-## 5 2016-02-04      38183.     5718
-## 6 2016-02-10      38501.     5686</code></pre></li>
+## 5 2016-02-04      38193.     5719
+## 6 2016-02-10      38500.     5686</code></pre></li>
 <li><p>Go to the Spark UI</p></li>
 <li><p>Click the <strong>Storage</strong> button</p></li>
 <li><p>Notice that “orders” is now cached into Spark memory</p></li>

@@ -1,0 +1,232 @@
+```{r db-visualizations, include = FALSE}
+eval_viz <- FALSE
+if(Sys.getenv("GLOBAL_EVAL") != "") eval_viz <- Sys.getenv("GLOBAL_EVAL")
+```
+
+```{r, eval = eval_viz, include = FALSE}
+library(connections)
+library(RSQLite)
+library(dplyr)
+library(dbplyr)
+library(dbplot)
+library(ggplot2)
+library(leaflet)
+library(config)
+```
+
+
+# Data Visualizations
+
+## Simple plot
+*Practice pushing the calculations to the database*
+
+1. Load the `connections` and `dplyr` libraries
+    ```{r, eval = eval_viz}
+    library(connections)
+    library(dplyr)
+    library(config)
+    ```
+
+2. Use `connection_open()` to open a Database connection
+    ```{r, eval = eval_viz}
+    con <- connection_open(
+      RPostgres::Postgres(),
+      host =  "localhost",
+      user = get("user", config = "datawarehouse"),
+      password = get("password", config = "datawarehouse"),
+      port = 5432,
+      dbname = "postgres",
+      bigint = "integer"
+    )
+    ```
+
+3. Use `tbl()` to create a pointer to the **v_orders** table
+    ```{r, eval = eval_viz}
+    orders <- tbl(con, in_schema("datawarehouse", "v_orders"))
+    ```
+
+4. Use `collect()` bring back the aggregated results into a "pass-through" variable called `by_year`
+    ```{r, eval = eval_viz}
+    by_year <- orders %>%
+      count(date_year) %>%
+      collect()
+    ```
+
+5. Preview the `by_year` variable
+    ```{r, eval = eval_viz}
+    by_year
+    ```
+
+6. Load the `ggplot2` library
+    ```{r, eval = eval_viz}
+    library(ggplot2)
+    ```
+
+
+7. Plot results using `ggplot2`
+    ```{r, eval = eval_viz}
+      ggplot(by_year) +
+      geom_col(aes(date_year, n)) 
+    ```
+
+8. Using the code in this section, create a single piped code set which also creates the plot
+    ```{r, eval = eval_viz}
+    orders %>%
+      count(date_year) %>%
+      collect() %>%
+      ggplot() +            # < Don't forget to switch to `+`
+      geom_col(aes(date_year, n)) 
+    ```
+
+## Plot in one code segment
+*Practice going from `dplyr` to `ggplot2` without using pass-through variable, great for EDA*
+
+1. Summarize the order totals in a new variable called: *sales*
+    ```{r, eval = eval_viz}
+    orders %>%
+      summarise(sales = sum(order_total))
+    ```
+
+2. Summarize the order totals in a new variable called: *sales*
+    ```{r, eval = eval_viz}
+    orders %>%
+      group_by(date_year) %>%
+      summarise(sales = sum(order_total))
+    ```
+    
+3. Summarize the order totals in a new variable called: *sales*
+    ```{r, eval = eval_viz}
+    orders %>%
+      group_by(date_year) %>%
+      summarise(sales = sum(order_total)) %>%
+      ggplot() +
+      geom_col(aes(date_year, sales))
+    ```
+
+4. Switch the calculation to reflect the average of the order sale total
+    ```{r, eval = eval_viz}
+    orders %>%
+      group_by(date_year) %>%
+      summarise(sales = mean(order_total)) %>%
+      ggplot() +
+      geom_col(aes(date_year, sales))
+    ```
+
+## Create a histogram
+*Use the `dbplot` package to easily create a histogram*
+
+1. Load the `dbplot` package
+    ```{r, eval = eval_viz}
+    library(dbplot)
+    ```
+
+
+2. Use the `dbplot_histogram()` to build the histogram
+    ```{r, eval = eval_viz}
+    orders %>%
+      dbplot_histogram(order_total)
+    ```
+
+
+2. Adjust the `binwidth` to 300
+    ```{r, eval = eval_viz}
+    orders %>%
+      dbplot_histogram(order_total, binwidth = 10)
+    ```
+
+## Raster plot
+*Use `dbplot`'s raster graph*
+
+1. Use a `dbplot_raster()` to visualize `order_qty` versus `order_total`
+    ```{r, eval = eval_viz}
+    orders %>%
+      dbplot_raster(order_qty, order_total)
+    ```
+
+2. Change the plot's resolution to 10
+    ```{r, eval = eval_viz}
+    orders %>%
+      dbplot_raster(order_qty, order_total, resolution = 10)
+    ```
+
+## Using the `compute` functions
+
+1. Use the `db_compute_raster()` function to get the underlying results that feed the plot
+    ```{r, eval = eval_viz}
+    locations <- orders %>%
+      db_compute_raster2(customer_lon, customer_lat, resolution = 10)
+    ```
+
+2. Preview the `locations` variable
+    ```{r, eval = eval_viz}
+    locations
+    ```
+
+3. Load the `leaflet` library
+    ```{r, eval = eval_viz}
+    library(leaflet)
+    ```
+
+4. Pipe `location` into the `leaflet()` function, and then pipe that into the `addTiles()` function
+    ```{r, eval = eval_viz}
+    locations %>%
+      leaflet() %>% 
+        addTiles() 
+    ```
+
+5. Add the `addRectangles()` function using the longitude and latitude variables 
+```{r, eval = eval_viz}
+locations %>%
+  leaflet() %>% 
+    addTiles() %>%
+    addRectangles(
+      ~customer_lon, 
+      ~customer_lat, 
+      ~customer_lon_2,
+      ~customer_lat_2
+    )
+```
+
+6. Add the `fillOpacity` argument to the `addRectangles()` step, use ``n()`` as the value for it
+```{r, eval = eval_viz}
+locations %>%
+  leaflet() %>% 
+    addTiles() %>%
+    addRectangles(
+      ~customer_lon, 
+      ~customer_lat, 
+      ~customer_lon_2,
+      ~customer_lat_2,
+      fillOpacity = ~`n()`
+    )
+```
+
+7. Modify `fillOpacity` to be calculated as a percentage against the maximum number of orders
+```{r, eval = eval_viz}
+locations %>%
+  leaflet() %>% 
+    addTiles() %>%
+    addRectangles(
+      ~customer_lon, 
+      ~customer_lat, 
+      ~customer_lon_2,
+      ~customer_lat_2,
+      fillOpacity = ~(`n()` / max(`n()`))
+    )
+```
+
+8. Add the `popup` argument with the following instruction as its value: `~paste0("<p>No of orders: ",  `n()`,"</p>")`
+```{r, eval = eval_viz}
+locations %>%
+  leaflet() %>% 
+    addTiles() %>%
+    addRectangles(
+      ~customer_lon, 
+      ~customer_lat, 
+      ~customer_lon_2,
+      ~customer_lat_2,
+      fillOpacity = ~(`n()` / max(`n()`)),
+      popup = ~paste0("<p>No of orders: ",  `n()`,"</p>")
+    )
+```
+

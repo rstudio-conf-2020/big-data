@@ -4,11 +4,11 @@
 
   <meta charset="utf-8" />
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-  <title>7 Modeling with databases | _main.utf8.md</title>
+  <title>7 Modeling with databases | _main.utf8</title>
   <meta name="description" content="" />
   <meta name="generator" content="bookdown 0.16 and GitBook 2.6.7" />
 
-  <meta property="og:title" content="7 Modeling with databases | _main.utf8.md" />
+  <meta property="og:title" content="7 Modeling with databases | _main.utf8" />
   <meta property="og:type" content="book" />
   
   
@@ -16,7 +16,7 @@
   
 
   <meta name="twitter:card" content="summary" />
-  <meta name="twitter:title" content="7 Modeling with databases | _main.utf8.md" />
+  <meta name="twitter:title" content="7 Modeling with databases | _main.utf8" />
   
   
   
@@ -250,7 +250,8 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <pre><code>## &lt;SQL&gt;
 ## SELECT *
 ## FROM datawarehouse.orders</code></pre>
-<pre><code>## [1] &quot;tbl_conn&quot;         &quot;tbl_PqConnection&quot; &quot;tbl_dbi&quot;          &quot;tbl_sql&quot;          &quot;tbl_lazy&quot;         &quot;tbl&quot;</code></pre></li>
+<pre><code>## [1] &quot;tbl_conn&quot;         &quot;tbl_PqConnection&quot; &quot;tbl_dbi&quot;          &quot;tbl_sql&quot;         
+## [5] &quot;tbl_lazy&quot;         &quot;tbl&quot;</code></pre></li>
 <li><p>Replace <code>show_query()</code> with <code>remote_query()</code> to compare the output types</p>
 <div class="sourceCode" id="cb190"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb190-1" data-line-number="1">orders <span class="op">%&gt;%</span></a>
 <a class="sourceLine" id="cb190-2" data-line-number="2"><span class="st">  </span><span class="kw">remote_query</span>() <span class="op">%&gt;%</span></a>
@@ -277,16 +278,16 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 ## # Database: postgres [rstudio_admin@localhost:5432/postgres]
 ##    order_id customer_id step_id
 ##       &lt;int&gt;       &lt;int&gt;   &lt;dbl&gt;
-##  1     6544          36       6
-##  2    10969          69      10
-##  3    45368           4      45
-##  4    73207          23      73
-##  5    79874          71      79
-##  6    86553          69      86
-##  7    86559          48      86
-##  8   103209          58     103
-##  9   105466           2     105
-## 10   127623          81     127
+##  1     9872          37       9
+##  2    14395          34      14
+##  3    15430          30      15
+##  4    26567          42      26
+##  5    31082          62      31
+##  6    33243          63      33
+##  7    38682          63      38
+##  8    56561          80      56
+##  9    61018          34      61
+## 10    78693          45      78
 ## # … with more rows</code></pre></li>
 <li><p>Use <code>inner_join()</code> to add the information from the <code>orders_view</code> pointer, use <code>order_id</code> as the matching field</p>
 <div class="sourceCode" id="cb198"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb198-1" data-line-number="1">orders <span class="op">%&gt;%</span></a>
@@ -296,19 +297,20 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <a class="sourceLine" id="cb198-5" data-line-number="5"><span class="st">  </span><span class="kw">inner_join</span>(orders_view, <span class="dt">by =</span> <span class="st">&quot;order_id&quot;</span>) </a></code></pre></div>
 <pre><code>## # Source:   lazy query [?? x 12]
 ## # Database: postgres [rstudio_admin@localhost:5432/postgres]
-##    order_id customer_id.x step_id date       date_year date_month customer_id.y customer_name         customer_lon customer_lat order_total order_qty
-##       &lt;int&gt;         &lt;int&gt;   &lt;dbl&gt; &lt;chr&gt;          &lt;int&gt;      &lt;int&gt;         &lt;int&gt; &lt;chr&gt;                        &lt;dbl&gt;        &lt;dbl&gt;       &lt;dbl&gt;     &lt;int&gt;
-##  1     2169            59       2 2016-01-02      2016          1            59 Junie Kuhlman                -122.         37.8        34.8         5
-##  2    18762            84      18 2016-01-18      2016          1            84 Jep Greenfelder-Bayer        -122.         37.8        18.4         3
-##  3    22115            50      22 2016-01-22      2016          1            50 Channing Pacocha             -122.         37.7        17.3         3
-##  4    57682             6      57 2016-02-26      2016          2             6 Meggan Bruen                 -122.         37.7        21.4         3
-##  5    78727            84      78 2016-03-18      2016          3            84 Jep Greenfelder-Bayer        -122.         37.8        10.6         2
-##  6    80958             9      80 2016-03-20      2016          3             9 Kip Eichmann                 -122.         37.7        25.6         4
-##  7    86568            68      86 2016-03-26      2016          3            68 Clement Haley                -122.         37.8        28.3         4
-##  8    92136             9      92 2016-04-01      2016          4             9 Kip Eichmann                 -122.         37.7        47.7         6
-##  9   144316            70     144 2016-05-23      2016          5            70 Reggie Mills                 -122.         37.7        23.6         4
-## 10   152180            50     152 2016-05-31      2016          5            50 Channing Pacocha             -122.         37.7        32.0         5
-## # … with more rows</code></pre></li>
+##    order_id customer_id.x step_id date  date_year date_month customer_id.y
+##       &lt;int&gt;         &lt;int&gt;   &lt;dbl&gt; &lt;chr&gt;     &lt;int&gt;      &lt;int&gt;         &lt;int&gt;
+##  1    10956            77      10 2016…      2016          1            77
+##  2    28745             8      28 2016…      2016          1             8
+##  3    39836             1      39 2016…      2016          2             1
+##  4    40907            88      40 2016…      2016          2            88
+##  5    49819            74      49 2016…      2016          2            74
+##  6    55428            67      55 2016…      2016          2            67
+##  7    62177            43      62 2016…      2016          3            43
+##  8    72128            16      72 2016…      2016          3            16
+##  9    88743            39      88 2016…      2016          3            39
+## 10    90986            57      90 2016…      2016          3            57
+## # … with more rows, and 5 more variables: customer_name &lt;chr&gt;,
+## #   customer_lon &lt;dbl&gt;, customer_lat &lt;dbl&gt;, order_total &lt;dbl&gt;, order_qty &lt;int&gt;</code></pre></li>
 <li><p>Assign the resulting code to a variable <code>orders_sample_db</code></p>
 <div class="sourceCode" id="cb200"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb200-1" data-line-number="1">orders_sample_db &lt;-<span class="st"> </span>orders <span class="op">%&gt;%</span></a>
 <a class="sourceLine" id="cb200-2" data-line-number="2"><span class="st">  </span><span class="kw">remote_query</span>() <span class="op">%&gt;%</span></a>
@@ -322,11 +324,11 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li><p>Use <code>dbplot_histogram()</code> to visualize the distribution of <code>order_total</code> from <code>orders_sample</code></p>
 <div class="sourceCode" id="cb203"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb203-1" data-line-number="1">orders_sample <span class="op">%&gt;%</span><span class="st"> </span></a>
 <a class="sourceLine" id="cb203-2" data-line-number="2"><span class="st">  </span><span class="kw">dbplot_histogram</span>(order_total, <span class="dt">binwidth =</span> <span class="dv">5</span>)</a></code></pre></div>
-<p><img src="_main_files/figure-html/unnamed-chunk-145-1.png" width="672" /></p></li>
+<p><img src="_main_files/figure-html/unnamed-chunk-146-1.png" width="672" /></p></li>
 <li><p>Use <code>dbplot_histogram()</code> to visualize the distribution of <code>order_total</code> from <code>orders_view</code></p>
 <div class="sourceCode" id="cb204"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb204-1" data-line-number="1">orders_view <span class="op">%&gt;%</span><span class="st"> </span></a>
 <a class="sourceLine" id="cb204-2" data-line-number="2"><span class="st">  </span><span class="kw">dbplot_histogram</span>(order_total, <span class="dt">binwidth =</span> <span class="dv">5</span>)</a></code></pre></div>
-<p><img src="_main_files/figure-html/unnamed-chunk-146-1.png" width="672" /></p></li>
+<p><img src="_main_files/figure-html/unnamed-chunk-147-1.png" width="672" /></p></li>
 </ol>
 </div>
 <div id="using-tidymodels-for-modeling" class="section level2">
@@ -347,13 +349,13 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <a class="sourceLine" id="cb208-3" data-line-number="3"><span class="st">  </span><span class="kw">fit</span>(order_total <span class="op">~</span><span class="st"> </span>order_qty, <span class="dt">data =</span> orders_sample)</a></code></pre></div>
 <pre><code>## parsnip model object
 ## 
-## Fit in:  26ms
+## Fit in:  300ms
 ## Call:
 ## stats::lm(formula = formula, data = data)
 ## 
 ## Coefficients:
 ## (Intercept)    order_qty  
-##     -0.8562       7.0699</code></pre></li>
+##      0.4798       6.4649</code></pre></li>
 <li><p>Assign the previous code to a variable called <code>parsnip_model</code></p>
 <div class="sourceCode" id="cb210"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb210-1" data-line-number="1">parsnip_model &lt;-<span class="st"> </span><span class="kw">linear_reg</span>() <span class="op">%&gt;%</span></a>
 <a class="sourceLine" id="cb210-2" data-line-number="2"><span class="st">  </span><span class="kw">set_engine</span>(<span class="st">&quot;lm&quot;</span>) <span class="op">%&gt;%</span></a>
@@ -361,20 +363,22 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li><p>Use <code>bind_cols()</code> to add the predictions to <code>order_sample</code>. Calculate the prediction with <code>predict()</code></p>
 <div class="sourceCode" id="cb211"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb211-1" data-line-number="1">orders_sample <span class="op">%&gt;%</span><span class="st"> </span></a>
 <a class="sourceLine" id="cb211-2" data-line-number="2"><span class="st">  </span><span class="kw">bind_cols</span>(<span class="kw">predict</span>(parsnip_model, orders_sample))</a></code></pre></div>
-<pre><code>## # A tibble: 101 x 13
-##    order_id customer_id.x step_id date       date_year date_month customer_id.y customer_name            customer_lon customer_lat order_total order_qty .pred
-##       &lt;int&gt;         &lt;int&gt;   &lt;dbl&gt; &lt;chr&gt;          &lt;int&gt;      &lt;int&gt;         &lt;int&gt; &lt;chr&gt;                           &lt;dbl&gt;        &lt;dbl&gt;       &lt;dbl&gt;     &lt;int&gt; &lt;dbl&gt;
-##  1     8734            87       8 2016-01-08      2016          1            87 Lasonya Bailey-Langworth        -122.         37.8        5.21         1  6.21
-##  2    24398            60      24 2016-01-24      2016          1            60 Jonas Abshire                   -122.         37.8       32.0          4 27.4 
-##  3    32103            73      32 2016-02-01      2016          2            73 Merlyn Runolfsson               -122.         37.7       20.9          3 20.4 
-##  4    32158            80      32 2016-02-01      2016          2            80 Jessee Rodriguez Jr.            -122.         37.7        8.34         1  6.21
-##  5    42123            61      42 2016-02-11      2016          2            61 Cedric O&#39;Kon-Wisoky             -122.         37.8       14.9          2 13.3 
-##  6    46478            42      46 2016-02-15      2016          2            42 Rodolfo Denesik                 -122.         37.8       18.4          3 20.4 
-##  7    50895            16      50 2016-02-19      2016          2            16 Mordechai Schultz               -122.         37.7       26.2          4 27.4 
-##  8    64366            26      64 2016-03-04      2016          3            26 Lura Koepp                      -122.         37.7       25.0          4 27.4 
-##  9    67620            72      67 2016-03-07      2016          3            72 Eduardo Bins                    -122.         37.8       21.6          3 20.4 
-## 10    69842            43      69 2016-03-09      2016          3            43 Chadrick Konopelski             -122.         37.7       26.0          3 20.4 
-## # … with 91 more rows</code></pre></li>
+<pre><code>## # A tibble: 95 x 13
+##    order_id customer_id.x step_id date  date_year date_month customer_id.y
+##       &lt;int&gt;         &lt;int&gt;   &lt;dbl&gt; &lt;chr&gt;     &lt;int&gt;      &lt;int&gt;         &lt;int&gt;
+##  1    23214            71      23 2016…      2016          1            71
+##  2    25490            12      25 2016…      2016          1            12
+##  3    38703            37      38 2016…      2016          2            37
+##  4    61006            45      61 2016…      2016          2            53
+##  5    61006            45      61 2016…      2016          3            45
+##  6    67659            59      67 2016…      2016          3            59
+##  7    90899            87      90 2016…      2016          3            87
+##  8   109866            22     109 2016…      2016          4            22
+##  9   113270            75     113 2016…      2016          4            75
+## 10   115421            19     115 2016…      2016          4            19
+## # … with 85 more rows, and 6 more variables: customer_name &lt;chr&gt;,
+## #   customer_lon &lt;dbl&gt;, customer_lat &lt;dbl&gt;, order_total &lt;dbl&gt;, order_qty &lt;int&gt;,
+## #   .pred &lt;dbl&gt;</code></pre></li>
 <li><p>Pipe the code into the <code>metrics()</code> function. Use <code>order_total</code> as the <code>truth</code> argument, and <code>.pred</code> as the <code>estimate</code> argument</p>
 <div class="sourceCode" id="cb213"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb213-1" data-line-number="1">orders_sample <span class="op">%&gt;%</span><span class="st"> </span></a>
 <a class="sourceLine" id="cb213-2" data-line-number="2"><span class="st">  </span><span class="kw">bind_cols</span>(<span class="kw">predict</span>(parsnip_model, orders_sample)) <span class="op">%&gt;%</span></a>
@@ -382,9 +386,9 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <pre><code>## # A tibble: 3 x 3
 ##   .metric .estimator .estimate
 ##   &lt;chr&gt;   &lt;chr&gt;          &lt;dbl&gt;
-## 1 rmse    standard       2.64 
-## 2 rsq     standard       0.926
-## 3 mae     standard       2.07</code></pre></li>
+## 1 rmse    standard       2.84 
+## 2 rsq     standard       0.943
+## 3 mae     standard       2.24</code></pre></li>
 </ol>
 </div>
 <div id="score-with-tidypredict" class="section level2">
@@ -401,24 +405,24 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 ##   ..$ model   : chr &quot;lm&quot;
 ##   ..$ version : num 2
 ##   ..$ type    : chr &quot;regression&quot;
-##   ..$ residual: int 99
-##   ..$ sigma2  : num 7.13
+##   ..$ residual: int 93
+##   ..$ sigma2  : num 8.25
 ##   ..$ is_glm  : num 0
 ##  $ terms  :List of 2
 ##   ..$ :List of 5
 ##   .. ..$ label       : chr &quot;(Intercept)&quot;
-##   .. ..$ coef        : num -0.856
+##   .. ..$ coef        : num 0.48
 ##   .. ..$ is_intercept: num 1
 ##   .. ..$ fields      :List of 1
 ##   .. .. ..$ :List of 2
 ##   .. .. .. ..$ type: chr &quot;ordinary&quot;
 ##   .. .. .. ..$ col : chr &quot;(Intercept)&quot;
 ##   .. ..$ qr          :List of 2
-##   .. .. ..$ qr_1: num -0.0995
-##   .. .. ..$ qr_2: num 0.237
+##   .. .. ..$ qr_1: num -0.103
+##   .. .. ..$ qr_2: num -0.186
 ##   ..$ :List of 5
 ##   .. ..$ label       : chr &quot;order_qty&quot;
-##   .. ..$ coef        : num 7.07
+##   .. ..$ coef        : num 6.46
 ##   .. ..$ is_intercept: num 0
 ##   .. ..$ fields      :List of 1
 ##   .. .. ..$ :List of 2
@@ -426,64 +430,69 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 ##   .. .. .. ..$ col : chr &quot;order_qty&quot;
 ##   .. ..$ qr          :List of 2
 ##   .. .. ..$ qr_1: num 0
-##   .. .. ..$ qr_2: num -0.0754
+##   .. .. ..$ qr_2: num 0.0575
 ##  - attr(*, &quot;class&quot;)= chr [1:3] &quot;parsed_model&quot; &quot;pm_regression&quot; &quot;list&quot;</code></pre></li>
 <li><p>Use <code>tidypredict_fit()</code> to view the <code>dplyr</code> formula that calculates the prediction</p>
 <div class="sourceCode" id="cb219"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb219-1" data-line-number="1"><span class="kw">tidypredict_fit</span>(parsed_parsnip)</a></code></pre></div>
-<pre><code>## -0.856204588910169 + (order_qty * 7.06989483747611)</code></pre></li>
+<pre><code>## 0.479818598832359 + (order_qty * 6.46487698081735)</code></pre></li>
 <li><p>Use <code>head()</code> to get the first 10 records from <code>orders_view</code></p>
 <div class="sourceCode" id="cb221"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb221-1" data-line-number="1">orders_view <span class="op">%&gt;%</span></a>
 <a class="sourceLine" id="cb221-2" data-line-number="2"><span class="st">  </span><span class="kw">head</span>(<span class="dv">10</span>)</a></code></pre></div>
 <pre><code>## # Source:   lazy query [?? x 10]
 ## # Database: postgres [rstudio_admin@localhost:5432/postgres]
-##    order_id date       date_year date_month customer_id customer_name            customer_lon customer_lat order_total order_qty
-##       &lt;int&gt; &lt;chr&gt;          &lt;int&gt;      &lt;int&gt;       &lt;int&gt; &lt;chr&gt;                           &lt;dbl&gt;        &lt;dbl&gt;       &lt;dbl&gt;     &lt;int&gt;
-##  1     1001 2016-01-01      2016          1          36 Jeptha Ziemann                  -122.         37.7       10.9          2
-##  2     1002 2016-01-01      2016          1          21 Miss Azzie Jaskolski            -122.         37.8       29.4          4
-##  3     1003 2016-01-01      2016          1          64 Amber Harber                    -122.         37.8       31.0          5
-##  4     1004 2016-01-01      2016          1          85 Mat Luettgen                    -122.         37.8       42            6
-##  5     1005 2016-01-01      2016          1          41 Dr. Dionte Quigley Jr.          -122.         37.8       27.2          4
-##  6     1006 2016-01-01      2016          1          70 Reggie Mills                    -122.         37.7       12.7          2
-##  7     1007 2016-01-01      2016          1          10 Ms. Ciarra Borer                -122.         37.8       11.3          2
-##  8     1008 2016-01-01      2016          1          78 Pricilla Goodwin                -122.         37.8        5.47         1
-##  9     1009 2016-01-01      2016          1          56 Kimora Bergnaum                 -122.         37.7       19.9          3
-## 10     1010 2016-01-01      2016          1          71 Erle Christiansen-Larkin        -122.         37.7       18.6          3</code></pre></li>
+##    order_id date  date_year date_month customer_id customer_name customer_lon
+##       &lt;int&gt; &lt;chr&gt;     &lt;int&gt;      &lt;int&gt;       &lt;int&gt; &lt;chr&gt;                &lt;dbl&gt;
+##  1     1001 2016…      2016          1          36 Jeptha Ziema…        -122.
+##  2     1002 2016…      2016          1          21 Miss Azzie J…        -122.
+##  3     1003 2016…      2016          1          64 Amber Harber         -122.
+##  4     1004 2016…      2016          1          85 Mat Luettgen         -122.
+##  5     1005 2016…      2016          1          41 Dr. Dionte Q…        -122.
+##  6     1006 2016…      2016          1          70 Reggie Mills         -122.
+##  7     1007 2016…      2016          1          10 Ms. Ciarra B…        -122.
+##  8     1008 2016…      2016          1          78 Pricilla Goo…        -122.
+##  9     1009 2016…      2016          1          56 Kimora Bergn…        -122.
+## 10     1010 2016…      2016          1          71 Erle Christi…        -122.
+## # … with 3 more variables: customer_lat &lt;dbl&gt;, order_total &lt;dbl&gt;, order_qty &lt;int&gt;</code></pre></li>
 <li><p>Pipe the code into <code>mutate()</code>. Assign to a new <code>my_pred</code> variable the results of <code>tidypredict_fit()</code>. Make sure to prefix <code>tidypredict_fit()</code> with the bang-bang operator so that the formula is evaluated.</p>
 <div class="sourceCode" id="cb223"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb223-1" data-line-number="1">orders_view <span class="op">%&gt;%</span></a>
 <a class="sourceLine" id="cb223-2" data-line-number="2"><span class="st">  </span><span class="kw">head</span>(<span class="dv">10</span>) <span class="op">%&gt;%</span></a>
 <a class="sourceLine" id="cb223-3" data-line-number="3"><span class="st">  </span><span class="kw">mutate</span>(<span class="dt">my_pred =</span> <span class="op">!!</span><span class="st"> </span><span class="kw">tidypredict_fit</span>(parsed_parsnip))</a></code></pre></div>
 <pre><code>## # Source:   lazy query [?? x 11]
 ## # Database: postgres [rstudio_admin@localhost:5432/postgres]
-##    order_id date       date_year date_month customer_id customer_name            customer_lon customer_lat order_total order_qty my_pred
-##       &lt;int&gt; &lt;chr&gt;          &lt;int&gt;      &lt;int&gt;       &lt;int&gt; &lt;chr&gt;                           &lt;dbl&gt;        &lt;dbl&gt;       &lt;dbl&gt;     &lt;int&gt;   &lt;dbl&gt;
-##  1     1001 2016-01-01      2016          1          36 Jeptha Ziemann                  -122.         37.7       10.9          2   13.3 
-##  2     1002 2016-01-01      2016          1          21 Miss Azzie Jaskolski            -122.         37.8       29.4          4   27.4 
-##  3     1003 2016-01-01      2016          1          64 Amber Harber                    -122.         37.8       31.0          5   34.5 
-##  4     1004 2016-01-01      2016          1          85 Mat Luettgen                    -122.         37.8       42            6   41.6 
-##  5     1005 2016-01-01      2016          1          41 Dr. Dionte Quigley Jr.          -122.         37.8       27.2          4   27.4 
-##  6     1006 2016-01-01      2016          1          70 Reggie Mills                    -122.         37.7       12.7          2   13.3 
-##  7     1007 2016-01-01      2016          1          10 Ms. Ciarra Borer                -122.         37.8       11.3          2   13.3 
-##  8     1008 2016-01-01      2016          1          78 Pricilla Goodwin                -122.         37.8        5.47         1    6.21
-##  9     1009 2016-01-01      2016          1          56 Kimora Bergnaum                 -122.         37.7       19.9          3   20.4 
-## 10     1010 2016-01-01      2016          1          71 Erle Christiansen-Larkin        -122.         37.7       18.6          3   20.4</code></pre></li>
+##    order_id date  date_year date_month customer_id customer_name customer_lon
+##       &lt;int&gt; &lt;chr&gt;     &lt;int&gt;      &lt;int&gt;       &lt;int&gt; &lt;chr&gt;                &lt;dbl&gt;
+##  1     1001 2016…      2016          1          36 Jeptha Ziema…        -122.
+##  2     1002 2016…      2016          1          21 Miss Azzie J…        -122.
+##  3     1003 2016…      2016          1          64 Amber Harber         -122.
+##  4     1004 2016…      2016          1          85 Mat Luettgen         -122.
+##  5     1005 2016…      2016          1          41 Dr. Dionte Q…        -122.
+##  6     1006 2016…      2016          1          70 Reggie Mills         -122.
+##  7     1007 2016…      2016          1          10 Ms. Ciarra B…        -122.
+##  8     1008 2016…      2016          1          78 Pricilla Goo…        -122.
+##  9     1009 2016…      2016          1          56 Kimora Bergn…        -122.
+## 10     1010 2016…      2016          1          71 Erle Christi…        -122.
+## # … with 4 more variables: customer_lat &lt;dbl&gt;, order_total &lt;dbl&gt;,
+## #   order_qty &lt;int&gt;, my_pred &lt;dbl&gt;</code></pre></li>
 <li><p>Replace the <code>mutate()</code> command with <code>tidypredict_to_column()</code></p>
 <div class="sourceCode" id="cb225"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb225-1" data-line-number="1">orders_view <span class="op">%&gt;%</span></a>
 <a class="sourceLine" id="cb225-2" data-line-number="2"><span class="st">  </span><span class="kw">head</span>(<span class="dv">10</span>) <span class="op">%&gt;%</span></a>
 <a class="sourceLine" id="cb225-3" data-line-number="3"><span class="st">  </span><span class="kw">tidypredict_to_column</span>(parsnip_model)</a></code></pre></div>
 <pre><code>## # Source:   lazy query [?? x 11]
 ## # Database: postgres [rstudio_admin@localhost:5432/postgres]
-##    order_id date       date_year date_month customer_id customer_name            customer_lon customer_lat order_total order_qty   fit
-##       &lt;int&gt; &lt;chr&gt;          &lt;int&gt;      &lt;int&gt;       &lt;int&gt; &lt;chr&gt;                           &lt;dbl&gt;        &lt;dbl&gt;       &lt;dbl&gt;     &lt;int&gt; &lt;dbl&gt;
-##  1     1001 2016-01-01      2016          1          36 Jeptha Ziemann                  -122.         37.7       10.9          2 13.3 
-##  2     1002 2016-01-01      2016          1          21 Miss Azzie Jaskolski            -122.         37.8       29.4          4 27.4 
-##  3     1003 2016-01-01      2016          1          64 Amber Harber                    -122.         37.8       31.0          5 34.5 
-##  4     1004 2016-01-01      2016          1          85 Mat Luettgen                    -122.         37.8       42            6 41.6 
-##  5     1005 2016-01-01      2016          1          41 Dr. Dionte Quigley Jr.          -122.         37.8       27.2          4 27.4 
-##  6     1006 2016-01-01      2016          1          70 Reggie Mills                    -122.         37.7       12.7          2 13.3 
-##  7     1007 2016-01-01      2016          1          10 Ms. Ciarra Borer                -122.         37.8       11.3          2 13.3 
-##  8     1008 2016-01-01      2016          1          78 Pricilla Goodwin                -122.         37.8        5.47         1  6.21
-##  9     1009 2016-01-01      2016          1          56 Kimora Bergnaum                 -122.         37.7       19.9          3 20.4 
-## 10     1010 2016-01-01      2016          1          71 Erle Christiansen-Larkin        -122.         37.7       18.6          3 20.4</code></pre></li>
+##    order_id date  date_year date_month customer_id customer_name customer_lon
+##       &lt;int&gt; &lt;chr&gt;     &lt;int&gt;      &lt;int&gt;       &lt;int&gt; &lt;chr&gt;                &lt;dbl&gt;
+##  1     1001 2016…      2016          1          36 Jeptha Ziema…        -122.
+##  2     1002 2016…      2016          1          21 Miss Azzie J…        -122.
+##  3     1003 2016…      2016          1          64 Amber Harber         -122.
+##  4     1004 2016…      2016          1          85 Mat Luettgen         -122.
+##  5     1005 2016…      2016          1          41 Dr. Dionte Q…        -122.
+##  6     1006 2016…      2016          1          70 Reggie Mills         -122.
+##  7     1007 2016…      2016          1          10 Ms. Ciarra B…        -122.
+##  8     1008 2016…      2016          1          78 Pricilla Goo…        -122.
+##  9     1009 2016…      2016          1          56 Kimora Bergn…        -122.
+## 10     1010 2016…      2016          1          71 Erle Christi…        -122.
+## # … with 4 more variables: customer_lat &lt;dbl&gt;, order_total &lt;dbl&gt;,
+## #   order_qty &lt;int&gt;, fit &lt;dbl&gt;</code></pre></li>
 <li><p>Load the <code>yaml</code> library</p>
 <div class="sourceCode" id="cb227"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb227-1" data-line-number="1"><span class="kw">library</span>(yaml)</a></code></pre></div></li>
 <li><p>Use <code>write_yaml()</code> to save the contents of <code>parsed_parsnip</code> into a file called <strong>model.yaml</strong></p>
@@ -506,16 +515,16 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 ## # Database: postgres [rstudio_admin@localhost:5432/postgres]
 ##    order_total order_qty
 ##          &lt;dbl&gt;     &lt;int&gt;
-##  1        13.3         2
-##  2        16.9         3
-##  3        43.4         5
-##  4        54.0         7
-##  5        54.0         7
-##  6        23.7         3
-##  7        14.5         2
-##  8        36.9         6
-##  9        12.3         2
-## 10        24.2         4
+##  1       12.3          2
+##  2       26.9          4
+##  3       18.0          3
+##  4        4.89         1
+##  5        9.48         2
+##  6       20.8          3
+##  7       21.5          4
+##  8       21.7          4
+##  9       36.5          5
+## 10       15.9          2
 ## # … with more rows</code></pre></li>
 <li><p>Pipe the code into the <code>linear_regression_db()</code> function, pass <code>order_total</code> as the only argument</p>
 <div class="sourceCode" id="cb234"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb234-1" data-line-number="1">orders_sample_db <span class="op">%&gt;%</span></a>
@@ -524,7 +533,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <pre><code>## # A tibble: 1 x 2
 ##   `(Intercept)` order_qty
 ##           &lt;dbl&gt;     &lt;dbl&gt;
-## 1        -0.391      6.85</code></pre></li>
+## 1        -0.350      6.86</code></pre></li>
 <li><p>Assign the model results to a new variable called <code>db_model</code></p>
 <div class="sourceCode" id="cb236"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb236-1" data-line-number="1">db_model &lt;-<span class="st"> </span>orders_sample_db <span class="op">%&gt;%</span></a>
 <a class="sourceLine" id="cb236-2" data-line-number="2"><span class="st">  </span><span class="kw">select</span>(order_total, order_qty) <span class="op">%&gt;%</span><span class="st"> </span></a>
@@ -537,18 +546,20 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <a class="sourceLine" id="cb238-3" data-line-number="3"><span class="st">  </span><span class="kw">tidypredict_to_column</span>(pm)</a></code></pre></div>
 <pre><code>## # Source:   lazy query [?? x 11]
 ## # Database: postgres [rstudio_admin@localhost:5432/postgres]
-##    order_id date       date_year date_month customer_id customer_name            customer_lon customer_lat order_total order_qty   fit
-##       &lt;int&gt; &lt;chr&gt;          &lt;int&gt;      &lt;int&gt;       &lt;int&gt; &lt;chr&gt;                           &lt;dbl&gt;        &lt;dbl&gt;       &lt;dbl&gt;     &lt;int&gt; &lt;dbl&gt;
-##  1     1001 2016-01-01      2016          1          36 Jeptha Ziemann                  -122.         37.7       10.9          2 13.4 
-##  2     1002 2016-01-01      2016          1          21 Miss Azzie Jaskolski            -122.         37.8       29.4          4 27.2 
-##  3     1003 2016-01-01      2016          1          64 Amber Harber                    -122.         37.8       31.0          5 34.1 
-##  4     1004 2016-01-01      2016          1          85 Mat Luettgen                    -122.         37.8       42            6 40.9 
-##  5     1005 2016-01-01      2016          1          41 Dr. Dionte Quigley Jr.          -122.         37.8       27.2          4 27.2 
-##  6     1006 2016-01-01      2016          1          70 Reggie Mills                    -122.         37.7       12.7          2 13.4 
-##  7     1007 2016-01-01      2016          1          10 Ms. Ciarra Borer                -122.         37.8       11.3          2 13.4 
-##  8     1008 2016-01-01      2016          1          78 Pricilla Goodwin                -122.         37.8        5.47         1  6.55
-##  9     1009 2016-01-01      2016          1          56 Kimora Bergnaum                 -122.         37.7       19.9          3 20.3 
-## 10     1010 2016-01-01      2016          1          71 Erle Christiansen-Larkin        -122.         37.7       18.6          3 20.3</code></pre></li>
+##    order_id date  date_year date_month customer_id customer_name customer_lon
+##       &lt;int&gt; &lt;chr&gt;     &lt;int&gt;      &lt;int&gt;       &lt;int&gt; &lt;chr&gt;                &lt;dbl&gt;
+##  1     1001 2016…      2016          1          36 Jeptha Ziema…        -122.
+##  2     1002 2016…      2016          1          21 Miss Azzie J…        -122.
+##  3     1003 2016…      2016          1          64 Amber Harber         -122.
+##  4     1004 2016…      2016          1          85 Mat Luettgen         -122.
+##  5     1005 2016…      2016          1          41 Dr. Dionte Q…        -122.
+##  6     1006 2016…      2016          1          70 Reggie Mills         -122.
+##  7     1007 2016…      2016          1          10 Ms. Ciarra B…        -122.
+##  8     1008 2016…      2016          1          78 Pricilla Goo…        -122.
+##  9     1009 2016…      2016          1          56 Kimora Bergn…        -122.
+## 10     1010 2016…      2016          1          71 Erle Christi…        -122.
+## # … with 4 more variables: customer_lat &lt;dbl&gt;, order_total &lt;dbl&gt;,
+## #   order_qty &lt;int&gt;, fit &lt;dbl&gt;</code></pre></li>
 </ol>
 
 </div>

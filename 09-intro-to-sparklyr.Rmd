@@ -1,0 +1,65 @@
+```{r, intro-to-sparklyr, include = FALSE}
+eval_sparklyr <- FALSE
+if(Sys.getenv("GLOBAL_EVAL") != "") eval_sparklyr <- Sys.getenv("GLOBAL_EVAL")
+```
+
+# Intro to `sparklyr`
+
+```{r, eval = eval_sparklyr, include = FALSE}
+library(dplyr)
+library(sparklyr)
+```
+
+## New Spark session
+*Learn to open a new Spark session*
+
+1. Load the `sparklyr` library
+    ```{r, eval = eval_sparklyr}
+    library(sparklyr)
+    ```
+
+2. Use `spark_connect()` to create a new local Spark session
+    ```{r, eval = eval_sparklyr}
+    sc <- spark_connect(master = "local")
+    ```
+
+3. Click on the `Spark` button to view the current Spark session's UI
+
+4. Click on the `Log` button to see the message history
+
+## Data transfer
+*Practice uploading data to Spark*
+
+1. Load the `dplyr` library
+    ```{r, eval = eval_sparklyr}
+    library(dplyr)
+    ```
+
+2. Copy the `mtcars` dataset into the session
+    ```{r, eval = eval_sparklyr}
+    spark_mtcars <- copy_to(sc, mtcars, "my_mtcars")
+    ```
+
+3. In the **Connections** pane, expande the `my_mtcars` table
+
+4. Go to the Spark UI, note the new jobs
+
+5. In the UI, click the Storage button, note the new table
+
+6. Click on the **In-memory table my_mtcars** link
+
+## Spark and `dplyr`
+*See how Spark handles `dplyr` commands*
+
+1. Run the following code snipett
+    ```{r, eval = eval_sparklyr}
+    spark_mtcars %>%
+      group_by(am) %>%
+      summarise(mpg_mean = mean(mpg, na.rm = TRUE))
+    ```
+
+2. Go to the Spark UI and click the **SQL** button 
+
+3. Click on the top item inside the **Completed Queries** table
+
+4. At the bottom of the diagram, expand **Details**

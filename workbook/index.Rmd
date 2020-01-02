@@ -11,3 +11,8 @@ This 2-day workshop covers how to analyze large amounts of data in R.  We will f
 In this 2-day workshop, attendees will learn how to connect to and analyze large scale data
 
 -----
+
+```{r, include = FALSE}
+options("width" = 82)
+```
+

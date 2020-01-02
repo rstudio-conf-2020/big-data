@@ -4,11 +4,11 @@
 
   <meta charset="utf-8" />
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-  <title>2 Introduction to dtplyr | _main.utf8.md</title>
+  <title>2 Introduction to dtplyr | _main.utf8</title>
   <meta name="description" content="" />
   <meta name="generator" content="bookdown 0.16 and GitBook 2.6.7" />
 
-  <meta property="og:title" content="2 Introduction to dtplyr | _main.utf8.md" />
+  <meta property="og:title" content="2 Introduction to dtplyr | _main.utf8" />
   <meta property="og:type" content="book" />
   
   
@@ -16,7 +16,7 @@
   
 
   <meta name="twitter:card" content="summary" />
-  <meta name="twitter:title" content="2 Introduction to dtplyr | _main.utf8.md" />
+  <meta name="twitter:title" content="2 Introduction to dtplyr | _main.utf8" />
   
   
   
@@ -237,20 +237,20 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <div class="sourceCode" id="cb35"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb35-1" data-line-number="1"><span class="kw">glimpse</span>(transactions)</a></code></pre></div>
 <pre><code>## Observations: 250,000
 ## Variables: 14
-## $ order_id        &lt;int&gt; 1001, 1001, 1001, 1001, 1002, 1002, 1002, 1002, 1003, 1003, 1003, 1003, 1003, 1003, 1004, 1004, 1004, 1005, 1005, 1005, 1005, 1005,…
-## $ customer_id     &lt;int&gt; 22, 22, 22, 22, 6, 6, 6, 6, 80, 80, 80, 80, 80, 80, 55, 55, 55, 73, 73, 73, 73, 73, 70, 55, 55, 55, 55, 55, 55, 40, 40, 78, 78, 35,…
-## $ customer_name   &lt;chr&gt; &quot;Dr. Birdie Kessler&quot;, &quot;Dr. Birdie Kessler&quot;, &quot;Dr. Birdie Kessler&quot;, &quot;Dr. Birdie Kessler&quot;, &quot;Meggan Bruen&quot;, &quot;Meggan Bruen&quot;, &quot;Meggan Bru…
-## $ customer_phone  &lt;chr&gt; &quot;684.226.0455&quot;, &quot;684.226.0455&quot;, &quot;684.226.0455&quot;, &quot;684.226.0455&quot;, &quot;326-151-4331&quot;, &quot;326-151-4331&quot;, &quot;326-151-4331&quot;, &quot;326-151-4331&quot;, &quot;53…
-## $ customer_cc     &lt;int64&gt; 6011608753104063698, 6011608753104063698, 6011608753104063698, 6011608753104063698, 4964180480255037, 4964180480255037, 496418048…
-## $ customer_lon    &lt;dbl&gt; -122.484, -122.484, -122.484, -122.484, -122.429, -122.429, -122.429, -122.429, -122.457, -122.457, -122.457, -122.457, -122.457, -…
-## $ customer_lat    &lt;dbl&gt; 37.7395, 37.7395, 37.7395, 37.7395, 37.7298, 37.7298, 37.7298, 37.7298, 37.7284, 37.7284, 37.7284, 37.7284, 37.7284, 37.7284, 37.75…
-## $ date            &lt;chr&gt; &quot;2016-01-01&quot;, &quot;2016-01-01&quot;, &quot;2016-01-01&quot;, &quot;2016-01-01&quot;, &quot;2016-01-01&quot;, &quot;2016-01-01&quot;, &quot;2016-01-01&quot;, &quot;2016-01-01&quot;, &quot;2016-01-01&quot;, &quot;2016…
-## $ date_year       &lt;int&gt; 2016, 2016, 2016, 2016, 2016, 2016, 2016, 2016, 2016, 2016, 2016, 2016, 2016, 2016, 2016, 2016, 2016, 2016, 2016, 2016, 2016, 2016,…
-## $ date_month      &lt;int&gt; 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1,…
-## $ date_month_name &lt;chr&gt; &quot;Jan&quot;, &quot;Jan&quot;, &quot;Jan&quot;, &quot;Jan&quot;, &quot;Jan&quot;, &quot;Jan&quot;, &quot;Jan&quot;, &quot;Jan&quot;, &quot;Jan&quot;, &quot;Jan&quot;, &quot;Jan&quot;, &quot;Jan&quot;, &quot;Jan&quot;, &quot;Jan&quot;, &quot;Jan&quot;, &quot;Jan&quot;, &quot;Jan&quot;, &quot;Jan&quot;, &quot;Jan&quot;…
-## $ date_day        &lt;chr&gt; &quot;Friday&quot;, &quot;Friday&quot;, &quot;Friday&quot;, &quot;Friday&quot;, &quot;Friday&quot;, &quot;Friday&quot;, &quot;Friday&quot;, &quot;Friday&quot;, &quot;Friday&quot;, &quot;Friday&quot;, &quot;Friday&quot;, &quot;Friday&quot;, &quot;Friday&quot;, &quot;…
-## $ product_id      &lt;int&gt; 6, 27, 30, 2, 17, 1, 5, 4, 27, 16, 30, 6, 11, 30, 30, 18, 5, 29, 25, 25, 4, 20, 1, 17, 18, 18, 6, 26, 3, 6, 29, 10, 24, 5, 27, 21, …
-## $ price           &lt;dbl&gt; 9.88, 7.53, 5.64, 4.89, 6.48, 6.70, 4.27, 7.38, 7.53, 5.21, 5.64, 9.88, 8.29, 5.64, 5.64, 6.64, 4.27, 5.95, 5.47, 5.47, 7.38, 8.34,…</code></pre></li>
+## $ order_id        &lt;int&gt; 1001, 1001, 1001, 1001, 1002, 1002, 1002, 1002, 1003, 1…
+## $ customer_id     &lt;int&gt; 22, 22, 22, 22, 6, 6, 6, 6, 80, 80, 80, 80, 80, 80, 55,…
+## $ customer_name   &lt;chr&gt; &quot;Dr. Birdie Kessler&quot;, &quot;Dr. Birdie Kessler&quot;, &quot;Dr. Birdie…
+## $ customer_phone  &lt;chr&gt; &quot;684.226.0455&quot;, &quot;684.226.0455&quot;, &quot;684.226.0455&quot;, &quot;684.22…
+## $ customer_cc     &lt;int64&gt; 6011608753104063698, 6011608753104063698, 60116087531…
+## $ customer_lon    &lt;dbl&gt; -122.484, -122.484, -122.484, -122.484, -122.429, -122.…
+## $ customer_lat    &lt;dbl&gt; 37.7395, 37.7395, 37.7395, 37.7395, 37.7298, 37.7298, 3…
+## $ date            &lt;chr&gt; &quot;2016-01-01&quot;, &quot;2016-01-01&quot;, &quot;2016-01-01&quot;, &quot;2016-01-01&quot;,…
+## $ date_year       &lt;int&gt; 2016, 2016, 2016, 2016, 2016, 2016, 2016, 2016, 2016, 2…
+## $ date_month      &lt;int&gt; 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1…
+## $ date_month_name &lt;chr&gt; &quot;Jan&quot;, &quot;Jan&quot;, &quot;Jan&quot;, &quot;Jan&quot;, &quot;Jan&quot;, &quot;Jan&quot;, &quot;Jan&quot;, &quot;Jan&quot;,…
+## $ date_day        &lt;chr&gt; &quot;Friday&quot;, &quot;Friday&quot;, &quot;Friday&quot;, &quot;Friday&quot;, &quot;Friday&quot;, &quot;Frid…
+## $ product_id      &lt;int&gt; 6, 27, 30, 2, 17, 1, 5, 4, 27, 16, 30, 6, 11, 30, 30, 1…
+## $ price           &lt;dbl&gt; 9.88, 7.53, 5.64, 4.89, 6.48, 6.70, 4.27, 7.38, 7.53, 5…</code></pre></li>
 <li><p>Load the <code>dplyr</code> and <code>dtplyr</code> libraries</p>
 <div class="sourceCode" id="cb37"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb37-1" data-line-number="1"><span class="kw">library</span>(dplyr)</a>
 <a class="sourceLine" id="cb37-2" data-line-number="2"><span class="kw">library</span>(dtplyr)</a></code></pre></div></li>
@@ -314,8 +314,8 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 ## 
 ##   date_month total_sales
 ##        &lt;int&gt;       &lt;dbl&gt;
-## 1          1    1120615.
-## 2          2     562702.
+## 1          1    1120628.
+## 2          2     562719.
 ## 
 ## # Use as.data.table()/as.data.frame()/as_tibble() to access results</code></pre></li>
 <li><p>Load the above code into a variable called <code>by_month</code></p>
@@ -365,8 +365,8 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <pre><code>## # A tibble: 2 x 2
 ##   date_month total_sales
 ##        &lt;int&gt;       &lt;dbl&gt;
-## 1          1    1120615.
-## 2          2     562702.</code></pre></li>
+## 1          1    1120628.
+## 2          2     562719.</code></pre></li>
 <li><p>Load the <code>ggplot2</code> library</p>
 <div class="sourceCode" id="cb57"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb57-1" data-line-number="1"><span class="kw">library</span>(ggplot2)</a></code></pre></div></li>
 <li><p>Use <code>as_tibble()</code> to convert before creating a line plot</p>
@@ -374,7 +374,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <a class="sourceLine" id="cb58-2" data-line-number="2"><span class="st">  </span><span class="kw">as_tibble</span>() <span class="op">%&gt;%</span></a>
 <a class="sourceLine" id="cb58-3" data-line-number="3"><span class="st">  </span><span class="kw">ggplot</span>() <span class="op">+</span></a>
 <a class="sourceLine" id="cb58-4" data-line-number="4"><span class="st">  </span><span class="kw">geom_line</span>(<span class="kw">aes</span>(date_month, total_sales))</a></code></pre></div>
-<p><img src="_main_files/figure-html/unnamed-chunk-36-1.png" width="672" /></p></li>
+<p><img src="_main_files/figure-html/unnamed-chunk-37-1.png" width="672" /></p></li>
 </ol>
 </div>
 <div id="pivot-data" class="section level2">
@@ -392,12 +392,12 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 ## 
 ##   date_month date_day total_sales
 ##        &lt;int&gt; &lt;chr&gt;          &lt;dbl&gt;
-## 1          1 Friday       173792.
-## 2          1 Monday       139352.
-## 3          1 Saturday     177204.
-## 4          1 Sunday       177674.
-## 5          1 Thursday     156394.
-## 6          1 Tuesday      141114.
+## 1          1 Friday       173787.
+## 2          1 Monday       139347.
+## 3          1 Saturday     177207.
+## 4          1 Sunday       177685.
+## 5          1 Thursday     156396.
+## 6          1 Tuesday      141127.
 ## 
 ## # Use as.data.table()/as.data.frame()/as_tibble() to access results</code></pre></li>
 <li><p>Copy the aggregation code above, <strong>then collect it into a <code>tibble</code></strong>, and then use <code>pivot_wider()</code> to make the <code>date_day</code> the column headers.</p>
@@ -409,8 +409,8 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <pre><code>## # A tibble: 2 x 8
 ##   date_month  Friday  Monday Saturday  Sunday Thursday Tuesday Wednesday
 ##        &lt;int&gt;   &lt;dbl&gt;   &lt;dbl&gt;    &lt;dbl&gt;   &lt;dbl&gt;    &lt;dbl&gt;   &lt;dbl&gt;     &lt;dbl&gt;
-## 1          1 173792. 139352.  177204. 177674.  156394. 141114.   155085.
-## 2          2  80570.  83116.   84951.  80778.   77837.  79283.    76166.</code></pre></li>
+## 1          1 173787. 139347.  177207. 177685.  156396. 141127.   155081.
+## 2          2  80580.  83118.   84947.  80768.   77853.  79288.    76166.</code></pre></li>
 </ol>
 </div>
 <div id="the-mutate-verb" class="section level2">

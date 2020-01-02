@@ -33,51 +33,51 @@ library(config)
     )
     ```
 
-1. Set the `orders` variable to point to the **orders** table
+2. Set the `orders` variable to point to the **orders** table
     ```{r, eval = eval_model}
     orders <- tbl(con, in_schema("datawarehouse", "orders"))
     ```
 
-1. Set the `orders_view` variable to point to the **v_orders** table
+3. Set the `orders_view` variable to point to the **v_orders** table
     ```{r, eval = eval_model}
     orders_view <- tbl(con, in_schema("datawarehouse", "v_orders"))
     ```
 
-1. Pipe `orders` into the function `show_query()`
+4. Pipe `orders` into the function `show_query()`
     ```{r, eval = eval_model}
     orders %>%
       show_query()
     ```
 
-1. Pipe the previous command into the `class()` function to see the kind of output `show_query()` returns
+5. Pipe the previous command into the `class()` function to see the kind of output `show_query()` returns
     ```{r, eval = eval_model}
     orders %>%
       show_query() %>%
       class()
     ```
 
-1. Replace `show_query()` with `remote_query()` to compare the output types
+6. Replace `show_query()` with `remote_query()` to compare the output types
     ```{r, eval = eval_model}
     orders %>%
       remote_query() %>%
       class()
     ```
 
-1. Replace `class()` with `build_sql()`.  Use `con` as the value for the `con` argument
+7. Replace `class()` with `build_sql()`.  Use `con` as the value for the `con` argument
     ```{r, eval = eval_model}
     orders %>%
       remote_query() %>%
       build_sql(con = con)
     ```
 
-1. Add *" TABLESAMPLE BERNOULLI (0.1)"* to `build_sql()` as another `...` argument
+8. Add *" TABLESAMPLE BERNOULLI (0.1)"* to `build_sql()` as another `...` argument
     ```{r, eval = eval_model}
     orders %>%
       remote_query() %>%
       build_sql(con = con, " TABLESAMPLE BERNOULLI (0.1)")
     ```
 
-1. Pipe the code into `tbl()`.  Use `con` for the `con` argument, and `.` for the rest
+9. Pipe the code into `tbl()`.  Use `con` for the `con` argument, and `.` for the rest
     ```{r, eval = eval_model}
     orders %>%
       remote_query() %>%
@@ -85,7 +85,7 @@ library(config)
       tbl(con, .) 
     ```
 
-1. Use `inner_join()` to add the information from the `orders_view` pointer, use `order_id` as the matching field
+10. Use `inner_join()` to add the information from the `orders_view` pointer, use `order_id` as the matching field
     ```{r, eval = eval_model}
     orders %>%
       remote_query() %>%
@@ -94,7 +94,7 @@ library(config)
       inner_join(orders_view, by = "order_id") 
     ```
 
-1. Assign the resulting code to a variable `orders_sample_db`
+11. Assign the resulting code to a variable `orders_sample_db`
     ```{r, eval = eval_model}
     orders_sample_db <- orders %>%
       remote_query() %>%
@@ -103,24 +103,24 @@ library(config)
       inner_join(orders_view, by = "order_id") 
     ```
 
-1. Use `collect()` to load the results of `orders_sample_db` to a new variable called `orders_sample`
+12. Use `collect()` to load the results of `orders_sample_db` to a new variable called `orders_sample`
     ```{r, eval = eval_model}
     orders_sample <- collect(orders_sample_db)
     ```
 
-1. Load the `dbplot` library
+13. Load the `dbplot` library
     ```{r, eval = eval_model}
     library(dbplot)
     ```
 
 
-1. Use `dbplot_histogram()` to visualize the distribution of `order_total` from `orders_sample` 
+14. Use `dbplot_histogram()` to visualize the distribution of `order_total` from `orders_sample` 
     ```{r, eval = eval_model}
     orders_sample %>% 
       dbplot_histogram(order_total, binwidth = 5)
     ```
 
-1. Use `dbplot_histogram()` to visualize the distribution of `order_total` from `orders_view`
+15. Use `dbplot_histogram()` to visualize the distribution of `order_total` from `orders_view`
     ```{r, eval = eval_model}
     orders_view %>% 
       dbplot_histogram(order_total, binwidth = 5)
@@ -134,33 +134,33 @@ library(config)
     library(tidymodels)
     ```
 
-1. Start with the `linear_reg()` command, pipe into `set_engine()`, and use *"lm"* as its sole argument
+2. Start with the `linear_reg()` command, pipe into `set_engine()`, and use *"lm"* as its sole argument
     ```{r, eval = eval_model}
     linear_reg() %>%
       set_engine("lm") 
     ```
 
-1. Pipe into the `fit()` command. Use the formula: `order_total ~ order_qty`, and `orders_sample` as the `data` argument
+3. Pipe into the `fit()` command. Use the formula: `order_total ~ order_qty`, and `orders_sample` as the `data` argument
     ```{r, eval = eval_model}
     linear_reg() %>%
       set_engine("lm") %>%
       fit(order_total ~ order_qty, data = orders_sample)
     ```
 
-1. Assign the previous code to a variable called `parsnip_model`
+4. Assign the previous code to a variable called `parsnip_model`
     ```{r, eval = eval_model}
     parsnip_model <- linear_reg() %>%
       set_engine("lm") %>%
       fit(order_total ~ order_qty, data = orders_sample)
     ```
 
-1. Use `bind_cols()` to add the predictions to `order_sample`.  Calculate the prediction with `predict()`
+5. Use `bind_cols()` to add the predictions to `order_sample`.  Calculate the prediction with `predict()`
     ```{r, eval = eval_model}
     orders_sample %>% 
       bind_cols(predict(parsnip_model, orders_sample))
     ```
 
-1. Pipe the code into the `metrics()` function.  Use `order_total` as the `truth` argument, and `.pred` as the `estimate` argument
+6. Pipe the code into the `metrics()` function.  Use `order_total` as the `truth` argument, and `.pred` as the `estimate` argument
     ```{r, eval = eval_model}
     orders_sample %>% 
       bind_cols(predict(parsnip_model, orders_sample)) %>%
@@ -175,57 +175,57 @@ library(config)
     ```
 
 
-1. Use the `parse_model()` function to parse `parsnip_model`, and assign it to a variable called `parsed_parsnip`
+2. Use the `parse_model()` function to parse `parsnip_model`, and assign it to a variable called `parsed_parsnip`
     ```{r, eval = eval_model}
     parsed_parsnip <- parse_model(parsnip_model)
     ```
 
-1. Use `str()` to see the `parsed_parsnip` object's structure
+3. Use `str()` to see the `parsed_parsnip` object's structure
     ```{r, eval = eval_model}
     str(parsed_parsnip)
     ```
 
-1. Use `tidypredict_fit()` to view the `dplyr` formula that calculates the prediction 
+4. Use `tidypredict_fit()` to view the `dplyr` formula that calculates the prediction 
     ```{r, eval = eval_model}
     tidypredict_fit(parsed_parsnip)
     ```
 
-1. Use `head()` to get the first 10 records from `orders_view`
+5. Use `head()` to get the first 10 records from `orders_view`
     ```{r, eval = eval_model}
     orders_view %>%
       head(10)
     ```
 
-1. Pipe the code into `mutate()`.  Assign to a new `my_pred` variable the results of `tidypredict_fit()`.  Make sure to prefix `tidypredict_fit()` with the bang-bang operator so that the formula is evaluated. 
+6. Pipe the code into `mutate()`.  Assign to a new `my_pred` variable the results of `tidypredict_fit()`.  Make sure to prefix `tidypredict_fit()` with the bang-bang operator so that the formula is evaluated. 
     ```{r, eval = eval_model}
     orders_view %>%
       head(10) %>%
       mutate(my_pred = !! tidypredict_fit(parsed_parsnip))
     ```
 
-1. Replace the `mutate()` command with `tidypredict_to_column()`
+7. Replace the `mutate()` command with `tidypredict_to_column()`
     ```{r, eval = eval_model}
     orders_view %>%
       head(10) %>%
       tidypredict_to_column(parsnip_model)
     ```
 
-1. Load the `yaml` library
+8. Load the `yaml` library
     ```{r, eval = eval_model}
     library(yaml)
     ```
 
-1. Use `write_yaml()` to save the contents of `parsed_parsnip` into a file called **model.yaml**
+9. Use `write_yaml()` to save the contents of `parsed_parsnip` into a file called **model.yaml**
     ```{r, eval = eval_model}
     write_yaml(parsed_parsnip, "model.yaml")
     ```
     
-1. Using `read_yaml()`, read the contents of the **model.yaml** file into the a new variable called `loaded_model`
+10. Using `read_yaml()`, read the contents of the **model.yaml** file into the a new variable called `loaded_model`
     ```{r, eval = eval_model}
     loaded_model <- read_yaml("model.yaml")
     ```
 
-1. Use `as_parsed_model()` to convert the `loaded_model` variable into a `tidypredict` parsed model object, assign the results to `loaded_model_2`
+11. Use `as_parsed_model()` to convert the `loaded_model` variable into a `tidypredict` parsed model object, assign the results to `loaded_model_2`
     ```{r, eval = eval_model}
     loaded_model_2 <- as_parsed_model(loaded_model)
     ```
@@ -237,32 +237,32 @@ library(config)
     library(modeldb)
     ```
 
-1. Use `select()` to pick the `order_total` and `order_qty` fields from the `orders_sample_db` table pointer
+2. Use `select()` to pick the `order_total` and `order_qty` fields from the `orders_sample_db` table pointer
     ```{r, eval = eval_model}
     orders_sample_db %>%
       select(order_total, order_qty) 
     ```
 
-1. Pipe the code into the `linear_regression_db()` function, pass `order_total` as the only argument
+3. Pipe the code into the `linear_regression_db()` function, pass `order_total` as the only argument
     ```{r, eval = eval_model}
     orders_sample_db %>%
       select(order_total, order_qty) %>% 
       linear_regression_db(order_total)
     ```
 
-1. Assign the model results to a new variable called `db_model`
+4. Assign the model results to a new variable called `db_model`
     ```{r, eval = eval_model}
     db_model <- orders_sample_db %>%
       select(order_total, order_qty) %>% 
       linear_regression_db(order_total)
     ```
 
-1. Use `as_parsed_model()` to convert `db_model` to a parsed model object. Assign to new a variable called `pm`
+5. Use `as_parsed_model()` to convert `db_model` to a parsed model object. Assign to new a variable called `pm`
     ```{r, eval = eval_model}
     pm <- as_parsed_model(db_model)
     ```
 
-1. Use `head()` to get the top 10 records, and then pipe into `tidypredict_to_column()` to add the results from `pm`
+6. Use `head()` to get the top 10 records, and then pipe into `tidypredict_to_column()` to add the results from `pm`
     ```{r, eval = eval_model}
     orders_view %>%
       head(10) %>%

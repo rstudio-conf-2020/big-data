@@ -4,11 +4,11 @@
 
   <meta charset="utf-8" />
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-  <title>1 Introduction to vroom | _main.utf8.md</title>
+  <title>1 Introduction to vroom | _main.utf8</title>
   <meta name="description" content="" />
   <meta name="generator" content="bookdown 0.16 and GitBook 2.6.7" />
 
-  <meta property="og:title" content="1 Introduction to vroom | _main.utf8.md" />
+  <meta property="og:title" content="1 Introduction to vroom | _main.utf8" />
   <meta property="og:type" content="book" />
   
   
@@ -16,7 +16,7 @@
   
 
   <meta name="twitter:card" content="summary" />
-  <meta name="twitter:title" content="1 Introduction to vroom | _main.utf8.md" />
+  <meta name="twitter:title" content="1 Introduction to vroom | _main.utf8" />
   
   
   
@@ -230,74 +230,80 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <pre><code>## Observations: 50,000
 ## Variables: 14
 ## chr  [4]: customer_name, customer_phone, date_month_name, date_day
-## dbl  [9]: order_id, customer_id, customer_cc, customer_lon, customer_lat, date_year, date_month, product_id, price
+## dbl  [9]: order_id, customer_id, customer_cc, customer_lon, customer_lat, date_year, date_...
 ## date [1]: date
 ## 
 ## Call `spec()` for a copy-pastable column specification
 ## Specify the column types with `col_types` to quiet this message</code></pre>
 <pre><code>## # A tibble: 50,000 x 14
-##    order_id customer_id customer_name customer_phone customer_cc customer_lon customer_lat date       date_year date_month date_month_name date_day product_id
-##       &lt;dbl&gt;       &lt;dbl&gt; &lt;chr&gt;         &lt;chr&gt;                &lt;dbl&gt;        &lt;dbl&gt;        &lt;dbl&gt; &lt;date&gt;         &lt;dbl&gt;      &lt;dbl&gt; &lt;chr&gt;           &lt;chr&gt;         &lt;dbl&gt;
-##  1     1001          22 Dr. Birdie K… 684.226.0455       6.01e18        -122.         37.7 2016-01-01      2016          1 Jan             Friday            6
-##  2     1001          22 Dr. Birdie K… 684.226.0455       6.01e18        -122.         37.7 2016-01-01      2016          1 Jan             Friday           27
-##  3     1001          22 Dr. Birdie K… 684.226.0455       6.01e18        -122.         37.7 2016-01-01      2016          1 Jan             Friday           30
-##  4     1001          22 Dr. Birdie K… 684.226.0455       6.01e18        -122.         37.7 2016-01-01      2016          1 Jan             Friday            2
-##  5     1002           6 Meggan Bruen  326-151-4331       4.96e15        -122.         37.7 2016-01-01      2016          1 Jan             Friday           17
-##  6     1002           6 Meggan Bruen  326-151-4331       4.96e15        -122.         37.7 2016-01-01      2016          1 Jan             Friday            1
-##  7     1002           6 Meggan Bruen  326-151-4331       4.96e15        -122.         37.7 2016-01-01      2016          1 Jan             Friday            5
-##  8     1002           6 Meggan Bruen  326-151-4331       4.96e15        -122.         37.7 2016-01-01      2016          1 Jan             Friday            4
-##  9     1003          80 Jessee Rodri… 539.176.3896       4.50e12        -122.         37.7 2016-01-01      2016          1 Jan             Friday           27
-## 10     1003          80 Jessee Rodri… 539.176.3896       4.50e12        -122.         37.7 2016-01-01      2016          1 Jan             Friday           16
-## # … with 49,990 more rows, and 1 more variable: price &lt;dbl&gt;</code></pre></li>
+##    order_id customer_id customer_name customer_phone customer_cc customer_lon
+##       &lt;dbl&gt;       &lt;dbl&gt; &lt;chr&gt;         &lt;chr&gt;                &lt;dbl&gt;        &lt;dbl&gt;
+##  1     1001          22 Dr. Birdie K… 684.226.0455       6.01e18        -122.
+##  2     1001          22 Dr. Birdie K… 684.226.0455       6.01e18        -122.
+##  3     1001          22 Dr. Birdie K… 684.226.0455       6.01e18        -122.
+##  4     1001          22 Dr. Birdie K… 684.226.0455       6.01e18        -122.
+##  5     1002           6 Meggan Bruen  326-151-4331       4.96e15        -122.
+##  6     1002           6 Meggan Bruen  326-151-4331       4.96e15        -122.
+##  7     1002           6 Meggan Bruen  326-151-4331       4.96e15        -122.
+##  8     1002           6 Meggan Bruen  326-151-4331       4.96e15        -122.
+##  9     1003          80 Jessee Rodri… 539.176.3896       4.50e12        -122.
+## 10     1003          80 Jessee Rodri… 539.176.3896       4.50e12        -122.
+## # … with 49,990 more rows, and 8 more variables: customer_lat &lt;dbl&gt;, date &lt;date&gt;,
+## #   date_year &lt;dbl&gt;, date_month &lt;dbl&gt;, date_month_name &lt;chr&gt;, date_day &lt;chr&gt;,
+## #   product_id &lt;dbl&gt;, price &lt;dbl&gt;</code></pre></li>
 <li><p>Use the <code>id</code> argument to add the file name to the data frame. Use <strong>file_name</strong> as the argument’s value</p>
 <div class="sourceCode" id="cb5"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb5-1" data-line-number="1"><span class="kw">vroom</span>(<span class="st">&quot;/usr/share/class/files/transactions_1.csv&quot;</span>, <span class="dt">id =</span> <span class="st">&quot;file_name&quot;</span>)</a></code></pre></div>
 <pre><code>## Observations: 50,000
 ## Variables: 15
 ## chr  [4]: customer_name, customer_phone, date_month_name, date_day
-## dbl  [9]: order_id, customer_id, customer_cc, customer_lon, customer_lat, date_year, date_month, product_id, price
+## dbl  [9]: order_id, customer_id, customer_cc, customer_lon, customer_lat, date_year, date_...
 ## date [1]: date
 ## 
 ## Call `spec()` for a copy-pastable column specification
 ## Specify the column types with `col_types` to quiet this message</code></pre>
 <pre><code>## # A tibble: 50,000 x 15
-##    file_name order_id customer_id customer_name customer_phone customer_cc customer_lon customer_lat date       date_year date_month date_month_name date_day
-##    &lt;chr&gt;        &lt;dbl&gt;       &lt;dbl&gt; &lt;chr&gt;         &lt;chr&gt;                &lt;dbl&gt;        &lt;dbl&gt;        &lt;dbl&gt; &lt;date&gt;         &lt;dbl&gt;      &lt;dbl&gt; &lt;chr&gt;           &lt;chr&gt;   
-##  1 /usr/sha…     1001          22 Dr. Birdie K… 684.226.0455       6.01e18        -122.         37.7 2016-01-01      2016          1 Jan             Friday  
-##  2 /usr/sha…     1001          22 Dr. Birdie K… 684.226.0455       6.01e18        -122.         37.7 2016-01-01      2016          1 Jan             Friday  
-##  3 /usr/sha…     1001          22 Dr. Birdie K… 684.226.0455       6.01e18        -122.         37.7 2016-01-01      2016          1 Jan             Friday  
-##  4 /usr/sha…     1001          22 Dr. Birdie K… 684.226.0455       6.01e18        -122.         37.7 2016-01-01      2016          1 Jan             Friday  
-##  5 /usr/sha…     1002           6 Meggan Bruen  326-151-4331       4.96e15        -122.         37.7 2016-01-01      2016          1 Jan             Friday  
-##  6 /usr/sha…     1002           6 Meggan Bruen  326-151-4331       4.96e15        -122.         37.7 2016-01-01      2016          1 Jan             Friday  
-##  7 /usr/sha…     1002           6 Meggan Bruen  326-151-4331       4.96e15        -122.         37.7 2016-01-01      2016          1 Jan             Friday  
-##  8 /usr/sha…     1002           6 Meggan Bruen  326-151-4331       4.96e15        -122.         37.7 2016-01-01      2016          1 Jan             Friday  
-##  9 /usr/sha…     1003          80 Jessee Rodri… 539.176.3896       4.50e12        -122.         37.7 2016-01-01      2016          1 Jan             Friday  
-## 10 /usr/sha…     1003          80 Jessee Rodri… 539.176.3896       4.50e12        -122.         37.7 2016-01-01      2016          1 Jan             Friday  
-## # … with 49,990 more rows, and 2 more variables: product_id &lt;dbl&gt;, price &lt;dbl&gt;</code></pre></li>
+##    file_name order_id customer_id customer_name customer_phone customer_cc
+##    &lt;chr&gt;        &lt;dbl&gt;       &lt;dbl&gt; &lt;chr&gt;         &lt;chr&gt;                &lt;dbl&gt;
+##  1 /usr/sha…     1001          22 Dr. Birdie K… 684.226.0455       6.01e18
+##  2 /usr/sha…     1001          22 Dr. Birdie K… 684.226.0455       6.01e18
+##  3 /usr/sha…     1001          22 Dr. Birdie K… 684.226.0455       6.01e18
+##  4 /usr/sha…     1001          22 Dr. Birdie K… 684.226.0455       6.01e18
+##  5 /usr/sha…     1002           6 Meggan Bruen  326-151-4331       4.96e15
+##  6 /usr/sha…     1002           6 Meggan Bruen  326-151-4331       4.96e15
+##  7 /usr/sha…     1002           6 Meggan Bruen  326-151-4331       4.96e15
+##  8 /usr/sha…     1002           6 Meggan Bruen  326-151-4331       4.96e15
+##  9 /usr/sha…     1003          80 Jessee Rodri… 539.176.3896       4.50e12
+## 10 /usr/sha…     1003          80 Jessee Rodri… 539.176.3896       4.50e12
+## # … with 49,990 more rows, and 9 more variables: customer_lon &lt;dbl&gt;,
+## #   customer_lat &lt;dbl&gt;, date &lt;date&gt;, date_year &lt;dbl&gt;, date_month &lt;dbl&gt;,
+## #   date_month_name &lt;chr&gt;, date_day &lt;chr&gt;, product_id &lt;dbl&gt;, price &lt;dbl&gt;</code></pre></li>
 <li><p>Load the prior command into a variable called <code>vr_transactions</code></p>
 <div class="sourceCode" id="cb8"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb8-1" data-line-number="1">vr_transactions &lt;-<span class="st"> </span><span class="kw">vroom</span>(<span class="st">&quot;/usr/share/class/files/transactions_1.csv&quot;</span>, <span class="dt">id =</span> <span class="st">&quot;file_name&quot;</span>)</a></code></pre></div>
 <pre><code>## Observations: 50,000
 ## Variables: 15
 ## chr  [4]: customer_name, customer_phone, date_month_name, date_day
-## dbl  [9]: order_id, customer_id, customer_cc, customer_lon, customer_lat, date_year, date_month, product_id, price
+## dbl  [9]: order_id, customer_id, customer_cc, customer_lon, customer_lat, date_year, date_...
 ## date [1]: date
 ## 
 ## Call `spec()` for a copy-pastable column specification
 ## Specify the column types with `col_types` to quiet this message</code></pre>
 <div class="sourceCode" id="cb10"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb10-1" data-line-number="1">vr_transactions</a></code></pre></div>
 <pre><code>## # A tibble: 50,000 x 15
-##    file_name order_id customer_id customer_name customer_phone customer_cc customer_lon customer_lat date       date_year date_month date_month_name date_day
-##    &lt;chr&gt;        &lt;dbl&gt;       &lt;dbl&gt; &lt;chr&gt;         &lt;chr&gt;                &lt;dbl&gt;        &lt;dbl&gt;        &lt;dbl&gt; &lt;date&gt;         &lt;dbl&gt;      &lt;dbl&gt; &lt;chr&gt;           &lt;chr&gt;   
-##  1 /usr/sha…     1001          22 Dr. Birdie K… 684.226.0455       6.01e18        -122.         37.7 2016-01-01      2016          1 Jan             Friday  
-##  2 /usr/sha…     1001          22 Dr. Birdie K… 684.226.0455       6.01e18        -122.         37.7 2016-01-01      2016          1 Jan             Friday  
-##  3 /usr/sha…     1001          22 Dr. Birdie K… 684.226.0455       6.01e18        -122.         37.7 2016-01-01      2016          1 Jan             Friday  
-##  4 /usr/sha…     1001          22 Dr. Birdie K… 684.226.0455       6.01e18        -122.         37.7 2016-01-01      2016          1 Jan             Friday  
-##  5 /usr/sha…     1002           6 Meggan Bruen  326-151-4331       4.96e15        -122.         37.7 2016-01-01      2016          1 Jan             Friday  
-##  6 /usr/sha…     1002           6 Meggan Bruen  326-151-4331       4.96e15        -122.         37.7 2016-01-01      2016          1 Jan             Friday  
-##  7 /usr/sha…     1002           6 Meggan Bruen  326-151-4331       4.96e15        -122.         37.7 2016-01-01      2016          1 Jan             Friday  
-##  8 /usr/sha…     1002           6 Meggan Bruen  326-151-4331       4.96e15        -122.         37.7 2016-01-01      2016          1 Jan             Friday  
-##  9 /usr/sha…     1003          80 Jessee Rodri… 539.176.3896       4.50e12        -122.         37.7 2016-01-01      2016          1 Jan             Friday  
-## 10 /usr/sha…     1003          80 Jessee Rodri… 539.176.3896       4.50e12        -122.         37.7 2016-01-01      2016          1 Jan             Friday  
-## # … with 49,990 more rows, and 2 more variables: product_id &lt;dbl&gt;, price &lt;dbl&gt;</code></pre></li>
+##    file_name order_id customer_id customer_name customer_phone customer_cc
+##    &lt;chr&gt;        &lt;dbl&gt;       &lt;dbl&gt; &lt;chr&gt;         &lt;chr&gt;                &lt;dbl&gt;
+##  1 /usr/sha…     1001          22 Dr. Birdie K… 684.226.0455       6.01e18
+##  2 /usr/sha…     1001          22 Dr. Birdie K… 684.226.0455       6.01e18
+##  3 /usr/sha…     1001          22 Dr. Birdie K… 684.226.0455       6.01e18
+##  4 /usr/sha…     1001          22 Dr. Birdie K… 684.226.0455       6.01e18
+##  5 /usr/sha…     1002           6 Meggan Bruen  326-151-4331       4.96e15
+##  6 /usr/sha…     1002           6 Meggan Bruen  326-151-4331       4.96e15
+##  7 /usr/sha…     1002           6 Meggan Bruen  326-151-4331       4.96e15
+##  8 /usr/sha…     1002           6 Meggan Bruen  326-151-4331       4.96e15
+##  9 /usr/sha…     1003          80 Jessee Rodri… 539.176.3896       4.50e12
+## 10 /usr/sha…     1003          80 Jessee Rodri… 539.176.3896       4.50e12
+## # … with 49,990 more rows, and 9 more variables: customer_lon &lt;dbl&gt;,
+## #   customer_lat &lt;dbl&gt;, date &lt;date&gt;, date_year &lt;dbl&gt;, date_month &lt;dbl&gt;,
+## #   date_month_name &lt;chr&gt;, date_day &lt;chr&gt;, product_id &lt;dbl&gt;, price &lt;dbl&gt;</code></pre></li>
 <li><p>Load the file spec into a variable called <code>vr_spec</code>, using the <code>spec()</code> command</p>
 <div class="sourceCode" id="cb12"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb12-1" data-line-number="1">vr_spec &lt;-<span class="st"> </span><span class="kw">spec</span>(vr_transactions)</a>
 <a class="sourceLine" id="cb12-2" data-line-number="2"></a>
@@ -328,8 +334,11 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <a class="sourceLine" id="cb14-2" data-line-number="2"><span class="kw">library</span>(dplyr)</a></code></pre></div></li>
 <li><p>List files in the <strong>/usr/share/class/files</strong> folder using the <code>dir_ls()</code> function</p>
 <div class="sourceCode" id="cb15"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb15-1" data-line-number="1"><span class="kw">dir_ls</span>(<span class="st">&quot;/usr/share/class/files&quot;</span>)</a></code></pre></div>
-<pre><code>## /usr/share/class/files/transactions_1.csv /usr/share/class/files/transactions_2.csv /usr/share/class/files/transactions_3.csv 
-## /usr/share/class/files/transactions_4.csv /usr/share/class/files/transactions_5.csv</code></pre></li>
+<pre><code>## /usr/share/class/files/transactions_1.csv
+## /usr/share/class/files/transactions_2.csv
+## /usr/share/class/files/transactions_3.csv
+## /usr/share/class/files/transactions_4.csv
+## /usr/share/class/files/transactions_5.csv</code></pre></li>
 <li><p>In the <code>dir_ls()</code> function, use the <code>glob</code> argument to pass a wildcard to list CSV files only. Load to a variable named <code>files</code></p>
 <div class="sourceCode" id="cb17"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb17-1" data-line-number="1">files &lt;-<span class="st"> </span><span class="kw">dir_ls</span>(<span class="st">&quot;/usr/share/class/files&quot;</span>, <span class="dt">glob =</span> <span class="st">&quot;*.csv&quot;</span>)</a></code></pre></div></li>
 <li><p>Pass the <code>files</code> variable to <code>vroom</code>. Set the <code>n_max</code> argument to 1,000 to limit the data load for now</p>
@@ -337,41 +346,45 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <pre><code>## Observations: 5,000
 ## Variables: 14
 ## chr  [4]: customer_name, customer_phone, date_month_name, date_day
-## dbl  [9]: order_id, customer_id, customer_cc, customer_lon, customer_lat, date_year, date_month, product_id, price
+## dbl  [9]: order_id, customer_id, customer_cc, customer_lon, customer_lat, date_year, date_...
 ## date [1]: date
 ## 
 ## Call `spec()` for a copy-pastable column specification
 ## Specify the column types with `col_types` to quiet this message</code></pre>
 <pre><code>## # A tibble: 5,000 x 14
-##    order_id customer_id customer_name customer_phone customer_cc customer_lon customer_lat date       date_year date_month date_month_name date_day product_id
-##       &lt;dbl&gt;       &lt;dbl&gt; &lt;chr&gt;         &lt;chr&gt;                &lt;dbl&gt;        &lt;dbl&gt;        &lt;dbl&gt; &lt;date&gt;         &lt;dbl&gt;      &lt;dbl&gt; &lt;chr&gt;           &lt;chr&gt;         &lt;dbl&gt;
-##  1     1001          22 Dr. Birdie K… 684.226.0455       6.01e18        -122.         37.7 2016-01-01      2016          1 Jan             Friday            6
-##  2     1001          22 Dr. Birdie K… 684.226.0455       6.01e18        -122.         37.7 2016-01-01      2016          1 Jan             Friday           27
-##  3     1001          22 Dr. Birdie K… 684.226.0455       6.01e18        -122.         37.7 2016-01-01      2016          1 Jan             Friday           30
-##  4     1001          22 Dr. Birdie K… 684.226.0455       6.01e18        -122.         37.7 2016-01-01      2016          1 Jan             Friday            2
-##  5     1002           6 Meggan Bruen  326-151-4331       4.96e15        -122.         37.7 2016-01-01      2016          1 Jan             Friday           17
-##  6     1002           6 Meggan Bruen  326-151-4331       4.96e15        -122.         37.7 2016-01-01      2016          1 Jan             Friday            1
-##  7     1002           6 Meggan Bruen  326-151-4331       4.96e15        -122.         37.7 2016-01-01      2016          1 Jan             Friday            5
-##  8     1002           6 Meggan Bruen  326-151-4331       4.96e15        -122.         37.7 2016-01-01      2016          1 Jan             Friday            4
-##  9     1003          80 Jessee Rodri… 539.176.3896       4.50e12        -122.         37.7 2016-01-01      2016          1 Jan             Friday           27
-## 10     1003          80 Jessee Rodri… 539.176.3896       4.50e12        -122.         37.7 2016-01-01      2016          1 Jan             Friday           16
-## # … with 4,990 more rows, and 1 more variable: price &lt;dbl&gt;</code></pre></li>
+##    order_id customer_id customer_name customer_phone customer_cc customer_lon
+##       &lt;dbl&gt;       &lt;dbl&gt; &lt;chr&gt;         &lt;chr&gt;                &lt;dbl&gt;        &lt;dbl&gt;
+##  1     1001          22 Dr. Birdie K… 684.226.0455       6.01e18        -122.
+##  2     1001          22 Dr. Birdie K… 684.226.0455       6.01e18        -122.
+##  3     1001          22 Dr. Birdie K… 684.226.0455       6.01e18        -122.
+##  4     1001          22 Dr. Birdie K… 684.226.0455       6.01e18        -122.
+##  5     1002           6 Meggan Bruen  326-151-4331       4.96e15        -122.
+##  6     1002           6 Meggan Bruen  326-151-4331       4.96e15        -122.
+##  7     1002           6 Meggan Bruen  326-151-4331       4.96e15        -122.
+##  8     1002           6 Meggan Bruen  326-151-4331       4.96e15        -122.
+##  9     1003          80 Jessee Rodri… 539.176.3896       4.50e12        -122.
+## 10     1003          80 Jessee Rodri… 539.176.3896       4.50e12        -122.
+## # … with 4,990 more rows, and 8 more variables: customer_lat &lt;dbl&gt;, date &lt;date&gt;,
+## #   date_year &lt;dbl&gt;, date_month &lt;dbl&gt;, date_month_name &lt;chr&gt;, date_day &lt;chr&gt;,
+## #   product_id &lt;dbl&gt;, price &lt;dbl&gt;</code></pre></li>
 <li><p>Add a <code>col_types</code> argument with <code>vr_specs</code> as its value</p>
 <div class="sourceCode" id="cb21"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb21-1" data-line-number="1"><span class="kw">vroom</span>(files, <span class="dt">n_max =</span> <span class="dv">1000</span>, <span class="dt">col_types =</span> vr_spec)</a></code></pre></div>
 <pre><code>## # A tibble: 5,000 x 14
-##    order_id customer_id customer_name customer_phone customer_cc customer_lon customer_lat date       date_year date_month date_month_name date_day product_id
-##       &lt;dbl&gt;       &lt;dbl&gt; &lt;chr&gt;         &lt;chr&gt;                &lt;dbl&gt;        &lt;dbl&gt;        &lt;dbl&gt; &lt;date&gt;         &lt;dbl&gt;      &lt;dbl&gt; &lt;chr&gt;           &lt;chr&gt;         &lt;dbl&gt;
-##  1     1001          22 Dr. Birdie K… 684.226.0455       6.01e18        -122.         37.7 2016-01-01      2016          1 Jan             Friday            6
-##  2     1001          22 Dr. Birdie K… 684.226.0455       6.01e18        -122.         37.7 2016-01-01      2016          1 Jan             Friday           27
-##  3     1001          22 Dr. Birdie K… 684.226.0455       6.01e18        -122.         37.7 2016-01-01      2016          1 Jan             Friday           30
-##  4     1001          22 Dr. Birdie K… 684.226.0455       6.01e18        -122.         37.7 2016-01-01      2016          1 Jan             Friday            2
-##  5     1002           6 Meggan Bruen  326-151-4331       4.96e15        -122.         37.7 2016-01-01      2016          1 Jan             Friday           17
-##  6     1002           6 Meggan Bruen  326-151-4331       4.96e15        -122.         37.7 2016-01-01      2016          1 Jan             Friday            1
-##  7     1002           6 Meggan Bruen  326-151-4331       4.96e15        -122.         37.7 2016-01-01      2016          1 Jan             Friday            5
-##  8     1002           6 Meggan Bruen  326-151-4331       4.96e15        -122.         37.7 2016-01-01      2016          1 Jan             Friday            4
-##  9     1003          80 Jessee Rodri… 539.176.3896       4.50e12        -122.         37.7 2016-01-01      2016          1 Jan             Friday           27
-## 10     1003          80 Jessee Rodri… 539.176.3896       4.50e12        -122.         37.7 2016-01-01      2016          1 Jan             Friday           16
-## # … with 4,990 more rows, and 1 more variable: price &lt;dbl&gt;</code></pre></li>
+##    order_id customer_id customer_name customer_phone customer_cc customer_lon
+##       &lt;dbl&gt;       &lt;dbl&gt; &lt;chr&gt;         &lt;chr&gt;                &lt;dbl&gt;        &lt;dbl&gt;
+##  1     1001          22 Dr. Birdie K… 684.226.0455       6.01e18        -122.
+##  2     1001          22 Dr. Birdie K… 684.226.0455       6.01e18        -122.
+##  3     1001          22 Dr. Birdie K… 684.226.0455       6.01e18        -122.
+##  4     1001          22 Dr. Birdie K… 684.226.0455       6.01e18        -122.
+##  5     1002           6 Meggan Bruen  326-151-4331       4.96e15        -122.
+##  6     1002           6 Meggan Bruen  326-151-4331       4.96e15        -122.
+##  7     1002           6 Meggan Bruen  326-151-4331       4.96e15        -122.
+##  8     1002           6 Meggan Bruen  326-151-4331       4.96e15        -122.
+##  9     1003          80 Jessee Rodri… 539.176.3896       4.50e12        -122.
+## 10     1003          80 Jessee Rodri… 539.176.3896       4.50e12        -122.
+## # … with 4,990 more rows, and 8 more variables: customer_lat &lt;dbl&gt;, date &lt;date&gt;,
+## #   date_year &lt;dbl&gt;, date_month &lt;dbl&gt;, date_month_name &lt;chr&gt;, date_day &lt;chr&gt;,
+## #   product_id &lt;dbl&gt;, price &lt;dbl&gt;</code></pre></li>
 <li><p>Use the <code>col_select</code> argument to pass a <code>list</code> object containing the following variables: order_id, date, customer_name, and price</p>
 <div class="sourceCode" id="cb23"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb23-1" data-line-number="1"><span class="kw">vroom</span>(files, <span class="dt">n_max =</span> <span class="dv">1000</span>, <span class="dt">col_types =</span> vr_spec,</a>
 <a class="sourceLine" id="cb23-2" data-line-number="2">      <span class="dt">col_select =</span> <span class="kw">list</span>(order_id, date, customer_name, price)</a>

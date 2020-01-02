@@ -1,5 +1,5 @@
 setwd(here::here("workbook"))
-#Sys.setenv(GLOBAL_EVAL = TRUE)
+Sys.setenv(GLOBAL_EVAL = TRUE)
 files <- c(
   "derby.log",
   "parsedmodel.csv",
@@ -11,6 +11,7 @@ files <- c(
   "logs",
   "_book",
   "my_model.yml",
+  "model.yml",
   "mydatabase.sqlite",
   "spark-warehouse",
   list.files(pattern = "\\.md"),

@@ -4,11 +4,11 @@
 
   <meta charset="utf-8" />
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-  <title>5 Databases and dplyr | _main.utf8.md</title>
+  <title>5 Databases and dplyr | _main.utf8</title>
   <meta name="description" content="" />
   <meta name="generator" content="bookdown 0.16 and GitBook 2.6.7" />
 
-  <meta property="og:title" content="5 Databases and dplyr | _main.utf8.md" />
+  <meta property="og:title" content="5 Databases and dplyr | _main.utf8" />
   <meta property="og:type" content="book" />
   
   
@@ -16,7 +16,7 @@
   
 
   <meta name="twitter:card" content="summary" />
-  <meta name="twitter:title" content="5 Databases and dplyr | _main.utf8.md" />
+  <meta name="twitter:title" content="5 Databases and dplyr | _main.utf8" />
   
   
   
@@ -250,18 +250,18 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <div class="sourceCode" id="cb128"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb128-1" data-line-number="1"><span class="kw">tbl</span>(con, <span class="kw">in_schema</span>(<span class="st">&quot;datawarehouse&quot;</span>, <span class="st">&quot;customer&quot;</span>))</a></code></pre></div>
 <pre><code>## # Source:   table&lt;datawarehouse.customer&gt; [?? x 6]
 ## # Database: postgres [rstudio_admin@localhost:5432/postgres]
-##    customer_id customer_name           customer_phone      customer_cc        customer_lon customer_lat
-##          &lt;int&gt; &lt;chr&gt;                   &lt;chr&gt;               &lt;chr&gt;                     &lt;dbl&gt;        &lt;dbl&gt;
-##  1           1 Marilou Donnelly DVM    046-995-9387x9542   4054106117540070          -122.         37.8
-##  2           2 Aubrey Gulgowski III    (020)136-2064       675976652024423           -122.         37.7
-##  3           3 Arlis Koss              145.574.8189        869996890406359447        -122.         37.8
-##  4           4 Duwayne Walsh           737-897-1968x235    4091991124078817          -122.         37.7
-##  5           5 Nehemiah Doyle-Schimmel (035)642-3662x356   3709535249730512          -122.         37.7
-##  6           6 Meggan Bruen            326-151-4331        4964180480255037          -122.         37.7
-##  7           7 Tracie Swift MD         776.442.3270x310    4354911637784             -122.         37.8
-##  8           8 Karrie Donnelly         883.024.5322x85341  4232403376386             -122.         37.8
-##  9           9 Kip Eichmann            (619)169-8761x98047 51778482385678412         -122.         37.7
-## 10          10 Ms. Ciarra Borer        964-240-3124        4893126879913195          -122.         37.8
+##    customer_id customer_name  customer_phone customer_cc customer_lon customer_lat
+##          &lt;int&gt; &lt;chr&gt;          &lt;chr&gt;          &lt;chr&gt;              &lt;dbl&gt;        &lt;dbl&gt;
+##  1           1 Marilou Donne… 046-995-9387x… 4054106117…        -122.         37.8
+##  2           2 Aubrey Gulgow… (020)136-2064  6759766520…        -122.         37.7
+##  3           3 Arlis Koss     145.574.8189   8699968904…        -122.         37.8
+##  4           4 Duwayne Walsh  737-897-1968x… 4091991124…        -122.         37.7
+##  5           5 Nehemiah Doyl… (035)642-3662… 3709535249…        -122.         37.7
+##  6           6 Meggan Bruen   326-151-4331   4964180480…        -122.         37.7
+##  7           7 Tracie Swift … 776.442.3270x… 4354911637…        -122.         37.8
+##  8           8 Karrie Donnel… 883.024.5322x… 4232403376…        -122.         37.8
+##  9           9 Kip Eichmann   (619)169-8761… 5177848238…        -122.         37.7
+## 10          10 Ms. Ciarra Bo… 964-240-3124   4893126879…        -122.         37.8
 ## # … with more rows</code></pre></li>
 <li><p>Load the results from the <code>tbl()</code> command that points the table called <strong>orders</strong> to a variable called <code>orders</code></p>
 <div class="sourceCode" id="cb130"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb130-1" data-line-number="1">orders &lt;-<span class="st"> </span><span class="kw">tbl</span>(con, <span class="kw">in_schema</span>(<span class="st">&quot;datawarehouse&quot;</span>, <span class="st">&quot;orders&quot;</span>))</a></code></pre></div></li>
@@ -337,12 +337,12 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 ## # Database: postgres [rstudio_admin@localhost:5432/postgres]
 ##   today     
 ##   &lt;date&gt;    
-## 1 2019-12-30
-## 2 2019-12-30
-## 3 2019-12-30
-## 4 2019-12-30
-## 5 2019-12-30
-## 6 2019-12-30</code></pre></li>
+## 1 2019-12-31
+## 2 2019-12-31
+## 3 2019-12-31
+## 4 2019-12-31
+## 5 2019-12-31
+## 6 2019-12-31</code></pre></li>
 </ol>
 </div>
 <div id="using-bang-bang" class="section level2">
@@ -354,7 +354,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <a class="sourceLine" id="cb147-2" data-line-number="2"><span class="st">  </span><span class="kw">mutate</span>(<span class="dt">today =</span> <span class="op">!!</span><span class="kw">Sys.time</span>()) <span class="op">%&gt;%</span></a>
 <a class="sourceLine" id="cb147-3" data-line-number="3"><span class="st">  </span><span class="kw">show_query</span>()</a></code></pre></div>
 <pre><code>## &lt;SQL&gt;
-## SELECT &quot;order_id&quot;, &quot;customer_id&quot;, &quot;step_id&quot;, &#39;2019-12-30T20:45:15Z&#39; AS &quot;today&quot;
+## SELECT &quot;order_id&quot;, &quot;customer_id&quot;, &quot;step_id&quot;, &#39;2019-12-31T15:58:33Z&#39; AS &quot;today&quot;
 ## FROM datawarehouse.orders</code></pre></li>
 <li><p>View resulting table when <code>Sys.time()</code> is translated when prefixing <code>!!</code></p>
 <div class="sourceCode" id="cb149"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb149-1" data-line-number="1">orders <span class="op">%&gt;%</span></a>
@@ -365,12 +365,12 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 ## # Database: postgres [rstudio_admin@localhost:5432/postgres]
 ##   today               
 ##   &lt;chr&gt;               
-## 1 2019-12-30T20:45:15Z
-## 2 2019-12-30T20:45:15Z
-## 3 2019-12-30T20:45:15Z
-## 4 2019-12-30T20:45:15Z
-## 5 2019-12-30T20:45:15Z
-## 6 2019-12-30T20:45:15Z</code></pre></li>
+## 1 2019-12-31T15:58:34Z
+## 2 2019-12-31T15:58:34Z
+## 3 2019-12-31T15:58:34Z
+## 4 2019-12-31T15:58:34Z
+## 5 2019-12-31T15:58:34Z
+## 6 2019-12-31T15:58:34Z</code></pre></li>
 </ol>
 
 </div>
