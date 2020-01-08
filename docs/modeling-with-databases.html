@@ -227,29 +227,29 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <div class="sourceCode" id="cb182"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb182-1" data-line-number="1">con &lt;-<span class="st"> </span><span class="kw">connection_open</span>(</a>
 <a class="sourceLine" id="cb182-2" data-line-number="2">  RPostgres<span class="op">::</span><span class="kw">Postgres</span>(),</a>
 <a class="sourceLine" id="cb182-3" data-line-number="3">  <span class="dt">host =</span>  <span class="st">&quot;localhost&quot;</span>,</a>
-<a class="sourceLine" id="cb182-4" data-line-number="4">  <span class="dt">user =</span> <span class="kw">get</span>(<span class="st">&quot;user&quot;</span>, <span class="dt">config =</span> <span class="st">&quot;datawarehouse&quot;</span>),</a>
-<a class="sourceLine" id="cb182-5" data-line-number="5">  <span class="dt">password =</span> <span class="kw">get</span>(<span class="st">&quot;password&quot;</span>, <span class="dt">config =</span> <span class="st">&quot;datawarehouse&quot;</span>),</a>
+<a class="sourceLine" id="cb182-4" data-line-number="4">  <span class="dt">user =</span> <span class="kw">get</span>(<span class="st">&quot;user&quot;</span>, <span class="dt">config =</span> <span class="st">&quot;retail&quot;</span>),</a>
+<a class="sourceLine" id="cb182-5" data-line-number="5">  <span class="dt">password =</span> <span class="kw">get</span>(<span class="st">&quot;password&quot;</span>, <span class="dt">config =</span> <span class="st">&quot;retail&quot;</span>),</a>
 <a class="sourceLine" id="cb182-6" data-line-number="6">  <span class="dt">port =</span> <span class="dv">5432</span>,</a>
 <a class="sourceLine" id="cb182-7" data-line-number="7">  <span class="dt">dbname =</span> <span class="st">&quot;postgres&quot;</span>,</a>
 <a class="sourceLine" id="cb182-8" data-line-number="8">  <span class="dt">bigint =</span> <span class="st">&quot;integer&quot;</span></a>
 <a class="sourceLine" id="cb182-9" data-line-number="9">)</a></code></pre></div></li>
 <li><p>Set the <code>orders</code> variable to point to the <strong>orders</strong> table</p>
-<div class="sourceCode" id="cb183"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb183-1" data-line-number="1">orders &lt;-<span class="st"> </span><span class="kw">tbl</span>(con, <span class="kw">in_schema</span>(<span class="st">&quot;datawarehouse&quot;</span>, <span class="st">&quot;orders&quot;</span>))</a></code></pre></div></li>
+<div class="sourceCode" id="cb183"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb183-1" data-line-number="1">orders &lt;-<span class="st"> </span><span class="kw">tbl</span>(con, <span class="kw">in_schema</span>(<span class="st">&quot;retail&quot;</span>, <span class="st">&quot;orders&quot;</span>))</a></code></pre></div></li>
 <li><p>Set the <code>orders_view</code> variable to point to the <strong>v_orders</strong> table</p>
-<div class="sourceCode" id="cb184"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb184-1" data-line-number="1">orders_view &lt;-<span class="st"> </span><span class="kw">tbl</span>(con, <span class="kw">in_schema</span>(<span class="st">&quot;datawarehouse&quot;</span>, <span class="st">&quot;v_orders&quot;</span>))</a></code></pre></div></li>
+<div class="sourceCode" id="cb184"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb184-1" data-line-number="1">orders_view &lt;-<span class="st"> </span><span class="kw">tbl</span>(con, <span class="kw">in_schema</span>(<span class="st">&quot;retail&quot;</span>, <span class="st">&quot;v_orders&quot;</span>))</a></code></pre></div></li>
 <li><p>Pipe <code>orders</code> into the function <code>show_query()</code></p>
 <div class="sourceCode" id="cb185"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb185-1" data-line-number="1">orders <span class="op">%&gt;%</span></a>
 <a class="sourceLine" id="cb185-2" data-line-number="2"><span class="st">  </span><span class="kw">show_query</span>()</a></code></pre></div>
 <pre><code>## &lt;SQL&gt;
 ## SELECT *
-## FROM datawarehouse.orders</code></pre></li>
+## FROM retail.orders</code></pre></li>
 <li><p>Pipe the previous command into the <code>class()</code> function to see the kind of output <code>show_query()</code> returns</p>
 <div class="sourceCode" id="cb187"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb187-1" data-line-number="1">orders <span class="op">%&gt;%</span></a>
 <a class="sourceLine" id="cb187-2" data-line-number="2"><span class="st">  </span><span class="kw">show_query</span>() <span class="op">%&gt;%</span></a>
 <a class="sourceLine" id="cb187-3" data-line-number="3"><span class="st">  </span><span class="kw">class</span>()</a></code></pre></div>
 <pre><code>## &lt;SQL&gt;
 ## SELECT *
-## FROM datawarehouse.orders</code></pre>
+## FROM retail.orders</code></pre>
 <pre><code>## [1] &quot;tbl_conn&quot;         &quot;tbl_PqConnection&quot; &quot;tbl_dbi&quot;          &quot;tbl_sql&quot;         
 ## [5] &quot;tbl_lazy&quot;         &quot;tbl&quot;</code></pre></li>
 <li><p>Replace <code>show_query()</code> with <code>remote_query()</code> to compare the output types</p>
@@ -262,13 +262,13 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <a class="sourceLine" id="cb192-2" data-line-number="2"><span class="st">  </span><span class="kw">remote_query</span>() <span class="op">%&gt;%</span></a>
 <a class="sourceLine" id="cb192-3" data-line-number="3"><span class="st">  </span><span class="kw">build_sql</span>(<span class="dt">con =</span> con)</a></code></pre></div>
 <pre><code>## &lt;SQL&gt; SELECT *
-## FROM datawarehouse.orders</code></pre></li>
+## FROM retail.orders</code></pre></li>
 <li><p>Add <em>&quot; TABLESAMPLE BERNOULLI (0.1)&quot;</em> to <code>build_sql()</code> as another <code>...</code> argument</p>
 <div class="sourceCode" id="cb194"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb194-1" data-line-number="1">orders <span class="op">%&gt;%</span></a>
 <a class="sourceLine" id="cb194-2" data-line-number="2"><span class="st">  </span><span class="kw">remote_query</span>() <span class="op">%&gt;%</span></a>
 <a class="sourceLine" id="cb194-3" data-line-number="3"><span class="st">  </span><span class="kw">build_sql</span>(<span class="dt">con =</span> con, <span class="st">&quot; TABLESAMPLE BERNOULLI (0.1)&quot;</span>)</a></code></pre></div>
 <pre><code>## &lt;SQL&gt; SELECT *
-## FROM datawarehouse.orders TABLESAMPLE BERNOULLI (0.1)</code></pre></li>
+## FROM retail.orders TABLESAMPLE BERNOULLI (0.1)</code></pre></li>
 <li><p>Pipe the code into <code>tbl()</code>. Use <code>con</code> for the <code>con</code> argument, and <code>.</code> for the rest</p>
 <div class="sourceCode" id="cb196"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb196-1" data-line-number="1">orders <span class="op">%&gt;%</span></a>
 <a class="sourceLine" id="cb196-2" data-line-number="2"><span class="st">  </span><span class="kw">remote_query</span>() <span class="op">%&gt;%</span></a>
@@ -278,16 +278,16 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 ## # Database: postgres [rstudio_admin@localhost:5432/postgres]
 ##    order_id customer_id step_id
 ##       &lt;int&gt;       &lt;int&gt;   &lt;dbl&gt;
-##  1     9872          37       9
-##  2    14395          34      14
-##  3    15430          30      15
-##  4    26567          42      26
-##  5    31082          62      31
-##  6    33243          63      33
-##  7    38682          63      38
-##  8    56561          80      56
-##  9    61018          34      61
-## 10    78693          45      78
+##  1   193304          48     192
+##  2   193894          18     192
+##  3   197038           9     194
+##  4   199141          60     195
+##  5   199508          61     195
+##  6   201108           9     196
+##  7   201809          74     196
+##  8   203220          83     197
+##  9   201022          43     201
+## 10   201242          34     201
 ## # … with more rows</code></pre></li>
 <li><p>Use <code>inner_join()</code> to add the information from the <code>orders_view</code> pointer, use <code>order_id</code> as the matching field</p>
 <div class="sourceCode" id="cb198"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb198-1" data-line-number="1">orders <span class="op">%&gt;%</span></a>
@@ -299,16 +299,16 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 ## # Database: postgres [rstudio_admin@localhost:5432/postgres]
 ##    order_id customer_id.x step_id date  date_year date_month customer_id.y
 ##       &lt;int&gt;         &lt;int&gt;   &lt;dbl&gt; &lt;chr&gt;     &lt;int&gt;      &lt;int&gt;         &lt;int&gt;
-##  1    10956            77      10 2016…      2016          1            77
-##  2    28745             8      28 2016…      2016          1             8
-##  3    39836             1      39 2016…      2016          2             1
-##  4    40907            88      40 2016…      2016          2            88
-##  5    49819            74      49 2016…      2016          2            74
-##  6    55428            67      55 2016…      2016          2            67
-##  7    62177            43      62 2016…      2016          3            43
-##  8    72128            16      72 2016…      2016          3            16
-##  9    88743            39      88 2016…      2016          3            39
-## 10    90986            57      90 2016…      2016          3            57
+##  1     1930            15       1 2016…      2016          1            15
+##  2     3485            23       2 2016…      2016          1            23
+##  3     3905             4       2 2016…      2016          1             4
+##  4     5182            66       3 2016…      2016          1            66
+##  5     7959            11       4 2016…      2016          1            11
+##  6     7999            69       4 2016…      2016          1            69
+##  7    11202            88       6 2016…      2016          1            88
+##  8    11202            88       6 2016…      2016          1            75
+##  9    11783            82      11 2016…      2016          1             4
+## 10    11783            82      11 2016…      2016          1            82
 ## # … with more rows, and 5 more variables: customer_name &lt;chr&gt;,
 ## #   customer_lon &lt;dbl&gt;, customer_lat &lt;dbl&gt;, order_total &lt;dbl&gt;, order_qty &lt;int&gt;</code></pre></li>
 <li><p>Assign the resulting code to a variable <code>orders_sample_db</code></p>
@@ -349,13 +349,13 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <a class="sourceLine" id="cb208-3" data-line-number="3"><span class="st">  </span><span class="kw">fit</span>(order_total <span class="op">~</span><span class="st"> </span>order_qty, <span class="dt">data =</span> orders_sample)</a></code></pre></div>
 <pre><code>## parsnip model object
 ## 
-## Fit in:  300ms
+## Fit in:  113ms
 ## Call:
 ## stats::lm(formula = formula, data = data)
 ## 
 ## Coefficients:
 ## (Intercept)    order_qty  
-##      0.4798       6.4649</code></pre></li>
+##     -0.3673       6.7269</code></pre></li>
 <li><p>Assign the previous code to a variable called <code>parsnip_model</code></p>
 <div class="sourceCode" id="cb210"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb210-1" data-line-number="1">parsnip_model &lt;-<span class="st"> </span><span class="kw">linear_reg</span>() <span class="op">%&gt;%</span></a>
 <a class="sourceLine" id="cb210-2" data-line-number="2"><span class="st">  </span><span class="kw">set_engine</span>(<span class="st">&quot;lm&quot;</span>) <span class="op">%&gt;%</span></a>
@@ -363,20 +363,20 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li><p>Use <code>bind_cols()</code> to add the predictions to <code>order_sample</code>. Calculate the prediction with <code>predict()</code></p>
 <div class="sourceCode" id="cb211"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb211-1" data-line-number="1">orders_sample <span class="op">%&gt;%</span><span class="st"> </span></a>
 <a class="sourceLine" id="cb211-2" data-line-number="2"><span class="st">  </span><span class="kw">bind_cols</span>(<span class="kw">predict</span>(parsnip_model, orders_sample))</a></code></pre></div>
-<pre><code>## # A tibble: 95 x 13
+<pre><code>## # A tibble: 1,839 x 13
 ##    order_id customer_id.x step_id date  date_year date_month customer_id.y
 ##       &lt;int&gt;         &lt;int&gt;   &lt;dbl&gt; &lt;chr&gt;     &lt;int&gt;      &lt;int&gt;         &lt;int&gt;
-##  1    23214            71      23 2016…      2016          1            71
-##  2    25490            12      25 2016…      2016          1            12
-##  3    38703            37      38 2016…      2016          2            37
-##  4    61006            45      61 2016…      2016          2            53
-##  5    61006            45      61 2016…      2016          3            45
-##  6    67659            59      67 2016…      2016          3            59
-##  7    90899            87      90 2016…      2016          3            87
-##  8   109866            22     109 2016…      2016          4            22
-##  9   113270            75     113 2016…      2016          4            75
-## 10   115421            19     115 2016…      2016          4            19
-## # … with 85 more rows, and 6 more variables: customer_name &lt;chr&gt;,
+##  1     1217            73       1 2016…      2016          1            73
+##  2     1669            68       1 2016…      2016          1            68
+##  3     1799            59       1 2016…      2016          1            59
+##  4     5827            44       3 2016…      2016          1            44
+##  5     5842            83       3 2016…      2016          1            83
+##  6     5935            57       3 2016…      2016          1            57
+##  7     7191            22       4 2016…      2016          1            22
+##  8    11418            86      11 2016…      2016          1            85
+##  9    11418            86      11 2016…      2016          1            86
+## 10    15494            88       8 2016…      2016          1            88
+## # … with 1,829 more rows, and 6 more variables: customer_name &lt;chr&gt;,
 ## #   customer_lon &lt;dbl&gt;, customer_lat &lt;dbl&gt;, order_total &lt;dbl&gt;, order_qty &lt;int&gt;,
 ## #   .pred &lt;dbl&gt;</code></pre></li>
 <li><p>Pipe the code into the <code>metrics()</code> function. Use <code>order_total</code> as the <code>truth</code> argument, and <code>.pred</code> as the <code>estimate</code> argument</p>
@@ -386,9 +386,9 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <pre><code>## # A tibble: 3 x 3
 ##   .metric .estimator .estimate
 ##   &lt;chr&gt;   &lt;chr&gt;          &lt;dbl&gt;
-## 1 rmse    standard       2.84 
-## 2 rsq     standard       0.943
-## 3 mae     standard       2.24</code></pre></li>
+## 1 rmse    standard       3.71 
+## 2 rsq     standard       0.936
+## 3 mae     standard       2.89</code></pre></li>
 </ol>
 </div>
 <div id="score-with-tidypredict" class="section level2">
@@ -405,24 +405,24 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 ##   ..$ model   : chr &quot;lm&quot;
 ##   ..$ version : num 2
 ##   ..$ type    : chr &quot;regression&quot;
-##   ..$ residual: int 93
-##   ..$ sigma2  : num 8.25
+##   ..$ residual: int 1837
+##   ..$ sigma2  : num 13.8
 ##   ..$ is_glm  : num 0
 ##  $ terms  :List of 2
 ##   ..$ :List of 5
 ##   .. ..$ label       : chr &quot;(Intercept)&quot;
-##   .. ..$ coef        : num 0.48
+##   .. ..$ coef        : num -0.367
 ##   .. ..$ is_intercept: num 1
 ##   .. ..$ fields      :List of 1
 ##   .. .. ..$ :List of 2
 ##   .. .. .. ..$ type: chr &quot;ordinary&quot;
 ##   .. .. .. ..$ col : chr &quot;(Intercept)&quot;
 ##   .. ..$ qr          :List of 2
-##   .. .. ..$ qr_1: num -0.103
-##   .. .. ..$ qr_2: num -0.186
+##   .. .. ..$ qr_1: num -0.0233
+##   .. .. ..$ qr_2: num -0.065
 ##   ..$ :List of 5
 ##   .. ..$ label       : chr &quot;order_qty&quot;
-##   .. ..$ coef        : num 6.46
+##   .. ..$ coef        : num 6.73
 ##   .. ..$ is_intercept: num 0
 ##   .. ..$ fields      :List of 1
 ##   .. .. ..$ :List of 2
@@ -430,11 +430,11 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 ##   .. .. .. ..$ col : chr &quot;order_qty&quot;
 ##   .. ..$ qr          :List of 2
 ##   .. .. ..$ qr_1: num 0
-##   .. .. ..$ qr_2: num 0.0575
+##   .. .. ..$ qr_2: num 0.0111
 ##  - attr(*, &quot;class&quot;)= chr [1:3] &quot;parsed_model&quot; &quot;pm_regression&quot; &quot;list&quot;</code></pre></li>
 <li><p>Use <code>tidypredict_fit()</code> to view the <code>dplyr</code> formula that calculates the prediction</p>
 <div class="sourceCode" id="cb219"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb219-1" data-line-number="1"><span class="kw">tidypredict_fit</span>(parsed_parsnip)</a></code></pre></div>
-<pre><code>## 0.479818598832359 + (order_qty * 6.46487698081735)</code></pre></li>
+<pre><code>## -0.367314415673869 + (order_qty * 6.72688937214101)</code></pre></li>
 <li><p>Use <code>head()</code> to get the first 10 records from <code>orders_view</code></p>
 <div class="sourceCode" id="cb221"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb221-1" data-line-number="1">orders_view <span class="op">%&gt;%</span></a>
 <a class="sourceLine" id="cb221-2" data-line-number="2"><span class="st">  </span><span class="kw">head</span>(<span class="dv">10</span>)</a></code></pre></div>
@@ -442,16 +442,16 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 ## # Database: postgres [rstudio_admin@localhost:5432/postgres]
 ##    order_id date  date_year date_month customer_id customer_name customer_lon
 ##       &lt;int&gt; &lt;chr&gt;     &lt;int&gt;      &lt;int&gt;       &lt;int&gt; &lt;chr&gt;                &lt;dbl&gt;
-##  1     1001 2016…      2016          1          36 Jeptha Ziema…        -122.
-##  2     1002 2016…      2016          1          21 Miss Azzie J…        -122.
-##  3     1003 2016…      2016          1          64 Amber Harber         -122.
-##  4     1004 2016…      2016          1          85 Mat Luettgen         -122.
-##  5     1005 2016…      2016          1          41 Dr. Dionte Q…        -122.
+##  1     1001 2016…      2016          1          22 Dr. Birdie K…        -122.
+##  2     1002 2016…      2016          1           6 Meggan Bruen         -122.
+##  3     1003 2016…      2016          1          80 Jessee Rodri…        -122.
+##  4     1004 2016…      2016          1          55 Kathryn Stehr        -122.
+##  5     1005 2016…      2016          1          73 Merlyn Runol…        -122.
 ##  6     1006 2016…      2016          1          70 Reggie Mills         -122.
-##  7     1007 2016…      2016          1          10 Ms. Ciarra B…        -122.
-##  8     1008 2016…      2016          1          78 Pricilla Goo…        -122.
-##  9     1009 2016…      2016          1          56 Kimora Bergn…        -122.
-## 10     1010 2016…      2016          1          71 Erle Christi…        -122.
+##  7     1007 2016…      2016          1          55 Kathryn Stehr        -122.
+##  8     1008 2016…      2016          1          40 Dr. Trace Gl…        -122.
+##  9     1009 2016…      2016          1          78 Pricilla Goo…        -122.
+## 10     1010 2016…      2016          1          35 Mr. Commodor…        -122.
 ## # … with 3 more variables: customer_lat &lt;dbl&gt;, order_total &lt;dbl&gt;, order_qty &lt;int&gt;</code></pre></li>
 <li><p>Pipe the code into <code>mutate()</code>. Assign to a new <code>my_pred</code> variable the results of <code>tidypredict_fit()</code>. Make sure to prefix <code>tidypredict_fit()</code> with the bang-bang operator so that the formula is evaluated.</p>
 <div class="sourceCode" id="cb223"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb223-1" data-line-number="1">orders_view <span class="op">%&gt;%</span></a>
@@ -461,16 +461,16 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 ## # Database: postgres [rstudio_admin@localhost:5432/postgres]
 ##    order_id date  date_year date_month customer_id customer_name customer_lon
 ##       &lt;int&gt; &lt;chr&gt;     &lt;int&gt;      &lt;int&gt;       &lt;int&gt; &lt;chr&gt;                &lt;dbl&gt;
-##  1     1001 2016…      2016          1          36 Jeptha Ziema…        -122.
-##  2     1002 2016…      2016          1          21 Miss Azzie J…        -122.
-##  3     1003 2016…      2016          1          64 Amber Harber         -122.
-##  4     1004 2016…      2016          1          85 Mat Luettgen         -122.
-##  5     1005 2016…      2016          1          41 Dr. Dionte Q…        -122.
+##  1     1001 2016…      2016          1          22 Dr. Birdie K…        -122.
+##  2     1002 2016…      2016          1           6 Meggan Bruen         -122.
+##  3     1003 2016…      2016          1          80 Jessee Rodri…        -122.
+##  4     1004 2016…      2016          1          55 Kathryn Stehr        -122.
+##  5     1005 2016…      2016          1          73 Merlyn Runol…        -122.
 ##  6     1006 2016…      2016          1          70 Reggie Mills         -122.
-##  7     1007 2016…      2016          1          10 Ms. Ciarra B…        -122.
-##  8     1008 2016…      2016          1          78 Pricilla Goo…        -122.
-##  9     1009 2016…      2016          1          56 Kimora Bergn…        -122.
-## 10     1010 2016…      2016          1          71 Erle Christi…        -122.
+##  7     1007 2016…      2016          1          55 Kathryn Stehr        -122.
+##  8     1008 2016…      2016          1          40 Dr. Trace Gl…        -122.
+##  9     1009 2016…      2016          1          78 Pricilla Goo…        -122.
+## 10     1010 2016…      2016          1          35 Mr. Commodor…        -122.
 ## # … with 4 more variables: customer_lat &lt;dbl&gt;, order_total &lt;dbl&gt;,
 ## #   order_qty &lt;int&gt;, my_pred &lt;dbl&gt;</code></pre></li>
 <li><p>Replace the <code>mutate()</code> command with <code>tidypredict_to_column()</code></p>
@@ -481,16 +481,16 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 ## # Database: postgres [rstudio_admin@localhost:5432/postgres]
 ##    order_id date  date_year date_month customer_id customer_name customer_lon
 ##       &lt;int&gt; &lt;chr&gt;     &lt;int&gt;      &lt;int&gt;       &lt;int&gt; &lt;chr&gt;                &lt;dbl&gt;
-##  1     1001 2016…      2016          1          36 Jeptha Ziema…        -122.
-##  2     1002 2016…      2016          1          21 Miss Azzie J…        -122.
-##  3     1003 2016…      2016          1          64 Amber Harber         -122.
-##  4     1004 2016…      2016          1          85 Mat Luettgen         -122.
-##  5     1005 2016…      2016          1          41 Dr. Dionte Q…        -122.
+##  1     1001 2016…      2016          1          22 Dr. Birdie K…        -122.
+##  2     1002 2016…      2016          1           6 Meggan Bruen         -122.
+##  3     1003 2016…      2016          1          80 Jessee Rodri…        -122.
+##  4     1004 2016…      2016          1          55 Kathryn Stehr        -122.
+##  5     1005 2016…      2016          1          73 Merlyn Runol…        -122.
 ##  6     1006 2016…      2016          1          70 Reggie Mills         -122.
-##  7     1007 2016…      2016          1          10 Ms. Ciarra B…        -122.
-##  8     1008 2016…      2016          1          78 Pricilla Goo…        -122.
-##  9     1009 2016…      2016          1          56 Kimora Bergn…        -122.
-## 10     1010 2016…      2016          1          71 Erle Christi…        -122.
+##  7     1007 2016…      2016          1          55 Kathryn Stehr        -122.
+##  8     1008 2016…      2016          1          40 Dr. Trace Gl…        -122.
+##  9     1009 2016…      2016          1          78 Pricilla Goo…        -122.
+## 10     1010 2016…      2016          1          35 Mr. Commodor…        -122.
 ## # … with 4 more variables: customer_lat &lt;dbl&gt;, order_total &lt;dbl&gt;,
 ## #   order_qty &lt;int&gt;, fit &lt;dbl&gt;</code></pre></li>
 <li><p>Load the <code>yaml</code> library</p>
@@ -515,16 +515,16 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 ## # Database: postgres [rstudio_admin@localhost:5432/postgres]
 ##    order_total order_qty
 ##          &lt;dbl&gt;     &lt;int&gt;
-##  1       12.3          2
-##  2       26.9          4
-##  3       18.0          3
-##  4        4.89         1
-##  5        9.48         2
-##  6       20.8          3
-##  7       21.5          4
-##  8       21.7          4
-##  9       36.5          5
-## 10       15.9          2
+##  1        5.02         1
+##  2       37.7          5
+##  3       15.2          2
+##  4       12.3          2
+##  5       30.6          5
+##  6        5.8          1
+##  7       27.0          4
+##  8       18.8          3
+##  9       12.6          2
+## 10        9.29         2
 ## # … with more rows</code></pre></li>
 <li><p>Pipe the code into the <code>linear_regression_db()</code> function, pass <code>order_total</code> as the only argument</p>
 <div class="sourceCode" id="cb234"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb234-1" data-line-number="1">orders_sample_db <span class="op">%&gt;%</span></a>
@@ -533,7 +533,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <pre><code>## # A tibble: 1 x 2
 ##   `(Intercept)` order_qty
 ##           &lt;dbl&gt;     &lt;dbl&gt;
-## 1        -0.350      6.86</code></pre></li>
+## 1        0.0232      6.64</code></pre></li>
 <li><p>Assign the model results to a new variable called <code>db_model</code></p>
 <div class="sourceCode" id="cb236"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb236-1" data-line-number="1">db_model &lt;-<span class="st"> </span>orders_sample_db <span class="op">%&gt;%</span></a>
 <a class="sourceLine" id="cb236-2" data-line-number="2"><span class="st">  </span><span class="kw">select</span>(order_total, order_qty) <span class="op">%&gt;%</span><span class="st"> </span></a>
@@ -548,16 +548,16 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 ## # Database: postgres [rstudio_admin@localhost:5432/postgres]
 ##    order_id date  date_year date_month customer_id customer_name customer_lon
 ##       &lt;int&gt; &lt;chr&gt;     &lt;int&gt;      &lt;int&gt;       &lt;int&gt; &lt;chr&gt;                &lt;dbl&gt;
-##  1     1001 2016…      2016          1          36 Jeptha Ziema…        -122.
-##  2     1002 2016…      2016          1          21 Miss Azzie J…        -122.
-##  3     1003 2016…      2016          1          64 Amber Harber         -122.
-##  4     1004 2016…      2016          1          85 Mat Luettgen         -122.
-##  5     1005 2016…      2016          1          41 Dr. Dionte Q…        -122.
+##  1     1001 2016…      2016          1          22 Dr. Birdie K…        -122.
+##  2     1002 2016…      2016          1           6 Meggan Bruen         -122.
+##  3     1003 2016…      2016          1          80 Jessee Rodri…        -122.
+##  4     1004 2016…      2016          1          55 Kathryn Stehr        -122.
+##  5     1005 2016…      2016          1          73 Merlyn Runol…        -122.
 ##  6     1006 2016…      2016          1          70 Reggie Mills         -122.
-##  7     1007 2016…      2016          1          10 Ms. Ciarra B…        -122.
-##  8     1008 2016…      2016          1          78 Pricilla Goo…        -122.
-##  9     1009 2016…      2016          1          56 Kimora Bergn…        -122.
-## 10     1010 2016…      2016          1          71 Erle Christi…        -122.
+##  7     1007 2016…      2016          1          55 Kathryn Stehr        -122.
+##  8     1008 2016…      2016          1          40 Dr. Trace Gl…        -122.
+##  9     1009 2016…      2016          1          78 Pricilla Goo…        -122.
+## 10     1010 2016…      2016          1          35 Mr. Commodor…        -122.
 ## # … with 4 more variables: customer_lat &lt;dbl&gt;, order_total &lt;dbl&gt;,
 ## #   order_qty &lt;int&gt;, fit &lt;dbl&gt;</code></pre></li>
 </ol>

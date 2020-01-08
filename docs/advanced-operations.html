@@ -231,14 +231,14 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <div class="sourceCode" id="cb241"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb241-1" data-line-number="1">con &lt;-<span class="st"> </span><span class="kw">connection_open</span>(</a>
 <a class="sourceLine" id="cb241-2" data-line-number="2">  RPostgres<span class="op">::</span><span class="kw">Postgres</span>(),</a>
 <a class="sourceLine" id="cb241-3" data-line-number="3">  <span class="dt">host =</span>  <span class="st">&quot;localhost&quot;</span>,</a>
-<a class="sourceLine" id="cb241-4" data-line-number="4">  <span class="dt">user =</span> <span class="kw">get</span>(<span class="st">&quot;user&quot;</span>, <span class="dt">config =</span> <span class="st">&quot;datawarehouse&quot;</span>),</a>
-<a class="sourceLine" id="cb241-5" data-line-number="5">  <span class="dt">password =</span> <span class="kw">get</span>(<span class="st">&quot;password&quot;</span>, <span class="dt">config =</span> <span class="st">&quot;datawarehouse&quot;</span>),</a>
+<a class="sourceLine" id="cb241-4" data-line-number="4">  <span class="dt">user =</span> <span class="kw">get</span>(<span class="st">&quot;user&quot;</span>, <span class="dt">config =</span> <span class="st">&quot;retail&quot;</span>),</a>
+<a class="sourceLine" id="cb241-5" data-line-number="5">  <span class="dt">password =</span> <span class="kw">get</span>(<span class="st">&quot;password&quot;</span>, <span class="dt">config =</span> <span class="st">&quot;retail&quot;</span>),</a>
 <a class="sourceLine" id="cb241-6" data-line-number="6">  <span class="dt">port =</span> <span class="dv">5432</span>,</a>
 <a class="sourceLine" id="cb241-7" data-line-number="7">  <span class="dt">dbname =</span> <span class="st">&quot;postgres&quot;</span>,</a>
 <a class="sourceLine" id="cb241-8" data-line-number="8">  <span class="dt">bigint =</span> <span class="st">&quot;integer&quot;</span></a>
 <a class="sourceLine" id="cb241-9" data-line-number="9">)</a></code></pre></div></li>
 <li><p>Create a variable that points to the <strong>v_orders</strong> table</p>
-<div class="sourceCode" id="cb242"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb242-1" data-line-number="1">orders &lt;-<span class="st"> </span><span class="kw">tbl</span>(con, <span class="kw">in_schema</span>(<span class="st">&quot;datawarehouse&quot;</span>, <span class="st">&quot;v_orders&quot;</span>))</a></code></pre></div></li>
+<div class="sourceCode" id="cb242"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb242-1" data-line-number="1">orders &lt;-<span class="st"> </span><span class="kw">tbl</span>(con, <span class="kw">in_schema</span>(<span class="st">&quot;retail&quot;</span>, <span class="st">&quot;v_orders&quot;</span>))</a></code></pre></div></li>
 <li><p>Create a simple <code>dplyr</code> call that gets the average of all order totals</p>
 <div class="sourceCode" id="cb243"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb243-1" data-line-number="1">orders <span class="op">%&gt;%</span></a>
 <a class="sourceLine" id="cb243-2" data-line-number="2"><span class="st">  </span><span class="kw">summarise</span>(<span class="dt">mean =</span> <span class="kw">mean</span>(order_total, <span class="dt">na.rm =</span> <span class="ot">TRUE</span>))</a></code></pre></div>
@@ -246,7 +246,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 ## # Database: postgres [rstudio_admin@localhost:5432/postgres]
 ##    mean
 ##   &lt;dbl&gt;
-## 1  20.6</code></pre></li>
+## 1  38.0</code></pre></li>
 <li><p>Load the <code>rlang</code> library</p>
 <div class="sourceCode" id="cb245"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb245-1" data-line-number="1"><span class="kw">library</span>(rlang)</a></code></pre></div></li>
 <li><p>Create a new function call <code>my_mean()</code> that will take an argument, <code>x</code>, and then returns the results of <code>enquo(x)</code></p>
@@ -280,7 +280,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 ## # Database: postgres [rstudio_admin@localhost:5432/postgres]
 ##    mean
 ##   &lt;dbl&gt;
-## 1  20.6</code></pre></li>
+## 1  38.0</code></pre></li>
 <li><p>In the <code>summarise()</code> step, replace the name <code>mean</code>, with <code>!! as_label(x)</code>, also replace the <code>=</code> sign, with <code>:=</code></p>
 <div class="sourceCode" id="cb255"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb255-1" data-line-number="1">my_mean &lt;-<span class="st"> </span><span class="cf">function</span>(x){</a>
 <a class="sourceLine" id="cb255-2" data-line-number="2">  x &lt;-<span class="st"> </span><span class="kw">enquo</span>(x)</a>
@@ -293,14 +293,14 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 ## # Database: postgres [rstudio_admin@localhost:5432/postgres]
 ##   order_total
 ##         &lt;dbl&gt;
-## 1        20.6</code></pre></li>
+## 1        38.0</code></pre></li>
 <li><p>Test the function by passing a formula, such as <code>order_total / order_qty</code></p>
 <div class="sourceCode" id="cb258"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb258-1" data-line-number="1"><span class="kw">my_mean</span>(order_total <span class="op">/</span><span class="st"> </span>order_qty)</a></code></pre></div>
 <pre><code>## # Source:   lazy query [?? x 1]
 ## # Database: postgres [rstudio_admin@localhost:5432/postgres]
 ##   `order_total/order_qty`
 ##                     &lt;dbl&gt;
-## 1                    6.69</code></pre></li>
+## 1                    6.65</code></pre></li>
 <li><p>Make the function generic, add a new argument called: <code>.data</code>. Inisde the function, replace <code>orders</code> with <code>.data</code></p>
 <div class="sourceCode" id="cb260"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb260-1" data-line-number="1">my_mean &lt;-<span class="st"> </span><span class="cf">function</span>(.data, x){</a>
 <a class="sourceLine" id="cb260-2" data-line-number="2">  x &lt;-<span class="st"> </span><span class="kw">enquo</span>(x)</a>
@@ -314,7 +314,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 ## # Database: postgres [rstudio_admin@localhost:5432/postgres]
 ##   order_total
 ##         &lt;dbl&gt;
-## 1        20.6</code></pre></li>
+## 1        38.0</code></pre></li>
 <li><p>Clean up the code by removing the pipe that inside the function</p>
 <div class="sourceCode" id="cb263"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb263-1" data-line-number="1">my_mean &lt;-<span class="st"> </span><span class="cf">function</span>(.data, x){</a>
 <a class="sourceLine" id="cb263-2" data-line-number="2">  x &lt;-<span class="st"> </span><span class="kw">enquo</span>(x)</a>
@@ -330,14 +330,14 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 ## # Database: postgres [rstudio_admin@localhost:5432/postgres]
 ##   order_total
 ##         &lt;dbl&gt;
-## 1        20.6</code></pre></li>
+## 1        38.0</code></pre></li>
 <li><p>Add a <code>show_query()</code> step to preview the resulting SQL statement</p>
 <div class="sourceCode" id="cb266"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb266-1" data-line-number="1">orders <span class="op">%&gt;%</span><span class="st"> </span></a>
 <a class="sourceLine" id="cb266-2" data-line-number="2"><span class="st">  </span><span class="kw">my_mean</span>(order_total) <span class="op">%&gt;%</span></a>
 <a class="sourceLine" id="cb266-3" data-line-number="3"><span class="st">  </span><span class="kw">show_query</span>()</a></code></pre></div>
 <pre><code>## &lt;SQL&gt;
 ## SELECT AVG(&quot;order_total&quot;) AS &quot;order_total&quot;
-## FROM datawarehouse.v_orders</code></pre></li>
+## FROM retail.v_orders</code></pre></li>
 <li><p>Try the function with a non-DB backed variable, such as <code>mtcars</code>. Use <code>mpg</code> as the aggregating variable</p>
 <div class="sourceCode" id="cb268"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb268-1" data-line-number="1">mtcars <span class="op">%&gt;%</span><span class="st"> </span></a>
 <a class="sourceLine" id="cb268-2" data-line-number="2"><span class="st">  </span><span class="kw">my_mean</span>(mpg)</a></code></pre></div>
@@ -364,12 +364,12 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 ## [[1]]
 ## &lt;quosure&gt;
 ## expr: ^order_id
-## env:  0x55febe46a9b8
+## env:  0x561f503bd388
 ## 
 ## [[2]]
 ## &lt;quosure&gt;
 ## expr: ^date
-## env:  0x55febe46a9b8</code></pre></li>
+## env:  0x561f503bd388</code></pre></li>
 <li><p>Add a step to the function that iterates through each quosure and prefixes a minus sign to tell <code>select()</code> to drop that specific field. Use <code>map()</code> for the iteration, and <code>quo()</code> to create the prefixed expression.</p>
 <div class="sourceCode" id="cb274"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb274-1" data-line-number="1">de_select &lt;-<span class="st"> </span><span class="cf">function</span>(.data, ...){</a>
 <a class="sourceLine" id="cb274-2" data-line-number="2">  vars &lt;-<span class="st"> </span><span class="kw">enquos</span>(...)</a>
@@ -382,12 +382,12 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <pre><code>## [[1]]
 ## &lt;quosure&gt;
 ## expr: ^-^order_id
-## env:  0x55febda8e410
+## env:  0x561f4c206660
 ## 
 ## [[2]]
 ## &lt;quosure&gt;
 ## expr: ^-^date
-## env:  0x55febda8b920</code></pre></li>
+## env:  0x561f4c201d30</code></pre></li>
 <li><p>Add the <code>select()</code> step. Use <em>!!!</em> to parse the <em>vars</em> variable inside <code>select()</code></p>
 <div class="sourceCode" id="cb277"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb277-1" data-line-number="1">de_select &lt;-<span class="st"> </span><span class="cf">function</span>(.data, ...){</a>
 <a class="sourceLine" id="cb277-2" data-line-number="2">  vars &lt;-<span class="st"> </span><span class="kw">enquos</span>(...)</a>
@@ -401,16 +401,16 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 ## # Database: postgres [rstudio_admin@localhost:5432/postgres]
 ##    date_year date_month customer_id customer_name customer_lon customer_lat
 ##        &lt;int&gt;      &lt;int&gt;       &lt;int&gt; &lt;chr&gt;                &lt;dbl&gt;        &lt;dbl&gt;
-##  1      2016          1          36 Jeptha Ziema…        -122.         37.7
-##  2      2016          1          21 Miss Azzie J…        -122.         37.8
-##  3      2016          1          64 Amber Harber         -122.         37.8
-##  4      2016          1          85 Mat Luettgen         -122.         37.8
-##  5      2016          1          41 Dr. Dionte Q…        -122.         37.8
+##  1      2016          1          22 Dr. Birdie K…        -122.         37.7
+##  2      2016          1           6 Meggan Bruen         -122.         37.7
+##  3      2016          1          80 Jessee Rodri…        -122.         37.7
+##  4      2016          1          55 Kathryn Stehr        -122.         37.8
+##  5      2016          1          73 Merlyn Runol…        -122.         37.7
 ##  6      2016          1          70 Reggie Mills         -122.         37.7
-##  7      2016          1          10 Ms. Ciarra B…        -122.         37.8
-##  8      2016          1          78 Pricilla Goo…        -122.         37.8
-##  9      2016          1          56 Kimora Bergn…        -122.         37.7
-## 10      2016          1          71 Erle Christi…        -122.         37.7
+##  7      2016          1          55 Kathryn Stehr        -122.         37.8
+##  8      2016          1          40 Dr. Trace Gl…        -122.         37.8
+##  9      2016          1          78 Pricilla Goo…        -122.         37.8
+## 10      2016          1          35 Mr. Commodor…        -122.         37.7
 ## # … with more rows, and 2 more variables: order_total &lt;dbl&gt;, order_qty &lt;int&gt;</code></pre></li>
 <li><p>Add a <code>show_query()</code> step to see the resulting SQL</p>
 <div class="sourceCode" id="cb280"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb280-1" data-line-number="1">orders <span class="op">%&gt;%</span></a>
@@ -418,7 +418,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <a class="sourceLine" id="cb280-3" data-line-number="3"><span class="st">  </span><span class="kw">show_query</span>()</a></code></pre></div>
 <pre><code>## &lt;SQL&gt;
 ## SELECT &quot;date_year&quot;, &quot;date_month&quot;, &quot;customer_id&quot;, &quot;customer_name&quot;, &quot;customer_lon&quot;, &quot;customer_lat&quot;, &quot;order_total&quot;, &quot;order_qty&quot;
-## FROM datawarehouse.v_orders</code></pre></li>
+## FROM retail.v_orders</code></pre></li>
 <li><p>Test the function with a different data set, such as <code>mtcars</code></p>
 <div class="sourceCode" id="cb282"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb282-1" data-line-number="1">mtcars <span class="op">%&gt;%</span></a>
 <a class="sourceLine" id="cb282-2" data-line-number="2"><span class="st">  </span><span class="kw">de_select</span>(mpg, wt, am)</a></code></pre></div>
@@ -469,7 +469,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 ## # Database: postgres [rstudio_admin@localhost:5432/postgres]
 ##    mean
 ##   &lt;dbl&gt;
-## 1  20.5</code></pre></li>
+## 1  37.9</code></pre></li>
 <li><p>Assign the first operation to a variable called <em>a</em>, and create copy of the operation but changing the selected months to January, March and April. Assign the second one to a variable called <em>b</em>.</p>
 <div class="sourceCode" id="cb286"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb286-1" data-line-number="1">a &lt;-<span class="st"> </span>orders <span class="op">%&gt;%</span></a>
 <a class="sourceLine" id="cb286-2" data-line-number="2"><span class="st">  </span><span class="kw">filter</span>(date_month <span class="op">%in%</span><span class="st"> </span><span class="kw">c</span>(<span class="dv">1</span>,<span class="dv">2</span>,<span class="dv">3</span>)) <span class="op">%&gt;%</span></a>
@@ -484,18 +484,18 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 ## # Database: postgres [rstudio_admin@localhost:5432/postgres]
 ##    mean
 ##   &lt;dbl&gt;
-## 1  20.5
-## 2  20.5</code></pre></li>
+## 1  37.9
+## 2  38.0</code></pre></li>
 <li><p>Pipe the previous instruction to <code>show_query()</code> to confirm that the resulting query is a single one</p>
 <div class="sourceCode" id="cb289"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb289-1" data-line-number="1"><span class="kw">union</span>(a, b) <span class="op">%&gt;%</span></a>
 <a class="sourceLine" id="cb289-2" data-line-number="2"><span class="st">  </span><span class="kw">show_query</span>()</a></code></pre></div>
 <pre><code>## &lt;SQL&gt;
 ## (SELECT AVG(&quot;order_total&quot;) AS &quot;mean&quot;
-## FROM datawarehouse.v_orders
+## FROM retail.v_orders
 ## WHERE (&quot;date_month&quot; IN (1.0, 2.0, 3.0)))
 ## UNION
 ## (SELECT AVG(&quot;order_total&quot;) AS &quot;mean&quot;
-## FROM datawarehouse.v_orders
+## FROM retail.v_orders
 ## WHERE (&quot;date_month&quot; IN (1.0, 3.0, 4.0)))</code></pre></li>
 <li><p>Assign to a new variable called <em>months</em> an overlapping set of months</p>
 <div class="sourceCode" id="cb291"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb291-1" data-line-number="1">months &lt;-<span class="st"> </span><span class="kw">list</span>(</a>
@@ -515,21 +515,21 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 ## # Database: postgres [rstudio_admin@localhost:5432/postgres]
 ##    mean
 ##   &lt;dbl&gt;
-## 1  20.5
+## 1  37.9
 ## 
 ## [[2]]
 ## # Source:   lazy query [?? x 1]
 ## # Database: postgres [rstudio_admin@localhost:5432/postgres]
 ##    mean
 ##   &lt;dbl&gt;
-## 1  20.5
+## 1  38.0
 ## 
 ## [[3]]
 ## # Source:   lazy query [?? x 1]
 ## # Database: postgres [rstudio_admin@localhost:5432/postgres]
 ##    mean
 ##   &lt;dbl&gt;
-## 1  20.7</code></pre></li>
+## 1  38.2</code></pre></li>
 <li><p>Add a <code>reduce()</code> operation and use <code>union()</code> command to create a single query</p>
 <div class="sourceCode" id="cb294"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb294-1" data-line-number="1">months <span class="op">%&gt;%</span></a>
 <a class="sourceLine" id="cb294-2" data-line-number="2"><span class="st">  </span><span class="kw">map</span>(</a>
@@ -542,9 +542,9 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 ## # Database: postgres [rstudio_admin@localhost:5432/postgres]
 ##    mean
 ##   &lt;dbl&gt;
-## 1  20.7
-## 2  20.5
-## 3  20.5</code></pre></li>
+## 1  38.0
+## 2  38.2
+## 3  37.9</code></pre></li>
 <li><p>Use <code>show_query()</code> to see the resulting single query sent to the database</p>
 <div class="sourceCode" id="cb296"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb296-1" data-line-number="1">months <span class="op">%&gt;%</span></a>
 <a class="sourceLine" id="cb296-2" data-line-number="2"><span class="st">  </span><span class="kw">map</span>(</a>
@@ -556,15 +556,15 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <a class="sourceLine" id="cb296-8" data-line-number="8"><span class="st">  </span><span class="kw">show_query</span>()</a></code></pre></div>
 <pre><code>## &lt;SQL&gt;
 ## ((SELECT AVG(&quot;order_total&quot;) AS &quot;mean&quot;
-## FROM datawarehouse.v_orders
+## FROM retail.v_orders
 ## WHERE (&quot;date_month&quot; IN (1.0, 2.0, 3.0)))
 ## UNION
 ## (SELECT AVG(&quot;order_total&quot;) AS &quot;mean&quot;
-## FROM datawarehouse.v_orders
+## FROM retail.v_orders
 ## WHERE (&quot;date_month&quot; IN (1.0, 3.0, 4.0))))
 ## UNION
 ## (SELECT AVG(&quot;order_total&quot;) AS &quot;mean&quot;
-## FROM datawarehouse.v_orders
+## FROM retail.v_orders
 ## WHERE (&quot;date_month&quot; IN (2.0, 4.0, 6.0)))</code></pre></li>
 </ol>
 </div>
@@ -601,21 +601,21 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 ## # Database: postgres [rstudio_admin@localhost:5432/postgres]
 ##    mean
 ##   &lt;dbl&gt;
-## 1  20.5
+## 1  38.0
 ## 
 ## [[2]]
 ## # Source:   lazy query [?? x 1]
 ## # Database: postgres [rstudio_admin@localhost:5432/postgres]
 ##    mean
 ##   &lt;dbl&gt;
-## 1  20.6
+## 1  38.2
 ## 
 ## [[3]]
 ## # Source:   lazy query [?? x 1]
 ## # Database: postgres [rstudio_admin@localhost:5432/postgres]
 ##    mean
 ##   &lt;dbl&gt;
-## 1  20.6</code></pre></li>
+## 1  38.3</code></pre></li>
 <li><p>Add the <code>reduce()</code> operation</p>
 <div class="sourceCode" id="cb303"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb303-1" data-line-number="1"><span class="kw">map2</span>(</a>
 <a class="sourceLine" id="cb303-2" data-line-number="2">  ranges<span class="op">$</span>from, </a>
@@ -629,9 +629,9 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 ## # Database: postgres [rstudio_admin@localhost:5432/postgres]
 ##    mean
 ##   &lt;dbl&gt;
-## 1  20.6
-## 2  20.6
-## 3  20.5</code></pre></li>
+## 1  38.3
+## 2  38.0
+## 3  38.2</code></pre></li>
 <li><p>Add a <code>show_query()</code> step to see how the final query was constructed.</p>
 <div class="sourceCode" id="cb305"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb305-1" data-line-number="1"><span class="kw">map2</span>(</a>
 <a class="sourceLine" id="cb305-2" data-line-number="2">  ranges<span class="op">$</span>from, </a>
@@ -644,15 +644,15 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <a class="sourceLine" id="cb305-9" data-line-number="9"><span class="kw">show_query</span>()</a></code></pre></div>
 <pre><code>## &lt;SQL&gt;
 ## ((SELECT AVG(&quot;order_total&quot;) AS &quot;mean&quot;
-## FROM datawarehouse.v_orders
+## FROM retail.v_orders
 ## WHERE (&quot;date_month&quot; &gt;= 1.0 AND &quot;date_month&quot; &lt;= 4.0))
 ## UNION
 ## (SELECT AVG(&quot;order_total&quot;) AS &quot;mean&quot;
-## FROM datawarehouse.v_orders
+## FROM retail.v_orders
 ## WHERE (&quot;date_month&quot; &gt;= 2.0 AND &quot;date_month&quot; &lt;= 5.0)))
 ## UNION
 ## (SELECT AVG(&quot;order_total&quot;) AS &quot;mean&quot;
-## FROM datawarehouse.v_orders
+## FROM retail.v_orders
 ## WHERE (&quot;date_month&quot; &gt;= 3.0 AND &quot;date_month&quot; &lt;= 7.0))</code></pre></li>
 </ol>
 </div>
@@ -708,16 +708,16 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 ## # Database: postgres [rstudio_admin@localhost:5432/postgres]
 ##      new
 ##    &lt;dbl&gt;
-##  1 10.9 
-##  2 29.4 
-##  3 31.0 
-##  4 42   
-##  5 27.2 
-##  6 12.7 
-##  7 11.3 
-##  8  5.47
-##  9 19.9 
-## 10 18.6 
+##  1 27.9 
+##  2 24.8 
+##  3 42.2 
+##  4 16.6 
+##  5 32.6 
+##  6  6.7 
+##  7 46.8 
+##  8 15.8 
+##  9  9.69
+## 10 21.6 
 ## # … with more rows</code></pre></li>
 <li><p>Pipe the code into <code>show_query()</code></p>
 <div class="sourceCode" id="cb314"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb314-1" data-line-number="1">orders <span class="op">%&gt;%</span></a>
@@ -726,7 +726,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <a class="sourceLine" id="cb314-4" data-line-number="4"><span class="st">  </span><span class="kw">show_query</span>()</a></code></pre></div>
 <pre><code>## &lt;SQL&gt;
 ## SELECT &quot;order_total&quot; AS &quot;new&quot;
-## FROM datawarehouse.v_orders</code></pre></li>
+## FROM retail.v_orders</code></pre></li>
 </ol>
 
 </div>

@@ -27,8 +27,8 @@ library(config)
     con <- connection_open(
       RPostgres::Postgres(),
       host =  "localhost",
-      user = get("user", config = "datawarehouse"),
-      password = get("password", config = "datawarehouse"),
+      user = get("user", config = "retail"),
+      password = get("password", config = "retail"),
       port = 5432,
       dbname = "postgres",
       bigint = "integer"
@@ -48,12 +48,12 @@ library(config)
 
 1. Add `in_schema()` as an argument to `tbl()` to specify the schema.  The default schema is called: "main"
     ```{r, eval = eval_db}
-    tbl(con, in_schema("datawarehouse", "customer"))
+    tbl(con, in_schema("retail", "customer"))
     ```
 
 1. Load the results from the `tbl()` command that points the table called **orders** to a variable called `orders` 
     ```{r, eval = eval_db}
-    orders <- tbl(con, in_schema("datawarehouse", "orders"))
+    orders <- tbl(con, in_schema("retail", "orders"))
     ```
     
     

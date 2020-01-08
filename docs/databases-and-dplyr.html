@@ -230,8 +230,8 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <div class="sourceCode" id="cb126"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb126-1" data-line-number="1">con &lt;-<span class="st"> </span><span class="kw">connection_open</span>(</a>
 <a class="sourceLine" id="cb126-2" data-line-number="2">  RPostgres<span class="op">::</span><span class="kw">Postgres</span>(),</a>
 <a class="sourceLine" id="cb126-3" data-line-number="3">  <span class="dt">host =</span>  <span class="st">&quot;localhost&quot;</span>,</a>
-<a class="sourceLine" id="cb126-4" data-line-number="4">  <span class="dt">user =</span> <span class="kw">get</span>(<span class="st">&quot;user&quot;</span>, <span class="dt">config =</span> <span class="st">&quot;datawarehouse&quot;</span>),</a>
-<a class="sourceLine" id="cb126-5" data-line-number="5">  <span class="dt">password =</span> <span class="kw">get</span>(<span class="st">&quot;password&quot;</span>, <span class="dt">config =</span> <span class="st">&quot;datawarehouse&quot;</span>),</a>
+<a class="sourceLine" id="cb126-4" data-line-number="4">  <span class="dt">user =</span> <span class="kw">get</span>(<span class="st">&quot;user&quot;</span>, <span class="dt">config =</span> <span class="st">&quot;retail&quot;</span>),</a>
+<a class="sourceLine" id="cb126-5" data-line-number="5">  <span class="dt">password =</span> <span class="kw">get</span>(<span class="st">&quot;password&quot;</span>, <span class="dt">config =</span> <span class="st">&quot;retail&quot;</span>),</a>
 <a class="sourceLine" id="cb126-6" data-line-number="6">  <span class="dt">port =</span> <span class="dv">5432</span>,</a>
 <a class="sourceLine" id="cb126-7" data-line-number="7">  <span class="dt">dbname =</span> <span class="st">&quot;postgres&quot;</span>,</a>
 <a class="sourceLine" id="cb126-8" data-line-number="8">  <span class="dt">bigint =</span> <span class="st">&quot;integer&quot;</span></a>
@@ -247,8 +247,8 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li><p>Load the <code>dplyr</code> package</p>
 <div class="sourceCode" id="cb127"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb127-1" data-line-number="1"><span class="kw">library</span>(dplyr)</a></code></pre></div></li>
 <li><p>Add <code>in_schema()</code> as an argument to <code>tbl()</code> to specify the schema. The default schema is called: “main”</p>
-<div class="sourceCode" id="cb128"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb128-1" data-line-number="1"><span class="kw">tbl</span>(con, <span class="kw">in_schema</span>(<span class="st">&quot;datawarehouse&quot;</span>, <span class="st">&quot;customer&quot;</span>))</a></code></pre></div>
-<pre><code>## # Source:   table&lt;datawarehouse.customer&gt; [?? x 6]
+<div class="sourceCode" id="cb128"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb128-1" data-line-number="1"><span class="kw">tbl</span>(con, <span class="kw">in_schema</span>(<span class="st">&quot;retail&quot;</span>, <span class="st">&quot;customer&quot;</span>))</a></code></pre></div>
+<pre><code>## # Source:   table&lt;retail.customer&gt; [?? x 6]
 ## # Database: postgres [rstudio_admin@localhost:5432/postgres]
 ##    customer_id customer_name  customer_phone customer_cc customer_lon customer_lat
 ##          &lt;int&gt; &lt;chr&gt;          &lt;chr&gt;          &lt;chr&gt;              &lt;dbl&gt;        &lt;dbl&gt;
@@ -264,7 +264,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 ## 10          10 Ms. Ciarra Bo… 964-240-3124   4893126879…        -122.         37.8
 ## # … with more rows</code></pre></li>
 <li><p>Load the results from the <code>tbl()</code> command that points the table called <strong>orders</strong> to a variable called <code>orders</code></p>
-<div class="sourceCode" id="cb130"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb130-1" data-line-number="1">orders &lt;-<span class="st"> </span><span class="kw">tbl</span>(con, <span class="kw">in_schema</span>(<span class="st">&quot;datawarehouse&quot;</span>, <span class="st">&quot;orders&quot;</span>))</a></code></pre></div></li>
+<div class="sourceCode" id="cb130"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb130-1" data-line-number="1">orders &lt;-<span class="st"> </span><span class="kw">tbl</span>(con, <span class="kw">in_schema</span>(<span class="st">&quot;retail&quot;</span>, <span class="st">&quot;orders&quot;</span>))</a></code></pre></div></li>
 </ol>
 </div>
 <div id="under-the-hood" class="section level2">
@@ -275,39 +275,39 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <div class="sourceCode" id="cb131"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb131-1" data-line-number="1"><span class="kw">show_query</span>(orders)</a></code></pre></div>
 <pre><code>## &lt;SQL&gt;
 ## SELECT *
-## FROM datawarehouse.orders</code></pre></li>
+## FROM retail.orders</code></pre></li>
 <li><p>Easily view the resulting query by adding <code>show_query()</code> in another piped command</p>
 <div class="sourceCode" id="cb133"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb133-1" data-line-number="1">orders <span class="op">%&gt;%</span></a>
 <a class="sourceLine" id="cb133-2" data-line-number="2"><span class="st">  </span><span class="kw">show_query</span>()</a></code></pre></div>
 <pre><code>## &lt;SQL&gt;
 ## SELECT *
-## FROM datawarehouse.orders</code></pre></li>
+## FROM retail.orders</code></pre></li>
 <li><p>Insert <code>head()</code> in between the two statements to see how the SQL changes</p>
 <div class="sourceCode" id="cb135"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb135-1" data-line-number="1">orders <span class="op">%&gt;%</span></a>
 <a class="sourceLine" id="cb135-2" data-line-number="2"><span class="st">  </span><span class="kw">head</span>() <span class="op">%&gt;%</span></a>
 <a class="sourceLine" id="cb135-3" data-line-number="3"><span class="st">  </span><span class="kw">show_query</span>()</a></code></pre></div>
 <pre><code>## &lt;SQL&gt;
 ## SELECT *
-## FROM datawarehouse.orders
+## FROM retail.orders
 ## LIMIT 6</code></pre></li>
 <li><p>Use <code>sql_render()</code> and <code>simulate_mssql()</code> to see how the SQL statement changes from vendor to vendor</p>
 <div class="sourceCode" id="cb137"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb137-1" data-line-number="1">orders <span class="op">%&gt;%</span></a>
 <a class="sourceLine" id="cb137-2" data-line-number="2"><span class="st">  </span><span class="kw">head</span>() <span class="op">%&gt;%</span></a>
 <a class="sourceLine" id="cb137-3" data-line-number="3"><span class="st">  </span><span class="kw">sql_render</span>(<span class="dt">con =</span> <span class="kw">simulate_mssql</span>()) </a></code></pre></div>
 <pre><code>## &lt;SQL&gt; SELECT TOP(6) *
-## FROM datawarehouse.orders</code></pre></li>
+## FROM retail.orders</code></pre></li>
 <li><p>Use <code>explain()</code> to explore the query plan</p>
 <div class="sourceCode" id="cb139"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb139-1" data-line-number="1">orders <span class="op">%&gt;%</span><span class="st"> </span></a>
 <a class="sourceLine" id="cb139-2" data-line-number="2"><span class="st">  </span><span class="kw">head</span>() <span class="op">%&gt;%</span><span class="st"> </span></a>
 <a class="sourceLine" id="cb139-3" data-line-number="3"><span class="st">  </span><span class="kw">explain</span>()</a></code></pre></div>
 <pre><code>## &lt;SQL&gt;
 ## SELECT *
-## FROM datawarehouse.orders
+## FROM retail.orders
 ## LIMIT 6
 ## 
 ## &lt;PLAN&gt;
 ## Limit  (cost=0.00..0.09 rows=6 width=12)
-##   -&gt;  Seq Scan on orders  (cost=0.00..1541.81 rows=100081 width=12)</code></pre></li>
+##   -&gt;  Seq Scan on orders  (cost=0.00..15406.47 rows=1000047 width=12)</code></pre></li>
 </ol>
 </div>
 <div id="un-translated-r-commands" class="section level2">
@@ -320,14 +320,14 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <a class="sourceLine" id="cb141-3" data-line-number="3"><span class="st">  </span><span class="kw">show_query</span>()</a></code></pre></div>
 <pre><code>## &lt;SQL&gt;
 ## SELECT &quot;order_id&quot;, &quot;customer_id&quot;, &quot;step_id&quot;, Sys.time() AS &quot;today&quot;
-## FROM datawarehouse.orders</code></pre></li>
+## FROM retail.orders</code></pre></li>
 <li><p>Use SQLite’s native commands, in this case <code>date()</code></p>
 <div class="sourceCode" id="cb143"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb143-1" data-line-number="1">orders <span class="op">%&gt;%</span></a>
 <a class="sourceLine" id="cb143-2" data-line-number="2"><span class="st">  </span><span class="kw">mutate</span>(<span class="dt">today =</span> <span class="kw">date</span>(<span class="st">&#39;now&#39;</span>)) <span class="op">%&gt;%</span></a>
 <a class="sourceLine" id="cb143-3" data-line-number="3"><span class="st">  </span><span class="kw">show_query</span>()</a></code></pre></div>
 <pre><code>## &lt;SQL&gt;
 ## SELECT &quot;order_id&quot;, &quot;customer_id&quot;, &quot;step_id&quot;, date(&#39;now&#39;) AS &quot;today&quot;
-## FROM datawarehouse.orders</code></pre></li>
+## FROM retail.orders</code></pre></li>
 <li><p>Run the <code>dplyr</code> code to confirm it works</p>
 <div class="sourceCode" id="cb145"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb145-1" data-line-number="1">orders <span class="op">%&gt;%</span></a>
 <a class="sourceLine" id="cb145-2" data-line-number="2"><span class="st">  </span><span class="kw">mutate</span>(<span class="dt">today =</span> <span class="kw">date</span>(<span class="st">&#39;now&#39;</span>)) <span class="op">%&gt;%</span></a>
@@ -337,12 +337,12 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 ## # Database: postgres [rstudio_admin@localhost:5432/postgres]
 ##   today     
 ##   &lt;date&gt;    
-## 1 2019-12-31
-## 2 2019-12-31
-## 3 2019-12-31
-## 4 2019-12-31
-## 5 2019-12-31
-## 6 2019-12-31</code></pre></li>
+## 1 2020-01-08
+## 2 2020-01-08
+## 3 2020-01-08
+## 4 2020-01-08
+## 5 2020-01-08
+## 6 2020-01-08</code></pre></li>
 </ol>
 </div>
 <div id="using-bang-bang" class="section level2">
@@ -354,8 +354,8 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <a class="sourceLine" id="cb147-2" data-line-number="2"><span class="st">  </span><span class="kw">mutate</span>(<span class="dt">today =</span> <span class="op">!!</span><span class="kw">Sys.time</span>()) <span class="op">%&gt;%</span></a>
 <a class="sourceLine" id="cb147-3" data-line-number="3"><span class="st">  </span><span class="kw">show_query</span>()</a></code></pre></div>
 <pre><code>## &lt;SQL&gt;
-## SELECT &quot;order_id&quot;, &quot;customer_id&quot;, &quot;step_id&quot;, &#39;2019-12-31T15:58:33Z&#39; AS &quot;today&quot;
-## FROM datawarehouse.orders</code></pre></li>
+## SELECT &quot;order_id&quot;, &quot;customer_id&quot;, &quot;step_id&quot;, &#39;2020-01-08T21:22:28Z&#39; AS &quot;today&quot;
+## FROM retail.orders</code></pre></li>
 <li><p>View resulting table when <code>Sys.time()</code> is translated when prefixing <code>!!</code></p>
 <div class="sourceCode" id="cb149"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb149-1" data-line-number="1">orders <span class="op">%&gt;%</span></a>
 <a class="sourceLine" id="cb149-2" data-line-number="2"><span class="st">  </span><span class="kw">mutate</span>(<span class="dt">today =</span> <span class="op">!!</span><span class="kw">Sys.time</span>()) <span class="op">%&gt;%</span></a>
@@ -365,12 +365,12 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 ## # Database: postgres [rstudio_admin@localhost:5432/postgres]
 ##   today               
 ##   &lt;chr&gt;               
-## 1 2019-12-31T15:58:34Z
-## 2 2019-12-31T15:58:34Z
-## 3 2019-12-31T15:58:34Z
-## 4 2019-12-31T15:58:34Z
-## 5 2019-12-31T15:58:34Z
-## 6 2019-12-31T15:58:34Z</code></pre></li>
+## 1 2020-01-08T21:22:28Z
+## 2 2020-01-08T21:22:28Z
+## 3 2020-01-08T21:22:28Z
+## 4 2020-01-08T21:22:28Z
+## 5 2020-01-08T21:22:28Z
+## 6 2020-01-08T21:22:28Z</code></pre></li>
 </ol>
 
 </div>

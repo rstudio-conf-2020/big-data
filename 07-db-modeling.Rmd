@@ -25,8 +25,8 @@ library(config)
     con <- connection_open(
       RPostgres::Postgres(),
       host =  "localhost",
-      user = get("user", config = "datawarehouse"),
-      password = get("password", config = "datawarehouse"),
+      user = get("user", config = "retail"),
+      password = get("password", config = "retail"),
       port = 5432,
       dbname = "postgres",
       bigint = "integer"
@@ -35,12 +35,12 @@ library(config)
 
 2. Set the `orders` variable to point to the **orders** table
     ```{r, eval = eval_model}
-    orders <- tbl(con, in_schema("datawarehouse", "orders"))
+    orders <- tbl(con, in_schema("retail", "orders"))
     ```
 
 3. Set the `orders_view` variable to point to the **v_orders** table
     ```{r, eval = eval_model}
-    orders_view <- tbl(con, in_schema("datawarehouse", "v_orders"))
+    orders_view <- tbl(con, in_schema("retail", "v_orders"))
     ```
 
 4. Pipe `orders` into the function `show_query()`

@@ -6,7 +6,7 @@ default:
   pwd: "postgres"
   dbname: "postgres"
   bigint: "integer"
-datawarehouse:
+retail:
   host: "localhost"
   user: "rstudio_admin"
   port: 5432

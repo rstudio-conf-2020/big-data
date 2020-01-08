@@ -241,6 +241,12 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 ##   str.col_spec     vroom</code></pre>
 <pre><code>## 
 ## Attaching package: &#39;readr&#39;</code></pre>
+<pre><code>## The following object is masked from &#39;package:yardstick&#39;:
+## 
+##     spec</code></pre>
+<pre><code>## The following object is masked from &#39;package:scales&#39;:
+## 
+##     col_factor</code></pre>
 <pre><code>## The following objects are masked from &#39;package:vroom&#39;:
 ## 
 ##     as.col_spec, col_character, col_date, col_datetime, col_double,
@@ -248,12 +254,6 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 ##     col_skip, col_time, cols, cols_condense, cols_only, date_names,
 ##     date_names_lang, date_names_langs, default_locale, fwf_cols,
 ##     fwf_empty, fwf_positions, fwf_widths, locale, output_column, spec</code></pre>
-<pre><code>## The following object is masked from &#39;package:yardstick&#39;:
-## 
-##     spec</code></pre>
-<pre><code>## The following object is masked from &#39;package:scales&#39;:
-## 
-##     col_factor</code></pre>
 <div class="sourceCode" id="cb364"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb364-1" data-line-number="1"><span class="kw">library</span>(purrr)</a></code></pre></div></li>
 <li><p>Read the top 5 rows of the <strong>transactions_1</strong> CSV file</p>
 <div class="sourceCode" id="cb365"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb365-1" data-line-number="1">top_rows &lt;-<span class="st"> </span><span class="kw">read_csv</span>(<span class="st">&quot;/usr/share/class/files/transactions_1.csv&quot;</span>, <span class="dt">n_max =</span> <span class="dv">5</span>)</a></code></pre></div>

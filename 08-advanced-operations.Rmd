@@ -29,8 +29,8 @@ library(purrr)
     con <- connection_open(
       RPostgres::Postgres(),
       host =  "localhost",
-      user = get("user", config = "datawarehouse"),
-      password = get("password", config = "datawarehouse"),
+      user = get("user", config = "retail"),
+      password = get("password", config = "retail"),
       port = 5432,
       dbname = "postgres",
       bigint = "integer"
@@ -39,7 +39,7 @@ library(purrr)
 
 3. Create a variable that points to the **v_orders** table
     ```{r, eval = eval_adv}
-    orders <- tbl(con, in_schema("datawarehouse", "v_orders"))
+    orders <- tbl(con, in_schema("retail", "v_orders"))
     ```
 
 
