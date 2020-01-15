@@ -28,7 +28,7 @@ library(keyring)
     
 1. Use `dbConnect` to connect to a database using the `odbc` function and a DSN
     ```{r, eval = eval_connections}
-    con <- dbConnect(odbc(), "Postgres DSN")
+    con <- dbConnect(odbc(), "Postgres Dev")
     ```
     
 1. Disconnect using `dbDisconnect`
