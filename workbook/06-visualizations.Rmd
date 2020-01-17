@@ -5,7 +5,6 @@ if(Sys.getenv("GLOBAL_EVAL") != "") eval_viz <- Sys.getenv("GLOBAL_EVAL")
 
 ```{r, eval = eval_viz, include = FALSE}
 library(connections)
-library(RSQLite)
 library(dplyr)
 library(dbplyr)
 library(dbplot)
@@ -20,10 +19,11 @@ library(config)
 ## Simple plot
 *Practice pushing the calculations to the database*
 
-1. Load the `connections` and `dplyr` libraries
+1. Load the `connections`, `dplyr`, `dbplyr`, and `config` libraries
     ```{r, eval = eval_viz}
     library(connections)
     library(dplyr)
+    library(dbplyr)
     library(config)
     ```
 
@@ -32,8 +32,8 @@ library(config)
     con <- connection_open(
       RPostgres::Postgres(),
       host =  "localhost",
-      user = get("user", config = "retail"),
-      password = get("password", config = "retail"),
+      user = get("user", config = "dev"),
+      password = get("pwd", config = "dev"),
       port = 5432,
       dbname = "postgres",
       bigint = "integer"
@@ -65,7 +65,7 @@ library(config)
 
 1. Plot results using `ggplot2`
     ```{r, eval = eval_viz}
-      ggplot(by_year) +
+    ggplot(by_year) +
       geom_col(aes(date_year, n)) 
     ```
 
@@ -81,20 +81,20 @@ library(config)
 ## Plot in one code segment
 *Practice going from `dplyr` to `ggplot2` without using pass-through variable, great for EDA*
 
-1. Summarize the order totals in a new variable called: *sales*
+1. Summarize the order totals in a new variable called `sales`
     ```{r, eval = eval_viz}
     orders %>%
       summarise(sales = sum(order_total))
     ```
 
-1. Summarize the order totals in a new variable called: *sales*
+1. Summarize the order totals grouped by `date_year` in a new variable called `sales`
     ```{r, eval = eval_viz}
     orders %>%
       group_by(date_year) %>%
       summarise(sales = sum(order_total))
     ```
     
-1. Summarize the order totals in a new variable called: *sales*
+1. Summarize the order totals grouped by `date_year` in a new variable called `sales` and plot the results
     ```{r, eval = eval_viz}
     orders %>%
       group_by(date_year) %>%
@@ -127,8 +127,7 @@ library(config)
       dbplot_histogram(order_total)
     ```
 
-
-2. Adjust the `binwidth` to 300
+2. Adjust the `binwidth` to 10
     ```{r, eval = eval_viz}
     orders %>%
       dbplot_histogram(order_total, binwidth = 10)
