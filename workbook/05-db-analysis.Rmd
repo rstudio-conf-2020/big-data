@@ -68,6 +68,16 @@ library(config)
     ```{r, eval = eval_db}
     show_query(orders)
     ```
+    
+1. When executed, `orders` returns the first 1000 rows of the remote **orders** table
+    ```{r}
+    orders
+    ```
+
+1. Full results of a remote query can be brought into R with `collect`
+    ```{r}
+    local_orders <- collect(orders)
+    ```
 
 1. Easily view the resulting query by adding `show_query()` in another piped command
     ```{r, eval = eval_db}
@@ -79,6 +89,15 @@ library(config)
     ```{r, eval = eval_db}
     orders %>%
       head() %>%
+      show_query()
+    ```
+    
+1. Queries can be assigned to variables. Create a variable called `orders_head` that contains the previous query
+    ```{r}
+    orders_head <- orders %>% 
+      head()
+    
+    orders_head %>% 
       show_query()
     ```
 
