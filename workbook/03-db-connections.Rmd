@@ -12,6 +12,13 @@ library(keyring)
 
 # Introduction to database connections
 
+## Connect with the Connections pane
+*Connect using the features of the RStudio IDE*
+
+1. The connections pane (top right hand corner of the RStudio IDE) can guide through establishing database connections.
+![](images/connections-pane.gif)
+
+
 ## Connecting via DSN
 *Connect using defined Data Source Name (DSN). This requires an ODBC driver.*
 
@@ -28,7 +35,7 @@ library(keyring)
     
 1. Use `dbConnect` to connect to a database using the `odbc` function and a DSN
     ```{r, eval = eval_connections}
-    con <- dbConnect(odbc(), "Postgres DSN")
+    con <- dbConnect(odbc(), "Postgres Dev")
     ```
     
 1. Disconnect using `dbDisconnect`
@@ -44,8 +51,8 @@ library(keyring)
     con <- dbConnect(odbc(),
                      driver = "postgresql",
                      host = "localhost",
-                     user = "postgres",
-                     pwd = "postgres",
+                     user = "rstudio_dev",
+                     pwd = "dev_user",
                      port = 5432,
                      database = "postgres",
                      bigint = "integer")
@@ -96,9 +103,8 @@ library(keyring)
     library(keyring)
     ```
 
-1. Store the database host, username, and password using `keyring`
+1. Store the database username and password using `keyring`. The username is `rstudio_dev` and the password is `dev_user`
     ```{r, eval = eval_connections}
-    key_set("postgres", "host")
     key_set("postgres", "username")
     key_set("postgres", "password")
     ```
@@ -107,7 +113,7 @@ library(keyring)
     ```{r, eval = eval_connections}
     con <- dbConnect(odbc(),
                      driver = "postgresql",
-                     host = key_get("postgres", "host"),
+                     host = "localhost",
                      user = key_get("postgres", "username"),
                      pwd = key_get("postgres", "password"),
                      port = 5432,
@@ -115,21 +121,21 @@ library(keyring)
                      bigint = "integer")
     ```
 
-1. Discnonect using `dbDisconnect`
+1. Discnonnect using `dbDisconnect`
     ```{r, eval = eval_connections}
     dbDisconnect(con)
     ```
 
-1. The `.Renviron` file contains entries to create environment variables for `PG_HOST`, `PG_USER`, and `PG_PWD`. These variables can be read using `Sys.getenv()`.
+1. The `.Renviron` file contains entries to create environment variables for `PG_USER` and `PG_PWD`. These variables can be read using `Sys.getenv()`.
     ```{r, eval = eval_connections}
-    Sys.getenv("PG_HOST")
+    Sys.getenv("PG_USER")
     ```
 
 1. Connect to the database using the credentials stored in `.Renviron` and `Sys.getenv()`
     ```{r, eval = eval_connections}
     con <- dbConnect(odbc(),
                      driver = "postgresql",
-                     host = Sys.getenv("PG_HOST"),
+                     host = "localhost",
                      user = Sys.getenv("PG_USER"),
                      pwd = Sys.getenv("PG_PWD"),
                      port = 5432,
@@ -137,7 +143,47 @@ library(keyring)
                      bigint = "integer")
     ```
     
-1. Discnonect using `dbDisconnect`
+1. Disconnect using `dbDisconnect`
     ```{r, eval = eval_connections}
     dbDisconnect(con)
     ```
+
+1. Store connection details using `options()`
+    ```{r}
+    options(pg_user = "rstudio_dev", pg_pwd = "dev_user")
+    ```
+
+1. Connect using the credentials accessed via `getOption`
+    ```{r}
+    con <- dbConnect(odbc(),
+                     driver = "postgresql",
+                     host = "localhost",
+                     user = getOption("pg_user"),
+                     pwd = getOption("pg_pwd"),
+                     port = 5432,
+                     database = "postgres",
+                     bigint = "integer")
+    ```
+    
+1. Disconnect using `dbDisconnect`
+    ```{r}
+    dbDisconnect(con)
+    ```
+
+1. Interactively prompt users for input using `rstudioapi::askForPassword()`
+    ```{r}
+    con <- dbConnect(odbc(),
+                     driver = "postgresql",
+                     host = "localhost",
+                     user = rstudioapi::askForPassword("DB User"),
+                     pwd = rstudioapi::askForPassword("DB Password"),
+                     port = 5432,
+                     database = "postgres",
+                     bigint = "integer")
+    ```
+
+1. Disconnect using `dbDisconnect`
+    ```{r}
+    dbDisconnect(con)
+    ```
+

@@ -27,8 +27,8 @@ library(config)
     con <- connection_open(
       RPostgres::Postgres(),
       host =  "localhost",
-      user = get("user", config = "retail"),
-      password = get("password", config = "retail"),
+      user = get("user", config = "dev"),
+      password = get("pwd", config = "dev"),
       port = 5432,
       dbname = "postgres",
       bigint = "integer"
@@ -36,7 +36,7 @@ library(config)
     ```
     
 1. The RStudio Connections pane should show the tables in the database
-<img src="images/04-conn-pane.png" align="center" width="400px"> 
+<img src="images/05-conn-pane.png" align="center" width="500px"> 
 
 ## Table reference
 *Use the `dplyr`'s `tbl()` command*
@@ -46,7 +46,7 @@ library(config)
     library(dplyr)
     ```
 
-1. Add `in_schema()` as an argument to `tbl()` to specify the schema.  The default schema is called: "main"
+1. Add `in_schema()` as an argument to `tbl()` to specify the schema
     ```{r, eval = eval_db}
     tbl(con, in_schema("retail", "customer"))
     ```
@@ -56,13 +56,27 @@ library(config)
     orders <- tbl(con, in_schema("retail", "orders"))
     ```
     
-    
+1. Use the `class` function to determine the object type of `orders`
+    ```{r}
+    class(orders)
+    ```
+
 ## Under the hood 
 *Use `show_query()` to preview the SQL statement that will be sent to the database*
 
 1. Use `show_query()` to preview SQL statement that actually runs when we run `orders` as a command
     ```{r, eval = eval_db}
     show_query(orders)
+    ```
+    
+1. When executed, `orders` returns the first 1000 rows of the remote **orders** table
+    ```{r}
+    orders
+    ```
+
+1. Full results of a remote query can be brought into R with `collect`
+    ```{r}
+    local_orders <- collect(orders)
     ```
 
 1. Easily view the resulting query by adding `show_query()` in another piped command
@@ -75,6 +89,15 @@ library(config)
     ```{r, eval = eval_db}
     orders %>%
       head() %>%
+      show_query()
+    ```
+    
+1. Queries can be assigned to variables. Create a variable called `orders_head` that contains the previous query
+    ```{r}
+    orders_head <- orders %>% 
+      head()
+    
+    orders_head %>% 
       show_query()
     ```
 
@@ -95,14 +118,21 @@ library(config)
 ## Un-translated R commands
 *Review of how `dbplyr` handles R commands that have not been translated into a like-SQL command*
 
-1. Preview how `Sys.time()` is translated
-    ```{r, eval = eval_db}
-    orders %>%
-      mutate(today = Sys.time()) %>%
+1. Preview how `mean` is translated
+    ```{r}
+    orders %>% 
+      mutate(avg_id = mean(order_id, na.rm = TRUE)) %>% 
       show_query()
     ```
 
-1. Use SQLite's native commands, in this case `date()`
+1. Preview how `Sys.Date()` is translated
+    ```{r, eval = eval_db}
+    orders %>%
+      mutate(today = Sys.Date()) %>%
+      show_query()
+    ```
+
+1. Use PostgreSQL native commands, in this case `date`
     ```{r, eval = eval_db}
     orders %>%
       mutate(today = date('now')) %>%
@@ -113,24 +143,22 @@ library(config)
     ```{r, eval = eval_db}
     orders %>%
       mutate(today = date('now')) %>%
-      select(today) %>%
       head()
     ```
 
 ## Using bang-bang
 *Intro on passing unevaluated code to a dplyr verb*
 
-1. Preview how `Sys.time()` is translated when prefixing `!!`
+1. Preview how `Sys.Date()` is translated when prefixing `!!`
     ```{r, eval = eval_db}
     orders %>%
-      mutate(today = !!Sys.time()) %>%
+      mutate(today = !!Sys.Date()) %>%
       show_query()
     ```
 
-1. View resulting table when `Sys.time()` is translated when prefixing `!!`
+1. View resulting table when `Sys.Date()` is translated when prefixing `!!`
     ```{r, eval = eval_db}
     orders %>%
-      mutate(today = !!Sys.time()) %>%
-      select(today) %>%
+      mutate(today = !!Sys.Date()) %>%
       head()
     ```

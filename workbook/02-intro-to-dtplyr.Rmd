@@ -29,7 +29,7 @@ library(purrr)
 
 1. Read the **transactions.csv** file, from the **/usr/share/class/files** folder. Use the `fread()` function to load the data into a variable called `transactions`
     ```{r, eval = eval_dtplyr}
-    transactions <- dir_ls("/usr/share/class/files", glob = "*.csv") %>%
+    transactions <- dir_ls("~/Documents/RStudio/projects/big-data-class/files", glob = "*.csv") %>%
        map(fread) %>%
        rbindlist()
     ```
@@ -39,19 +39,12 @@ library(purrr)
     glimpse(transactions)
     ```
 
-1. Load the `dplyr` and `dtplyr` libraries
-    ```{r, eval = eval_dtplyr}
-    library(dplyr)
-    library(dtplyr)
-    ```
-
-1. Use the `lazy_dt()` to "wrap" the `transactions` variable, into a new variable called `dt_transactions`
+1. Use `lazy_dt()` to "wrap" the `transactions` variable into a new variable called `dt_transactions`
     ```{r, eval = eval_dtplyr}
     dt_transactions <- lazy_dt(transactions)
     ```
 
-
-1. View the `dt_transactions` variable's structure with `glimpse()`
+1. View `dt_transactions` structure with `glimpse()`
     ```{r, eval = eval_dtplyr}
     glimpse(dt_transactions)
     ```
@@ -105,6 +98,51 @@ library(purrr)
     ```{r, eval = eval_dtplyr}
     glimpse(by_month)
     ```
+    
+1. Create a new column using `mutate()`
+    ```{r, eval = eval_dtplyr}
+    dt_transactions %>%
+      mutate(new_field = price / 2)
+    ```
+
+1. Use `show_query()` to see the `copy()` command being used
+    ```{r, eval = eval_dtplyr}
+    dt_transactions %>%
+      mutate(new_field = price / 2) %>%
+      show_query()
+    ```
+
+1. Check to confirm that the new column *did not* persist in `dt_transactions`
+    ```{r}
+    dt_transactions
+    ```
+
+1. Use `lazy_dt()` with the `immutable` argument set to `FALSE` to avoid the copy
+```{r}
+m_transactions <- lazy_dt(copy(transactions), immutable = FALSE)
+```
+
+```{r}
+m_transactions
+```
+
+1. Create a `new_field` column in `m_transactions` using `mutate()`
+    ```{r}
+    m_transactions %>% 
+      mutate(new_field = price / 2)
+    ```
+
+1. Use `show_query()` to see that `copy()` is no longer being used
+    ```{r}
+    m_transactions %>% 
+      mutate(new_field = price / 2) %>% 
+      show_query()
+    ```
+
+1. Inspect `m_transactions` to see that `new_field` has persisted
+    ```{r}
+    m_transactions
+    ```
 
 ## Working with `dtplyr`
 *Learn data conversion and basic visualization techniques*
@@ -143,7 +181,7 @@ library(purrr)
       summarise(total_sales = sum(price))
     ```
 
-1. Copy the aggregation code above, **then collect it into a `tibble`**, and then use `pivot_wider()` to make the `date_day` the column headers.
+1. Copy the aggregation code above, **collect it into a `tibble`**, and then use `pivot_wider()` to make the `date_day` the column headers.
     ```{r, eval = eval_dtplyr}
     dt_transactions %>%
       group_by(date_month, date_day) %>% 
@@ -151,23 +189,3 @@ library(purrr)
       as_tibble() %>%
       pivot_wider(names_from = date_day, values_from = total_sales)
     ```
-
-
-## The `mutate()` verb
-*See how `dtplyr` creates a copy of the original `data.table` object in order to make the `mutate` operation work the same as it does on `dtplr`*
-
-1. Use `mutate()` and `show_query()` to see the `copy()` command being used
-    ```{r, eval = eval_dtplyr}
-    dt_transactions %>%
-      mutate(new_field = price / 2) %>%
-      show_query()
-    ```
-
-1. Use `lazy_dt()` with the `immutable` argument set to `FALSE` to avoid the copy
-    ```{r, eval = eval_dtplyr}
-    lazy_dt(transactions, immutable = FALSE) %>%
-      mutate(new_field = price / 2) %>%
-      show_query()
-    ```
-
-

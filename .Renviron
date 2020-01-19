@@ -1,0 +1,2 @@
+PG_USER = rstudio_dev
+PG_PWD = dev_user

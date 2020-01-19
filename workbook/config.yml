@@ -1,15 +1,15 @@
 default:
   driver: "postgresql"
   host: "localhost"
-  user: "postgres"
+  user: "rstudio_dev"
   port: 5432
-  pwd: "postgres"
+  pwd: "dev_user"
   dbname: "postgres"
   bigint: "integer"
-retail:
+prod:
   host: "localhost"
-  user: "rstudio_admin"
+  user: "rstudio_prod"
   port: 5432
-  password: "admin_user_be_careful"
+  password: "prod_user"
   dbname: "postgres"
   bigint: "integer"
