@@ -29,7 +29,7 @@ library(purrr)
 
 1. Read the **transactions.csv** file, from the **/usr/share/class/files** folder. Use the `fread()` function to load the data into a variable called `transactions`
     ```{r, eval = eval_dtplyr}
-    transactions <- dir_ls("~/Documents/RStudio/projects/big-data-class/files", glob = "*.csv") %>%
+    transactions <- dir_ls("/usr/share/class/files", glob = "*.csv") %>%
        map(fread) %>%
        rbindlist()
     ```
