@@ -229,3 +229,8 @@ locations %>%
     )
 ```
 
+1. Disconnect from the database using `connection_close`
+    ```{r}
+    connection_close(con)
+    ```
+
