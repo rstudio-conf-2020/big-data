@@ -125,7 +125,7 @@ library(dplyr)
     
 1. Remove the `transactions` variable at the end of each cycle    
     ```{r, eval = eval_vroom}
-    all_orders <- NULL
+    orders <- NULL
     for(i in seq_along(files)) {
       transactions <- vroom(files[i], n_max = 1000, col_types = vr_spec, 
                            col_select = list(order_id, date, customer_name, price))
