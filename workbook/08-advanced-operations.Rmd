@@ -29,8 +29,8 @@ library(purrr)
     con <- connection_open(
       RPostgres::Postgres(),
       host =  "localhost",
-      user = get("user", config = "retail"),
-      password = get("password", config = "retail"),
+      user = get("user"),
+      password = get("pwd"),
       port = 5432,
       dbname = "postgres",
       bigint = "integer"
