@@ -118,13 +118,13 @@ library(purrr)
     ```
 
 1. Use `lazy_dt()` with the `immutable` argument set to `FALSE` to avoid the copy
-```{r}
-m_transactions <- lazy_dt(copy(transactions), immutable = FALSE)
-```
+    ```{r}
+    m_transactions <- lazy_dt(copy(transactions), immutable = FALSE)
+    ```
 
-```{r}
-m_transactions
-```
+    ```{r}
+    m_transactions
+    ```
 
 1. Create a `new_field` column in `m_transactions` using `mutate()`
     ```{r}
