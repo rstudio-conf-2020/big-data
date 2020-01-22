@@ -27,8 +27,8 @@ library(config)
     con <- connection_open(
       RPostgres::Postgres(),
       host =  "localhost",
-      user = get("user", config = "retail"),
-      password = get("password", config = "retail"),
+      user = get("user", config = "dev"),
+      password = get("pwd", config = "dev"),
       port = 5432,
       dbname = "postgres",
       bigint = "integer"
@@ -36,7 +36,6 @@ library(config)
     ```
     
 3. The RStudio Connections pane should show the tables in the database
-<img src="images/04-conn-pane.png" align="center" width="400px"> 
 
 ## Table reference
 *Use the `dplyr`'s `tbl()` command*
@@ -46,7 +45,7 @@ library(config)
     library(dplyr)
     ```
 
-2. Add `in_schema()` as an argument to `tbl()` to specify the schema.  The default schema is called: "main"
+2. Add `in_schema()` as an argument to `tbl()` to specify the schema
     ```{r, eval = eval_db}
     tbl(con, in_schema("retail", "customer"))
     ```
@@ -56,7 +55,11 @@ library(config)
     orders <- tbl(con, in_schema("retail", "orders"))
     ```
     
-    
+4. Use the `class` function to determine the object type of `orders`
+    ```{r}
+    class(orders)
+    ```
+
 ## Under the hood 
 *Use `show_query()` to preview the SQL statement that will be sent to the database*
 
@@ -64,28 +67,47 @@ library(config)
     ```{r, eval = eval_db}
     show_query(orders)
     ```
+    
+2. When executed, `orders` returns the first 1000 rows of the remote **orders** table
+    ```{r}
+    orders
+    ```
 
-2. Easily view the resulting query by adding `show_query()` in another piped command
+3. Full results of a remote query can be brought into R with `collect`
+    ```{r}
+    local_orders <- collect(orders)
+    ```
+
+4. Easily view the resulting query by adding `show_query()` in another piped command
     ```{r, eval = eval_db}
     orders %>%
       show_query()
     ```
 
-3. Insert `head()` in between the two statements to see how the SQL changes
+5. Insert `head()` in between the two statements to see how the SQL changes
     ```{r, eval = eval_db}
     orders %>%
       head() %>%
       show_query()
     ```
+    
+6. Queries can be assigned to variables. Create a variable called `orders_head` that contains the previous query
+    ```{r}
+    orders_head <- orders %>% 
+      head()
+    
+    orders_head %>% 
+      show_query()
+    ```
 
-4. Use `sql_render()` and `simulate_mssql()` to see how the SQL statement changes from vendor to vendor
+7. Use `sql_render()` and `simulate_mssql()` to see how the SQL statement changes from vendor to vendor
     ```{r, eval = eval_db}
     orders %>%
       head() %>%
       sql_render(con = simulate_mssql()) 
     ```
 
-5. Use `explain()` to explore the query plan
+8. Use `explain()` to explore the query plan
     ```{r, eval = eval_db}
     orders %>% 
       head() %>% 
@@ -95,42 +117,53 @@ library(config)
 ## Un-translated R commands
 *Review of how `dbplyr` handles R commands that have not been translated into a like-SQL command*
 
-1. Preview how `Sys.time()` is translated
-    ```{r, eval = eval_db}
-    orders %>%
-      mutate(today = Sys.time()) %>%
+1. Preview how `mean` is translated
+    ```{r}
+    orders %>% 
+      mutate(avg_id = mean(order_id, na.rm = TRUE)) %>% 
       show_query()
     ```
 
-2. Use SQLite's native commands, in this case `date()`
+2. Preview how `Sys.Date()` is translated
+    ```{r, eval = eval_db}
+    orders %>%
+      mutate(today = Sys.Date()) %>%
+      show_query()
+    ```
+
+3. Use PostgreSQL native commands, in this case `date`
     ```{r, eval = eval_db}
     orders %>%
       mutate(today = date('now')) %>%
       show_query()
     ```
 
-3. Run the `dplyr` code to confirm it works
+4. Run the `dplyr` code to confirm it works
     ```{r, eval = eval_db}
     orders %>%
       mutate(today = date('now')) %>%
-      select(today) %>%
       head()
     ```
 
 ## Using bang-bang
 *Intro on passing unevaluated code to a dplyr verb*
 
-1. Preview how `Sys.time()` is translated when prefixing `!!`
+1. Preview how `Sys.Date()` is translated when prefixing `!!`
     ```{r, eval = eval_db}
     orders %>%
-      mutate(today = !!Sys.time()) %>%
+      mutate(today = !!Sys.Date()) %>%
       show_query()
     ```
 
-2. View resulting table when `Sys.time()` is translated when prefixing `!!`
+2. View resulting table when `Sys.Date()` is translated when prefixing `!!`
     ```{r, eval = eval_db}
     orders %>%
-      mutate(today = !!Sys.time()) %>%
-      select(today) %>%
+      mutate(today = !!Sys.Date()) %>%
       head()
     ```
+
+3. Disconnect from the database using `connection_close`
+    ```{r}
+    connection_close(con)
+    ```
+
