@@ -29,7 +29,7 @@ library(purrr)
 
 1. Read the **transactions.csv** file, from the **/usr/share/class/files** folder. Use the `fread()` function to load the data into a variable called `transactions`
     ```{r, eval = eval_dtplyr}
-    transactions <- dir_ls("~/Documents/RStudio/projects/big-data-class/files", glob = "*.csv") %>%
+    transactions <- dir_ls("/usr/share/class/files", glob = "*.csv") %>%
        map(fread) %>%
        rbindlist()
     ```
@@ -118,13 +118,13 @@ library(purrr)
     ```
 
 1. Use `lazy_dt()` with the `immutable` argument set to `FALSE` to avoid the copy
-```{r}
-m_transactions <- lazy_dt(copy(transactions), immutable = FALSE)
-```
+    ```{r}
+    m_transactions <- lazy_dt(copy(transactions), immutable = FALSE)
+    ```
 
-```{r}
-m_transactions
-```
+    ```{r}
+    m_transactions
+    ```
 
 1. Create a `new_field` column in `m_transactions` using `mutate()`
     ```{r}

@@ -1,3 +1,7 @@
+```{r setup}
+knitr::opts_chunk$set(connection = "con", max.print = 5)
+```
+
 ```{r intro-to-dbi, include = FALSE}
 eval_dbi <- FALSE
 if(Sys.getenv("GLOBAL_EVAL") != "") eval_dbi <- Sys.getenv("GLOBAL_EVAL")
@@ -17,7 +21,7 @@ library(DBI)
     library(DBI)
     ```
 
-2. Use `dbConnect()` to open a Database connection
+2. Use `dbConnect` to open a database connection
     ```{r, eval = TRUE}
     con <- dbConnect(RSQLite::SQLite(), "mydatabase.sqlite")
     ```
@@ -63,12 +67,12 @@ library(DBI)
  Error: Table db_mtcars exists in database, and both overwrite and append are FALSE
 ```
 
-3. Use the `append` argument in `dbWriteTable()` to add the data in the **db_mtcars** table
+3. Use the `append` argument in `dbWriteTable()` to add to the data in the **db_mtcars** table
     ```{r, eval = eval_dbi}
     dbWriteTable(con, "db_mtcars", mtcars, append = TRUE)
     ```
 
-4. Using `dbGetQuery()`, check the current record count of **db_mtcars**, pass the following query: "select count() from db_mtcars"
+4. Using `dbGetQuery()`, check the current record count of **db_mtcars** with the following query: "select count() from db_mtcars"
     ```{r, eval = eval_dbi}
     dbGetQuery(con, "select count() from db_mtcars")
     ```
@@ -84,9 +88,9 @@ library(DBI)
     ```
 
 ## Database operations
-*Understand how to use `dbSendStatement()` to modify the database*
+*Understand how to use `dbSendStatement()` and `dbExecute()` to modify the database*
 
-1. Use `dbSendStatement()` to pass a SQL commands that deletes any automatic car form `db_mtcars`: "delete from db_mtcars where am = 1". Load the command to a variable called `rs`
+1. Use `dbSendStatement()` to pass a SQL commands that deletes any automatic car from `db_mtcars`: "delete from db_mtcars where am = 1". Load the command to a variable called `rs`
     ```{r, eval = eval_dbi}
     rs <- dbSendStatement(con, "delete from db_mtcars where am = 1")
     ```
@@ -116,7 +120,27 @@ library(DBI)
     rs
     ```
 
-7. Check the record count of `db_mtcars` again, the new count should be 19 (32 original records - 13 deleted records)
+7. Check the record count of **db_mtcars** again, the new count should be 19 (32 original records - 13 deleted records)
+    ```{r, eval = eval_dbi}
+    dbGetQuery(con, "select count() from db_mtcars")
+    ```
+
+8. Use `dbWriteTable()` to overwrite **db_mtcars** with the value of `mtcars`
+    ```{r, eval = eval_dbi}
+    dbWriteTable(con, "db_mtcars", mtcars, overwrite = TRUE)
+    ```
+    
+9. Use `dbExeceute()` to delete rows where am = 1 using the same query as before. Load the results in a variable called `rs`
+    ```{r}
+    rs <- dbExecute(con, "delete from db_mtcars where am = 1")
+    ```
+    
+10. `rs` contains the number of rows affected by the satement that was executed
+    ```{r}
+    rs
+    ```
+    
+11. Check the record count of **db_mtcars** again.
     ```{r, eval = eval_dbi}
     dbGetQuery(con, "select count() from db_mtcars")
     ```
@@ -124,42 +148,42 @@ library(DBI)
 ## `knitr` SQL engine
 *See how to run SQL queries as code chunks*
 
-1. Start a new code chunk, but using `sql` instead of `r` as the first argument of the chunk.  Also add `connection=con` as another argument of the chunk. 
-````markdown
+1. Start a new code chunk, but using `sql` instead of `r` as the first argument of the chunk.  Also add `connection=con` as another argument of the chunk.
+
     `r ''````{sql, connection=con}
     select * from db_mtcars
-    ```
-````
+    `r ''````
+
 ```{sql, connection=con, echo = FALSE}
 select * from db_mtcars
 ```
 
 2. Add the `max.print` options to the chunk, and set it to 5
-````markdown
+
     `r ''````{sql, connection=con, max.print = 5}
     select * from db_mtcars
-    ```
-````
+    `r ''````
+
 ```{sql, connection=con, echo = FALSE, max.print = 5}
 select * from db_mtcars
 ```
 
-3. Set defaults for the `sql` chunks by using the `knitr::opts_chunk$set()` command
-```{r, eval = TRUE}
-knitr::opts_chunk$set(connection = "con", max.print = 5)
-```
+3. Set defaults for the `sql` chunks by using the `knitr::opts_chunk$set()` command in the `setup` at the beginning of the document.
+    `r ''````{r setup}
+    knitr::opts_chunk$set(connection = "con", max.print = 5)
+    `r ''````
 
 4. Run the same query in a new `sql` chunk, but without any other argument
-````markdown
+
     `r ''````{sql}
     select * from db_mtcars
-    ```
-````
+    `r ''````
+
 ```{sql, echo = FALSE}
 select * from db_mtcars
 ```
 
-5. Store the results of the query into an R object called **local_mtcars** using 
+5. Store the results of the query into an R object called `local_mtcars` using 
 the `output.var` option.
 ```{sql, output.var = "local_mtcars"}
 select * from db_mtcars
