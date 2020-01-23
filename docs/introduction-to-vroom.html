@@ -145,12 +145,12 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="2.3" data-path="introduction-to-dtplyr.html"><a href="introduction-to-dtplyr.html#how-dtplyr-works"><i class="fa fa-check"></i><b>2.3</b> How <code>dtplyr</code> works</a></li>
 <li class="chapter" data-level="2.4" data-path="introduction-to-dtplyr.html"><a href="introduction-to-dtplyr.html#working-with-dtplyr"><i class="fa fa-check"></i><b>2.4</b> Working with <code>dtplyr</code></a></li>
 <li class="chapter" data-level="2.5" data-path="introduction-to-dtplyr.html"><a href="introduction-to-dtplyr.html#pivot-data"><i class="fa fa-check"></i><b>2.5</b> Pivot data</a></li>
-<li class="chapter" data-level="2.6" data-path="introduction-to-dtplyr.html"><a href="introduction-to-dtplyr.html#the-mutate-verb"><i class="fa fa-check"></i><b>2.6</b> The <code>mutate()</code> verb</a></li>
 </ul></li>
 <li class="chapter" data-level="3" data-path="introduction-to-database-connections.html"><a href="introduction-to-database-connections.html"><i class="fa fa-check"></i><b>3</b> Introduction to database connections</a><ul>
-<li class="chapter" data-level="3.1" data-path="introduction-to-database-connections.html"><a href="introduction-to-database-connections.html#connecting-via-dsn"><i class="fa fa-check"></i><b>3.1</b> Connecting via DSN</a></li>
-<li class="chapter" data-level="3.2" data-path="introduction-to-database-connections.html"><a href="introduction-to-database-connections.html#connect-with-a-connection-string"><i class="fa fa-check"></i><b>3.2</b> Connect with a connection string</a></li>
-<li class="chapter" data-level="3.3" data-path="introduction-to-database-connections.html"><a href="introduction-to-database-connections.html#secure-connection-details"><i class="fa fa-check"></i><b>3.3</b> Secure connection details</a></li>
+<li class="chapter" data-level="3.1" data-path="introduction-to-database-connections.html"><a href="introduction-to-database-connections.html#connect-with-the-connections-pane"><i class="fa fa-check"></i><b>3.1</b> Connect with the Connections pane</a></li>
+<li class="chapter" data-level="3.2" data-path="introduction-to-database-connections.html"><a href="introduction-to-database-connections.html#connecting-via-dsn"><i class="fa fa-check"></i><b>3.2</b> Connecting via DSN</a></li>
+<li class="chapter" data-level="3.3" data-path="introduction-to-database-connections.html"><a href="introduction-to-database-connections.html#connect-with-a-connection-string"><i class="fa fa-check"></i><b>3.3</b> Connect with a connection string</a></li>
+<li class="chapter" data-level="3.4" data-path="introduction-to-database-connections.html"><a href="introduction-to-database-connections.html#secure-connection-details"><i class="fa fa-check"></i><b>3.4</b> Secure connection details</a></li>
 </ul></li>
 <li class="chapter" data-level="4" data-path="introduction-to-dbi.html"><a href="introduction-to-dbi.html"><i class="fa fa-check"></i><b>4</b> Introduction to <code>DBI</code></a><ul>
 <li class="chapter" data-level="4.1" data-path="introduction-to-dbi.html"><a href="introduction-to-dbi.html#local-database-basics"><i class="fa fa-check"></i><b>4.1</b> Local database basics</a></li>
@@ -443,19 +443,19 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <a class="sourceLine" id="cb29-8" data-line-number="8"><span class="st">    </span><span class="kw">bind_rows</span>(orders)</a>
 <a class="sourceLine" id="cb29-9" data-line-number="9">}</a></code></pre></div></li>
 <li><p>Remove the <code>transactions</code> variable at the end of each cycle</p>
-<div class="sourceCode" id="cb30"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb30-1" data-line-number="1">all_orders &lt;-<span class="st"> </span><span class="ot">NULL</span></a>
+<div class="sourceCode" id="cb30"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb30-1" data-line-number="1">orders &lt;-<span class="st"> </span><span class="ot">NULL</span></a>
 <a class="sourceLine" id="cb30-2" data-line-number="2"><span class="cf">for</span>(i <span class="cf">in</span> <span class="kw">seq_along</span>(files)) {</a>
 <a class="sourceLine" id="cb30-3" data-line-number="3">  transactions &lt;-<span class="st"> </span><span class="kw">vroom</span>(files[i], <span class="dt">n_max =</span> <span class="dv">1000</span>, <span class="dt">col_types =</span> vr_spec, </a>
 <a class="sourceLine" id="cb30-4" data-line-number="4">                       <span class="dt">col_select =</span> <span class="kw">list</span>(order_id, date, customer_name, price))</a>
 <a class="sourceLine" id="cb30-5" data-line-number="5">  orders &lt;-<span class="st"> </span>transactions <span class="op">%&gt;%</span></a>
 <a class="sourceLine" id="cb30-6" data-line-number="6"><span class="st">    </span><span class="kw">group_by</span>(order_id) <span class="op">%&gt;%</span></a>
 <a class="sourceLine" id="cb30-7" data-line-number="7"><span class="st">    </span><span class="kw">summarise</span>(<span class="dt">total_sales =</span> <span class="kw">sum</span>(price), <span class="dt">no_items =</span> <span class="kw">n</span>()) <span class="op">%&gt;%</span></a>
-<a class="sourceLine" id="cb30-8" data-line-number="8"><span class="st">    </span><span class="kw">bind_rows</span>(all_orders)</a>
+<a class="sourceLine" id="cb30-8" data-line-number="8"><span class="st">    </span><span class="kw">bind_rows</span>(orders)</a>
 <a class="sourceLine" id="cb30-9" data-line-number="9">  <span class="kw">rm</span>(transactions)</a>
 <a class="sourceLine" id="cb30-10" data-line-number="10">}</a></code></pre></div></li>
 <li><p>Preview the <code>orders</code> variable</p>
 <div class="sourceCode" id="cb31"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb31-1" data-line-number="1">orders</a></code></pre></div>
-<pre><code>## # A tibble: 89 x 3
+<pre><code>## # A tibble: 715 x 3
 ##    order_id total_sales no_items
 ##       &lt;dbl&gt;       &lt;dbl&gt;    &lt;int&gt;
 ##  1    41865        50.9        8
@@ -468,7 +468,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 ##  8    41872        60.4        8
 ##  9    41873        76.2       10
 ## 10    41874        75.7       12
-## # … with 79 more rows</code></pre></li>
+## # … with 705 more rows</code></pre></li>
 </ol>
 
 </div>

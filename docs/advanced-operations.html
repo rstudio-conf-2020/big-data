@@ -145,12 +145,12 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="2.3" data-path="introduction-to-dtplyr.html"><a href="introduction-to-dtplyr.html#how-dtplyr-works"><i class="fa fa-check"></i><b>2.3</b> How <code>dtplyr</code> works</a></li>
 <li class="chapter" data-level="2.4" data-path="introduction-to-dtplyr.html"><a href="introduction-to-dtplyr.html#working-with-dtplyr"><i class="fa fa-check"></i><b>2.4</b> Working with <code>dtplyr</code></a></li>
 <li class="chapter" data-level="2.5" data-path="introduction-to-dtplyr.html"><a href="introduction-to-dtplyr.html#pivot-data"><i class="fa fa-check"></i><b>2.5</b> Pivot data</a></li>
-<li class="chapter" data-level="2.6" data-path="introduction-to-dtplyr.html"><a href="introduction-to-dtplyr.html#the-mutate-verb"><i class="fa fa-check"></i><b>2.6</b> The <code>mutate()</code> verb</a></li>
 </ul></li>
 <li class="chapter" data-level="3" data-path="introduction-to-database-connections.html"><a href="introduction-to-database-connections.html"><i class="fa fa-check"></i><b>3</b> Introduction to database connections</a><ul>
-<li class="chapter" data-level="3.1" data-path="introduction-to-database-connections.html"><a href="introduction-to-database-connections.html#connecting-via-dsn"><i class="fa fa-check"></i><b>3.1</b> Connecting via DSN</a></li>
-<li class="chapter" data-level="3.2" data-path="introduction-to-database-connections.html"><a href="introduction-to-database-connections.html#connect-with-a-connection-string"><i class="fa fa-check"></i><b>3.2</b> Connect with a connection string</a></li>
-<li class="chapter" data-level="3.3" data-path="introduction-to-database-connections.html"><a href="introduction-to-database-connections.html#secure-connection-details"><i class="fa fa-check"></i><b>3.3</b> Secure connection details</a></li>
+<li class="chapter" data-level="3.1" data-path="introduction-to-database-connections.html"><a href="introduction-to-database-connections.html#connect-with-the-connections-pane"><i class="fa fa-check"></i><b>3.1</b> Connect with the Connections pane</a></li>
+<li class="chapter" data-level="3.2" data-path="introduction-to-database-connections.html"><a href="introduction-to-database-connections.html#connecting-via-dsn"><i class="fa fa-check"></i><b>3.2</b> Connecting via DSN</a></li>
+<li class="chapter" data-level="3.3" data-path="introduction-to-database-connections.html"><a href="introduction-to-database-connections.html#connect-with-a-connection-string"><i class="fa fa-check"></i><b>3.3</b> Connect with a connection string</a></li>
+<li class="chapter" data-level="3.4" data-path="introduction-to-database-connections.html"><a href="introduction-to-database-connections.html#secure-connection-details"><i class="fa fa-check"></i><b>3.4</b> Secure connection details</a></li>
 </ul></li>
 <li class="chapter" data-level="4" data-path="introduction-to-dbi.html"><a href="introduction-to-dbi.html"><i class="fa fa-check"></i><b>4</b> Introduction to <code>DBI</code></a><ul>
 <li class="chapter" data-level="4.1" data-path="introduction-to-dbi.html"><a href="introduction-to-dbi.html#local-database-basics"><i class="fa fa-check"></i><b>4.1</b> Local database basics</a></li>
@@ -223,124 +223,124 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <h2><span class="header-section-number">8.1</span> Simple wrapper function</h2>
 <ol style="list-style-type: decimal">
 <li><p>Load the <code>connections</code> and <code>dplyr</code> libraries</p>
-<div class="sourceCode" id="cb240"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb240-1" data-line-number="1"><span class="kw">library</span>(connections)</a>
-<a class="sourceLine" id="cb240-2" data-line-number="2"><span class="kw">library</span>(dplyr)</a>
-<a class="sourceLine" id="cb240-3" data-line-number="3"><span class="kw">library</span>(dbplyr)</a>
-<a class="sourceLine" id="cb240-4" data-line-number="4"><span class="kw">library</span>(config)</a></code></pre></div></li>
+<div class="sourceCode" id="cb270"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb270-1" data-line-number="1"><span class="kw">library</span>(connections)</a>
+<a class="sourceLine" id="cb270-2" data-line-number="2"><span class="kw">library</span>(dplyr)</a>
+<a class="sourceLine" id="cb270-3" data-line-number="3"><span class="kw">library</span>(dbplyr)</a>
+<a class="sourceLine" id="cb270-4" data-line-number="4"><span class="kw">library</span>(config)</a></code></pre></div></li>
 <li><p>Use <code>connection_open()</code> to open a Database connection</p>
-<div class="sourceCode" id="cb241"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb241-1" data-line-number="1">con &lt;-<span class="st"> </span><span class="kw">connection_open</span>(</a>
-<a class="sourceLine" id="cb241-2" data-line-number="2">  RPostgres<span class="op">::</span><span class="kw">Postgres</span>(),</a>
-<a class="sourceLine" id="cb241-3" data-line-number="3">  <span class="dt">host =</span>  <span class="st">&quot;localhost&quot;</span>,</a>
-<a class="sourceLine" id="cb241-4" data-line-number="4">  <span class="dt">user =</span> <span class="kw">get</span>(<span class="st">&quot;user&quot;</span>, <span class="dt">config =</span> <span class="st">&quot;retail&quot;</span>),</a>
-<a class="sourceLine" id="cb241-5" data-line-number="5">  <span class="dt">password =</span> <span class="kw">get</span>(<span class="st">&quot;password&quot;</span>, <span class="dt">config =</span> <span class="st">&quot;retail&quot;</span>),</a>
-<a class="sourceLine" id="cb241-6" data-line-number="6">  <span class="dt">port =</span> <span class="dv">5432</span>,</a>
-<a class="sourceLine" id="cb241-7" data-line-number="7">  <span class="dt">dbname =</span> <span class="st">&quot;postgres&quot;</span>,</a>
-<a class="sourceLine" id="cb241-8" data-line-number="8">  <span class="dt">bigint =</span> <span class="st">&quot;integer&quot;</span></a>
-<a class="sourceLine" id="cb241-9" data-line-number="9">)</a></code></pre></div></li>
+<div class="sourceCode" id="cb271"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb271-1" data-line-number="1">con &lt;-<span class="st"> </span><span class="kw">connection_open</span>(</a>
+<a class="sourceLine" id="cb271-2" data-line-number="2">  RPostgres<span class="op">::</span><span class="kw">Postgres</span>(),</a>
+<a class="sourceLine" id="cb271-3" data-line-number="3">  <span class="dt">host =</span>  <span class="st">&quot;localhost&quot;</span>,</a>
+<a class="sourceLine" id="cb271-4" data-line-number="4">  <span class="dt">user =</span> <span class="kw">get</span>(<span class="st">&quot;user&quot;</span>),</a>
+<a class="sourceLine" id="cb271-5" data-line-number="5">  <span class="dt">password =</span> <span class="kw">get</span>(<span class="st">&quot;pwd&quot;</span>),</a>
+<a class="sourceLine" id="cb271-6" data-line-number="6">  <span class="dt">port =</span> <span class="dv">5432</span>,</a>
+<a class="sourceLine" id="cb271-7" data-line-number="7">  <span class="dt">dbname =</span> <span class="st">&quot;postgres&quot;</span>,</a>
+<a class="sourceLine" id="cb271-8" data-line-number="8">  <span class="dt">bigint =</span> <span class="st">&quot;integer&quot;</span></a>
+<a class="sourceLine" id="cb271-9" data-line-number="9">)</a></code></pre></div></li>
 <li><p>Create a variable that points to the <strong>v_orders</strong> table</p>
-<div class="sourceCode" id="cb242"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb242-1" data-line-number="1">orders &lt;-<span class="st"> </span><span class="kw">tbl</span>(con, <span class="kw">in_schema</span>(<span class="st">&quot;retail&quot;</span>, <span class="st">&quot;v_orders&quot;</span>))</a></code></pre></div></li>
+<div class="sourceCode" id="cb272"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb272-1" data-line-number="1">orders &lt;-<span class="st"> </span><span class="kw">tbl</span>(con, <span class="kw">in_schema</span>(<span class="st">&quot;retail&quot;</span>, <span class="st">&quot;v_orders&quot;</span>))</a></code></pre></div></li>
 <li><p>Create a simple <code>dplyr</code> call that gets the average of all order totals</p>
-<div class="sourceCode" id="cb243"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb243-1" data-line-number="1">orders <span class="op">%&gt;%</span></a>
-<a class="sourceLine" id="cb243-2" data-line-number="2"><span class="st">  </span><span class="kw">summarise</span>(<span class="dt">mean =</span> <span class="kw">mean</span>(order_total, <span class="dt">na.rm =</span> <span class="ot">TRUE</span>))</a></code></pre></div>
+<div class="sourceCode" id="cb273"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb273-1" data-line-number="1">orders <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb273-2" data-line-number="2"><span class="st">  </span><span class="kw">summarise</span>(<span class="dt">mean =</span> <span class="kw">mean</span>(order_total, <span class="dt">na.rm =</span> <span class="ot">TRUE</span>))</a></code></pre></div>
 <pre><code>## # Source:   lazy query [?? x 1]
 ## # Database: postgres [rstudio_admin@localhost:5432/postgres]
 ##    mean
 ##   &lt;dbl&gt;
 ## 1  38.0</code></pre></li>
 <li><p>Load the <code>rlang</code> library</p>
-<div class="sourceCode" id="cb245"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb245-1" data-line-number="1"><span class="kw">library</span>(rlang)</a></code></pre></div></li>
+<div class="sourceCode" id="cb275"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb275-1" data-line-number="1"><span class="kw">library</span>(rlang)</a></code></pre></div></li>
 <li><p>Create a new function call <code>my_mean()</code> that will take an argument, <code>x</code>, and then returns the results of <code>enquo(x)</code></p>
-<div class="sourceCode" id="cb246"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb246-1" data-line-number="1">my_mean &lt;-<span class="st"> </span><span class="cf">function</span>(x){</a>
-<a class="sourceLine" id="cb246-2" data-line-number="2">  <span class="kw">enquo</span>(x)</a>
-<a class="sourceLine" id="cb246-3" data-line-number="3">}</a></code></pre></div></li>
+<div class="sourceCode" id="cb276"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb276-1" data-line-number="1">my_mean &lt;-<span class="st"> </span><span class="cf">function</span>(x){</a>
+<a class="sourceLine" id="cb276-2" data-line-number="2">  <span class="kw">enquo</span>(x)</a>
+<a class="sourceLine" id="cb276-3" data-line-number="3">}</a></code></pre></div></li>
 <li><p>Test the new function. It should return the same variable name, but inside quosure. Use <code>order_total</code> as its argument’s value to test</p>
-<div class="sourceCode" id="cb247"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb247-1" data-line-number="1"><span class="kw">my_mean</span>(order_total)</a></code></pre></div>
+<div class="sourceCode" id="cb277"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb277-1" data-line-number="1"><span class="kw">my_mean</span>(order_total)</a></code></pre></div>
 <pre><code>## &lt;quosure&gt;
 ## expr: ^order_total
 ## env:  global</code></pre></li>
 <li><p>In the function, re-assign <code>x</code> to the result of <code>enquo(x)</code>, and then return <code>x</code></p>
-<div class="sourceCode" id="cb249"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb249-1" data-line-number="1">my_mean &lt;-<span class="st"> </span><span class="cf">function</span>(x){</a>
-<a class="sourceLine" id="cb249-2" data-line-number="2">  x &lt;-<span class="st"> </span><span class="kw">enquo</span>(x)</a>
-<a class="sourceLine" id="cb249-3" data-line-number="3">  x</a>
-<a class="sourceLine" id="cb249-4" data-line-number="4">}</a></code></pre></div></li>
+<div class="sourceCode" id="cb279"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb279-1" data-line-number="1">my_mean &lt;-<span class="st"> </span><span class="cf">function</span>(x){</a>
+<a class="sourceLine" id="cb279-2" data-line-number="2">  x &lt;-<span class="st"> </span><span class="kw">enquo</span>(x)</a>
+<a class="sourceLine" id="cb279-3" data-line-number="3">  x</a>
+<a class="sourceLine" id="cb279-4" data-line-number="4">}</a></code></pre></div></li>
 <li><p>Test the same way again, the output should match to what it was as before</p>
-<div class="sourceCode" id="cb250"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb250-1" data-line-number="1"><span class="kw">my_mean</span>(order_total)</a></code></pre></div>
+<div class="sourceCode" id="cb280"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb280-1" data-line-number="1"><span class="kw">my_mean</span>(order_total)</a></code></pre></div>
 <pre><code>## &lt;quosure&gt;
 ## expr: ^order_total
 ## env:  global</code></pre></li>
 <li><p>Remove the last line that has <code>x</code>, add the contents of the function with the initial <code>dplyr</code> code from step 3. Then replace <code>order_total</code> with <code>!! x</code></p>
-<div class="sourceCode" id="cb252"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb252-1" data-line-number="1">my_mean &lt;-<span class="st"> </span><span class="cf">function</span>(x){</a>
-<a class="sourceLine" id="cb252-2" data-line-number="2">  x &lt;-<span class="st"> </span><span class="kw">enquo</span>(x)</a>
-<a class="sourceLine" id="cb252-3" data-line-number="3">  orders <span class="op">%&gt;%</span></a>
-<a class="sourceLine" id="cb252-4" data-line-number="4"><span class="st">    </span><span class="kw">summarise</span>(<span class="dt">mean =</span> <span class="kw">mean</span>(<span class="op">!!</span><span class="st"> </span>x, <span class="dt">na.rm =</span> <span class="ot">TRUE</span>))</a>
-<a class="sourceLine" id="cb252-5" data-line-number="5">}</a></code></pre></div></li>
+<div class="sourceCode" id="cb282"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb282-1" data-line-number="1">my_mean &lt;-<span class="st"> </span><span class="cf">function</span>(x){</a>
+<a class="sourceLine" id="cb282-2" data-line-number="2">  x &lt;-<span class="st"> </span><span class="kw">enquo</span>(x)</a>
+<a class="sourceLine" id="cb282-3" data-line-number="3">  orders <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb282-4" data-line-number="4"><span class="st">    </span><span class="kw">summarise</span>(<span class="dt">mean =</span> <span class="kw">mean</span>(<span class="op">!!</span><span class="st"> </span>x, <span class="dt">na.rm =</span> <span class="ot">TRUE</span>))</a>
+<a class="sourceLine" id="cb282-5" data-line-number="5">}</a></code></pre></div></li>
 <li><p>Test the new function by passing <code>order_total</code> as <code>x</code></p>
-<div class="sourceCode" id="cb253"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb253-1" data-line-number="1"><span class="kw">my_mean</span>(order_total)</a></code></pre></div>
+<div class="sourceCode" id="cb283"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb283-1" data-line-number="1"><span class="kw">my_mean</span>(order_total)</a></code></pre></div>
 <pre><code>## # Source:   lazy query [?? x 1]
 ## # Database: postgres [rstudio_admin@localhost:5432/postgres]
 ##    mean
 ##   &lt;dbl&gt;
 ## 1  38.0</code></pre></li>
 <li><p>In the <code>summarise()</code> step, replace the name <code>mean</code>, with <code>!! as_label(x)</code>, also replace the <code>=</code> sign, with <code>:=</code></p>
-<div class="sourceCode" id="cb255"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb255-1" data-line-number="1">my_mean &lt;-<span class="st"> </span><span class="cf">function</span>(x){</a>
-<a class="sourceLine" id="cb255-2" data-line-number="2">  x &lt;-<span class="st"> </span><span class="kw">enquo</span>(x)</a>
-<a class="sourceLine" id="cb255-3" data-line-number="3">  orders <span class="op">%&gt;%</span></a>
-<a class="sourceLine" id="cb255-4" data-line-number="4"><span class="st">    </span><span class="kw">summarise</span>(<span class="op">!!</span><span class="st"> </span><span class="kw">as_label</span>(x) <span class="op">:</span><span class="er">=</span><span class="st"> </span><span class="kw">mean</span>(<span class="op">!!</span><span class="st"> </span>x, <span class="dt">na.rm =</span> <span class="ot">TRUE</span>))</a>
-<a class="sourceLine" id="cb255-5" data-line-number="5">}</a></code></pre></div></li>
+<div class="sourceCode" id="cb285"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb285-1" data-line-number="1">my_mean &lt;-<span class="st"> </span><span class="cf">function</span>(x){</a>
+<a class="sourceLine" id="cb285-2" data-line-number="2">  x &lt;-<span class="st"> </span><span class="kw">enquo</span>(x)</a>
+<a class="sourceLine" id="cb285-3" data-line-number="3">  orders <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb285-4" data-line-number="4"><span class="st">    </span><span class="kw">summarise</span>(<span class="op">!!</span><span class="st"> </span><span class="kw">as_label</span>(x) <span class="op">:</span><span class="er">=</span><span class="st"> </span><span class="kw">mean</span>(<span class="op">!!</span><span class="st"> </span>x, <span class="dt">na.rm =</span> <span class="ot">TRUE</span>))</a>
+<a class="sourceLine" id="cb285-5" data-line-number="5">}</a></code></pre></div></li>
 <li><p>Run the function again, the name of the column should match the argument value</p>
-<div class="sourceCode" id="cb256"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb256-1" data-line-number="1"><span class="kw">my_mean</span>(order_total)</a></code></pre></div>
+<div class="sourceCode" id="cb286"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb286-1" data-line-number="1"><span class="kw">my_mean</span>(order_total)</a></code></pre></div>
 <pre><code>## # Source:   lazy query [?? x 1]
 ## # Database: postgres [rstudio_admin@localhost:5432/postgres]
 ##   order_total
 ##         &lt;dbl&gt;
 ## 1        38.0</code></pre></li>
 <li><p>Test the function by passing a formula, such as <code>order_total / order_qty</code></p>
-<div class="sourceCode" id="cb258"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb258-1" data-line-number="1"><span class="kw">my_mean</span>(order_total <span class="op">/</span><span class="st"> </span>order_qty)</a></code></pre></div>
+<div class="sourceCode" id="cb288"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb288-1" data-line-number="1"><span class="kw">my_mean</span>(order_total <span class="op">/</span><span class="st"> </span>order_qty)</a></code></pre></div>
 <pre><code>## # Source:   lazy query [?? x 1]
 ## # Database: postgres [rstudio_admin@localhost:5432/postgres]
 ##   `order_total/order_qty`
 ##                     &lt;dbl&gt;
 ## 1                    6.65</code></pre></li>
 <li><p>Make the function generic, add a new argument called: <code>.data</code>. Inisde the function, replace <code>orders</code> with <code>.data</code></p>
-<div class="sourceCode" id="cb260"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb260-1" data-line-number="1">my_mean &lt;-<span class="st"> </span><span class="cf">function</span>(.data, x){</a>
-<a class="sourceLine" id="cb260-2" data-line-number="2">  x &lt;-<span class="st"> </span><span class="kw">enquo</span>(x)</a>
-<a class="sourceLine" id="cb260-3" data-line-number="3">  .data <span class="op">%&gt;%</span></a>
-<a class="sourceLine" id="cb260-4" data-line-number="4"><span class="st">    </span><span class="kw">summarise</span>(<span class="op">!!</span><span class="st"> </span><span class="kw">as_label</span>(x) <span class="op">:</span><span class="er">=</span><span class="st"> </span><span class="kw">mean</span>(<span class="op">!!</span><span class="st"> </span>x, <span class="dt">na.rm =</span> <span class="ot">TRUE</span>))</a>
-<a class="sourceLine" id="cb260-5" data-line-number="5">}</a></code></pre></div></li>
+<div class="sourceCode" id="cb290"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb290-1" data-line-number="1">my_mean &lt;-<span class="st"> </span><span class="cf">function</span>(.data, x){</a>
+<a class="sourceLine" id="cb290-2" data-line-number="2">  x &lt;-<span class="st"> </span><span class="kw">enquo</span>(x)</a>
+<a class="sourceLine" id="cb290-3" data-line-number="3">  .data <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb290-4" data-line-number="4"><span class="st">    </span><span class="kw">summarise</span>(<span class="op">!!</span><span class="st"> </span><span class="kw">as_label</span>(x) <span class="op">:</span><span class="er">=</span><span class="st"> </span><span class="kw">mean</span>(<span class="op">!!</span><span class="st"> </span>x, <span class="dt">na.rm =</span> <span class="ot">TRUE</span>))</a>
+<a class="sourceLine" id="cb290-5" data-line-number="5">}</a></code></pre></div></li>
 <li><p>The function now behaves more like a <code>dplyr</code> verb. Start with <code>orders</code> and then pipe into the function</p>
-<div class="sourceCode" id="cb261"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb261-1" data-line-number="1">orders <span class="op">%&gt;%</span><span class="st"> </span></a>
-<a class="sourceLine" id="cb261-2" data-line-number="2"><span class="st">  </span><span class="kw">my_mean</span>(order_total)</a></code></pre></div>
+<div class="sourceCode" id="cb291"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb291-1" data-line-number="1">orders <span class="op">%&gt;%</span><span class="st"> </span></a>
+<a class="sourceLine" id="cb291-2" data-line-number="2"><span class="st">  </span><span class="kw">my_mean</span>(order_total)</a></code></pre></div>
 <pre><code>## # Source:   lazy query [?? x 1]
 ## # Database: postgres [rstudio_admin@localhost:5432/postgres]
 ##   order_total
 ##         &lt;dbl&gt;
 ## 1        38.0</code></pre></li>
 <li><p>Clean up the code by removing the pipe that inside the function</p>
-<div class="sourceCode" id="cb263"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb263-1" data-line-number="1">my_mean &lt;-<span class="st"> </span><span class="cf">function</span>(.data, x){</a>
-<a class="sourceLine" id="cb263-2" data-line-number="2">  x &lt;-<span class="st"> </span><span class="kw">enquo</span>(x)</a>
-<a class="sourceLine" id="cb263-3" data-line-number="3">  <span class="kw">summarise</span>(</a>
-<a class="sourceLine" id="cb263-4" data-line-number="4">    .data,</a>
-<a class="sourceLine" id="cb263-5" data-line-number="5">    <span class="op">!!</span><span class="st"> </span><span class="kw">as_label</span>(x) <span class="op">:</span><span class="er">=</span><span class="st"> </span><span class="kw">mean</span>(<span class="op">!!</span><span class="st"> </span>x, <span class="dt">na.rm =</span> <span class="ot">TRUE</span>)</a>
-<a class="sourceLine" id="cb263-6" data-line-number="6">    )</a>
-<a class="sourceLine" id="cb263-7" data-line-number="7">}</a></code></pre></div></li>
+<div class="sourceCode" id="cb293"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb293-1" data-line-number="1">my_mean &lt;-<span class="st"> </span><span class="cf">function</span>(.data, x){</a>
+<a class="sourceLine" id="cb293-2" data-line-number="2">  x &lt;-<span class="st"> </span><span class="kw">enquo</span>(x)</a>
+<a class="sourceLine" id="cb293-3" data-line-number="3">  <span class="kw">summarise</span>(</a>
+<a class="sourceLine" id="cb293-4" data-line-number="4">    .data,</a>
+<a class="sourceLine" id="cb293-5" data-line-number="5">    <span class="op">!!</span><span class="st"> </span><span class="kw">as_label</span>(x) <span class="op">:</span><span class="er">=</span><span class="st"> </span><span class="kw">mean</span>(<span class="op">!!</span><span class="st"> </span>x, <span class="dt">na.rm =</span> <span class="ot">TRUE</span>)</a>
+<a class="sourceLine" id="cb293-6" data-line-number="6">    )</a>
+<a class="sourceLine" id="cb293-7" data-line-number="7">}</a></code></pre></div></li>
 <li><p>Confirm that there is no change in the behavior of the function</p>
-<div class="sourceCode" id="cb264"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb264-1" data-line-number="1">orders <span class="op">%&gt;%</span><span class="st"> </span></a>
-<a class="sourceLine" id="cb264-2" data-line-number="2"><span class="st">  </span><span class="kw">my_mean</span>(order_total)</a></code></pre></div>
+<div class="sourceCode" id="cb294"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb294-1" data-line-number="1">orders <span class="op">%&gt;%</span><span class="st"> </span></a>
+<a class="sourceLine" id="cb294-2" data-line-number="2"><span class="st">  </span><span class="kw">my_mean</span>(order_total)</a></code></pre></div>
 <pre><code>## # Source:   lazy query [?? x 1]
 ## # Database: postgres [rstudio_admin@localhost:5432/postgres]
 ##   order_total
 ##         &lt;dbl&gt;
 ## 1        38.0</code></pre></li>
 <li><p>Add a <code>show_query()</code> step to preview the resulting SQL statement</p>
-<div class="sourceCode" id="cb266"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb266-1" data-line-number="1">orders <span class="op">%&gt;%</span><span class="st"> </span></a>
-<a class="sourceLine" id="cb266-2" data-line-number="2"><span class="st">  </span><span class="kw">my_mean</span>(order_total) <span class="op">%&gt;%</span></a>
-<a class="sourceLine" id="cb266-3" data-line-number="3"><span class="st">  </span><span class="kw">show_query</span>()</a></code></pre></div>
+<div class="sourceCode" id="cb296"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb296-1" data-line-number="1">orders <span class="op">%&gt;%</span><span class="st"> </span></a>
+<a class="sourceLine" id="cb296-2" data-line-number="2"><span class="st">  </span><span class="kw">my_mean</span>(order_total) <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb296-3" data-line-number="3"><span class="st">  </span><span class="kw">show_query</span>()</a></code></pre></div>
 <pre><code>## &lt;SQL&gt;
 ## SELECT AVG(&quot;order_total&quot;) AS &quot;order_total&quot;
 ## FROM retail.v_orders</code></pre></li>
 <li><p>Try the function with a non-DB backed variable, such as <code>mtcars</code>. Use <code>mpg</code> as the aggregating variable</p>
-<div class="sourceCode" id="cb268"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb268-1" data-line-number="1">mtcars <span class="op">%&gt;%</span><span class="st"> </span></a>
-<a class="sourceLine" id="cb268-2" data-line-number="2"><span class="st">  </span><span class="kw">my_mean</span>(mpg)</a></code></pre></div>
+<div class="sourceCode" id="cb298"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb298-1" data-line-number="1">mtcars <span class="op">%&gt;%</span><span class="st"> </span></a>
+<a class="sourceLine" id="cb298-2" data-line-number="2"><span class="st">  </span><span class="kw">my_mean</span>(mpg)</a></code></pre></div>
 <pre><code>##        mpg
 ## 1 20.09062</code></pre></li>
 </ol>
@@ -350,53 +350,53 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <p><em>Create functions that handle a variable number of arguments. The goal of the exercise is to create an <code>anti-select()</code> function.</em></p>
 <ol style="list-style-type: decimal">
 <li><p>Load the <code>purrr</code> package</p>
-<div class="sourceCode" id="cb270"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb270-1" data-line-number="1"><span class="kw">library</span>(purrr)</a></code></pre></div></li>
+<div class="sourceCode" id="cb300"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb300-1" data-line-number="1"><span class="kw">library</span>(purrr)</a></code></pre></div></li>
 <li><p>Use <em>…</em> as the second argument of a function called <code>de_select()</code>. Inside the function use <code>enquos()</code> to parse it</p>
-<div class="sourceCode" id="cb271"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb271-1" data-line-number="1">de_select &lt;-<span class="st"> </span><span class="cf">function</span>(.data, ...){</a>
-<a class="sourceLine" id="cb271-2" data-line-number="2">  vars &lt;-<span class="st"> </span><span class="kw">enquos</span>(...)</a>
-<a class="sourceLine" id="cb271-3" data-line-number="3">  vars</a>
-<a class="sourceLine" id="cb271-4" data-line-number="4">}</a></code></pre></div></li>
+<div class="sourceCode" id="cb301"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb301-1" data-line-number="1">de_select &lt;-<span class="st"> </span><span class="cf">function</span>(.data, ...){</a>
+<a class="sourceLine" id="cb301-2" data-line-number="2">  vars &lt;-<span class="st"> </span><span class="kw">enquos</span>(...)</a>
+<a class="sourceLine" id="cb301-3" data-line-number="3">  vars</a>
+<a class="sourceLine" id="cb301-4" data-line-number="4">}</a></code></pre></div></li>
 <li><p>Test the function using <em>airports</em></p>
-<div class="sourceCode" id="cb272"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb272-1" data-line-number="1">orders <span class="op">%&gt;%</span></a>
-<a class="sourceLine" id="cb272-2" data-line-number="2"><span class="st">  </span><span class="kw">de_select</span>(order_id, date)</a></code></pre></div>
+<div class="sourceCode" id="cb302"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb302-1" data-line-number="1">orders <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb302-2" data-line-number="2"><span class="st">  </span><span class="kw">de_select</span>(order_id, date)</a></code></pre></div>
 <pre><code>## &lt;list_of&lt;quosure&gt;&gt;
 ## 
 ## [[1]]
 ## &lt;quosure&gt;
 ## expr: ^order_id
-## env:  0x561f503bd388
+## env:  0x56001667bd80
 ## 
 ## [[2]]
 ## &lt;quosure&gt;
 ## expr: ^date
-## env:  0x561f503bd388</code></pre></li>
+## env:  0x56001667bd80</code></pre></li>
 <li><p>Add a step to the function that iterates through each quosure and prefixes a minus sign to tell <code>select()</code> to drop that specific field. Use <code>map()</code> for the iteration, and <code>quo()</code> to create the prefixed expression.</p>
-<div class="sourceCode" id="cb274"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb274-1" data-line-number="1">de_select &lt;-<span class="st"> </span><span class="cf">function</span>(.data, ...){</a>
-<a class="sourceLine" id="cb274-2" data-line-number="2">  vars &lt;-<span class="st"> </span><span class="kw">enquos</span>(...)</a>
-<a class="sourceLine" id="cb274-3" data-line-number="3">  vars &lt;-<span class="st"> </span><span class="kw">map</span>(vars, <span class="op">~</span><span class="st"> </span><span class="kw">quo</span>(<span class="op">-</span><span class="st"> </span><span class="op">!!</span><span class="st"> </span>.x))</a>
-<a class="sourceLine" id="cb274-4" data-line-number="4">  vars</a>
-<a class="sourceLine" id="cb274-5" data-line-number="5">}</a></code></pre></div></li>
+<div class="sourceCode" id="cb304"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb304-1" data-line-number="1">de_select &lt;-<span class="st"> </span><span class="cf">function</span>(.data, ...){</a>
+<a class="sourceLine" id="cb304-2" data-line-number="2">  vars &lt;-<span class="st"> </span><span class="kw">enquos</span>(...)</a>
+<a class="sourceLine" id="cb304-3" data-line-number="3">  vars &lt;-<span class="st"> </span><span class="kw">map</span>(vars, <span class="op">~</span><span class="st"> </span><span class="kw">quo</span>(<span class="op">-</span><span class="st"> </span><span class="op">!!</span><span class="st"> </span>.x))</a>
+<a class="sourceLine" id="cb304-4" data-line-number="4">  vars</a>
+<a class="sourceLine" id="cb304-5" data-line-number="5">}</a></code></pre></div></li>
 <li><p>Run the same test to view the new results</p>
-<div class="sourceCode" id="cb275"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb275-1" data-line-number="1">orders <span class="op">%&gt;%</span></a>
-<a class="sourceLine" id="cb275-2" data-line-number="2"><span class="st">  </span><span class="kw">de_select</span>(order_id, date)</a></code></pre></div>
+<div class="sourceCode" id="cb305"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb305-1" data-line-number="1">orders <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb305-2" data-line-number="2"><span class="st">  </span><span class="kw">de_select</span>(order_id, date)</a></code></pre></div>
 <pre><code>## [[1]]
 ## &lt;quosure&gt;
 ## expr: ^-^order_id
-## env:  0x561f4c206660
+## env:  0x560015a3aaf0
 ## 
 ## [[2]]
 ## &lt;quosure&gt;
 ## expr: ^-^date
-## env:  0x561f4c201d30</code></pre></li>
+## env:  0x560015a35f20</code></pre></li>
 <li><p>Add the <code>select()</code> step. Use <em>!!!</em> to parse the <em>vars</em> variable inside <code>select()</code></p>
-<div class="sourceCode" id="cb277"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb277-1" data-line-number="1">de_select &lt;-<span class="st"> </span><span class="cf">function</span>(.data, ...){</a>
-<a class="sourceLine" id="cb277-2" data-line-number="2">  vars &lt;-<span class="st"> </span><span class="kw">enquos</span>(...)</a>
-<a class="sourceLine" id="cb277-3" data-line-number="3">  vars &lt;-<span class="st"> </span><span class="kw">map</span>(vars, <span class="op">~</span><span class="st"> </span><span class="kw">quo</span>(<span class="op">-</span><span class="st"> </span><span class="op">!!</span><span class="st"> </span>.x))</a>
-<a class="sourceLine" id="cb277-4" data-line-number="4">  <span class="kw">select</span>(.data, <span class="op">!!!</span><span class="st"> </span>vars)</a>
-<a class="sourceLine" id="cb277-5" data-line-number="5">}</a></code></pre></div></li>
+<div class="sourceCode" id="cb307"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb307-1" data-line-number="1">de_select &lt;-<span class="st"> </span><span class="cf">function</span>(.data, ...){</a>
+<a class="sourceLine" id="cb307-2" data-line-number="2">  vars &lt;-<span class="st"> </span><span class="kw">enquos</span>(...)</a>
+<a class="sourceLine" id="cb307-3" data-line-number="3">  vars &lt;-<span class="st"> </span><span class="kw">map</span>(vars, <span class="op">~</span><span class="st"> </span><span class="kw">quo</span>(<span class="op">-</span><span class="st"> </span><span class="op">!!</span><span class="st"> </span>.x))</a>
+<a class="sourceLine" id="cb307-4" data-line-number="4">  <span class="kw">select</span>(.data, <span class="op">!!!</span><span class="st"> </span>vars)</a>
+<a class="sourceLine" id="cb307-5" data-line-number="5">}</a></code></pre></div></li>
 <li><p>Run the test again, this time the operation will take place.</p>
-<div class="sourceCode" id="cb278"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb278-1" data-line-number="1">orders <span class="op">%&gt;%</span></a>
-<a class="sourceLine" id="cb278-2" data-line-number="2"><span class="st">  </span><span class="kw">de_select</span>(order_id, date)</a></code></pre></div>
+<div class="sourceCode" id="cb308"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb308-1" data-line-number="1">orders <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb308-2" data-line-number="2"><span class="st">  </span><span class="kw">de_select</span>(order_id, date)</a></code></pre></div>
 <pre><code>## # Source:   lazy query [?? x 8]
 ## # Database: postgres [rstudio_admin@localhost:5432/postgres]
 ##    date_year date_month customer_id customer_name customer_lon customer_lat
@@ -413,15 +413,15 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 ## 10      2016          1          35 Mr. Commodor…        -122.         37.7
 ## # … with more rows, and 2 more variables: order_total &lt;dbl&gt;, order_qty &lt;int&gt;</code></pre></li>
 <li><p>Add a <code>show_query()</code> step to see the resulting SQL</p>
-<div class="sourceCode" id="cb280"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb280-1" data-line-number="1">orders <span class="op">%&gt;%</span></a>
-<a class="sourceLine" id="cb280-2" data-line-number="2"><span class="st">  </span><span class="kw">de_select</span>(order_id, date) <span class="op">%&gt;%</span></a>
-<a class="sourceLine" id="cb280-3" data-line-number="3"><span class="st">  </span><span class="kw">show_query</span>()</a></code></pre></div>
+<div class="sourceCode" id="cb310"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb310-1" data-line-number="1">orders <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb310-2" data-line-number="2"><span class="st">  </span><span class="kw">de_select</span>(order_id, date) <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb310-3" data-line-number="3"><span class="st">  </span><span class="kw">show_query</span>()</a></code></pre></div>
 <pre><code>## &lt;SQL&gt;
 ## SELECT &quot;date_year&quot;, &quot;date_month&quot;, &quot;customer_id&quot;, &quot;customer_name&quot;, &quot;customer_lon&quot;, &quot;customer_lat&quot;, &quot;order_total&quot;, &quot;order_qty&quot;
 ## FROM retail.v_orders</code></pre></li>
 <li><p>Test the function with a different data set, such as <code>mtcars</code></p>
-<div class="sourceCode" id="cb282"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb282-1" data-line-number="1">mtcars <span class="op">%&gt;%</span></a>
-<a class="sourceLine" id="cb282-2" data-line-number="2"><span class="st">  </span><span class="kw">de_select</span>(mpg, wt, am)</a></code></pre></div>
+<div class="sourceCode" id="cb312"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb312-1" data-line-number="1">mtcars <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb312-2" data-line-number="2"><span class="st">  </span><span class="kw">de_select</span>(mpg, wt, am)</a></code></pre></div>
 <pre><code>##                     cyl  disp  hp drat  qsec vs gear carb
 ## Mazda RX4             6 160.0 110 3.90 16.46  0    4    4
 ## Mazda RX4 Wag         6 160.0 110 3.90 17.02  0    4    4
@@ -462,24 +462,24 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <p><em>Suggested approach to avoid passing multiple, and similar, queries to the database</em></p>
 <ol style="list-style-type: decimal">
 <li><p>Create a simple <code>dplyr</code> piped operation that returns the mean of <em>order_total</em> for the months of January, February and March as a group</p>
-<div class="sourceCode" id="cb284"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb284-1" data-line-number="1">orders <span class="op">%&gt;%</span></a>
-<a class="sourceLine" id="cb284-2" data-line-number="2"><span class="st">  </span><span class="kw">filter</span>(date_month <span class="op">%in%</span><span class="st"> </span><span class="kw">c</span>(<span class="dv">1</span>,<span class="dv">2</span>,<span class="dv">3</span>)) <span class="op">%&gt;%</span></a>
-<a class="sourceLine" id="cb284-3" data-line-number="3"><span class="st">  </span><span class="kw">summarise</span>(<span class="dt">mean =</span> <span class="kw">mean</span>(order_total, <span class="dt">na.rm =</span> <span class="ot">TRUE</span>)) </a></code></pre></div>
+<div class="sourceCode" id="cb314"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb314-1" data-line-number="1">orders <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb314-2" data-line-number="2"><span class="st">  </span><span class="kw">filter</span>(date_month <span class="op">%in%</span><span class="st"> </span><span class="kw">c</span>(<span class="dv">1</span>,<span class="dv">2</span>,<span class="dv">3</span>)) <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb314-3" data-line-number="3"><span class="st">  </span><span class="kw">summarise</span>(<span class="dt">mean =</span> <span class="kw">mean</span>(order_total, <span class="dt">na.rm =</span> <span class="ot">TRUE</span>)) </a></code></pre></div>
 <pre><code>## # Source:   lazy query [?? x 1]
 ## # Database: postgres [rstudio_admin@localhost:5432/postgres]
 ##    mean
 ##   &lt;dbl&gt;
 ## 1  37.9</code></pre></li>
 <li><p>Assign the first operation to a variable called <em>a</em>, and create copy of the operation but changing the selected months to January, March and April. Assign the second one to a variable called <em>b</em>.</p>
-<div class="sourceCode" id="cb286"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb286-1" data-line-number="1">a &lt;-<span class="st"> </span>orders <span class="op">%&gt;%</span></a>
-<a class="sourceLine" id="cb286-2" data-line-number="2"><span class="st">  </span><span class="kw">filter</span>(date_month <span class="op">%in%</span><span class="st"> </span><span class="kw">c</span>(<span class="dv">1</span>,<span class="dv">2</span>,<span class="dv">3</span>)) <span class="op">%&gt;%</span></a>
-<a class="sourceLine" id="cb286-3" data-line-number="3"><span class="st">  </span><span class="kw">summarise</span>(<span class="dt">mean =</span> <span class="kw">mean</span>(order_total, <span class="dt">na.rm =</span> <span class="ot">TRUE</span>)) </a>
-<a class="sourceLine" id="cb286-4" data-line-number="4"></a>
-<a class="sourceLine" id="cb286-5" data-line-number="5">b &lt;-<span class="st"> </span>orders <span class="op">%&gt;%</span></a>
-<a class="sourceLine" id="cb286-6" data-line-number="6"><span class="st">  </span><span class="kw">filter</span>(date_month <span class="op">%in%</span><span class="st"> </span><span class="kw">c</span>(<span class="dv">1</span>,<span class="dv">3</span>,<span class="dv">4</span>)) <span class="op">%&gt;%</span></a>
-<a class="sourceLine" id="cb286-7" data-line-number="7"><span class="st">  </span><span class="kw">summarise</span>(<span class="dt">mean =</span> <span class="kw">mean</span>(order_total, <span class="dt">na.rm =</span> <span class="ot">TRUE</span>)) </a></code></pre></div></li>
+<div class="sourceCode" id="cb316"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb316-1" data-line-number="1">a &lt;-<span class="st"> </span>orders <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb316-2" data-line-number="2"><span class="st">  </span><span class="kw">filter</span>(date_month <span class="op">%in%</span><span class="st"> </span><span class="kw">c</span>(<span class="dv">1</span>,<span class="dv">2</span>,<span class="dv">3</span>)) <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb316-3" data-line-number="3"><span class="st">  </span><span class="kw">summarise</span>(<span class="dt">mean =</span> <span class="kw">mean</span>(order_total, <span class="dt">na.rm =</span> <span class="ot">TRUE</span>)) </a>
+<a class="sourceLine" id="cb316-4" data-line-number="4"></a>
+<a class="sourceLine" id="cb316-5" data-line-number="5">b &lt;-<span class="st"> </span>orders <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb316-6" data-line-number="6"><span class="st">  </span><span class="kw">filter</span>(date_month <span class="op">%in%</span><span class="st"> </span><span class="kw">c</span>(<span class="dv">1</span>,<span class="dv">3</span>,<span class="dv">4</span>)) <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb316-7" data-line-number="7"><span class="st">  </span><span class="kw">summarise</span>(<span class="dt">mean =</span> <span class="kw">mean</span>(order_total, <span class="dt">na.rm =</span> <span class="ot">TRUE</span>)) </a></code></pre></div></li>
 <li><p>Use <em>union()</em> to pass <em>a</em> and <em>b</em> at the same time to the database</p>
-<div class="sourceCode" id="cb287"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb287-1" data-line-number="1"><span class="kw">union</span>(a, b)</a></code></pre></div>
+<div class="sourceCode" id="cb317"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb317-1" data-line-number="1"><span class="kw">union</span>(a, b)</a></code></pre></div>
 <pre><code>## # Source:   lazy query [?? x 1]
 ## # Database: postgres [rstudio_admin@localhost:5432/postgres]
 ##    mean
@@ -487,8 +487,8 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 ## 1  37.9
 ## 2  38.0</code></pre></li>
 <li><p>Pipe the previous instruction to <code>show_query()</code> to confirm that the resulting query is a single one</p>
-<div class="sourceCode" id="cb289"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb289-1" data-line-number="1"><span class="kw">union</span>(a, b) <span class="op">%&gt;%</span></a>
-<a class="sourceLine" id="cb289-2" data-line-number="2"><span class="st">  </span><span class="kw">show_query</span>()</a></code></pre></div>
+<div class="sourceCode" id="cb319"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb319-1" data-line-number="1"><span class="kw">union</span>(a, b) <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb319-2" data-line-number="2"><span class="st">  </span><span class="kw">show_query</span>()</a></code></pre></div>
 <pre><code>## &lt;SQL&gt;
 ## (SELECT AVG(&quot;order_total&quot;) AS &quot;mean&quot;
 ## FROM retail.v_orders
@@ -498,18 +498,18 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 ## FROM retail.v_orders
 ## WHERE (&quot;date_month&quot; IN (1.0, 3.0, 4.0)))</code></pre></li>
 <li><p>Assign to a new variable called <em>months</em> an overlapping set of months</p>
-<div class="sourceCode" id="cb291"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb291-1" data-line-number="1">months &lt;-<span class="st"> </span><span class="kw">list</span>(</a>
-<a class="sourceLine" id="cb291-2" data-line-number="2">  <span class="kw">c</span>(<span class="dv">1</span>,<span class="dv">2</span>,<span class="dv">3</span>),</a>
-<a class="sourceLine" id="cb291-3" data-line-number="3">  <span class="kw">c</span>(<span class="dv">1</span>,<span class="dv">3</span>,<span class="dv">4</span>),</a>
-<a class="sourceLine" id="cb291-4" data-line-number="4">  <span class="kw">c</span>(<span class="dv">2</span>,<span class="dv">4</span>,<span class="dv">6</span>)</a>
-<a class="sourceLine" id="cb291-5" data-line-number="5">)</a></code></pre></div></li>
+<div class="sourceCode" id="cb321"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb321-1" data-line-number="1">months &lt;-<span class="st"> </span><span class="kw">list</span>(</a>
+<a class="sourceLine" id="cb321-2" data-line-number="2">  <span class="kw">c</span>(<span class="dv">1</span>,<span class="dv">2</span>,<span class="dv">3</span>),</a>
+<a class="sourceLine" id="cb321-3" data-line-number="3">  <span class="kw">c</span>(<span class="dv">1</span>,<span class="dv">3</span>,<span class="dv">4</span>),</a>
+<a class="sourceLine" id="cb321-4" data-line-number="4">  <span class="kw">c</span>(<span class="dv">2</span>,<span class="dv">4</span>,<span class="dv">6</span>)</a>
+<a class="sourceLine" id="cb321-5" data-line-number="5">)</a></code></pre></div></li>
 <li><p>Use <code>map()</code> to cycle through each set of overlapping months. Notice that it returns three separate results, meaning that it went to the database three times</p>
-<div class="sourceCode" id="cb292"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb292-1" data-line-number="1">months <span class="op">%&gt;%</span></a>
-<a class="sourceLine" id="cb292-2" data-line-number="2"><span class="st">  </span><span class="kw">map</span>(</a>
-<a class="sourceLine" id="cb292-3" data-line-number="3">    <span class="op">~</span><span class="st"> </span>orders <span class="op">%&gt;%</span></a>
-<a class="sourceLine" id="cb292-4" data-line-number="4"><span class="st">        </span><span class="kw">filter</span>(date_month <span class="op">%in%</span><span class="st"> </span>.x) <span class="op">%&gt;%</span></a>
-<a class="sourceLine" id="cb292-5" data-line-number="5"><span class="st">        </span><span class="kw">summarise</span>(<span class="dt">mean =</span> <span class="kw">mean</span>(order_total, <span class="dt">na.rm =</span> <span class="ot">TRUE</span>)) </a>
-<a class="sourceLine" id="cb292-6" data-line-number="6">  )</a></code></pre></div>
+<div class="sourceCode" id="cb322"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb322-1" data-line-number="1">months <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb322-2" data-line-number="2"><span class="st">  </span><span class="kw">map</span>(</a>
+<a class="sourceLine" id="cb322-3" data-line-number="3">    <span class="op">~</span><span class="st"> </span>orders <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb322-4" data-line-number="4"><span class="st">        </span><span class="kw">filter</span>(date_month <span class="op">%in%</span><span class="st"> </span>.x) <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb322-5" data-line-number="5"><span class="st">        </span><span class="kw">summarise</span>(<span class="dt">mean =</span> <span class="kw">mean</span>(order_total, <span class="dt">na.rm =</span> <span class="ot">TRUE</span>)) </a>
+<a class="sourceLine" id="cb322-6" data-line-number="6">  )</a></code></pre></div>
 <pre><code>## [[1]]
 ## # Source:   lazy query [?? x 1]
 ## # Database: postgres [rstudio_admin@localhost:5432/postgres]
@@ -531,29 +531,29 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 ##   &lt;dbl&gt;
 ## 1  38.2</code></pre></li>
 <li><p>Add a <code>reduce()</code> operation and use <code>union()</code> command to create a single query</p>
-<div class="sourceCode" id="cb294"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb294-1" data-line-number="1">months <span class="op">%&gt;%</span></a>
-<a class="sourceLine" id="cb294-2" data-line-number="2"><span class="st">  </span><span class="kw">map</span>(</a>
-<a class="sourceLine" id="cb294-3" data-line-number="3">    <span class="op">~</span><span class="st"> </span>orders <span class="op">%&gt;%</span></a>
-<a class="sourceLine" id="cb294-4" data-line-number="4"><span class="st">        </span><span class="kw">filter</span>(date_month <span class="op">%in%</span><span class="st"> </span>.x) <span class="op">%&gt;%</span></a>
-<a class="sourceLine" id="cb294-5" data-line-number="5"><span class="st">        </span><span class="kw">summarise</span>(<span class="dt">mean =</span> <span class="kw">mean</span>(order_total, <span class="dt">na.rm =</span> <span class="ot">TRUE</span>)) </a>
-<a class="sourceLine" id="cb294-6" data-line-number="6">  ) <span class="op">%&gt;%</span></a>
-<a class="sourceLine" id="cb294-7" data-line-number="7"><span class="st">  </span><span class="kw">reduce</span>(<span class="cf">function</span>(x, y) <span class="kw">union</span>(x, y))</a></code></pre></div>
+<div class="sourceCode" id="cb324"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb324-1" data-line-number="1">months <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb324-2" data-line-number="2"><span class="st">  </span><span class="kw">map</span>(</a>
+<a class="sourceLine" id="cb324-3" data-line-number="3">    <span class="op">~</span><span class="st"> </span>orders <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb324-4" data-line-number="4"><span class="st">        </span><span class="kw">filter</span>(date_month <span class="op">%in%</span><span class="st"> </span>.x) <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb324-5" data-line-number="5"><span class="st">        </span><span class="kw">summarise</span>(<span class="dt">mean =</span> <span class="kw">mean</span>(order_total, <span class="dt">na.rm =</span> <span class="ot">TRUE</span>)) </a>
+<a class="sourceLine" id="cb324-6" data-line-number="6">  ) <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb324-7" data-line-number="7"><span class="st">  </span><span class="kw">reduce</span>(<span class="cf">function</span>(x, y) <span class="kw">union</span>(x, y))</a></code></pre></div>
 <pre><code>## # Source:   lazy query [?? x 1]
 ## # Database: postgres [rstudio_admin@localhost:5432/postgres]
 ##    mean
 ##   &lt;dbl&gt;
-## 1  38.0
+## 1  37.9
 ## 2  38.2
-## 3  37.9</code></pre></li>
+## 3  38.0</code></pre></li>
 <li><p>Use <code>show_query()</code> to see the resulting single query sent to the database</p>
-<div class="sourceCode" id="cb296"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb296-1" data-line-number="1">months <span class="op">%&gt;%</span></a>
-<a class="sourceLine" id="cb296-2" data-line-number="2"><span class="st">  </span><span class="kw">map</span>(</a>
-<a class="sourceLine" id="cb296-3" data-line-number="3">    <span class="op">~</span><span class="st"> </span>orders <span class="op">%&gt;%</span></a>
-<a class="sourceLine" id="cb296-4" data-line-number="4"><span class="st">        </span><span class="kw">filter</span>(date_month <span class="op">%in%</span><span class="st"> </span>.x) <span class="op">%&gt;%</span></a>
-<a class="sourceLine" id="cb296-5" data-line-number="5"><span class="st">        </span><span class="kw">summarise</span>(<span class="dt">mean =</span> <span class="kw">mean</span>(order_total, <span class="dt">na.rm =</span> <span class="ot">TRUE</span>)) </a>
-<a class="sourceLine" id="cb296-6" data-line-number="6">  ) <span class="op">%&gt;%</span></a>
-<a class="sourceLine" id="cb296-7" data-line-number="7"><span class="st">  </span><span class="kw">reduce</span>(<span class="cf">function</span>(x, y) <span class="kw">union</span>(x, y)) <span class="op">%&gt;%</span></a>
-<a class="sourceLine" id="cb296-8" data-line-number="8"><span class="st">  </span><span class="kw">show_query</span>()</a></code></pre></div>
+<div class="sourceCode" id="cb326"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb326-1" data-line-number="1">months <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb326-2" data-line-number="2"><span class="st">  </span><span class="kw">map</span>(</a>
+<a class="sourceLine" id="cb326-3" data-line-number="3">    <span class="op">~</span><span class="st"> </span>orders <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb326-4" data-line-number="4"><span class="st">        </span><span class="kw">filter</span>(date_month <span class="op">%in%</span><span class="st"> </span>.x) <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb326-5" data-line-number="5"><span class="st">        </span><span class="kw">summarise</span>(<span class="dt">mean =</span> <span class="kw">mean</span>(order_total, <span class="dt">na.rm =</span> <span class="ot">TRUE</span>)) </a>
+<a class="sourceLine" id="cb326-6" data-line-number="6">  ) <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb326-7" data-line-number="7"><span class="st">  </span><span class="kw">reduce</span>(<span class="cf">function</span>(x, y) <span class="kw">union</span>(x, y)) <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb326-8" data-line-number="8"><span class="st">  </span><span class="kw">show_query</span>()</a></code></pre></div>
 <pre><code>## &lt;SQL&gt;
 ## ((SELECT AVG(&quot;order_total&quot;) AS &quot;mean&quot;
 ## FROM retail.v_orders
@@ -572,14 +572,14 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <h2><span class="header-section-number">8.4</span> Multiple queries with an overlapping range</h2>
 <ol style="list-style-type: decimal">
 <li><p>Create a table with a <em>from</em> and <em>to</em> ranges</p>
-<div class="sourceCode" id="cb298"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb298-1" data-line-number="1">ranges &lt;-<span class="st"> </span><span class="kw">tribble</span>(</a>
-<a class="sourceLine" id="cb298-2" data-line-number="2">  <span class="op">~</span><span class="st"> </span>from, <span class="op">~</span>to, </a>
-<a class="sourceLine" id="cb298-3" data-line-number="3">       <span class="dv">1</span>,   <span class="dv">4</span>,</a>
-<a class="sourceLine" id="cb298-4" data-line-number="4">       <span class="dv">2</span>,   <span class="dv">5</span>,</a>
-<a class="sourceLine" id="cb298-5" data-line-number="5">       <span class="dv">3</span>,   <span class="dv">7</span></a>
-<a class="sourceLine" id="cb298-6" data-line-number="6">)</a></code></pre></div></li>
+<div class="sourceCode" id="cb328"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb328-1" data-line-number="1">ranges &lt;-<span class="st"> </span><span class="kw">tribble</span>(</a>
+<a class="sourceLine" id="cb328-2" data-line-number="2">  <span class="op">~</span><span class="st"> </span>from, <span class="op">~</span>to, </a>
+<a class="sourceLine" id="cb328-3" data-line-number="3">       <span class="dv">1</span>,   <span class="dv">4</span>,</a>
+<a class="sourceLine" id="cb328-4" data-line-number="4">       <span class="dv">2</span>,   <span class="dv">5</span>,</a>
+<a class="sourceLine" id="cb328-5" data-line-number="5">       <span class="dv">3</span>,   <span class="dv">7</span></a>
+<a class="sourceLine" id="cb328-6" data-line-number="6">)</a></code></pre></div></li>
 <li><p>See how <code>map2()</code> works by passing the two variables as the <em>x</em> and <em>y</em> arguments, and adding them as the function</p>
-<div class="sourceCode" id="cb299"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb299-1" data-line-number="1"><span class="kw">map2</span>(ranges<span class="op">$</span>from, ranges<span class="op">$</span>to, <span class="op">~</span>.x <span class="op">+</span><span class="st"> </span>.y)</a></code></pre></div>
+<div class="sourceCode" id="cb329"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb329-1" data-line-number="1"><span class="kw">map2</span>(ranges<span class="op">$</span>from, ranges<span class="op">$</span>to, <span class="op">~</span>.x <span class="op">+</span><span class="st"> </span>.y)</a></code></pre></div>
 <pre><code>## [[1]]
 ## [1] 5
 ## 
@@ -589,13 +589,13 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 ## [[3]]
 ## [1] 10</code></pre></li>
 <li><p>Replace <em>x + y</em> with the <code>dplyr</code> operation from the previous exercise. In it, re-write the filter to use <em>x</em> and <em>y</em> as the month ranges</p>
-<div class="sourceCode" id="cb301"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb301-1" data-line-number="1"><span class="kw">map2</span>(</a>
-<a class="sourceLine" id="cb301-2" data-line-number="2">  ranges<span class="op">$</span>from, </a>
-<a class="sourceLine" id="cb301-3" data-line-number="3">  ranges<span class="op">$</span>to,</a>
-<a class="sourceLine" id="cb301-4" data-line-number="4">   <span class="op">~</span><span class="st"> </span>orders <span class="op">%&gt;%</span></a>
-<a class="sourceLine" id="cb301-5" data-line-number="5"><span class="st">        </span><span class="kw">filter</span>(date_month <span class="op">&gt;=</span><span class="st"> </span>.x <span class="op">&amp;</span><span class="st"> </span>date_month <span class="op">&lt;=</span><span class="st"> </span>.y) <span class="op">%&gt;%</span></a>
-<a class="sourceLine" id="cb301-6" data-line-number="6"><span class="st">        </span><span class="kw">summarise</span>(<span class="dt">mean =</span> <span class="kw">mean</span>(order_total, <span class="dt">na.rm =</span> <span class="ot">TRUE</span>)) </a>
-<a class="sourceLine" id="cb301-7" data-line-number="7">)</a></code></pre></div>
+<div class="sourceCode" id="cb331"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb331-1" data-line-number="1"><span class="kw">map2</span>(</a>
+<a class="sourceLine" id="cb331-2" data-line-number="2">  ranges<span class="op">$</span>from, </a>
+<a class="sourceLine" id="cb331-3" data-line-number="3">  ranges<span class="op">$</span>to,</a>
+<a class="sourceLine" id="cb331-4" data-line-number="4">   <span class="op">~</span><span class="st"> </span>orders <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb331-5" data-line-number="5"><span class="st">        </span><span class="kw">filter</span>(date_month <span class="op">&gt;=</span><span class="st"> </span>.x <span class="op">&amp;</span><span class="st"> </span>date_month <span class="op">&lt;=</span><span class="st"> </span>.y) <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb331-6" data-line-number="6"><span class="st">        </span><span class="kw">summarise</span>(<span class="dt">mean =</span> <span class="kw">mean</span>(order_total, <span class="dt">na.rm =</span> <span class="ot">TRUE</span>)) </a>
+<a class="sourceLine" id="cb331-7" data-line-number="7">)</a></code></pre></div>
 <pre><code>## [[1]]
 ## # Source:   lazy query [?? x 1]
 ## # Database: postgres [rstudio_admin@localhost:5432/postgres]
@@ -617,31 +617,31 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 ##   &lt;dbl&gt;
 ## 1  38.3</code></pre></li>
 <li><p>Add the <code>reduce()</code> operation</p>
-<div class="sourceCode" id="cb303"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb303-1" data-line-number="1"><span class="kw">map2</span>(</a>
-<a class="sourceLine" id="cb303-2" data-line-number="2">  ranges<span class="op">$</span>from, </a>
-<a class="sourceLine" id="cb303-3" data-line-number="3">  ranges<span class="op">$</span>to,</a>
-<a class="sourceLine" id="cb303-4" data-line-number="4">   <span class="op">~</span><span class="st"> </span>orders <span class="op">%&gt;%</span></a>
-<a class="sourceLine" id="cb303-5" data-line-number="5"><span class="st">        </span><span class="kw">filter</span>(date_month <span class="op">&gt;=</span><span class="st"> </span>.x <span class="op">&amp;</span><span class="st"> </span>date_month <span class="op">&lt;=</span><span class="st"> </span>.y) <span class="op">%&gt;%</span></a>
-<a class="sourceLine" id="cb303-6" data-line-number="6"><span class="st">        </span><span class="kw">summarise</span>(<span class="dt">mean =</span> <span class="kw">mean</span>(order_total, <span class="dt">na.rm =</span> <span class="ot">TRUE</span>)) </a>
-<a class="sourceLine" id="cb303-7" data-line-number="7">) <span class="op">%&gt;%</span></a>
-<a class="sourceLine" id="cb303-8" data-line-number="8"><span class="kw">reduce</span>(<span class="cf">function</span>(x, y) <span class="kw">union</span>(x, y))</a></code></pre></div>
+<div class="sourceCode" id="cb333"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb333-1" data-line-number="1"><span class="kw">map2</span>(</a>
+<a class="sourceLine" id="cb333-2" data-line-number="2">  ranges<span class="op">$</span>from, </a>
+<a class="sourceLine" id="cb333-3" data-line-number="3">  ranges<span class="op">$</span>to,</a>
+<a class="sourceLine" id="cb333-4" data-line-number="4">   <span class="op">~</span><span class="st"> </span>orders <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb333-5" data-line-number="5"><span class="st">        </span><span class="kw">filter</span>(date_month <span class="op">&gt;=</span><span class="st"> </span>.x <span class="op">&amp;</span><span class="st"> </span>date_month <span class="op">&lt;=</span><span class="st"> </span>.y) <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb333-6" data-line-number="6"><span class="st">        </span><span class="kw">summarise</span>(<span class="dt">mean =</span> <span class="kw">mean</span>(order_total, <span class="dt">na.rm =</span> <span class="ot">TRUE</span>)) </a>
+<a class="sourceLine" id="cb333-7" data-line-number="7">) <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb333-8" data-line-number="8"><span class="kw">reduce</span>(<span class="cf">function</span>(x, y) <span class="kw">union</span>(x, y))</a></code></pre></div>
 <pre><code>## # Source:   lazy query [?? x 1]
 ## # Database: postgres [rstudio_admin@localhost:5432/postgres]
 ##    mean
 ##   &lt;dbl&gt;
-## 1  38.3
-## 2  38.0
+## 1  38.0
+## 2  38.3
 ## 3  38.2</code></pre></li>
 <li><p>Add a <code>show_query()</code> step to see how the final query was constructed.</p>
-<div class="sourceCode" id="cb305"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb305-1" data-line-number="1"><span class="kw">map2</span>(</a>
-<a class="sourceLine" id="cb305-2" data-line-number="2">  ranges<span class="op">$</span>from, </a>
-<a class="sourceLine" id="cb305-3" data-line-number="3">  ranges<span class="op">$</span>to,</a>
-<a class="sourceLine" id="cb305-4" data-line-number="4">   <span class="op">~</span><span class="st"> </span>orders <span class="op">%&gt;%</span></a>
-<a class="sourceLine" id="cb305-5" data-line-number="5"><span class="st">        </span><span class="kw">filter</span>(date_month <span class="op">&gt;=</span><span class="st"> </span>.x <span class="op">&amp;</span><span class="st"> </span>date_month <span class="op">&lt;=</span><span class="st"> </span>.y) <span class="op">%&gt;%</span></a>
-<a class="sourceLine" id="cb305-6" data-line-number="6"><span class="st">        </span><span class="kw">summarise</span>(<span class="dt">mean =</span> <span class="kw">mean</span>(order_total, <span class="dt">na.rm =</span> <span class="ot">TRUE</span>)) </a>
-<a class="sourceLine" id="cb305-7" data-line-number="7">) <span class="op">%&gt;%</span></a>
-<a class="sourceLine" id="cb305-8" data-line-number="8"><span class="kw">reduce</span>(<span class="cf">function</span>(x, y) <span class="kw">union</span>(x, y)) <span class="op">%&gt;%</span></a>
-<a class="sourceLine" id="cb305-9" data-line-number="9"><span class="kw">show_query</span>()</a></code></pre></div>
+<div class="sourceCode" id="cb335"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb335-1" data-line-number="1"><span class="kw">map2</span>(</a>
+<a class="sourceLine" id="cb335-2" data-line-number="2">  ranges<span class="op">$</span>from, </a>
+<a class="sourceLine" id="cb335-3" data-line-number="3">  ranges<span class="op">$</span>to,</a>
+<a class="sourceLine" id="cb335-4" data-line-number="4">   <span class="op">~</span><span class="st"> </span>orders <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb335-5" data-line-number="5"><span class="st">        </span><span class="kw">filter</span>(date_month <span class="op">&gt;=</span><span class="st"> </span>.x <span class="op">&amp;</span><span class="st"> </span>date_month <span class="op">&lt;=</span><span class="st"> </span>.y) <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb335-6" data-line-number="6"><span class="st">        </span><span class="kw">summarise</span>(<span class="dt">mean =</span> <span class="kw">mean</span>(order_total, <span class="dt">na.rm =</span> <span class="ot">TRUE</span>)) </a>
+<a class="sourceLine" id="cb335-7" data-line-number="7">) <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb335-8" data-line-number="8"><span class="kw">reduce</span>(<span class="cf">function</span>(x, y) <span class="kw">union</span>(x, y)) <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb335-9" data-line-number="9"><span class="kw">show_query</span>()</a></code></pre></div>
 <pre><code>## &lt;SQL&gt;
 ## ((SELECT AVG(&quot;order_total&quot;) AS &quot;mean&quot;
 ## FROM retail.v_orders
@@ -660,12 +660,12 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <h2><span class="header-section-number">8.5</span> Characters to field names</h2>
 <ol style="list-style-type: decimal">
 <li><p>Create two character variables. One with the name of a field in <em>flights</em> and another with a new name to be given to the field</p>
-<div class="sourceCode" id="cb307"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb307-1" data-line-number="1">my_field &lt;-<span class="st"> &quot;new&quot;</span></a>
-<a class="sourceLine" id="cb307-2" data-line-number="2">orders_field &lt;-<span class="st"> &quot;order_total&quot;</span></a></code></pre></div></li>
+<div class="sourceCode" id="cb337"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb337-1" data-line-number="1">my_field &lt;-<span class="st"> &quot;new&quot;</span></a>
+<a class="sourceLine" id="cb337-2" data-line-number="2">orders_field &lt;-<span class="st"> &quot;order_total&quot;</span></a></code></pre></div></li>
 <li><p>Add a <code>mutate()</code> step that adds the new field. And then another step selecting just the new field</p>
-<div class="sourceCode" id="cb308"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb308-1" data-line-number="1">orders <span class="op">%&gt;%</span></a>
-<a class="sourceLine" id="cb308-2" data-line-number="2"><span class="st">  </span><span class="kw">mutate</span>(<span class="dt">my_field =</span> <span class="op">!!</span><span class="st"> </span>orders_field) <span class="op">%&gt;%</span></a>
-<a class="sourceLine" id="cb308-3" data-line-number="3"><span class="st">  </span><span class="kw">select</span>(my_field)</a></code></pre></div>
+<div class="sourceCode" id="cb338"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb338-1" data-line-number="1">orders <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb338-2" data-line-number="2"><span class="st">  </span><span class="kw">mutate</span>(<span class="dt">my_field =</span> <span class="op">!!</span><span class="st"> </span>orders_field) <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb338-3" data-line-number="3"><span class="st">  </span><span class="kw">select</span>(my_field)</a></code></pre></div>
 <pre><code>## # Source:   lazy query [?? x 1]
 ## # Database: postgres [rstudio_admin@localhost:5432/postgres]
 ##    my_field   
@@ -682,9 +682,9 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 ## 10 order_total
 ## # … with more rows</code></pre></li>
 <li><p>Add a <code>mutate()</code> step that adds the new field. And then another step selecting just the new field</p>
-<div class="sourceCode" id="cb310"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb310-1" data-line-number="1">orders <span class="op">%&gt;%</span></a>
-<a class="sourceLine" id="cb310-2" data-line-number="2"><span class="st">  </span><span class="kw">mutate</span>(<span class="op">!!</span><span class="st"> </span>my_field <span class="op">:</span><span class="er">=</span><span class="st"> </span><span class="op">!!</span><span class="st"> </span>orders_field) <span class="op">%&gt;%</span></a>
-<a class="sourceLine" id="cb310-3" data-line-number="3"><span class="st">  </span><span class="kw">select</span>(my_field)</a></code></pre></div>
+<div class="sourceCode" id="cb340"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb340-1" data-line-number="1">orders <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb340-2" data-line-number="2"><span class="st">  </span><span class="kw">mutate</span>(<span class="op">!!</span><span class="st"> </span>my_field <span class="op">:</span><span class="er">=</span><span class="st"> </span><span class="op">!!</span><span class="st"> </span>orders_field) <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb340-3" data-line-number="3"><span class="st">  </span><span class="kw">select</span>(my_field)</a></code></pre></div>
 <pre><code>## # Source:   lazy query [?? x 1]
 ## # Database: postgres [rstudio_admin@localhost:5432/postgres]
 ##    new        
@@ -701,9 +701,9 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 ## 10 order_total
 ## # … with more rows</code></pre></li>
 <li><p>Wrap <code>orders_field</code> inside a <code>sym()</code> function</p>
-<div class="sourceCode" id="cb312"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb312-1" data-line-number="1">orders <span class="op">%&gt;%</span></a>
-<a class="sourceLine" id="cb312-2" data-line-number="2"><span class="st">  </span><span class="kw">mutate</span>(<span class="op">!!</span><span class="st"> </span>my_field <span class="op">:</span><span class="er">=</span><span class="st"> </span><span class="op">!!</span><span class="st"> </span><span class="kw">sym</span>(orders_field)) <span class="op">%&gt;%</span></a>
-<a class="sourceLine" id="cb312-3" data-line-number="3"><span class="st">  </span><span class="kw">select</span>(my_field)</a></code></pre></div>
+<div class="sourceCode" id="cb342"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb342-1" data-line-number="1">orders <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb342-2" data-line-number="2"><span class="st">  </span><span class="kw">mutate</span>(<span class="op">!!</span><span class="st"> </span>my_field <span class="op">:</span><span class="er">=</span><span class="st"> </span><span class="op">!!</span><span class="st"> </span><span class="kw">sym</span>(orders_field)) <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb342-3" data-line-number="3"><span class="st">  </span><span class="kw">select</span>(my_field)</a></code></pre></div>
 <pre><code>## # Source:   lazy query [?? x 1]
 ## # Database: postgres [rstudio_admin@localhost:5432/postgres]
 ##      new
@@ -720,10 +720,10 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 ## 10 21.6 
 ## # … with more rows</code></pre></li>
 <li><p>Pipe the code into <code>show_query()</code></p>
-<div class="sourceCode" id="cb314"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb314-1" data-line-number="1">orders <span class="op">%&gt;%</span></a>
-<a class="sourceLine" id="cb314-2" data-line-number="2"><span class="st">  </span><span class="kw">mutate</span>(<span class="op">!!</span><span class="st"> </span>my_field <span class="op">:</span><span class="er">=</span><span class="st"> </span><span class="op">!!</span><span class="st"> </span><span class="kw">sym</span>(orders_field)) <span class="op">%&gt;%</span></a>
-<a class="sourceLine" id="cb314-3" data-line-number="3"><span class="st">  </span><span class="kw">select</span>(my_field) <span class="op">%&gt;%</span></a>
-<a class="sourceLine" id="cb314-4" data-line-number="4"><span class="st">  </span><span class="kw">show_query</span>()</a></code></pre></div>
+<div class="sourceCode" id="cb344"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb344-1" data-line-number="1">orders <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb344-2" data-line-number="2"><span class="st">  </span><span class="kw">mutate</span>(<span class="op">!!</span><span class="st"> </span>my_field <span class="op">:</span><span class="er">=</span><span class="st"> </span><span class="op">!!</span><span class="st"> </span><span class="kw">sym</span>(orders_field)) <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb344-3" data-line-number="3"><span class="st">  </span><span class="kw">select</span>(my_field) <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb344-4" data-line-number="4"><span class="st">  </span><span class="kw">show_query</span>()</a></code></pre></div>
 <pre><code>## &lt;SQL&gt;
 ## SELECT &quot;order_total&quot; AS &quot;new&quot;
 ## FROM retail.v_orders</code></pre></li>

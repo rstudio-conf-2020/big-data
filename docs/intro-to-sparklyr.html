@@ -145,12 +145,12 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="2.3" data-path="introduction-to-dtplyr.html"><a href="introduction-to-dtplyr.html#how-dtplyr-works"><i class="fa fa-check"></i><b>2.3</b> How <code>dtplyr</code> works</a></li>
 <li class="chapter" data-level="2.4" data-path="introduction-to-dtplyr.html"><a href="introduction-to-dtplyr.html#working-with-dtplyr"><i class="fa fa-check"></i><b>2.4</b> Working with <code>dtplyr</code></a></li>
 <li class="chapter" data-level="2.5" data-path="introduction-to-dtplyr.html"><a href="introduction-to-dtplyr.html#pivot-data"><i class="fa fa-check"></i><b>2.5</b> Pivot data</a></li>
-<li class="chapter" data-level="2.6" data-path="introduction-to-dtplyr.html"><a href="introduction-to-dtplyr.html#the-mutate-verb"><i class="fa fa-check"></i><b>2.6</b> The <code>mutate()</code> verb</a></li>
 </ul></li>
 <li class="chapter" data-level="3" data-path="introduction-to-database-connections.html"><a href="introduction-to-database-connections.html"><i class="fa fa-check"></i><b>3</b> Introduction to database connections</a><ul>
-<li class="chapter" data-level="3.1" data-path="introduction-to-database-connections.html"><a href="introduction-to-database-connections.html#connecting-via-dsn"><i class="fa fa-check"></i><b>3.1</b> Connecting via DSN</a></li>
-<li class="chapter" data-level="3.2" data-path="introduction-to-database-connections.html"><a href="introduction-to-database-connections.html#connect-with-a-connection-string"><i class="fa fa-check"></i><b>3.2</b> Connect with a connection string</a></li>
-<li class="chapter" data-level="3.3" data-path="introduction-to-database-connections.html"><a href="introduction-to-database-connections.html#secure-connection-details"><i class="fa fa-check"></i><b>3.3</b> Secure connection details</a></li>
+<li class="chapter" data-level="3.1" data-path="introduction-to-database-connections.html"><a href="introduction-to-database-connections.html#connect-with-the-connections-pane"><i class="fa fa-check"></i><b>3.1</b> Connect with the Connections pane</a></li>
+<li class="chapter" data-level="3.2" data-path="introduction-to-database-connections.html"><a href="introduction-to-database-connections.html#connecting-via-dsn"><i class="fa fa-check"></i><b>3.2</b> Connecting via DSN</a></li>
+<li class="chapter" data-level="3.3" data-path="introduction-to-database-connections.html"><a href="introduction-to-database-connections.html#connect-with-a-connection-string"><i class="fa fa-check"></i><b>3.3</b> Connect with a connection string</a></li>
+<li class="chapter" data-level="3.4" data-path="introduction-to-database-connections.html"><a href="introduction-to-database-connections.html#secure-connection-details"><i class="fa fa-check"></i><b>3.4</b> Secure connection details</a></li>
 </ul></li>
 <li class="chapter" data-level="4" data-path="introduction-to-dbi.html"><a href="introduction-to-dbi.html"><i class="fa fa-check"></i><b>4</b> Introduction to <code>DBI</code></a><ul>
 <li class="chapter" data-level="4.1" data-path="introduction-to-dbi.html"><a href="introduction-to-dbi.html#local-database-basics"><i class="fa fa-check"></i><b>4.1</b> Local database basics</a></li>
@@ -224,9 +224,9 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <p><em>Learn to open a new Spark session</em></p>
 <ol style="list-style-type: decimal">
 <li><p>Load the <code>sparklyr</code> library</p>
-<div class="sourceCode" id="cb316"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb316-1" data-line-number="1"><span class="kw">library</span>(sparklyr)</a></code></pre></div></li>
+<div class="sourceCode" id="cb346"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb346-1" data-line-number="1"><span class="kw">library</span>(sparklyr)</a></code></pre></div></li>
 <li><p>Use <code>spark_connect()</code> to create a new local Spark session</p>
-<div class="sourceCode" id="cb317"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb317-1" data-line-number="1">sc &lt;-<span class="st"> </span><span class="kw">spark_connect</span>(<span class="dt">master =</span> <span class="st">&quot;local&quot;</span>)</a></code></pre></div>
+<div class="sourceCode" id="cb347"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb347-1" data-line-number="1">sc &lt;-<span class="st"> </span><span class="kw">spark_connect</span>(<span class="dt">master =</span> <span class="st">&quot;local&quot;</span>)</a></code></pre></div>
 <pre><code>## * Using Spark: 2.4.0</code></pre></li>
 <li><p>Click on the <code>Spark</code> button to view the current Spark session’s UI</p></li>
 <li><p>Click on the <code>Log</code> button to see the message history</p></li>
@@ -237,9 +237,9 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <p><em>Practice uploading data to Spark</em></p>
 <ol style="list-style-type: decimal">
 <li><p>Load the <code>dplyr</code> library</p>
-<div class="sourceCode" id="cb319"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb319-1" data-line-number="1"><span class="kw">library</span>(dplyr)</a></code></pre></div></li>
+<div class="sourceCode" id="cb349"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb349-1" data-line-number="1"><span class="kw">library</span>(dplyr)</a></code></pre></div></li>
 <li><p>Copy the <code>mtcars</code> dataset into the session</p>
-<div class="sourceCode" id="cb320"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb320-1" data-line-number="1">spark_mtcars &lt;-<span class="st"> </span><span class="kw">copy_to</span>(sc, mtcars, <span class="st">&quot;my_mtcars&quot;</span>)</a></code></pre></div></li>
+<div class="sourceCode" id="cb350"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb350-1" data-line-number="1">spark_mtcars &lt;-<span class="st"> </span><span class="kw">copy_to</span>(sc, mtcars, <span class="st">&quot;my_mtcars&quot;</span>)</a></code></pre></div></li>
 <li><p>In the <strong>Connections</strong> pane, expande the <code>my_mtcars</code> table</p></li>
 <li><p>Go to the Spark UI, note the new jobs</p></li>
 <li><p>In the UI, click the Storage button, note the new table</p></li>
@@ -251,9 +251,9 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <p><em>See how Spark handles <code>dplyr</code> commands</em></p>
 <ol style="list-style-type: decimal">
 <li><p>Run the following code snipett</p>
-<div class="sourceCode" id="cb321"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb321-1" data-line-number="1">spark_mtcars <span class="op">%&gt;%</span></a>
-<a class="sourceLine" id="cb321-2" data-line-number="2"><span class="st">  </span><span class="kw">group_by</span>(am) <span class="op">%&gt;%</span></a>
-<a class="sourceLine" id="cb321-3" data-line-number="3"><span class="st">  </span><span class="kw">summarise</span>(<span class="dt">mpg_mean =</span> <span class="kw">mean</span>(mpg, <span class="dt">na.rm =</span> <span class="ot">TRUE</span>))</a></code></pre></div>
+<div class="sourceCode" id="cb351"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb351-1" data-line-number="1">spark_mtcars <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb351-2" data-line-number="2"><span class="st">  </span><span class="kw">group_by</span>(am) <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb351-3" data-line-number="3"><span class="st">  </span><span class="kw">summarise</span>(<span class="dt">mpg_mean =</span> <span class="kw">mean</span>(mpg, <span class="dt">na.rm =</span> <span class="ot">TRUE</span>))</a></code></pre></div>
 <pre><code>## # Source: spark&lt;?&gt; [?? x 2]
 ##      am mpg_mean
 ##   &lt;dbl&gt;    &lt;dbl&gt;

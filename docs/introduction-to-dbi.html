@@ -145,12 +145,12 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="2.3" data-path="introduction-to-dtplyr.html"><a href="introduction-to-dtplyr.html#how-dtplyr-works"><i class="fa fa-check"></i><b>2.3</b> How <code>dtplyr</code> works</a></li>
 <li class="chapter" data-level="2.4" data-path="introduction-to-dtplyr.html"><a href="introduction-to-dtplyr.html#working-with-dtplyr"><i class="fa fa-check"></i><b>2.4</b> Working with <code>dtplyr</code></a></li>
 <li class="chapter" data-level="2.5" data-path="introduction-to-dtplyr.html"><a href="introduction-to-dtplyr.html#pivot-data"><i class="fa fa-check"></i><b>2.5</b> Pivot data</a></li>
-<li class="chapter" data-level="2.6" data-path="introduction-to-dtplyr.html"><a href="introduction-to-dtplyr.html#the-mutate-verb"><i class="fa fa-check"></i><b>2.6</b> The <code>mutate()</code> verb</a></li>
 </ul></li>
 <li class="chapter" data-level="3" data-path="introduction-to-database-connections.html"><a href="introduction-to-database-connections.html"><i class="fa fa-check"></i><b>3</b> Introduction to database connections</a><ul>
-<li class="chapter" data-level="3.1" data-path="introduction-to-database-connections.html"><a href="introduction-to-database-connections.html#connecting-via-dsn"><i class="fa fa-check"></i><b>3.1</b> Connecting via DSN</a></li>
-<li class="chapter" data-level="3.2" data-path="introduction-to-database-connections.html"><a href="introduction-to-database-connections.html#connect-with-a-connection-string"><i class="fa fa-check"></i><b>3.2</b> Connect with a connection string</a></li>
-<li class="chapter" data-level="3.3" data-path="introduction-to-database-connections.html"><a href="introduction-to-database-connections.html#secure-connection-details"><i class="fa fa-check"></i><b>3.3</b> Secure connection details</a></li>
+<li class="chapter" data-level="3.1" data-path="introduction-to-database-connections.html"><a href="introduction-to-database-connections.html#connect-with-the-connections-pane"><i class="fa fa-check"></i><b>3.1</b> Connect with the Connections pane</a></li>
+<li class="chapter" data-level="3.2" data-path="introduction-to-database-connections.html"><a href="introduction-to-database-connections.html#connecting-via-dsn"><i class="fa fa-check"></i><b>3.2</b> Connecting via DSN</a></li>
+<li class="chapter" data-level="3.3" data-path="introduction-to-database-connections.html"><a href="introduction-to-database-connections.html#connect-with-a-connection-string"><i class="fa fa-check"></i><b>3.3</b> Connect with a connection string</a></li>
+<li class="chapter" data-level="3.4" data-path="introduction-to-database-connections.html"><a href="introduction-to-database-connections.html#secure-connection-details"><i class="fa fa-check"></i><b>3.4</b> Secure connection details</a></li>
 </ul></li>
 <li class="chapter" data-level="4" data-path="introduction-to-dbi.html"><a href="introduction-to-dbi.html"><i class="fa fa-check"></i><b>4</b> Introduction to <code>DBI</code></a><ul>
 <li class="chapter" data-level="4.1" data-path="introduction-to-dbi.html"><a href="introduction-to-dbi.html#local-database-basics"><i class="fa fa-check"></i><b>4.1</b> Local database basics</a></li>
@@ -224,19 +224,19 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <p><em>Connecting and adding data to a database</em></p>
 <ol style="list-style-type: decimal">
 <li><p>Load the <code>DBI</code> package</p>
-<div class="sourceCode" id="cb86"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb86-1" data-line-number="1"><span class="kw">library</span>(DBI)</a></code></pre></div></li>
-<li><p>Use <code>dbConnect()</code> to open a Database connection</p>
-<div class="sourceCode" id="cb87"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb87-1" data-line-number="1">con &lt;-<span class="st"> </span><span class="kw">dbConnect</span>(RSQLite<span class="op">::</span><span class="kw">SQLite</span>(), <span class="st">&quot;mydatabase.sqlite&quot;</span>)</a></code></pre></div></li>
+<div class="sourceCode" id="cb102"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb102-1" data-line-number="1"><span class="kw">library</span>(DBI)</a></code></pre></div></li>
+<li><p>Use <code>dbConnect</code> to open a database connection</p>
+<div class="sourceCode" id="cb103"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb103-1" data-line-number="1">con &lt;-<span class="st"> </span><span class="kw">dbConnect</span>(RSQLite<span class="op">::</span><span class="kw">SQLite</span>(), <span class="st">&quot;mydatabase.sqlite&quot;</span>)</a></code></pre></div></li>
 <li><p>Use <code>dbListTables()</code> to view existing tables, there should be 0 tables</p>
-<div class="sourceCode" id="cb88"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb88-1" data-line-number="1"><span class="kw">dbListTables</span>(con)</a></code></pre></div>
+<div class="sourceCode" id="cb104"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb104-1" data-line-number="1"><span class="kw">dbListTables</span>(con)</a></code></pre></div>
 <pre><code>## character(0)</code></pre></li>
 <li><p>Use <code>dbWriteTable()</code> to create a new table using <code>mtcars</code> data. Name it <strong>db_mtcars</strong></p>
-<div class="sourceCode" id="cb90"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb90-1" data-line-number="1"><span class="kw">dbWriteTable</span>(con, <span class="st">&quot;db_mtcars&quot;</span>, mtcars)</a></code></pre></div></li>
+<div class="sourceCode" id="cb106"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb106-1" data-line-number="1"><span class="kw">dbWriteTable</span>(con, <span class="st">&quot;db_mtcars&quot;</span>, mtcars)</a></code></pre></div></li>
 <li><p>Use <code>dbListTables()</code> to view existing tables, it should return <strong>db_mtcars</strong></p>
-<div class="sourceCode" id="cb91"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb91-1" data-line-number="1"><span class="kw">dbListTables</span>(con)</a></code></pre></div>
+<div class="sourceCode" id="cb107"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb107-1" data-line-number="1"><span class="kw">dbListTables</span>(con)</a></code></pre></div>
 <pre><code>## [1] &quot;db_mtcars&quot;</code></pre></li>
 <li><p>Use <code>dbGetQuery()</code> to pass a SQL query to the database</p>
-<div class="sourceCode" id="cb93"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb93-1" data-line-number="1"><span class="kw">dbGetQuery</span>(con, <span class="st">&quot;select * from db_mtcars&quot;</span>)</a></code></pre></div>
+<div class="sourceCode" id="cb109"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb109-1" data-line-number="1"><span class="kw">dbGetQuery</span>(con, <span class="st">&quot;select * from db_mtcars&quot;</span>)</a></code></pre></div>
 <pre><code>##     mpg cyl  disp  hp drat    wt  qsec vs am gear carb
 ## 1  21.0   6 160.0 110 3.90 2.620 16.46  0  1    4    4
 ## 2  21.0   6 160.0 110 3.90 2.875 17.02  0  1    4    4
@@ -271,7 +271,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 ## 31 15.0   8 301.0 335 3.54 3.570 14.60  0  1    5    8
 ## 32 21.4   4 121.0 109 4.11 2.780 18.60  1  1    4    2</code></pre></li>
 <li><p>Close the database connection using <code>dbDisconnect()</code></p>
-<div class="sourceCode" id="cb95"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb95-1" data-line-number="1"><span class="kw">dbDisconnect</span>(con)</a></code></pre></div></li>
+<div class="sourceCode" id="cb111"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb111-1" data-line-number="1"><span class="kw">dbDisconnect</span>(con)</a></code></pre></div></li>
 </ol>
 </div>
 <div id="options-for-writing-tables" class="section level2">
@@ -279,50 +279,61 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <p><em>Understand how certain arguments in <code>dbWriteTable()</code> work</em></p>
 <ol style="list-style-type: decimal">
 <li><p>Use <code>dbConnect()</code> to open a Database connection again</p>
-<div class="sourceCode" id="cb96"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb96-1" data-line-number="1">con &lt;-<span class="st"> </span><span class="kw">dbConnect</span>(RSQLite<span class="op">::</span><span class="kw">SQLite</span>(), <span class="st">&quot;mydatabase.sqlite&quot;</span>)</a></code></pre></div></li>
+<div class="sourceCode" id="cb112"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb112-1" data-line-number="1">con &lt;-<span class="st"> </span><span class="kw">dbConnect</span>(RSQLite<span class="op">::</span><span class="kw">SQLite</span>(), <span class="st">&quot;mydatabase.sqlite&quot;</span>)</a></code></pre></div></li>
 <li><p>Use <code>dbWriteTable()</code> to re-create the <strong>db_mtcars</strong> table using <code>mtcars</code> data</p>
-<div class="sourceCode" id="cb97"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb97-1" data-line-number="1"><span class="kw">dbWriteTable</span>(con, <span class="st">&quot;db_mtcars&quot;</span>, mtcars)</a></code></pre></div>
+<div class="sourceCode" id="cb113"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb113-1" data-line-number="1"><span class="kw">dbWriteTable</span>(con, <span class="st">&quot;db_mtcars&quot;</span>, mtcars)</a></code></pre></div>
 <pre><code> Error: Table db_mtcars exists in database, and both overwrite and append are FALSE</code></pre></li>
-<li><p>Use the <code>append</code> argument in <code>dbWriteTable()</code> to add the data in the <strong>db_mtcars</strong> table</p>
-<div class="sourceCode" id="cb99"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb99-1" data-line-number="1"><span class="kw">dbWriteTable</span>(con, <span class="st">&quot;db_mtcars&quot;</span>, mtcars, <span class="dt">append =</span> <span class="ot">TRUE</span>)</a></code></pre></div></li>
-<li><p>Using <code>dbGetQuery()</code>, check the current record count of <strong>db_mtcars</strong>, pass the following query: “select count() from db_mtcars”</p>
-<div class="sourceCode" id="cb100"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb100-1" data-line-number="1"><span class="kw">dbGetQuery</span>(con, <span class="st">&quot;select count() from db_mtcars&quot;</span>)</a></code></pre></div>
+<li><p>Use the <code>append</code> argument in <code>dbWriteTable()</code> to add to the data in the <strong>db_mtcars</strong> table</p>
+<div class="sourceCode" id="cb115"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb115-1" data-line-number="1"><span class="kw">dbWriteTable</span>(con, <span class="st">&quot;db_mtcars&quot;</span>, mtcars, <span class="dt">append =</span> <span class="ot">TRUE</span>)</a></code></pre></div></li>
+<li><p>Using <code>dbGetQuery()</code>, check the current record count of <strong>db_mtcars</strong> with the following query: “select count() from db_mtcars”</p>
+<div class="sourceCode" id="cb116"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb116-1" data-line-number="1"><span class="kw">dbGetQuery</span>(con, <span class="st">&quot;select count() from db_mtcars&quot;</span>)</a></code></pre></div>
 <pre><code>##   count()
 ## 1      64</code></pre></li>
 <li><p>Use the <code>overwrite</code> argument to <code>dbWriteTable()</code> to replace the data in the <strong>db_mtcars</strong> table</p>
-<div class="sourceCode" id="cb102"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb102-1" data-line-number="1"><span class="kw">dbWriteTable</span>(con, <span class="st">&quot;db_mtcars&quot;</span>, mtcars, <span class="dt">overwrite =</span> <span class="ot">TRUE</span>)</a></code></pre></div></li>
+<div class="sourceCode" id="cb118"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb118-1" data-line-number="1"><span class="kw">dbWriteTable</span>(con, <span class="st">&quot;db_mtcars&quot;</span>, mtcars, <span class="dt">overwrite =</span> <span class="ot">TRUE</span>)</a></code></pre></div></li>
 <li><p>Check the record count of <code>db_mtcars</code> again</p>
-<div class="sourceCode" id="cb103"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb103-1" data-line-number="1"><span class="kw">dbGetQuery</span>(con, <span class="st">&quot;select count() from db_mtcars&quot;</span>)</a></code></pre></div>
+<div class="sourceCode" id="cb119"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb119-1" data-line-number="1"><span class="kw">dbGetQuery</span>(con, <span class="st">&quot;select count() from db_mtcars&quot;</span>)</a></code></pre></div>
 <pre><code>##   count()
 ## 1      32</code></pre></li>
 </ol>
 </div>
 <div id="database-operations" class="section level2">
 <h2><span class="header-section-number">4.3</span> Database operations</h2>
-<p><em>Understand how to use <code>dbSendStatement()</code> to modify the database</em></p>
+<p><em>Understand how to use <code>dbSendStatement()</code> and <code>dbExecute()</code> to modify the database</em></p>
 <ol style="list-style-type: decimal">
-<li><p>Use <code>dbSendStatement()</code> to pass a SQL commands that deletes any automatic car form <code>db_mtcars</code>: “delete from db_mtcars where am = 1”. Load the command to a variable called <code>rs</code></p>
-<div class="sourceCode" id="cb105"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb105-1" data-line-number="1">rs &lt;-<span class="st"> </span><span class="kw">dbSendStatement</span>(con, <span class="st">&quot;delete from db_mtcars where am = 1&quot;</span>)</a></code></pre></div></li>
+<li><p>Use <code>dbSendStatement()</code> to pass a SQL commands that deletes any automatic car from <code>db_mtcars</code>: “delete from db_mtcars where am = 1”. Load the command to a variable called <code>rs</code></p>
+<div class="sourceCode" id="cb121"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb121-1" data-line-number="1">rs &lt;-<span class="st"> </span><span class="kw">dbSendStatement</span>(con, <span class="st">&quot;delete from db_mtcars where am = 1&quot;</span>)</a></code></pre></div></li>
 <li><p>Call the <code>rs</code> variable to view information about the results of the requested change</p>
-<div class="sourceCode" id="cb106"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb106-1" data-line-number="1">rs</a></code></pre></div>
+<div class="sourceCode" id="cb122"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb122-1" data-line-number="1">rs</a></code></pre></div>
 <pre><code>## &lt;SQLiteResult&gt;
 ##   SQL  delete from db_mtcars where am = 1
 ##   ROWS Fetched: 0 [complete]
 ##        Changed: 13</code></pre></li>
 <li><p>Use <code>dbHasCompleted()</code> to confirm that the job is complete</p>
-<div class="sourceCode" id="cb108"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb108-1" data-line-number="1"><span class="kw">dbHasCompleted</span>(rs)</a></code></pre></div>
+<div class="sourceCode" id="cb124"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb124-1" data-line-number="1"><span class="kw">dbHasCompleted</span>(rs)</a></code></pre></div>
 <pre><code>## [1] TRUE</code></pre></li>
 <li><p>Use <code>dbGetRowsAffected()</code> to see the number of rows that were affected by the request</p>
-<div class="sourceCode" id="cb110"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb110-1" data-line-number="1"><span class="kw">dbGetRowsAffected</span>(rs)</a></code></pre></div>
+<div class="sourceCode" id="cb126"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb126-1" data-line-number="1"><span class="kw">dbGetRowsAffected</span>(rs)</a></code></pre></div>
 <pre><code>## [1] 13</code></pre></li>
 <li><p>Clear the results using <code>dbClearResult()</code></p>
-<div class="sourceCode" id="cb112"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb112-1" data-line-number="1"><span class="kw">dbClearResult</span>(rs)</a></code></pre></div></li>
+<div class="sourceCode" id="cb128"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb128-1" data-line-number="1"><span class="kw">dbClearResult</span>(rs)</a></code></pre></div></li>
 <li><p>Confirm that the result set has been removed by calling the <code>rs</code> variable once more</p>
-<div class="sourceCode" id="cb113"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb113-1" data-line-number="1">rs</a></code></pre></div>
+<div class="sourceCode" id="cb129"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb129-1" data-line-number="1">rs</a></code></pre></div>
 <pre><code>## &lt;SQLiteResult&gt;
 ## EXPIRED</code></pre></li>
-<li><p>Check the record count of <code>db_mtcars</code> again, the new count should be 19 (32 original records - 13 deleted records)</p>
-<div class="sourceCode" id="cb115"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb115-1" data-line-number="1"><span class="kw">dbGetQuery</span>(con, <span class="st">&quot;select count() from db_mtcars&quot;</span>)</a></code></pre></div>
+<li><p>Check the record count of <strong>db_mtcars</strong> again, the new count should be 19 (32 original records - 13 deleted records)</p>
+<div class="sourceCode" id="cb131"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb131-1" data-line-number="1"><span class="kw">dbGetQuery</span>(con, <span class="st">&quot;select count() from db_mtcars&quot;</span>)</a></code></pre></div>
+<pre><code>##   count()
+## 1      19</code></pre></li>
+<li><p>Use <code>dbWriteTable()</code> to overwrite <strong>db_mtcars</strong> with the value of <code>mtcars</code></p>
+<div class="sourceCode" id="cb133"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb133-1" data-line-number="1"><span class="kw">dbWriteTable</span>(con, <span class="st">&quot;db_mtcars&quot;</span>, mtcars, <span class="dt">overwrite =</span> <span class="ot">TRUE</span>)</a></code></pre></div></li>
+<li><p>Use <code>dbExeceute()</code> to delete rows where am = 1 using the same query as before. Load the results in a variable called <code>rs</code></p>
+<div class="sourceCode" id="cb134"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb134-1" data-line-number="1">rs &lt;-<span class="st"> </span><span class="kw">dbExecute</span>(con, <span class="st">&quot;delete from db_mtcars where am = 1&quot;</span>)</a></code></pre></div></li>
+<li><p><code>rs</code> contains the number of rows affected by the satement that was executed</p>
+<div class="sourceCode" id="cb135"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb135-1" data-line-number="1">rs</a></code></pre></div>
+<pre><code>## [1] 13</code></pre></li>
+<li><p>Check the record count of <strong>db_mtcars</strong> again.</p>
+<div class="sourceCode" id="cb137"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb137-1" data-line-number="1"><span class="kw">dbGetQuery</span>(con, <span class="st">&quot;select count() from db_mtcars&quot;</span>)</a></code></pre></div>
 <pre><code>##   count()
 ## 1      19</code></pre></li>
 </ol>
@@ -331,172 +342,12 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <h2><span class="header-section-number">4.4</span> <code>knitr</code> SQL engine</h2>
 <p><em>See how to run SQL queries as code chunks</em></p>
 <ol style="list-style-type: decimal">
-<li>Start a new code chunk, but using <code>sql</code> instead of <code>r</code> as the first argument of the chunk. Also add <code>connection=con</code> as another argument of the chunk.</li>
+<li><p>Start a new code chunk, but using <code>sql</code> instead of <code>r</code> as the first argument of the chunk. Also add <code>connection=con</code> as another argument of the chunk.</p>
+<p><code>{sql, connection=con}  select * from db_mtcars</code></p></li>
 </ol>
-<div class="sourceCode" id="cb117"><pre class="sourceCode markdown"><code class="sourceCode markdown"><a class="sourceLine" id="cb117-1" data-line-number="1"><span class="bn">    ```{sql, connection=con}</span></a>
-<a class="sourceLine" id="cb117-2" data-line-number="2"><span class="bn">    select * from db_mtcars</span></a>
-<a class="sourceLine" id="cb117-3" data-line-number="3"><span class="bn">    ```</span></a></code></pre></div>
 <div class="knitsql-table">
 <table>
-<caption><span id="tab:unnamed-chunk-83">Table 4.1: </span>Displaying records 1 - 10</caption>
-<thead>
-<tr class="header">
-<th align="right">mpg</th>
-<th align="right">cyl</th>
-<th align="right">disp</th>
-<th align="right">hp</th>
-<th align="right">drat</th>
-<th align="right">wt</th>
-<th align="right">qsec</th>
-<th align="right">vs</th>
-<th align="right">am</th>
-<th align="right">gear</th>
-<th align="right">carb</th>
-</tr>
-</thead>
-<tbody>
-<tr class="odd">
-<td align="right">21.4</td>
-<td align="right">6</td>
-<td align="right">258.0</td>
-<td align="right">110</td>
-<td align="right">3.08</td>
-<td align="right">3.215</td>
-<td align="right">19.44</td>
-<td align="right">1</td>
-<td align="right">0</td>
-<td align="right">3</td>
-<td align="right">1</td>
-</tr>
-<tr class="even">
-<td align="right">18.7</td>
-<td align="right">8</td>
-<td align="right">360.0</td>
-<td align="right">175</td>
-<td align="right">3.15</td>
-<td align="right">3.440</td>
-<td align="right">17.02</td>
-<td align="right">0</td>
-<td align="right">0</td>
-<td align="right">3</td>
-<td align="right">2</td>
-</tr>
-<tr class="odd">
-<td align="right">18.1</td>
-<td align="right">6</td>
-<td align="right">225.0</td>
-<td align="right">105</td>
-<td align="right">2.76</td>
-<td align="right">3.460</td>
-<td align="right">20.22</td>
-<td align="right">1</td>
-<td align="right">0</td>
-<td align="right">3</td>
-<td align="right">1</td>
-</tr>
-<tr class="even">
-<td align="right">14.3</td>
-<td align="right">8</td>
-<td align="right">360.0</td>
-<td align="right">245</td>
-<td align="right">3.21</td>
-<td align="right">3.570</td>
-<td align="right">15.84</td>
-<td align="right">0</td>
-<td align="right">0</td>
-<td align="right">3</td>
-<td align="right">4</td>
-</tr>
-<tr class="odd">
-<td align="right">24.4</td>
-<td align="right">4</td>
-<td align="right">146.7</td>
-<td align="right">62</td>
-<td align="right">3.69</td>
-<td align="right">3.190</td>
-<td align="right">20.00</td>
-<td align="right">1</td>
-<td align="right">0</td>
-<td align="right">4</td>
-<td align="right">2</td>
-</tr>
-<tr class="even">
-<td align="right">22.8</td>
-<td align="right">4</td>
-<td align="right">140.8</td>
-<td align="right">95</td>
-<td align="right">3.92</td>
-<td align="right">3.150</td>
-<td align="right">22.90</td>
-<td align="right">1</td>
-<td align="right">0</td>
-<td align="right">4</td>
-<td align="right">2</td>
-</tr>
-<tr class="odd">
-<td align="right">19.2</td>
-<td align="right">6</td>
-<td align="right">167.6</td>
-<td align="right">123</td>
-<td align="right">3.92</td>
-<td align="right">3.440</td>
-<td align="right">18.30</td>
-<td align="right">1</td>
-<td align="right">0</td>
-<td align="right">4</td>
-<td align="right">4</td>
-</tr>
-<tr class="even">
-<td align="right">17.8</td>
-<td align="right">6</td>
-<td align="right">167.6</td>
-<td align="right">123</td>
-<td align="right">3.92</td>
-<td align="right">3.440</td>
-<td align="right">18.90</td>
-<td align="right">1</td>
-<td align="right">0</td>
-<td align="right">4</td>
-<td align="right">4</td>
-</tr>
-<tr class="odd">
-<td align="right">16.4</td>
-<td align="right">8</td>
-<td align="right">275.8</td>
-<td align="right">180</td>
-<td align="right">3.07</td>
-<td align="right">4.070</td>
-<td align="right">17.40</td>
-<td align="right">0</td>
-<td align="right">0</td>
-<td align="right">3</td>
-<td align="right">3</td>
-</tr>
-<tr class="even">
-<td align="right">17.3</td>
-<td align="right">8</td>
-<td align="right">275.8</td>
-<td align="right">180</td>
-<td align="right">3.07</td>
-<td align="right">3.730</td>
-<td align="right">17.60</td>
-<td align="right">0</td>
-<td align="right">0</td>
-<td align="right">3</td>
-<td align="right">3</td>
-</tr>
-</tbody>
-</table>
-</div>
-<ol style="list-style-type: decimal">
-<li>Add the <code>max.print</code> options to the chunk, and set it to 5</li>
-</ol>
-<div class="sourceCode" id="cb118"><pre class="sourceCode markdown"><code class="sourceCode markdown"><a class="sourceLine" id="cb118-1" data-line-number="1"><span class="bn">    ```{sql, connection=con, max.print = 5}</span></a>
-<a class="sourceLine" id="cb118-2" data-line-number="2"><span class="bn">    select * from db_mtcars</span></a>
-<a class="sourceLine" id="cb118-3" data-line-number="3"><span class="bn">    ```</span></a></code></pre></div>
-<div class="knitsql-table">
-<table>
-<caption><span id="tab:unnamed-chunk-84">Table 4.2: </span>Displaying records 1 - 5</caption>
+<caption><span id="tab:unnamed-chunk-97">Table 4.1: </span>Displaying records 1 - 5</caption>
 <thead>
 <tr class="header">
 <th align="right">mpg</th>
@@ -582,18 +433,12 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </table>
 </div>
 <ol style="list-style-type: decimal">
-<li>Set defaults for the <code>sql</code> chunks by using the <code>knitr::opts_chunk$set()</code> command</li>
+<li><p>Add the <code>max.print</code> options to the chunk, and set it to 5</p>
+<p><code>{sql, connection=con, max.print = 5}  select * from db_mtcars</code></p></li>
 </ol>
-<div class="sourceCode" id="cb119"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb119-1" data-line-number="1">knitr<span class="op">::</span>opts_chunk<span class="op">$</span><span class="kw">set</span>(<span class="dt">connection =</span> <span class="st">&quot;con&quot;</span>, <span class="dt">max.print =</span> <span class="dv">5</span>)</a></code></pre></div>
-<ol style="list-style-type: decimal">
-<li>Run the same query in a new <code>sql</code> chunk, but without any other argument</li>
-</ol>
-<div class="sourceCode" id="cb120"><pre class="sourceCode markdown"><code class="sourceCode markdown"><a class="sourceLine" id="cb120-1" data-line-number="1"><span class="bn">    ```{sql}</span></a>
-<a class="sourceLine" id="cb120-2" data-line-number="2"><span class="bn">    select * from db_mtcars</span></a>
-<a class="sourceLine" id="cb120-3" data-line-number="3"><span class="bn">    ```</span></a></code></pre></div>
 <div class="knitsql-table">
 <table>
-<caption><span id="tab:unnamed-chunk-86">Table 4.3: </span>Displaying records 1 - 5</caption>
+<caption><span id="tab:unnamed-chunk-98">Table 4.2: </span>Displaying records 1 - 5</caption>
 <thead>
 <tr class="header">
 <th align="right">mpg</th>
@@ -679,11 +524,104 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </table>
 </div>
 <ol style="list-style-type: decimal">
-<li>Store the results of the query into an R object called <strong>local_mtcars</strong> using
+<li><p>Set defaults for the <code>sql</code> chunks by using the <code>knitr::opts_chunk$set()</code> command in the <code>setup</code> at the beginning of the document.
+<code>{r setup}  knitr::opts_chunk$set(connection = &quot;con&quot;, max.print = 5)</code></p></li>
+<li><p>Run the same query in a new <code>sql</code> chunk, but without any other argument</p>
+<pre class="{sql}"><code>select * from db_mtcars</code></pre></li>
+</ol>
+<div class="knitsql-table">
+<table>
+<caption><span id="tab:unnamed-chunk-99">Table 4.3: </span>Displaying records 1 - 5</caption>
+<thead>
+<tr class="header">
+<th align="right">mpg</th>
+<th align="right">cyl</th>
+<th align="right">disp</th>
+<th align="right">hp</th>
+<th align="right">drat</th>
+<th align="right">wt</th>
+<th align="right">qsec</th>
+<th align="right">vs</th>
+<th align="right">am</th>
+<th align="right">gear</th>
+<th align="right">carb</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="right">21.4</td>
+<td align="right">6</td>
+<td align="right">258.0</td>
+<td align="right">110</td>
+<td align="right">3.08</td>
+<td align="right">3.215</td>
+<td align="right">19.44</td>
+<td align="right">1</td>
+<td align="right">0</td>
+<td align="right">3</td>
+<td align="right">1</td>
+</tr>
+<tr class="even">
+<td align="right">18.7</td>
+<td align="right">8</td>
+<td align="right">360.0</td>
+<td align="right">175</td>
+<td align="right">3.15</td>
+<td align="right">3.440</td>
+<td align="right">17.02</td>
+<td align="right">0</td>
+<td align="right">0</td>
+<td align="right">3</td>
+<td align="right">2</td>
+</tr>
+<tr class="odd">
+<td align="right">18.1</td>
+<td align="right">6</td>
+<td align="right">225.0</td>
+<td align="right">105</td>
+<td align="right">2.76</td>
+<td align="right">3.460</td>
+<td align="right">20.22</td>
+<td align="right">1</td>
+<td align="right">0</td>
+<td align="right">3</td>
+<td align="right">1</td>
+</tr>
+<tr class="even">
+<td align="right">14.3</td>
+<td align="right">8</td>
+<td align="right">360.0</td>
+<td align="right">245</td>
+<td align="right">3.21</td>
+<td align="right">3.570</td>
+<td align="right">15.84</td>
+<td align="right">0</td>
+<td align="right">0</td>
+<td align="right">3</td>
+<td align="right">4</td>
+</tr>
+<tr class="odd">
+<td align="right">24.4</td>
+<td align="right">4</td>
+<td align="right">146.7</td>
+<td align="right">62</td>
+<td align="right">3.69</td>
+<td align="right">3.190</td>
+<td align="right">20.00</td>
+<td align="right">1</td>
+<td align="right">0</td>
+<td align="right">4</td>
+<td align="right">2</td>
+</tr>
+</tbody>
+</table>
+</div>
+<ol style="list-style-type: decimal">
+<li>Store the results of the query into an R object called <code>local_mtcars</code> using
 the <code>output.var</code> option.</li>
 </ol>
-<div class="sourceCode" id="cb121"><pre class="sourceCode sql"><code class="sourceCode sql"><a class="sourceLine" id="cb121-1" data-line-number="1"><span class="kw">select</span> * <span class="kw">from</span> db_mtcars</a></code></pre></div>
-<div class="sourceCode" id="cb122"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb122-1" data-line-number="1">local_mtcars</a></code></pre></div>
+<div class="sourceCode" id="cb140"><pre class="sourceCode sql"><code class="sourceCode sql"><a class="sourceLine" id="cb140-1" data-line-number="1"><span class="kw">select</span> * <span class="kw">from</span> db_mtcars</a></code></pre></div>
+<div class="sourceCode" id="cb141"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb141-1" data-line-number="1">local_mtcars</a></code></pre></div>
 <pre><code>##     mpg cyl  disp  hp drat    wt  qsec vs am gear carb
 ## 1  21.4   6 258.0 110 3.08 3.215 19.44  1  0    3    1
 ## 2  18.7   8 360.0 175 3.15 3.440 17.02  0  0    3    2
@@ -707,7 +645,7 @@ the <code>output.var</code> option.</li>
 <ol style="list-style-type: decimal">
 <li>Close the database connection using <code>dbDisconnect()</code></li>
 </ol>
-<div class="sourceCode" id="cb124"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb124-1" data-line-number="1"><span class="kw">dbDisconnect</span>(con)</a></code></pre></div>
+<div class="sourceCode" id="cb143"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb143-1" data-line-number="1"><span class="kw">dbDisconnect</span>(con)</a></code></pre></div>
 
 </div>
 </div>

@@ -145,12 +145,12 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="2.3" data-path="introduction-to-dtplyr.html"><a href="introduction-to-dtplyr.html#how-dtplyr-works"><i class="fa fa-check"></i><b>2.3</b> How <code>dtplyr</code> works</a></li>
 <li class="chapter" data-level="2.4" data-path="introduction-to-dtplyr.html"><a href="introduction-to-dtplyr.html#working-with-dtplyr"><i class="fa fa-check"></i><b>2.4</b> Working with <code>dtplyr</code></a></li>
 <li class="chapter" data-level="2.5" data-path="introduction-to-dtplyr.html"><a href="introduction-to-dtplyr.html#pivot-data"><i class="fa fa-check"></i><b>2.5</b> Pivot data</a></li>
-<li class="chapter" data-level="2.6" data-path="introduction-to-dtplyr.html"><a href="introduction-to-dtplyr.html#the-mutate-verb"><i class="fa fa-check"></i><b>2.6</b> The <code>mutate()</code> verb</a></li>
 </ul></li>
 <li class="chapter" data-level="3" data-path="introduction-to-database-connections.html"><a href="introduction-to-database-connections.html"><i class="fa fa-check"></i><b>3</b> Introduction to database connections</a><ul>
-<li class="chapter" data-level="3.1" data-path="introduction-to-database-connections.html"><a href="introduction-to-database-connections.html#connecting-via-dsn"><i class="fa fa-check"></i><b>3.1</b> Connecting via DSN</a></li>
-<li class="chapter" data-level="3.2" data-path="introduction-to-database-connections.html"><a href="introduction-to-database-connections.html#connect-with-a-connection-string"><i class="fa fa-check"></i><b>3.2</b> Connect with a connection string</a></li>
-<li class="chapter" data-level="3.3" data-path="introduction-to-database-connections.html"><a href="introduction-to-database-connections.html#secure-connection-details"><i class="fa fa-check"></i><b>3.3</b> Secure connection details</a></li>
+<li class="chapter" data-level="3.1" data-path="introduction-to-database-connections.html"><a href="introduction-to-database-connections.html#connect-with-the-connections-pane"><i class="fa fa-check"></i><b>3.1</b> Connect with the Connections pane</a></li>
+<li class="chapter" data-level="3.2" data-path="introduction-to-database-connections.html"><a href="introduction-to-database-connections.html#connecting-via-dsn"><i class="fa fa-check"></i><b>3.2</b> Connecting via DSN</a></li>
+<li class="chapter" data-level="3.3" data-path="introduction-to-database-connections.html"><a href="introduction-to-database-connections.html#connect-with-a-connection-string"><i class="fa fa-check"></i><b>3.3</b> Connect with a connection string</a></li>
+<li class="chapter" data-level="3.4" data-path="introduction-to-database-connections.html"><a href="introduction-to-database-connections.html#secure-connection-details"><i class="fa fa-check"></i><b>3.4</b> Secure connection details</a></li>
 </ul></li>
 <li class="chapter" data-level="4" data-path="introduction-to-dbi.html"><a href="introduction-to-dbi.html"><i class="fa fa-check"></i><b>4</b> Introduction to <code>DBI</code></a><ul>
 <li class="chapter" data-level="4.1" data-path="introduction-to-dbi.html"><a href="introduction-to-dbi.html#local-database-basics"><i class="fa fa-check"></i><b>4.1</b> Local database basics</a></li>
@@ -224,20 +224,20 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <p><em>Use <code>connections</code> to open open a database connection</em></p>
 <ol style="list-style-type: decimal">
 <li><p>Load the <code>connections</code> package</p>
-<div class="sourceCode" id="cb125"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb125-1" data-line-number="1"><span class="kw">library</span>(connections)</a>
-<a class="sourceLine" id="cb125-2" data-line-number="2"><span class="kw">library</span>(config)</a></code></pre></div></li>
+<div class="sourceCode" id="cb144"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb144-1" data-line-number="1"><span class="kw">library</span>(connections)</a>
+<a class="sourceLine" id="cb144-2" data-line-number="2"><span class="kw">library</span>(config)</a></code></pre></div></li>
 <li><p>Use <code>connection_open()</code> to open a Database connection</p>
-<div class="sourceCode" id="cb126"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb126-1" data-line-number="1">con &lt;-<span class="st"> </span><span class="kw">connection_open</span>(</a>
-<a class="sourceLine" id="cb126-2" data-line-number="2">  RPostgres<span class="op">::</span><span class="kw">Postgres</span>(),</a>
-<a class="sourceLine" id="cb126-3" data-line-number="3">  <span class="dt">host =</span>  <span class="st">&quot;localhost&quot;</span>,</a>
-<a class="sourceLine" id="cb126-4" data-line-number="4">  <span class="dt">user =</span> <span class="kw">get</span>(<span class="st">&quot;user&quot;</span>, <span class="dt">config =</span> <span class="st">&quot;retail&quot;</span>),</a>
-<a class="sourceLine" id="cb126-5" data-line-number="5">  <span class="dt">password =</span> <span class="kw">get</span>(<span class="st">&quot;password&quot;</span>, <span class="dt">config =</span> <span class="st">&quot;retail&quot;</span>),</a>
-<a class="sourceLine" id="cb126-6" data-line-number="6">  <span class="dt">port =</span> <span class="dv">5432</span>,</a>
-<a class="sourceLine" id="cb126-7" data-line-number="7">  <span class="dt">dbname =</span> <span class="st">&quot;postgres&quot;</span>,</a>
-<a class="sourceLine" id="cb126-8" data-line-number="8">  <span class="dt">bigint =</span> <span class="st">&quot;integer&quot;</span></a>
-<a class="sourceLine" id="cb126-9" data-line-number="9">)</a></code></pre></div></li>
+<div class="sourceCode" id="cb145"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb145-1" data-line-number="1">con &lt;-<span class="st"> </span><span class="kw">connection_open</span>(</a>
+<a class="sourceLine" id="cb145-2" data-line-number="2">  RPostgres<span class="op">::</span><span class="kw">Postgres</span>(),</a>
+<a class="sourceLine" id="cb145-3" data-line-number="3">  <span class="dt">host =</span>  <span class="st">&quot;localhost&quot;</span>,</a>
+<a class="sourceLine" id="cb145-4" data-line-number="4">  <span class="dt">user =</span> <span class="kw">get</span>(<span class="st">&quot;user&quot;</span>, <span class="dt">config =</span> <span class="st">&quot;dev&quot;</span>),</a>
+<a class="sourceLine" id="cb145-5" data-line-number="5">  <span class="dt">password =</span> <span class="kw">get</span>(<span class="st">&quot;pwd&quot;</span>, <span class="dt">config =</span> <span class="st">&quot;dev&quot;</span>),</a>
+<a class="sourceLine" id="cb145-6" data-line-number="6">  <span class="dt">port =</span> <span class="dv">5432</span>,</a>
+<a class="sourceLine" id="cb145-7" data-line-number="7">  <span class="dt">dbname =</span> <span class="st">&quot;postgres&quot;</span>,</a>
+<a class="sourceLine" id="cb145-8" data-line-number="8">  <span class="dt">bigint =</span> <span class="st">&quot;integer&quot;</span></a>
+<a class="sourceLine" id="cb145-9" data-line-number="9">)</a></code></pre></div></li>
 <li><p>The RStudio Connections pane should show the tables in the database
-<img src="images/04-conn-pane.png" align="center" width="400px"></p></li>
+<img src="images/05-conn-pane.png" align="center" width="500px"></p></li>
 </ol>
 </div>
 <div id="table-reference" class="section level2">
@@ -245,9 +245,9 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <p><em>Use the <code>dplyr</code>’s <code>tbl()</code> command</em></p>
 <ol style="list-style-type: decimal">
 <li><p>Load the <code>dplyr</code> package</p>
-<div class="sourceCode" id="cb127"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb127-1" data-line-number="1"><span class="kw">library</span>(dplyr)</a></code></pre></div></li>
-<li><p>Add <code>in_schema()</code> as an argument to <code>tbl()</code> to specify the schema. The default schema is called: “main”</p>
-<div class="sourceCode" id="cb128"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb128-1" data-line-number="1"><span class="kw">tbl</span>(con, <span class="kw">in_schema</span>(<span class="st">&quot;retail&quot;</span>, <span class="st">&quot;customer&quot;</span>))</a></code></pre></div>
+<div class="sourceCode" id="cb146"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb146-1" data-line-number="1"><span class="kw">library</span>(dplyr)</a></code></pre></div></li>
+<li><p>Add <code>in_schema()</code> as an argument to <code>tbl()</code> to specify the schema</p>
+<div class="sourceCode" id="cb147"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb147-1" data-line-number="1"><span class="kw">tbl</span>(con, <span class="kw">in_schema</span>(<span class="st">&quot;retail&quot;</span>, <span class="st">&quot;customer&quot;</span>))</a></code></pre></div>
 <pre><code>## # Source:   table&lt;retail.customer&gt; [?? x 6]
 ## # Database: postgres [rstudio_admin@localhost:5432/postgres]
 ##    customer_id customer_name  customer_phone customer_cc customer_lon customer_lat
@@ -264,7 +264,11 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 ## 10          10 Ms. Ciarra Bo… 964-240-3124   4893126879…        -122.         37.8
 ## # … with more rows</code></pre></li>
 <li><p>Load the results from the <code>tbl()</code> command that points the table called <strong>orders</strong> to a variable called <code>orders</code></p>
-<div class="sourceCode" id="cb130"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb130-1" data-line-number="1">orders &lt;-<span class="st"> </span><span class="kw">tbl</span>(con, <span class="kw">in_schema</span>(<span class="st">&quot;retail&quot;</span>, <span class="st">&quot;orders&quot;</span>))</a></code></pre></div></li>
+<div class="sourceCode" id="cb149"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb149-1" data-line-number="1">orders &lt;-<span class="st"> </span><span class="kw">tbl</span>(con, <span class="kw">in_schema</span>(<span class="st">&quot;retail&quot;</span>, <span class="st">&quot;orders&quot;</span>))</a></code></pre></div></li>
+<li><p>Use the <code>class</code> function to determine the object type of <code>orders</code></p>
+<div class="sourceCode" id="cb150"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb150-1" data-line-number="1"><span class="kw">class</span>(orders)</a></code></pre></div>
+<pre><code>## [1] &quot;tbl_conn&quot;         &quot;tbl_PqConnection&quot; &quot;tbl_dbi&quot;          &quot;tbl_sql&quot;         
+## [5] &quot;tbl_lazy&quot;         &quot;tbl&quot;</code></pre></li>
 </ol>
 </div>
 <div id="under-the-hood" class="section level2">
@@ -272,34 +276,63 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <p><em>Use <code>show_query()</code> to preview the SQL statement that will be sent to the database</em></p>
 <ol style="list-style-type: decimal">
 <li><p>Use <code>show_query()</code> to preview SQL statement that actually runs when we run <code>orders</code> as a command</p>
-<div class="sourceCode" id="cb131"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb131-1" data-line-number="1"><span class="kw">show_query</span>(orders)</a></code></pre></div>
+<div class="sourceCode" id="cb152"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb152-1" data-line-number="1"><span class="kw">show_query</span>(orders)</a></code></pre></div>
 <pre><code>## &lt;SQL&gt;
 ## SELECT *
 ## FROM retail.orders</code></pre></li>
+<li><p>When executed, <code>orders</code> returns the first 1000 rows of the remote <strong>orders</strong> table</p>
+<div class="sourceCode" id="cb154"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb154-1" data-line-number="1">orders</a></code></pre></div>
+<pre><code>## # Source:   table&lt;retail.orders&gt; [?? x 3]
+## # Database: postgres [rstudio_admin@localhost:5432/postgres]
+##    order_id customer_id step_id
+##       &lt;int&gt;       &lt;int&gt;   &lt;dbl&gt;
+##  1   127144           3     119
+##  2   127145          79     119
+##  3   127146          24     119
+##  4   127147           1     119
+##  5   127148          41     119
+##  6   127149          75     119
+##  7   127150          76     119
+##  8   127151          23     119
+##  9   127152          63     119
+## 10   127153          76     119
+## # … with more rows</code></pre></li>
+<li><p>Full results of a remote query can be brought into R with <code>collect</code></p>
+<div class="sourceCode" id="cb156"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb156-1" data-line-number="1">local_orders &lt;-<span class="st"> </span><span class="kw">collect</span>(orders)</a></code></pre></div></li>
 <li><p>Easily view the resulting query by adding <code>show_query()</code> in another piped command</p>
-<div class="sourceCode" id="cb133"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb133-1" data-line-number="1">orders <span class="op">%&gt;%</span></a>
-<a class="sourceLine" id="cb133-2" data-line-number="2"><span class="st">  </span><span class="kw">show_query</span>()</a></code></pre></div>
+<div class="sourceCode" id="cb157"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb157-1" data-line-number="1">orders <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb157-2" data-line-number="2"><span class="st">  </span><span class="kw">show_query</span>()</a></code></pre></div>
 <pre><code>## &lt;SQL&gt;
 ## SELECT *
 ## FROM retail.orders</code></pre></li>
 <li><p>Insert <code>head()</code> in between the two statements to see how the SQL changes</p>
-<div class="sourceCode" id="cb135"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb135-1" data-line-number="1">orders <span class="op">%&gt;%</span></a>
-<a class="sourceLine" id="cb135-2" data-line-number="2"><span class="st">  </span><span class="kw">head</span>() <span class="op">%&gt;%</span></a>
-<a class="sourceLine" id="cb135-3" data-line-number="3"><span class="st">  </span><span class="kw">show_query</span>()</a></code></pre></div>
+<div class="sourceCode" id="cb159"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb159-1" data-line-number="1">orders <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb159-2" data-line-number="2"><span class="st">  </span><span class="kw">head</span>() <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb159-3" data-line-number="3"><span class="st">  </span><span class="kw">show_query</span>()</a></code></pre></div>
+<pre><code>## &lt;SQL&gt;
+## SELECT *
+## FROM retail.orders
+## LIMIT 6</code></pre></li>
+<li><p>Queries can be assigned to variables. Create a variable called <code>orders_head</code> that contains the previous query</p>
+<div class="sourceCode" id="cb161"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb161-1" data-line-number="1">orders_head &lt;-<span class="st"> </span>orders <span class="op">%&gt;%</span><span class="st"> </span></a>
+<a class="sourceLine" id="cb161-2" data-line-number="2"><span class="st">  </span><span class="kw">head</span>()</a>
+<a class="sourceLine" id="cb161-3" data-line-number="3"></a>
+<a class="sourceLine" id="cb161-4" data-line-number="4">orders_head <span class="op">%&gt;%</span><span class="st"> </span></a>
+<a class="sourceLine" id="cb161-5" data-line-number="5"><span class="st">  </span><span class="kw">show_query</span>()</a></code></pre></div>
 <pre><code>## &lt;SQL&gt;
 ## SELECT *
 ## FROM retail.orders
 ## LIMIT 6</code></pre></li>
 <li><p>Use <code>sql_render()</code> and <code>simulate_mssql()</code> to see how the SQL statement changes from vendor to vendor</p>
-<div class="sourceCode" id="cb137"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb137-1" data-line-number="1">orders <span class="op">%&gt;%</span></a>
-<a class="sourceLine" id="cb137-2" data-line-number="2"><span class="st">  </span><span class="kw">head</span>() <span class="op">%&gt;%</span></a>
-<a class="sourceLine" id="cb137-3" data-line-number="3"><span class="st">  </span><span class="kw">sql_render</span>(<span class="dt">con =</span> <span class="kw">simulate_mssql</span>()) </a></code></pre></div>
+<div class="sourceCode" id="cb163"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb163-1" data-line-number="1">orders <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb163-2" data-line-number="2"><span class="st">  </span><span class="kw">head</span>() <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb163-3" data-line-number="3"><span class="st">  </span><span class="kw">sql_render</span>(<span class="dt">con =</span> <span class="kw">simulate_mssql</span>()) </a></code></pre></div>
 <pre><code>## &lt;SQL&gt; SELECT TOP(6) *
 ## FROM retail.orders</code></pre></li>
 <li><p>Use <code>explain()</code> to explore the query plan</p>
-<div class="sourceCode" id="cb139"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb139-1" data-line-number="1">orders <span class="op">%&gt;%</span><span class="st"> </span></a>
-<a class="sourceLine" id="cb139-2" data-line-number="2"><span class="st">  </span><span class="kw">head</span>() <span class="op">%&gt;%</span><span class="st"> </span></a>
-<a class="sourceLine" id="cb139-3" data-line-number="3"><span class="st">  </span><span class="kw">explain</span>()</a></code></pre></div>
+<div class="sourceCode" id="cb165"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb165-1" data-line-number="1">orders <span class="op">%&gt;%</span><span class="st"> </span></a>
+<a class="sourceLine" id="cb165-2" data-line-number="2"><span class="st">  </span><span class="kw">head</span>() <span class="op">%&gt;%</span><span class="st"> </span></a>
+<a class="sourceLine" id="cb165-3" data-line-number="3"><span class="st">  </span><span class="kw">explain</span>()</a></code></pre></div>
 <pre><code>## &lt;SQL&gt;
 ## SELECT *
 ## FROM retail.orders
@@ -314,63 +347,70 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <h2><span class="header-section-number">5.4</span> Un-translated R commands</h2>
 <p><em>Review of how <code>dbplyr</code> handles R commands that have not been translated into a like-SQL command</em></p>
 <ol style="list-style-type: decimal">
-<li><p>Preview how <code>Sys.time()</code> is translated</p>
-<div class="sourceCode" id="cb141"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb141-1" data-line-number="1">orders <span class="op">%&gt;%</span></a>
-<a class="sourceLine" id="cb141-2" data-line-number="2"><span class="st">  </span><span class="kw">mutate</span>(<span class="dt">today =</span> <span class="kw">Sys.time</span>()) <span class="op">%&gt;%</span></a>
-<a class="sourceLine" id="cb141-3" data-line-number="3"><span class="st">  </span><span class="kw">show_query</span>()</a></code></pre></div>
+<li><p>Preview how <code>mean</code> is translated</p>
+<div class="sourceCode" id="cb167"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb167-1" data-line-number="1">orders <span class="op">%&gt;%</span><span class="st"> </span></a>
+<a class="sourceLine" id="cb167-2" data-line-number="2"><span class="st">  </span><span class="kw">mutate</span>(<span class="dt">avg_id =</span> <span class="kw">mean</span>(order_id, <span class="dt">na.rm =</span> <span class="ot">TRUE</span>)) <span class="op">%&gt;%</span><span class="st"> </span></a>
+<a class="sourceLine" id="cb167-3" data-line-number="3"><span class="st">  </span><span class="kw">show_query</span>()</a></code></pre></div>
 <pre><code>## &lt;SQL&gt;
-## SELECT &quot;order_id&quot;, &quot;customer_id&quot;, &quot;step_id&quot;, Sys.time() AS &quot;today&quot;
+## SELECT &quot;order_id&quot;, &quot;customer_id&quot;, &quot;step_id&quot;, AVG(&quot;order_id&quot;) OVER () AS &quot;avg_id&quot;
 ## FROM retail.orders</code></pre></li>
-<li><p>Use SQLite’s native commands, in this case <code>date()</code></p>
-<div class="sourceCode" id="cb143"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb143-1" data-line-number="1">orders <span class="op">%&gt;%</span></a>
-<a class="sourceLine" id="cb143-2" data-line-number="2"><span class="st">  </span><span class="kw">mutate</span>(<span class="dt">today =</span> <span class="kw">date</span>(<span class="st">&#39;now&#39;</span>)) <span class="op">%&gt;%</span></a>
-<a class="sourceLine" id="cb143-3" data-line-number="3"><span class="st">  </span><span class="kw">show_query</span>()</a></code></pre></div>
+<li><p>Preview how <code>Sys.Date()</code> is translated</p>
+<div class="sourceCode" id="cb169"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb169-1" data-line-number="1">orders <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb169-2" data-line-number="2"><span class="st">  </span><span class="kw">mutate</span>(<span class="dt">today =</span> <span class="kw">Sys.Date</span>()) <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb169-3" data-line-number="3"><span class="st">  </span><span class="kw">show_query</span>()</a></code></pre></div>
+<pre><code>## &lt;SQL&gt;
+## SELECT &quot;order_id&quot;, &quot;customer_id&quot;, &quot;step_id&quot;, Sys.Date() AS &quot;today&quot;
+## FROM retail.orders</code></pre></li>
+<li><p>Use PostgreSQL native commands, in this case <code>date</code></p>
+<div class="sourceCode" id="cb171"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb171-1" data-line-number="1">orders <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb171-2" data-line-number="2"><span class="st">  </span><span class="kw">mutate</span>(<span class="dt">today =</span> <span class="kw">date</span>(<span class="st">&#39;now&#39;</span>)) <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb171-3" data-line-number="3"><span class="st">  </span><span class="kw">show_query</span>()</a></code></pre></div>
 <pre><code>## &lt;SQL&gt;
 ## SELECT &quot;order_id&quot;, &quot;customer_id&quot;, &quot;step_id&quot;, date(&#39;now&#39;) AS &quot;today&quot;
 ## FROM retail.orders</code></pre></li>
 <li><p>Run the <code>dplyr</code> code to confirm it works</p>
-<div class="sourceCode" id="cb145"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb145-1" data-line-number="1">orders <span class="op">%&gt;%</span></a>
-<a class="sourceLine" id="cb145-2" data-line-number="2"><span class="st">  </span><span class="kw">mutate</span>(<span class="dt">today =</span> <span class="kw">date</span>(<span class="st">&#39;now&#39;</span>)) <span class="op">%&gt;%</span></a>
-<a class="sourceLine" id="cb145-3" data-line-number="3"><span class="st">  </span><span class="kw">select</span>(today) <span class="op">%&gt;%</span></a>
-<a class="sourceLine" id="cb145-4" data-line-number="4"><span class="st">  </span><span class="kw">head</span>()</a></code></pre></div>
-<pre><code>## # Source:   lazy query [?? x 1]
+<div class="sourceCode" id="cb173"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb173-1" data-line-number="1">orders <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb173-2" data-line-number="2"><span class="st">  </span><span class="kw">mutate</span>(<span class="dt">today =</span> <span class="kw">date</span>(<span class="st">&#39;now&#39;</span>)) <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb173-3" data-line-number="3"><span class="st">  </span><span class="kw">head</span>()</a></code></pre></div>
+<pre><code>## # Source:   lazy query [?? x 4]
 ## # Database: postgres [rstudio_admin@localhost:5432/postgres]
-##   today     
-##   &lt;date&gt;    
-## 1 2020-01-08
-## 2 2020-01-08
-## 3 2020-01-08
-## 4 2020-01-08
-## 5 2020-01-08
-## 6 2020-01-08</code></pre></li>
+##   order_id customer_id step_id today     
+##      &lt;int&gt;       &lt;int&gt;   &lt;dbl&gt; &lt;date&gt;    
+## 1   127144           3     119 2020-01-23
+## 2   127145          79     119 2020-01-23
+## 3   127146          24     119 2020-01-23
+## 4   127147           1     119 2020-01-23
+## 5   127148          41     119 2020-01-23
+## 6   127149          75     119 2020-01-23</code></pre></li>
 </ol>
 </div>
 <div id="using-bang-bang" class="section level2">
 <h2><span class="header-section-number">5.5</span> Using bang-bang</h2>
 <p><em>Intro on passing unevaluated code to a dplyr verb</em></p>
 <ol style="list-style-type: decimal">
-<li><p>Preview how <code>Sys.time()</code> is translated when prefixing <code>!!</code></p>
-<div class="sourceCode" id="cb147"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb147-1" data-line-number="1">orders <span class="op">%&gt;%</span></a>
-<a class="sourceLine" id="cb147-2" data-line-number="2"><span class="st">  </span><span class="kw">mutate</span>(<span class="dt">today =</span> <span class="op">!!</span><span class="kw">Sys.time</span>()) <span class="op">%&gt;%</span></a>
-<a class="sourceLine" id="cb147-3" data-line-number="3"><span class="st">  </span><span class="kw">show_query</span>()</a></code></pre></div>
+<li><p>Preview how <code>Sys.Date()</code> is translated when prefixing <code>!!</code></p>
+<div class="sourceCode" id="cb175"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb175-1" data-line-number="1">orders <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb175-2" data-line-number="2"><span class="st">  </span><span class="kw">mutate</span>(<span class="dt">today =</span> <span class="op">!!</span><span class="kw">Sys.Date</span>()) <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb175-3" data-line-number="3"><span class="st">  </span><span class="kw">show_query</span>()</a></code></pre></div>
 <pre><code>## &lt;SQL&gt;
-## SELECT &quot;order_id&quot;, &quot;customer_id&quot;, &quot;step_id&quot;, &#39;2020-01-08T21:22:28Z&#39; AS &quot;today&quot;
+## SELECT &quot;order_id&quot;, &quot;customer_id&quot;, &quot;step_id&quot;, &#39;2020-01-23&#39; AS &quot;today&quot;
 ## FROM retail.orders</code></pre></li>
-<li><p>View resulting table when <code>Sys.time()</code> is translated when prefixing <code>!!</code></p>
-<div class="sourceCode" id="cb149"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb149-1" data-line-number="1">orders <span class="op">%&gt;%</span></a>
-<a class="sourceLine" id="cb149-2" data-line-number="2"><span class="st">  </span><span class="kw">mutate</span>(<span class="dt">today =</span> <span class="op">!!</span><span class="kw">Sys.time</span>()) <span class="op">%&gt;%</span></a>
-<a class="sourceLine" id="cb149-3" data-line-number="3"><span class="st">  </span><span class="kw">select</span>(today) <span class="op">%&gt;%</span></a>
-<a class="sourceLine" id="cb149-4" data-line-number="4"><span class="st">  </span><span class="kw">head</span>()</a></code></pre></div>
-<pre><code>## # Source:   lazy query [?? x 1]
+<li><p>View resulting table when <code>Sys.Date()</code> is translated when prefixing <code>!!</code></p>
+<div class="sourceCode" id="cb177"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb177-1" data-line-number="1">orders <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb177-2" data-line-number="2"><span class="st">  </span><span class="kw">mutate</span>(<span class="dt">today =</span> <span class="op">!!</span><span class="kw">Sys.Date</span>()) <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb177-3" data-line-number="3"><span class="st">  </span><span class="kw">head</span>()</a></code></pre></div>
+<pre><code>## # Source:   lazy query [?? x 4]
 ## # Database: postgres [rstudio_admin@localhost:5432/postgres]
-##   today               
-##   &lt;chr&gt;               
-## 1 2020-01-08T21:22:28Z
-## 2 2020-01-08T21:22:28Z
-## 3 2020-01-08T21:22:28Z
-## 4 2020-01-08T21:22:28Z
-## 5 2020-01-08T21:22:28Z
-## 6 2020-01-08T21:22:28Z</code></pre></li>
+##   order_id customer_id step_id today     
+##      &lt;int&gt;       &lt;int&gt;   &lt;dbl&gt; &lt;chr&gt;     
+## 1   127144           3     119 2020-01-23
+## 2   127145          79     119 2020-01-23
+## 3   127146          24     119 2020-01-23
+## 4   127147           1     119 2020-01-23
+## 5   127148          41     119 2020-01-23
+## 6   127149          75     119 2020-01-23</code></pre></li>
+<li><p>Disconnect from the database using <code>connection_close</code></p>
+<div class="sourceCode" id="cb179"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb179-1" data-line-number="1"><span class="kw">connection_close</span>(con)</a></code></pre></div></li>
 </ol>
 
 </div>

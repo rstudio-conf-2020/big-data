@@ -145,12 +145,12 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="2.3" data-path="introduction-to-dtplyr.html"><a href="introduction-to-dtplyr.html#how-dtplyr-works"><i class="fa fa-check"></i><b>2.3</b> How <code>dtplyr</code> works</a></li>
 <li class="chapter" data-level="2.4" data-path="introduction-to-dtplyr.html"><a href="introduction-to-dtplyr.html#working-with-dtplyr"><i class="fa fa-check"></i><b>2.4</b> Working with <code>dtplyr</code></a></li>
 <li class="chapter" data-level="2.5" data-path="introduction-to-dtplyr.html"><a href="introduction-to-dtplyr.html#pivot-data"><i class="fa fa-check"></i><b>2.5</b> Pivot data</a></li>
-<li class="chapter" data-level="2.6" data-path="introduction-to-dtplyr.html"><a href="introduction-to-dtplyr.html#the-mutate-verb"><i class="fa fa-check"></i><b>2.6</b> The <code>mutate()</code> verb</a></li>
 </ul></li>
 <li class="chapter" data-level="3" data-path="introduction-to-database-connections.html"><a href="introduction-to-database-connections.html"><i class="fa fa-check"></i><b>3</b> Introduction to database connections</a><ul>
-<li class="chapter" data-level="3.1" data-path="introduction-to-database-connections.html"><a href="introduction-to-database-connections.html#connecting-via-dsn"><i class="fa fa-check"></i><b>3.1</b> Connecting via DSN</a></li>
-<li class="chapter" data-level="3.2" data-path="introduction-to-database-connections.html"><a href="introduction-to-database-connections.html#connect-with-a-connection-string"><i class="fa fa-check"></i><b>3.2</b> Connect with a connection string</a></li>
-<li class="chapter" data-level="3.3" data-path="introduction-to-database-connections.html"><a href="introduction-to-database-connections.html#secure-connection-details"><i class="fa fa-check"></i><b>3.3</b> Secure connection details</a></li>
+<li class="chapter" data-level="3.1" data-path="introduction-to-database-connections.html"><a href="introduction-to-database-connections.html#connect-with-the-connections-pane"><i class="fa fa-check"></i><b>3.1</b> Connect with the Connections pane</a></li>
+<li class="chapter" data-level="3.2" data-path="introduction-to-database-connections.html"><a href="introduction-to-database-connections.html#connecting-via-dsn"><i class="fa fa-check"></i><b>3.2</b> Connecting via DSN</a></li>
+<li class="chapter" data-level="3.3" data-path="introduction-to-database-connections.html"><a href="introduction-to-database-connections.html#connect-with-a-connection-string"><i class="fa fa-check"></i><b>3.3</b> Connect with a connection string</a></li>
+<li class="chapter" data-level="3.4" data-path="introduction-to-database-connections.html"><a href="introduction-to-database-connections.html#secure-connection-details"><i class="fa fa-check"></i><b>3.4</b> Secure connection details</a></li>
 </ul></li>
 <li class="chapter" data-level="4" data-path="introduction-to-dbi.html"><a href="introduction-to-dbi.html"><i class="fa fa-check"></i><b>4</b> Introduction to <code>DBI</code></a><ul>
 <li class="chapter" data-level="4.1" data-path="introduction-to-dbi.html"><a href="introduction-to-dbi.html#local-database-basics"><i class="fa fa-check"></i><b>4.1</b> Local database basics</a></li>
@@ -220,7 +220,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <div id="text-mining-with-sparklyr" class="section level1">
 <h1><span class="header-section-number">10</span> Text mining with <code>sparklyr</code></h1>
 <p>For this example, there are two files that will be analyzed. They are both the full works of Sir Arthur Conan Doyle and Mark Twain. The files were downloaded from the <a href="https://www.gutenberg.org/">Gutenberg Project</a> site via the <code>gutenbergr</code> package. Intentionally, no data cleanup was done to the files prior to this analysis. See the appendix below to see how the data was downloaded and prepared.</p>
-<div class="sourceCode" id="cb323"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb323-1" data-line-number="1"><span class="kw">readLines</span>(<span class="st">&quot;/usr/share/class/books/arthur_doyle.txt&quot;</span>, <span class="dv">30</span>) </a></code></pre></div>
+<div class="sourceCode" id="cb353"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb353-1" data-line-number="1"><span class="kw">readLines</span>(<span class="st">&quot;/usr/share/class/books/arthur_doyle.txt&quot;</span>, <span class="dv">30</span>) </a></code></pre></div>
 <pre><code>##  [1] &quot;THE RETURN OF SHERLOCK HOLMES,&quot;                  
 ##  [2] &quot;&quot;                                                
 ##  [3] &quot;A Collection of Holmes Adventures&quot;               
@@ -256,14 +256,14 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <p><em>Read the book data into Spark</em></p>
 <ol style="list-style-type: decimal">
 <li><p>Load the <code>sparklyr</code> library</p>
-<div class="sourceCode" id="cb325"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb325-1" data-line-number="1"><span class="kw">library</span>(sparklyr)</a></code></pre></div></li>
+<div class="sourceCode" id="cb355"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb355-1" data-line-number="1"><span class="kw">library</span>(sparklyr)</a></code></pre></div></li>
 <li><p>Open a Spark session</p>
-<div class="sourceCode" id="cb326"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb326-1" data-line-number="1">sc &lt;-<span class="st"> </span><span class="kw">spark_connect</span>(<span class="dt">master =</span> <span class="st">&quot;local&quot;</span>)</a></code></pre></div>
+<div class="sourceCode" id="cb356"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb356-1" data-line-number="1">sc &lt;-<span class="st"> </span><span class="kw">spark_connect</span>(<span class="dt">master =</span> <span class="st">&quot;local&quot;</span>)</a></code></pre></div>
 <pre><code>## Re-using existing Spark connection to local</code></pre></li>
 <li><p>Use the <code>spark_read_text()</code> function to read the <strong>mark_twain.txt</strong> file, assign it to a variable called <code>twain</code></p>
-<div class="sourceCode" id="cb328"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb328-1" data-line-number="1">twain &lt;-<span class="st"> </span><span class="kw">spark_read_text</span>(sc, <span class="st">&quot;twain&quot;</span>, <span class="st">&quot;/usr/share/class/books/mark_twain.txt&quot;</span>) </a></code></pre></div></li>
+<div class="sourceCode" id="cb358"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb358-1" data-line-number="1">twain &lt;-<span class="st"> </span><span class="kw">spark_read_text</span>(sc, <span class="st">&quot;twain&quot;</span>, <span class="st">&quot;/usr/share/class/books/mark_twain.txt&quot;</span>) </a></code></pre></div></li>
 <li><p>Use the <code>spark_read_text()</code> function to read the <strong>arthur_doyle.txt</strong> file, assign it to a variable called <code>doyle</code></p>
-<div class="sourceCode" id="cb329"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb329-1" data-line-number="1">doyle &lt;-<span class="st"> </span><span class="kw">spark_read_text</span>(sc, <span class="st">&quot;doyle&quot;</span>, <span class="st">&quot;/usr/share/class/books/arthur_doyle.txt&quot;</span>) </a></code></pre></div></li>
+<div class="sourceCode" id="cb359"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb359-1" data-line-number="1">doyle &lt;-<span class="st"> </span><span class="kw">spark_read_text</span>(sc, <span class="st">&quot;doyle&quot;</span>, <span class="st">&quot;/usr/share/class/books/arthur_doyle.txt&quot;</span>) </a></code></pre></div></li>
 </ol>
 </div>
 <div id="tidying-data" class="section level2">
@@ -271,18 +271,18 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <p><em>Prepare the data for analysis</em></p>
 <ol style="list-style-type: decimal">
 <li><p>Load the <code>dplyr</code> library</p>
-<div class="sourceCode" id="cb330"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb330-1" data-line-number="1"><span class="kw">library</span>(dplyr)</a></code></pre></div></li>
+<div class="sourceCode" id="cb360"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb360-1" data-line-number="1"><span class="kw">library</span>(dplyr)</a></code></pre></div></li>
 <li><p>Add a column to <code>twain</code> named <code>author</code> with a value of “twain”. Assign it to a new variable called <code>twain_id</code></p>
-<div class="sourceCode" id="cb331"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb331-1" data-line-number="1">twain_id &lt;-<span class="st"> </span>twain <span class="op">%&gt;%</span><span class="st"> </span></a>
-<a class="sourceLine" id="cb331-2" data-line-number="2"><span class="st">  </span><span class="kw">mutate</span>(<span class="dt">author =</span> <span class="st">&quot;twain&quot;</span>)</a></code></pre></div></li>
+<div class="sourceCode" id="cb361"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb361-1" data-line-number="1">twain_id &lt;-<span class="st"> </span>twain <span class="op">%&gt;%</span><span class="st"> </span></a>
+<a class="sourceLine" id="cb361-2" data-line-number="2"><span class="st">  </span><span class="kw">mutate</span>(<span class="dt">author =</span> <span class="st">&quot;twain&quot;</span>)</a></code></pre></div></li>
 <li><p>Add a column to <code>doyle</code> named <code>author</code> with a value of “doyle”. Assign it to a new variable called <code>doyle_id</code></p>
-<div class="sourceCode" id="cb332"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb332-1" data-line-number="1">doyle_id &lt;-<span class="st"> </span>doyle <span class="op">%&gt;%</span></a>
-<a class="sourceLine" id="cb332-2" data-line-number="2"><span class="st">  </span><span class="kw">mutate</span>(<span class="dt">author =</span> <span class="st">&quot;doyle&quot;</span>)</a></code></pre></div></li>
+<div class="sourceCode" id="cb362"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb362-1" data-line-number="1">doyle_id &lt;-<span class="st"> </span>doyle <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb362-2" data-line-number="2"><span class="st">  </span><span class="kw">mutate</span>(<span class="dt">author =</span> <span class="st">&quot;doyle&quot;</span>)</a></code></pre></div></li>
 <li><p>Use <code>sdf_bind_rows()</code> to append the two files together in a variable called <code>both</code></p>
-<div class="sourceCode" id="cb333"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb333-1" data-line-number="1">both &lt;-<span class="st"> </span>doyle_id <span class="op">%&gt;%</span></a>
-<a class="sourceLine" id="cb333-2" data-line-number="2"><span class="st">  </span><span class="kw">sdf_bind_rows</span>(twain_id) </a></code></pre></div></li>
+<div class="sourceCode" id="cb363"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb363-1" data-line-number="1">both &lt;-<span class="st"> </span>doyle_id <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb363-2" data-line-number="2"><span class="st">  </span><span class="kw">sdf_bind_rows</span>(twain_id) </a></code></pre></div></li>
 <li><p>Preview <code>both</code></p>
-<div class="sourceCode" id="cb334"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb334-1" data-line-number="1">both</a></code></pre></div>
+<div class="sourceCode" id="cb364"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb364-1" data-line-number="1">both</a></code></pre></div>
 <pre><code>## # Source: spark&lt;?&gt; [?? x 2]
 ##    line                                author
 ##    &lt;chr&gt;                               &lt;chr&gt; 
@@ -298,11 +298,11 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 ## 10 &quot;&quot;                                  doyle 
 ## # … with more rows</code></pre></li>
 <li><p>Filter out empty lines into a variable called <code>all_lines</code></p>
-<div class="sourceCode" id="cb336"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb336-1" data-line-number="1">all_lines &lt;-<span class="st"> </span>both <span class="op">%&gt;%</span></a>
-<a class="sourceLine" id="cb336-2" data-line-number="2"><span class="st">  </span><span class="kw">filter</span>(<span class="kw">nchar</span>(line) <span class="op">&gt;</span><span class="st"> </span><span class="dv">0</span>)</a></code></pre></div></li>
+<div class="sourceCode" id="cb366"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb366-1" data-line-number="1">all_lines &lt;-<span class="st"> </span>both <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb366-2" data-line-number="2"><span class="st">  </span><span class="kw">filter</span>(<span class="kw">nchar</span>(line) <span class="op">&gt;</span><span class="st"> </span><span class="dv">0</span>)</a></code></pre></div></li>
 <li><p>Use Hive’s <em>regexp_replace</em> to remove punctuation, assign it to the same <code>all_lines</code> variable</p>
-<div class="sourceCode" id="cb337"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb337-1" data-line-number="1">all_lines &lt;-<span class="st"> </span>all_lines <span class="op">%&gt;%</span></a>
-<a class="sourceLine" id="cb337-2" data-line-number="2"><span class="st">  </span><span class="kw">mutate</span>(<span class="dt">line =</span> <span class="kw">regexp_replace</span>(line, <span class="st">&quot;[_</span><span class="ch">\&quot;\&#39;</span><span class="st">():;,.!?</span><span class="ch">\\</span><span class="st">-]&quot;</span>, <span class="st">&quot; &quot;</span>))</a></code></pre></div></li>
+<div class="sourceCode" id="cb367"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb367-1" data-line-number="1">all_lines &lt;-<span class="st"> </span>all_lines <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb367-2" data-line-number="2"><span class="st">  </span><span class="kw">mutate</span>(<span class="dt">line =</span> <span class="kw">regexp_replace</span>(line, <span class="st">&quot;[_</span><span class="ch">\&quot;\&#39;</span><span class="st">():;,.!?</span><span class="ch">\\</span><span class="st">-]&quot;</span>, <span class="st">&quot; &quot;</span>))</a></code></pre></div></li>
 </ol>
 </div>
 <div id="transform-the-data" class="section level2">
@@ -310,27 +310,27 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <p><em>Use feature transformers to make additional preparations</em></p>
 <ol style="list-style-type: decimal">
 <li><p>Use <code>ft_tokenizer()</code> to separate each word. in the line. Set the <code>output_col</code> to “word_list”. Assign to a variable called <code>word_list</code></p>
-<div class="sourceCode" id="cb338"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb338-1" data-line-number="1">word_list &lt;-<span class="st"> </span>all_lines <span class="op">%&gt;%</span></a>
-<a class="sourceLine" id="cb338-2" data-line-number="2"><span class="st">    </span><span class="kw">ft_tokenizer</span>(</a>
-<a class="sourceLine" id="cb338-3" data-line-number="3">      <span class="dt">input_col =</span> <span class="st">&quot;line&quot;</span>,</a>
-<a class="sourceLine" id="cb338-4" data-line-number="4">      <span class="dt">output_col =</span> <span class="st">&quot;word_list&quot;</span></a>
-<a class="sourceLine" id="cb338-5" data-line-number="5">      )</a></code></pre></div></li>
+<div class="sourceCode" id="cb368"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb368-1" data-line-number="1">word_list &lt;-<span class="st"> </span>all_lines <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb368-2" data-line-number="2"><span class="st">    </span><span class="kw">ft_tokenizer</span>(</a>
+<a class="sourceLine" id="cb368-3" data-line-number="3">      <span class="dt">input_col =</span> <span class="st">&quot;line&quot;</span>,</a>
+<a class="sourceLine" id="cb368-4" data-line-number="4">      <span class="dt">output_col =</span> <span class="st">&quot;word_list&quot;</span></a>
+<a class="sourceLine" id="cb368-5" data-line-number="5">      )</a></code></pre></div></li>
 <li><p>Remove “stop words” with the <code>ft_stop_words_remover()</code> transformer. Set the <code>output_col</code> to “wo_stop_words”. Assign to a variable called <code>wo_stop</code></p>
-<div class="sourceCode" id="cb339"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb339-1" data-line-number="1">wo_stop &lt;-<span class="st"> </span>word_list <span class="op">%&gt;%</span></a>
-<a class="sourceLine" id="cb339-2" data-line-number="2"><span class="st">  </span><span class="kw">ft_stop_words_remover</span>(</a>
-<a class="sourceLine" id="cb339-3" data-line-number="3">    <span class="dt">input_col =</span> <span class="st">&quot;word_list&quot;</span>,</a>
-<a class="sourceLine" id="cb339-4" data-line-number="4">    <span class="dt">output_col =</span> <span class="st">&quot;wo_stop_words&quot;</span></a>
-<a class="sourceLine" id="cb339-5" data-line-number="5">    )</a></code></pre></div></li>
+<div class="sourceCode" id="cb369"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb369-1" data-line-number="1">wo_stop &lt;-<span class="st"> </span>word_list <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb369-2" data-line-number="2"><span class="st">  </span><span class="kw">ft_stop_words_remover</span>(</a>
+<a class="sourceLine" id="cb369-3" data-line-number="3">    <span class="dt">input_col =</span> <span class="st">&quot;word_list&quot;</span>,</a>
+<a class="sourceLine" id="cb369-4" data-line-number="4">    <span class="dt">output_col =</span> <span class="st">&quot;wo_stop_words&quot;</span></a>
+<a class="sourceLine" id="cb369-5" data-line-number="5">    )</a></code></pre></div></li>
 <li><p>Un-nest the tokens inside <em>wo_stop_words</em> using <code>explode()</code>. Assign to a variable called <code>exploded</code></p>
-<div class="sourceCode" id="cb340"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb340-1" data-line-number="1">exploded &lt;-<span class="st"> </span>wo_stop <span class="op">%&gt;%</span></a>
-<a class="sourceLine" id="cb340-2" data-line-number="2"><span class="st">  </span><span class="kw">mutate</span>(<span class="dt">word =</span> <span class="kw">explode</span>(wo_stop_words))</a></code></pre></div></li>
+<div class="sourceCode" id="cb370"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb370-1" data-line-number="1">exploded &lt;-<span class="st"> </span>wo_stop <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb370-2" data-line-number="2"><span class="st">  </span><span class="kw">mutate</span>(<span class="dt">word =</span> <span class="kw">explode</span>(wo_stop_words))</a></code></pre></div></li>
 <li><p>Select the <em>word</em> and <em>author</em> columns, and remove any word with less than 3 characters. Assign to <code>all_words</code></p>
-<div class="sourceCode" id="cb341"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb341-1" data-line-number="1">all_words &lt;-<span class="st"> </span>exploded <span class="op">%&gt;%</span></a>
-<a class="sourceLine" id="cb341-2" data-line-number="2"><span class="st">  </span><span class="kw">select</span>(word, author) <span class="op">%&gt;%</span></a>
-<a class="sourceLine" id="cb341-3" data-line-number="3"><span class="st">  </span><span class="kw">filter</span>(<span class="kw">nchar</span>(word) <span class="op">&gt;</span><span class="st"> </span><span class="dv">2</span>)</a></code></pre></div></li>
+<div class="sourceCode" id="cb371"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb371-1" data-line-number="1">all_words &lt;-<span class="st"> </span>exploded <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb371-2" data-line-number="2"><span class="st">  </span><span class="kw">select</span>(word, author) <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb371-3" data-line-number="3"><span class="st">  </span><span class="kw">filter</span>(<span class="kw">nchar</span>(word) <span class="op">&gt;</span><span class="st"> </span><span class="dv">2</span>)</a></code></pre></div></li>
 <li><p>Cache the <code>all_words</code> variable using <code>compute()</code></p>
-<div class="sourceCode" id="cb342"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb342-1" data-line-number="1">all_words &lt;-<span class="st"> </span>all_words <span class="op">%&gt;%</span></a>
-<a class="sourceLine" id="cb342-2" data-line-number="2"><span class="st">  </span><span class="kw">compute</span>(<span class="st">&quot;all_words&quot;</span>)</a></code></pre></div></li>
+<div class="sourceCode" id="cb372"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb372-1" data-line-number="1">all_words &lt;-<span class="st"> </span>all_words <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb372-2" data-line-number="2"><span class="st">  </span><span class="kw">compute</span>(<span class="st">&quot;all_words&quot;</span>)</a></code></pre></div></li>
 </ol>
 </div>
 <div id="data-exploration" class="section level2">
@@ -338,62 +338,62 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <p><em>Used word clouds to explore the data</em></p>
 <ol style="list-style-type: decimal">
 <li><p>Create a variable with the word count by author, name it <code>word_count</code></p>
-<div class="sourceCode" id="cb343"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb343-1" data-line-number="1">word_count &lt;-<span class="st"> </span>all_words <span class="op">%&gt;%</span></a>
-<a class="sourceLine" id="cb343-2" data-line-number="2"><span class="st">  </span><span class="kw">count</span>(author, word, <span class="dt">sort =</span> <span class="ot">TRUE</span>) </a></code></pre></div></li>
+<div class="sourceCode" id="cb373"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb373-1" data-line-number="1">word_count &lt;-<span class="st"> </span>all_words <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb373-2" data-line-number="2"><span class="st">  </span><span class="kw">count</span>(author, word, <span class="dt">sort =</span> <span class="ot">TRUE</span>) </a></code></pre></div></li>
 <li><p>Filter <code>word_cout</code> to only retain “twain”, assign it to <code>twain_most</code></p>
-<div class="sourceCode" id="cb344"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb344-1" data-line-number="1">twain_most &lt;-<span class="st"> </span>word_count <span class="op">%&gt;%</span></a>
-<a class="sourceLine" id="cb344-2" data-line-number="2"><span class="st">  </span><span class="kw">filter</span>(author <span class="op">==</span><span class="st"> &quot;twain&quot;</span>)</a></code></pre></div></li>
+<div class="sourceCode" id="cb374"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb374-1" data-line-number="1">twain_most &lt;-<span class="st"> </span>word_count <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb374-2" data-line-number="2"><span class="st">  </span><span class="kw">filter</span>(author <span class="op">==</span><span class="st"> &quot;twain&quot;</span>)</a></code></pre></div></li>
 <li><p>Use <code>wordcloud</code> to visualize the top 50 words used by Twain</p>
-<div class="sourceCode" id="cb345"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb345-1" data-line-number="1">twain_most <span class="op">%&gt;%</span></a>
-<a class="sourceLine" id="cb345-2" data-line-number="2"><span class="st">  </span><span class="kw">head</span>(<span class="dv">50</span>) <span class="op">%&gt;%</span></a>
-<a class="sourceLine" id="cb345-3" data-line-number="3"><span class="st">  </span><span class="kw">collect</span>() <span class="op">%&gt;%</span></a>
-<a class="sourceLine" id="cb345-4" data-line-number="4"><span class="st">  </span><span class="kw">with</span>(wordcloud<span class="op">::</span><span class="kw">wordcloud</span>(</a>
-<a class="sourceLine" id="cb345-5" data-line-number="5">    word, </a>
-<a class="sourceLine" id="cb345-6" data-line-number="6">    n,</a>
-<a class="sourceLine" id="cb345-7" data-line-number="7">    <span class="dt">colors =</span> <span class="kw">c</span>(<span class="st">&quot;#999999&quot;</span>, <span class="st">&quot;#E69F00&quot;</span>, <span class="st">&quot;#56B4E9&quot;</span>,<span class="st">&quot;#56B4E9&quot;</span>))</a>
-<a class="sourceLine" id="cb345-8" data-line-number="8">    )</a></code></pre></div>
-<p><img src="_main_files/figure-html/unnamed-chunk-246-1.png" width="672" /></p></li>
+<div class="sourceCode" id="cb375"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb375-1" data-line-number="1">twain_most <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb375-2" data-line-number="2"><span class="st">  </span><span class="kw">head</span>(<span class="dv">50</span>) <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb375-3" data-line-number="3"><span class="st">  </span><span class="kw">collect</span>() <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb375-4" data-line-number="4"><span class="st">  </span><span class="kw">with</span>(wordcloud<span class="op">::</span><span class="kw">wordcloud</span>(</a>
+<a class="sourceLine" id="cb375-5" data-line-number="5">    word, </a>
+<a class="sourceLine" id="cb375-6" data-line-number="6">    n,</a>
+<a class="sourceLine" id="cb375-7" data-line-number="7">    <span class="dt">colors =</span> <span class="kw">c</span>(<span class="st">&quot;#999999&quot;</span>, <span class="st">&quot;#E69F00&quot;</span>, <span class="st">&quot;#56B4E9&quot;</span>,<span class="st">&quot;#56B4E9&quot;</span>))</a>
+<a class="sourceLine" id="cb375-8" data-line-number="8">    )</a></code></pre></div>
+<p><img src="_main_files/figure-html/unnamed-chunk-266-1.png" width="672" /></p></li>
 <li><p>Filter <code>word_cout</code> to only retain “doyle”, assign it to <code>doyle_most</code></p>
-<div class="sourceCode" id="cb346"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb346-1" data-line-number="1">doyle_most &lt;-<span class="st"> </span>word_count <span class="op">%&gt;%</span></a>
-<a class="sourceLine" id="cb346-2" data-line-number="2"><span class="st">  </span><span class="kw">filter</span>(author <span class="op">==</span><span class="st"> &quot;doyle&quot;</span>)</a></code></pre></div></li>
+<div class="sourceCode" id="cb376"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb376-1" data-line-number="1">doyle_most &lt;-<span class="st"> </span>word_count <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb376-2" data-line-number="2"><span class="st">  </span><span class="kw">filter</span>(author <span class="op">==</span><span class="st"> &quot;doyle&quot;</span>)</a></code></pre></div></li>
 <li><p>Used <code>wordcloud</code> to visualize the top 50 words used by Doyle that have more than 5 characters</p>
-<div class="sourceCode" id="cb347"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb347-1" data-line-number="1">doyle_most <span class="op">%&gt;%</span></a>
-<a class="sourceLine" id="cb347-2" data-line-number="2"><span class="st">  </span><span class="kw">filter</span>(<span class="kw">nchar</span>(word) <span class="op">&gt;</span><span class="st"> </span><span class="dv">5</span>) <span class="op">%&gt;%</span></a>
-<a class="sourceLine" id="cb347-3" data-line-number="3"><span class="st">  </span><span class="kw">head</span>(<span class="dv">50</span>) <span class="op">%&gt;%</span></a>
-<a class="sourceLine" id="cb347-4" data-line-number="4"><span class="st">  </span><span class="kw">collect</span>() <span class="op">%&gt;%</span></a>
-<a class="sourceLine" id="cb347-5" data-line-number="5"><span class="st">  </span><span class="kw">with</span>(wordcloud<span class="op">::</span><span class="kw">wordcloud</span>(</a>
-<a class="sourceLine" id="cb347-6" data-line-number="6">    word, </a>
-<a class="sourceLine" id="cb347-7" data-line-number="7">    n,</a>
-<a class="sourceLine" id="cb347-8" data-line-number="8">    <span class="dt">colors =</span> <span class="kw">c</span>(<span class="st">&quot;#999999&quot;</span>, <span class="st">&quot;#E69F00&quot;</span>, <span class="st">&quot;#56B4E9&quot;</span>,<span class="st">&quot;#56B4E9&quot;</span>)</a>
-<a class="sourceLine" id="cb347-9" data-line-number="9">    ))</a></code></pre></div>
-<p><img src="_main_files/figure-html/unnamed-chunk-248-1.png" width="672" /></p></li>
+<div class="sourceCode" id="cb377"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb377-1" data-line-number="1">doyle_most <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb377-2" data-line-number="2"><span class="st">  </span><span class="kw">filter</span>(<span class="kw">nchar</span>(word) <span class="op">&gt;</span><span class="st"> </span><span class="dv">5</span>) <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb377-3" data-line-number="3"><span class="st">  </span><span class="kw">head</span>(<span class="dv">50</span>) <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb377-4" data-line-number="4"><span class="st">  </span><span class="kw">collect</span>() <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb377-5" data-line-number="5"><span class="st">  </span><span class="kw">with</span>(wordcloud<span class="op">::</span><span class="kw">wordcloud</span>(</a>
+<a class="sourceLine" id="cb377-6" data-line-number="6">    word, </a>
+<a class="sourceLine" id="cb377-7" data-line-number="7">    n,</a>
+<a class="sourceLine" id="cb377-8" data-line-number="8">    <span class="dt">colors =</span> <span class="kw">c</span>(<span class="st">&quot;#999999&quot;</span>, <span class="st">&quot;#E69F00&quot;</span>, <span class="st">&quot;#56B4E9&quot;</span>,<span class="st">&quot;#56B4E9&quot;</span>)</a>
+<a class="sourceLine" id="cb377-9" data-line-number="9">    ))</a></code></pre></div>
+<p><img src="_main_files/figure-html/unnamed-chunk-268-1.png" width="672" /></p></li>
 <li><p>Use <code>anti_join()</code> to figure out which words are used by Doyle but not Twain. Order the results by number of words.</p>
-<div class="sourceCode" id="cb348"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb348-1" data-line-number="1">doyle_unique &lt;-<span class="st"> </span>doyle_most <span class="op">%&gt;%</span></a>
-<a class="sourceLine" id="cb348-2" data-line-number="2"><span class="st">  </span><span class="kw">anti_join</span>(twain_most, <span class="dt">by =</span> <span class="st">&quot;word&quot;</span>) <span class="op">%&gt;%</span></a>
-<a class="sourceLine" id="cb348-3" data-line-number="3"><span class="st">  </span><span class="kw">arrange</span>(<span class="kw">desc</span>(n)) </a></code></pre></div></li>
+<div class="sourceCode" id="cb378"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb378-1" data-line-number="1">doyle_unique &lt;-<span class="st"> </span>doyle_most <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb378-2" data-line-number="2"><span class="st">  </span><span class="kw">anti_join</span>(twain_most, <span class="dt">by =</span> <span class="st">&quot;word&quot;</span>) <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb378-3" data-line-number="3"><span class="st">  </span><span class="kw">arrange</span>(<span class="kw">desc</span>(n)) </a></code></pre></div></li>
 <li><p>Use <code>wordcloud</code> to visualize top 50 records in the previous step</p>
-<div class="sourceCode" id="cb349"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb349-1" data-line-number="1">doyle_unique <span class="op">%&gt;%</span></a>
-<a class="sourceLine" id="cb349-2" data-line-number="2"><span class="st">  </span><span class="kw">head</span>(<span class="dv">50</span>) <span class="op">%&gt;%</span></a>
-<a class="sourceLine" id="cb349-3" data-line-number="3"><span class="st">  </span><span class="kw">collect</span>() <span class="op">%&gt;%</span></a>
-<a class="sourceLine" id="cb349-4" data-line-number="4"><span class="st">  </span><span class="kw">with</span>(wordcloud<span class="op">::</span><span class="kw">wordcloud</span>(</a>
-<a class="sourceLine" id="cb349-5" data-line-number="5">    word, </a>
-<a class="sourceLine" id="cb349-6" data-line-number="6">    n,</a>
-<a class="sourceLine" id="cb349-7" data-line-number="7">    <span class="dt">colors =</span> <span class="kw">c</span>(<span class="st">&quot;#999999&quot;</span>, <span class="st">&quot;#E69F00&quot;</span>, <span class="st">&quot;#56B4E9&quot;</span>,<span class="st">&quot;#56B4E9&quot;</span>))</a>
-<a class="sourceLine" id="cb349-8" data-line-number="8">    )</a></code></pre></div>
-<p><img src="_main_files/figure-html/unnamed-chunk-250-1.png" width="672" /></p></li>
+<div class="sourceCode" id="cb379"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb379-1" data-line-number="1">doyle_unique <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb379-2" data-line-number="2"><span class="st">  </span><span class="kw">head</span>(<span class="dv">50</span>) <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb379-3" data-line-number="3"><span class="st">  </span><span class="kw">collect</span>() <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb379-4" data-line-number="4"><span class="st">  </span><span class="kw">with</span>(wordcloud<span class="op">::</span><span class="kw">wordcloud</span>(</a>
+<a class="sourceLine" id="cb379-5" data-line-number="5">    word, </a>
+<a class="sourceLine" id="cb379-6" data-line-number="6">    n,</a>
+<a class="sourceLine" id="cb379-7" data-line-number="7">    <span class="dt">colors =</span> <span class="kw">c</span>(<span class="st">&quot;#999999&quot;</span>, <span class="st">&quot;#E69F00&quot;</span>, <span class="st">&quot;#56B4E9&quot;</span>,<span class="st">&quot;#56B4E9&quot;</span>))</a>
+<a class="sourceLine" id="cb379-8" data-line-number="8">    )</a></code></pre></div>
+<p><img src="_main_files/figure-html/unnamed-chunk-270-1.png" width="672" /></p></li>
 <li><p>Find out how many times Twain used the word “sherlock”</p>
-<div class="sourceCode" id="cb350"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb350-1" data-line-number="1">all_words <span class="op">%&gt;%</span></a>
-<a class="sourceLine" id="cb350-2" data-line-number="2"><span class="st">  </span><span class="kw">filter</span>(author <span class="op">==</span><span class="st"> &quot;twain&quot;</span>, word <span class="op">==</span><span class="st"> &quot;sherlock&quot;</span>) <span class="op">%&gt;%</span></a>
-<a class="sourceLine" id="cb350-3" data-line-number="3"><span class="st">  </span><span class="kw">tally</span>()</a></code></pre></div>
+<div class="sourceCode" id="cb380"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb380-1" data-line-number="1">all_words <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb380-2" data-line-number="2"><span class="st">  </span><span class="kw">filter</span>(author <span class="op">==</span><span class="st"> &quot;twain&quot;</span>, word <span class="op">==</span><span class="st"> &quot;sherlock&quot;</span>) <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb380-3" data-line-number="3"><span class="st">  </span><span class="kw">tally</span>()</a></code></pre></div>
 <pre><code>## # Source: spark&lt;?&gt; [?? x 1]
 ##       n
 ##   &lt;dbl&gt;
 ## 1    47</code></pre></li>
 <li><p>Against the <code>twain</code> variable, use Hive’s <em>instr</em> and <em>lower</em> to make all ever word lower cap, and then look for “sherlock” in the line</p>
-<div class="sourceCode" id="cb352"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb352-1" data-line-number="1">twain <span class="op">%&gt;%</span></a>
-<a class="sourceLine" id="cb352-2" data-line-number="2"><span class="st">  </span><span class="kw">mutate</span>(<span class="dt">line =</span> <span class="kw">lower</span>(line)) <span class="op">%&gt;%</span></a>
-<a class="sourceLine" id="cb352-3" data-line-number="3"><span class="st">  </span><span class="kw">filter</span>(<span class="kw">instr</span>(line, <span class="st">&quot;sherlock&quot;</span>) <span class="op">&gt;</span><span class="st"> </span><span class="dv">0</span>) <span class="op">%&gt;%</span></a>
-<a class="sourceLine" id="cb352-4" data-line-number="4"><span class="st">  </span><span class="kw">pull</span>(line)</a></code></pre></div>
+<div class="sourceCode" id="cb382"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb382-1" data-line-number="1">twain <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb382-2" data-line-number="2"><span class="st">  </span><span class="kw">mutate</span>(<span class="dt">line =</span> <span class="kw">lower</span>(line)) <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb382-3" data-line-number="3"><span class="st">  </span><span class="kw">filter</span>(<span class="kw">instr</span>(line, <span class="st">&quot;sherlock&quot;</span>) <span class="op">&gt;</span><span class="st"> </span><span class="dv">0</span>) <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb382-4" data-line-number="4"><span class="st">  </span><span class="kw">pull</span>(line)</a></code></pre></div>
 <pre><code>##  [1] &quot;late sherlock holmes, and yet discernible by a member of a race charged&quot;  
 ##  [2] &quot;sherlock holmes.&quot;                                                         
 ##  [3] &quot;\&quot;uncle sherlock! the mean luck of it!--that he should come just&quot;         
@@ -442,7 +442,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 ## [46] &quot;--je m&#39;appelle sherlock holmes; je n&#39;ai rien a me reprocher.&quot;             
 ## [47] &quot;plus fort que sherlock holmes&quot;</code></pre></li>
 <li><p>Close Spark session</p>
-<div class="sourceCode" id="cb354"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb354-1" data-line-number="1"><span class="kw">spark_disconnect</span>(sc)</a></code></pre></div></li>
+<div class="sourceCode" id="cb384"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb384-1" data-line-number="1"><span class="kw">spark_disconnect</span>(sc)</a></code></pre></div></li>
 </ol>
 <p>Most of these lines are in a short story by Mark Twain called <a href="https://www.gutenberg.org/files/3180/3180-h/3180-h.htm#link2H_4_0008">A Double Barrelled Detective Story</a>. As per the <a href="https://en.wikipedia.org/wiki/A_Double_Barrelled_Detective_Story">Wikipedia</a> page about this story, this is a satire by Twain on the mystery novel genre, published in 1902.</p>
 

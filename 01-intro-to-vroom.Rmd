@@ -132,7 +132,7 @@ library(dplyr)
       orders <- transactions %>%
         group_by(order_id) %>%
         summarise(total_sales = sum(price), no_items = n()) %>%
-        bind_rows(all_orders)
+        bind_rows(orders)
       rm(transactions)
     }
     ```

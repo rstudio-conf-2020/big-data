@@ -145,12 +145,12 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="2.3" data-path="introduction-to-dtplyr.html"><a href="introduction-to-dtplyr.html#how-dtplyr-works"><i class="fa fa-check"></i><b>2.3</b> How <code>dtplyr</code> works</a></li>
 <li class="chapter" data-level="2.4" data-path="introduction-to-dtplyr.html"><a href="introduction-to-dtplyr.html#working-with-dtplyr"><i class="fa fa-check"></i><b>2.4</b> Working with <code>dtplyr</code></a></li>
 <li class="chapter" data-level="2.5" data-path="introduction-to-dtplyr.html"><a href="introduction-to-dtplyr.html#pivot-data"><i class="fa fa-check"></i><b>2.5</b> Pivot data</a></li>
-<li class="chapter" data-level="2.6" data-path="introduction-to-dtplyr.html"><a href="introduction-to-dtplyr.html#the-mutate-verb"><i class="fa fa-check"></i><b>2.6</b> The <code>mutate()</code> verb</a></li>
 </ul></li>
 <li class="chapter" data-level="3" data-path="introduction-to-database-connections.html"><a href="introduction-to-database-connections.html"><i class="fa fa-check"></i><b>3</b> Introduction to database connections</a><ul>
-<li class="chapter" data-level="3.1" data-path="introduction-to-database-connections.html"><a href="introduction-to-database-connections.html#connecting-via-dsn"><i class="fa fa-check"></i><b>3.1</b> Connecting via DSN</a></li>
-<li class="chapter" data-level="3.2" data-path="introduction-to-database-connections.html"><a href="introduction-to-database-connections.html#connect-with-a-connection-string"><i class="fa fa-check"></i><b>3.2</b> Connect with a connection string</a></li>
-<li class="chapter" data-level="3.3" data-path="introduction-to-database-connections.html"><a href="introduction-to-database-connections.html#secure-connection-details"><i class="fa fa-check"></i><b>3.3</b> Secure connection details</a></li>
+<li class="chapter" data-level="3.1" data-path="introduction-to-database-connections.html"><a href="introduction-to-database-connections.html#connect-with-the-connections-pane"><i class="fa fa-check"></i><b>3.1</b> Connect with the Connections pane</a></li>
+<li class="chapter" data-level="3.2" data-path="introduction-to-database-connections.html"><a href="introduction-to-database-connections.html#connecting-via-dsn"><i class="fa fa-check"></i><b>3.2</b> Connecting via DSN</a></li>
+<li class="chapter" data-level="3.3" data-path="introduction-to-database-connections.html"><a href="introduction-to-database-connections.html#connect-with-a-connection-string"><i class="fa fa-check"></i><b>3.3</b> Connect with a connection string</a></li>
+<li class="chapter" data-level="3.4" data-path="introduction-to-database-connections.html"><a href="introduction-to-database-connections.html#secure-connection-details"><i class="fa fa-check"></i><b>3.4</b> Secure connection details</a></li>
 </ul></li>
 <li class="chapter" data-level="4" data-path="introduction-to-dbi.html"><a href="introduction-to-dbi.html"><i class="fa fa-check"></i><b>4</b> Introduction to <code>DBI</code></a><ul>
 <li class="chapter" data-level="4.1" data-path="introduction-to-dbi.html"><a href="introduction-to-dbi.html#local-database-basics"><i class="fa fa-check"></i><b>4.1</b> Local database basics</a></li>
@@ -251,13 +251,10 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 ## $ date_day        &lt;chr&gt; &quot;Friday&quot;, &quot;Friday&quot;, &quot;Friday&quot;, &quot;Friday&quot;, &quot;Friday&quot;, &quot;Frid…
 ## $ product_id      &lt;int&gt; 6, 27, 30, 2, 17, 1, 5, 4, 27, 16, 30, 6, 11, 30, 30, 1…
 ## $ price           &lt;dbl&gt; 9.88, 7.53, 5.64, 4.89, 6.48, 6.70, 4.27, 7.38, 7.53, 5…</code></pre></li>
-<li><p>Load the <code>dplyr</code> and <code>dtplyr</code> libraries</p>
-<div class="sourceCode" id="cb37"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb37-1" data-line-number="1"><span class="kw">library</span>(dplyr)</a>
-<a class="sourceLine" id="cb37-2" data-line-number="2"><span class="kw">library</span>(dtplyr)</a></code></pre></div></li>
-<li><p>Use the <code>lazy_dt()</code> to “wrap” the <code>transactions</code> variable, into a new variable called <code>dt_transactions</code></p>
-<div class="sourceCode" id="cb38"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb38-1" data-line-number="1">dt_transactions &lt;-<span class="st"> </span><span class="kw">lazy_dt</span>(transactions)</a></code></pre></div></li>
-<li><p>View the <code>dt_transactions</code> variable’s structure with <code>glimpse()</code></p>
-<div class="sourceCode" id="cb39"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb39-1" data-line-number="1"><span class="kw">glimpse</span>(dt_transactions)</a></code></pre></div>
+<li><p>Use <code>lazy_dt()</code> to “wrap” the <code>transactions</code> variable into a new variable called <code>dt_transactions</code></p>
+<div class="sourceCode" id="cb37"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb37-1" data-line-number="1">dt_transactions &lt;-<span class="st"> </span><span class="kw">lazy_dt</span>(transactions)</a></code></pre></div></li>
+<li><p>View <code>dt_transactions</code> structure with <code>glimpse()</code></p>
+<div class="sourceCode" id="cb38"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb38-1" data-line-number="1"><span class="kw">glimpse</span>(dt_transactions)</a></code></pre></div>
 <pre><code>## List of 7
 ##  $ parent       :Classes &#39;data.table&#39; and &#39;data.frame&#39;:  250000 obs. of  14 variables:
 ##   ..$ order_id       : int [1:250000] 1001 1001 1001 1001 1002 1002 1002 1002 1003 1003 ...
@@ -289,15 +286,15 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <p><em>Confirm that <code>dtplyr</code> is not making copies of the original <code>data.table</code></em></p>
 <ol style="list-style-type: decimal">
 <li><p>Load the <code>lobstr</code> library</p>
-<div class="sourceCode" id="cb41"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb41-1" data-line-number="1"><span class="kw">library</span>(lobstr)</a></code></pre></div></li>
+<div class="sourceCode" id="cb40"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb40-1" data-line-number="1"><span class="kw">library</span>(lobstr)</a></code></pre></div></li>
 <li><p>Use <code>obj_size()</code> to obtain <code>transactions</code>’s size in memory</p>
-<div class="sourceCode" id="cb42"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb42-1" data-line-number="1"><span class="kw">obj_size</span>(transactions)</a></code></pre></div>
+<div class="sourceCode" id="cb41"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb41-1" data-line-number="1"><span class="kw">obj_size</span>(transactions)</a></code></pre></div>
 <pre><code>## 23,019,560 B</code></pre></li>
 <li><p>Use <code>obj_size()</code> to obtain <code>dt_transactions</code>’s size in memory</p>
-<div class="sourceCode" id="cb44"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb44-1" data-line-number="1"><span class="kw">obj_size</span>(dt_transactions)</a></code></pre></div>
+<div class="sourceCode" id="cb43"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb43-1" data-line-number="1"><span class="kw">obj_size</span>(dt_transactions)</a></code></pre></div>
 <pre><code>## 23,020,672 B</code></pre></li>
 <li><p>Use <code>obj_size()</code> to obtain <code>dt_transactions</code> and <code>transactions</code> size in memory together</p>
-<div class="sourceCode" id="cb46"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb46-1" data-line-number="1"><span class="kw">obj_size</span>(transactions, dt_transactions)</a></code></pre></div>
+<div class="sourceCode" id="cb45"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb45-1" data-line-number="1"><span class="kw">obj_size</span>(transactions, dt_transactions)</a></code></pre></div>
 <pre><code>## 23,020,672 B</code></pre></li>
 </ol>
 </div>
@@ -306,9 +303,9 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <p><em>Under the hood view of how <code>dtplyr</code> operates <code>data.table</code> objects</em></p>
 <ol style="list-style-type: decimal">
 <li><p>Use <code>dplyr</code> verbs on top of <code>dt_transactions</code> to obtain the total sales by month</p>
-<div class="sourceCode" id="cb48"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb48-1" data-line-number="1">dt_transactions <span class="op">%&gt;%</span></a>
-<a class="sourceLine" id="cb48-2" data-line-number="2"><span class="st">  </span><span class="kw">group_by</span>(date_month) <span class="op">%&gt;%</span></a>
-<a class="sourceLine" id="cb48-3" data-line-number="3"><span class="st">  </span><span class="kw">summarise</span>(<span class="dt">total_sales =</span> <span class="kw">sum</span>(price))</a></code></pre></div>
+<div class="sourceCode" id="cb47"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb47-1" data-line-number="1">dt_transactions <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb47-2" data-line-number="2"><span class="st">  </span><span class="kw">group_by</span>(date_month) <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb47-3" data-line-number="3"><span class="st">  </span><span class="kw">summarise</span>(<span class="dt">total_sales =</span> <span class="kw">sum</span>(price))</a></code></pre></div>
 <pre><code>## Source: local data table [?? x 2]
 ## Call:   `_DT1`[, .(total_sales = sum(price)), keyby = .(date_month)]
 ## 
@@ -319,14 +316,14 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 ## 
 ## # Use as.data.table()/as.data.frame()/as_tibble() to access results</code></pre></li>
 <li><p>Load the above code into a variable called <code>by_month</code></p>
-<div class="sourceCode" id="cb50"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb50-1" data-line-number="1">by_month &lt;-<span class="st"> </span>dt_transactions <span class="op">%&gt;%</span></a>
-<a class="sourceLine" id="cb50-2" data-line-number="2"><span class="st">  </span><span class="kw">group_by</span>(date_month) <span class="op">%&gt;%</span></a>
-<a class="sourceLine" id="cb50-3" data-line-number="3"><span class="st">  </span><span class="kw">summarise</span>(<span class="dt">total_sales =</span> <span class="kw">sum</span>(price))</a></code></pre></div></li>
+<div class="sourceCode" id="cb49"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb49-1" data-line-number="1">by_month &lt;-<span class="st"> </span>dt_transactions <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb49-2" data-line-number="2"><span class="st">  </span><span class="kw">group_by</span>(date_month) <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb49-3" data-line-number="3"><span class="st">  </span><span class="kw">summarise</span>(<span class="dt">total_sales =</span> <span class="kw">sum</span>(price))</a></code></pre></div></li>
 <li><p>Use <code>show_query()</code> to see the <code>data.table</code> code that <code>by_month</code> actually runs</p>
-<div class="sourceCode" id="cb51"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb51-1" data-line-number="1"><span class="kw">show_query</span>(by_month)</a></code></pre></div>
+<div class="sourceCode" id="cb50"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb50-1" data-line-number="1"><span class="kw">show_query</span>(by_month)</a></code></pre></div>
 <pre><code>## `_DT1`[, .(total_sales = sum(price)), keyby = .(date_month)]</code></pre></li>
 <li><p>Use <code>glimpse()</code> to view how <code>by_month</code>, instead of modifying the data, only adds steps that will later be executed by <code>data.table</code></p>
-<div class="sourceCode" id="cb53"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb53-1" data-line-number="1"><span class="kw">glimpse</span>(by_month)</a></code></pre></div>
+<div class="sourceCode" id="cb52"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb52-1" data-line-number="1"><span class="kw">glimpse</span>(by_month)</a></code></pre></div>
 <pre><code>## List of 6
 ##  $ parent       :List of 9
 ##   ..$ parent       :List of 6
@@ -353,6 +350,109 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 ##  $ needs_copy   : logi FALSE
 ##  $ env          :&lt;environment: R_GlobalEnv&gt; 
 ##  - attr(*, &quot;class&quot;)= chr [1:2] &quot;dtplyr_step_group&quot; &quot;dtplyr_step&quot;</code></pre></li>
+<li><p>Create a new column using <code>mutate()</code></p>
+<div class="sourceCode" id="cb54"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb54-1" data-line-number="1">dt_transactions <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb54-2" data-line-number="2"><span class="st">  </span><span class="kw">mutate</span>(<span class="dt">new_field =</span> price <span class="op">/</span><span class="st"> </span><span class="dv">2</span>)</a></code></pre></div>
+<pre><code>## Source: local data table [?? x 15]
+## Call:   copy(`_DT1`)[, `:=`(new_field = price/2)]
+## 
+##   order_id customer_id customer_name customer_phone customer_cc customer_lon
+##      &lt;int&gt;       &lt;int&gt; &lt;chr&gt;         &lt;chr&gt;          &lt;int64&gt;            &lt;dbl&gt;
+## 1     1001          22 Dr. Birdie K… 684.226.0455   6011608753…        -122.
+## 2     1001          22 Dr. Birdie K… 684.226.0455   6011608753…        -122.
+## 3     1001          22 Dr. Birdie K… 684.226.0455   6011608753…        -122.
+## 4     1001          22 Dr. Birdie K… 684.226.0455   6011608753…        -122.
+## 5     1002           6 Meggan Bruen  326-151-4331      4964180…        -122.
+## 6     1002           6 Meggan Bruen  326-151-4331      4964180…        -122.
+## # … with 9 more variables: customer_lat &lt;dbl&gt;, date &lt;chr&gt;, date_year &lt;int&gt;,
+## #   date_month &lt;int&gt;, date_month_name &lt;chr&gt;, date_day &lt;chr&gt;, product_id &lt;int&gt;,
+## #   price &lt;dbl&gt;, new_field &lt;dbl&gt;
+## 
+## # Use as.data.table()/as.data.frame()/as_tibble() to access results</code></pre></li>
+<li><p>Use <code>show_query()</code> to see the <code>copy()</code> command being used</p>
+<div class="sourceCode" id="cb56"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb56-1" data-line-number="1">dt_transactions <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb56-2" data-line-number="2"><span class="st">  </span><span class="kw">mutate</span>(<span class="dt">new_field =</span> price <span class="op">/</span><span class="st"> </span><span class="dv">2</span>) <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb56-3" data-line-number="3"><span class="st">  </span><span class="kw">show_query</span>()</a></code></pre></div>
+<pre><code>## copy(`_DT1`)[, `:=`(new_field = price/2)]</code></pre></li>
+<li><p>Check to confirm that the new column <em>did not</em> persist in <code>dt_transactions</code></p>
+<div class="sourceCode" id="cb58"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb58-1" data-line-number="1">dt_transactions</a></code></pre></div>
+<pre><code>## Source: local data table [250,000 x 14]
+## Call:   `_DT1`
+## 
+##   order_id customer_id customer_name customer_phone customer_cc customer_lon
+##      &lt;int&gt;       &lt;int&gt; &lt;chr&gt;         &lt;chr&gt;          &lt;int64&gt;            &lt;dbl&gt;
+## 1     1001          22 Dr. Birdie K… 684.226.0455   6011608753…        -122.
+## 2     1001          22 Dr. Birdie K… 684.226.0455   6011608753…        -122.
+## 3     1001          22 Dr. Birdie K… 684.226.0455   6011608753…        -122.
+## 4     1001          22 Dr. Birdie K… 684.226.0455   6011608753…        -122.
+## 5     1002           6 Meggan Bruen  326-151-4331      4964180…        -122.
+## 6     1002           6 Meggan Bruen  326-151-4331      4964180…        -122.
+## # … with 8 more variables: customer_lat &lt;dbl&gt;, date &lt;chr&gt;, date_year &lt;int&gt;,
+## #   date_month &lt;int&gt;, date_month_name &lt;chr&gt;, date_day &lt;chr&gt;, product_id &lt;int&gt;,
+## #   price &lt;dbl&gt;
+## 
+## # Use as.data.table()/as.data.frame()/as_tibble() to access results</code></pre></li>
+<li><p>Use <code>lazy_dt()</code> with the <code>immutable</code> argument set to <code>FALSE</code> to avoid the copy</p>
+<div class="sourceCode" id="cb60"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb60-1" data-line-number="1">m_transactions &lt;-<span class="st"> </span><span class="kw">lazy_dt</span>(<span class="kw">copy</span>(transactions), <span class="dt">immutable =</span> <span class="ot">FALSE</span>)</a></code></pre></div>
+<div class="sourceCode" id="cb61"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb61-1" data-line-number="1">m_transactions</a></code></pre></div>
+<pre><code>## Source: local data table [250,000 x 14]
+## Call:   `_DT2`
+## 
+##   order_id customer_id customer_name customer_phone customer_cc customer_lon
+##      &lt;int&gt;       &lt;int&gt; &lt;chr&gt;         &lt;chr&gt;          &lt;int64&gt;            &lt;dbl&gt;
+## 1     1001          22 Dr. Birdie K… 684.226.0455   6011608753…        -122.
+## 2     1001          22 Dr. Birdie K… 684.226.0455   6011608753…        -122.
+## 3     1001          22 Dr. Birdie K… 684.226.0455   6011608753…        -122.
+## 4     1001          22 Dr. Birdie K… 684.226.0455   6011608753…        -122.
+## 5     1002           6 Meggan Bruen  326-151-4331      4964180…        -122.
+## 6     1002           6 Meggan Bruen  326-151-4331      4964180…        -122.
+## # … with 8 more variables: customer_lat &lt;dbl&gt;, date &lt;chr&gt;, date_year &lt;int&gt;,
+## #   date_month &lt;int&gt;, date_month_name &lt;chr&gt;, date_day &lt;chr&gt;, product_id &lt;int&gt;,
+## #   price &lt;dbl&gt;
+## 
+## # Use as.data.table()/as.data.frame()/as_tibble() to access results</code></pre></li>
+<li><p>Create a <code>new_field</code> column in <code>m_transactions</code> using <code>mutate()</code></p>
+<div class="sourceCode" id="cb63"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb63-1" data-line-number="1">m_transactions <span class="op">%&gt;%</span><span class="st"> </span></a>
+<a class="sourceLine" id="cb63-2" data-line-number="2"><span class="st">  </span><span class="kw">mutate</span>(<span class="dt">new_field =</span> price <span class="op">/</span><span class="st"> </span><span class="dv">2</span>)</a></code></pre></div>
+<pre><code>## Source: local data table [?? x 15]
+## Call:   `_DT2`[, `:=`(new_field = price/2)]
+## 
+##   order_id customer_id customer_name customer_phone customer_cc customer_lon
+##      &lt;int&gt;       &lt;int&gt; &lt;chr&gt;         &lt;chr&gt;          &lt;int64&gt;            &lt;dbl&gt;
+## 1     1001          22 Dr. Birdie K… 684.226.0455   6011608753…        -122.
+## 2     1001          22 Dr. Birdie K… 684.226.0455   6011608753…        -122.
+## 3     1001          22 Dr. Birdie K… 684.226.0455   6011608753…        -122.
+## 4     1001          22 Dr. Birdie K… 684.226.0455   6011608753…        -122.
+## 5     1002           6 Meggan Bruen  326-151-4331      4964180…        -122.
+## 6     1002           6 Meggan Bruen  326-151-4331      4964180…        -122.
+## # … with 9 more variables: customer_lat &lt;dbl&gt;, date &lt;chr&gt;, date_year &lt;int&gt;,
+## #   date_month &lt;int&gt;, date_month_name &lt;chr&gt;, date_day &lt;chr&gt;, product_id &lt;int&gt;,
+## #   price &lt;dbl&gt;, new_field &lt;dbl&gt;
+## 
+## # Use as.data.table()/as.data.frame()/as_tibble() to access results</code></pre></li>
+<li><p>Use <code>show_query()</code> to see that <code>copy()</code> is no longer being used</p>
+<div class="sourceCode" id="cb65"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb65-1" data-line-number="1">m_transactions <span class="op">%&gt;%</span><span class="st"> </span></a>
+<a class="sourceLine" id="cb65-2" data-line-number="2"><span class="st">  </span><span class="kw">mutate</span>(<span class="dt">new_field =</span> price <span class="op">/</span><span class="st"> </span><span class="dv">2</span>) <span class="op">%&gt;%</span><span class="st"> </span></a>
+<a class="sourceLine" id="cb65-3" data-line-number="3"><span class="st">  </span><span class="kw">show_query</span>()</a></code></pre></div>
+<pre><code>## `_DT2`[, `:=`(new_field = price/2)]</code></pre></li>
+<li><p>Inspect <code>m_transactions</code> to see that <code>new_field</code> has persisted</p>
+<div class="sourceCode" id="cb67"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb67-1" data-line-number="1">m_transactions</a></code></pre></div>
+<pre><code>## Source: local data table [250,000 x 15]
+## Call:   `_DT2`
+## 
+##   order_id customer_id customer_name customer_phone customer_cc customer_lon
+##      &lt;int&gt;       &lt;int&gt; &lt;chr&gt;         &lt;chr&gt;          &lt;int64&gt;            &lt;dbl&gt;
+## 1     1001          22 Dr. Birdie K… 684.226.0455   6011608753…        -122.
+## 2     1001          22 Dr. Birdie K… 684.226.0455   6011608753…        -122.
+## 3     1001          22 Dr. Birdie K… 684.226.0455   6011608753…        -122.
+## 4     1001          22 Dr. Birdie K… 684.226.0455   6011608753…        -122.
+## 5     1002           6 Meggan Bruen  326-151-4331      4964180…        -122.
+## 6     1002           6 Meggan Bruen  326-151-4331      4964180…        -122.
+## # … with 9 more variables: customer_lat &lt;dbl&gt;, date &lt;chr&gt;, date_year &lt;int&gt;,
+## #   date_month &lt;int&gt;, date_month_name &lt;chr&gt;, date_day &lt;chr&gt;, product_id &lt;int&gt;,
+## #   price &lt;dbl&gt;, new_field &lt;dbl&gt;
+## 
+## # Use as.data.table()/as.data.frame()/as_tibble() to access results</code></pre></li>
 </ol>
 </div>
 <div id="working-with-dtplyr" class="section level2">
@@ -360,21 +460,21 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <p><em>Learn data conversion and basic visualization techniques</em></p>
 <ol style="list-style-type: decimal">
 <li><p>Use <code>as_tibble()</code> to convert the results of <code>by_month</code> into a <code>tibble</code></p>
-<div class="sourceCode" id="cb55"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb55-1" data-line-number="1">by_month <span class="op">%&gt;%</span></a>
-<a class="sourceLine" id="cb55-2" data-line-number="2"><span class="st">  </span><span class="kw">as_tibble</span>()</a></code></pre></div>
+<div class="sourceCode" id="cb69"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb69-1" data-line-number="1">by_month <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb69-2" data-line-number="2"><span class="st">  </span><span class="kw">as_tibble</span>()</a></code></pre></div>
 <pre><code>## # A tibble: 2 x 2
 ##   date_month total_sales
 ##        &lt;int&gt;       &lt;dbl&gt;
 ## 1          1    1120628.
 ## 2          2     562719.</code></pre></li>
 <li><p>Load the <code>ggplot2</code> library</p>
-<div class="sourceCode" id="cb57"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb57-1" data-line-number="1"><span class="kw">library</span>(ggplot2)</a></code></pre></div></li>
+<div class="sourceCode" id="cb71"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb71-1" data-line-number="1"><span class="kw">library</span>(ggplot2)</a></code></pre></div></li>
 <li><p>Use <code>as_tibble()</code> to convert before creating a line plot</p>
-<div class="sourceCode" id="cb58"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb58-1" data-line-number="1">by_month <span class="op">%&gt;%</span></a>
-<a class="sourceLine" id="cb58-2" data-line-number="2"><span class="st">  </span><span class="kw">as_tibble</span>() <span class="op">%&gt;%</span></a>
-<a class="sourceLine" id="cb58-3" data-line-number="3"><span class="st">  </span><span class="kw">ggplot</span>() <span class="op">+</span></a>
-<a class="sourceLine" id="cb58-4" data-line-number="4"><span class="st">  </span><span class="kw">geom_line</span>(<span class="kw">aes</span>(date_month, total_sales))</a></code></pre></div>
-<p><img src="_main_files/figure-html/unnamed-chunk-37-1.png" width="672" /></p></li>
+<div class="sourceCode" id="cb72"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb72-1" data-line-number="1">by_month <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb72-2" data-line-number="2"><span class="st">  </span><span class="kw">as_tibble</span>() <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb72-3" data-line-number="3"><span class="st">  </span><span class="kw">ggplot</span>() <span class="op">+</span></a>
+<a class="sourceLine" id="cb72-4" data-line-number="4"><span class="st">  </span><span class="kw">geom_line</span>(<span class="kw">aes</span>(date_month, total_sales))</a></code></pre></div>
+<p><img src="_main_files/figure-html/unnamed-chunk-44-1.png" width="672" /></p></li>
 </ol>
 </div>
 <div id="pivot-data" class="section level2">
@@ -382,11 +482,11 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <p><em>Review a simple way to aggregate data faster, and then pivot it as a tibble</em></p>
 <ol style="list-style-type: decimal">
 <li><p>Load the <code>tidyr</code> library</p>
-<div class="sourceCode" id="cb59"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb59-1" data-line-number="1"><span class="kw">library</span>(tidyr)</a></code></pre></div></li>
+<div class="sourceCode" id="cb73"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb73-1" data-line-number="1"><span class="kw">library</span>(tidyr)</a></code></pre></div></li>
 <li><p>Group <code>db_transactions</code> by <code>date_month</code> and <code>date_day</code>, then aggregate <code>price</code> into <code>total_sales</code></p>
-<div class="sourceCode" id="cb60"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb60-1" data-line-number="1">dt_transactions <span class="op">%&gt;%</span></a>
-<a class="sourceLine" id="cb60-2" data-line-number="2"><span class="st">  </span><span class="kw">group_by</span>(date_month, date_day) <span class="op">%&gt;%</span><span class="st"> </span></a>
-<a class="sourceLine" id="cb60-3" data-line-number="3"><span class="st">  </span><span class="kw">summarise</span>(<span class="dt">total_sales =</span> <span class="kw">sum</span>(price))</a></code></pre></div>
+<div class="sourceCode" id="cb74"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb74-1" data-line-number="1">dt_transactions <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb74-2" data-line-number="2"><span class="st">  </span><span class="kw">group_by</span>(date_month, date_day) <span class="op">%&gt;%</span><span class="st"> </span></a>
+<a class="sourceLine" id="cb74-3" data-line-number="3"><span class="st">  </span><span class="kw">summarise</span>(<span class="dt">total_sales =</span> <span class="kw">sum</span>(price))</a></code></pre></div>
 <pre><code>## Source: local data table [?? x 3]
 ## Call:   `_DT1`[, .(total_sales = sum(price)), keyby = .(date_month, date_day)]
 ## 
@@ -400,33 +500,17 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 ## 6          1 Tuesday      141127.
 ## 
 ## # Use as.data.table()/as.data.frame()/as_tibble() to access results</code></pre></li>
-<li><p>Copy the aggregation code above, <strong>then collect it into a <code>tibble</code></strong>, and then use <code>pivot_wider()</code> to make the <code>date_day</code> the column headers.</p>
-<div class="sourceCode" id="cb62"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb62-1" data-line-number="1">dt_transactions <span class="op">%&gt;%</span></a>
-<a class="sourceLine" id="cb62-2" data-line-number="2"><span class="st">  </span><span class="kw">group_by</span>(date_month, date_day) <span class="op">%&gt;%</span><span class="st"> </span></a>
-<a class="sourceLine" id="cb62-3" data-line-number="3"><span class="st">  </span><span class="kw">summarise</span>(<span class="dt">total_sales =</span> <span class="kw">sum</span>(price)) <span class="op">%&gt;%</span></a>
-<a class="sourceLine" id="cb62-4" data-line-number="4"><span class="st">  </span><span class="kw">as_tibble</span>() <span class="op">%&gt;%</span></a>
-<a class="sourceLine" id="cb62-5" data-line-number="5"><span class="st">  </span><span class="kw">pivot_wider</span>(<span class="dt">names_from =</span> date_day, <span class="dt">values_from =</span> total_sales)</a></code></pre></div>
+<li><p>Copy the aggregation code above, <strong>collect it into a <code>tibble</code></strong>, and then use <code>pivot_wider()</code> to make the <code>date_day</code> the column headers.</p>
+<div class="sourceCode" id="cb76"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb76-1" data-line-number="1">dt_transactions <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb76-2" data-line-number="2"><span class="st">  </span><span class="kw">group_by</span>(date_month, date_day) <span class="op">%&gt;%</span><span class="st"> </span></a>
+<a class="sourceLine" id="cb76-3" data-line-number="3"><span class="st">  </span><span class="kw">summarise</span>(<span class="dt">total_sales =</span> <span class="kw">sum</span>(price)) <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb76-4" data-line-number="4"><span class="st">  </span><span class="kw">as_tibble</span>() <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb76-5" data-line-number="5"><span class="st">  </span><span class="kw">pivot_wider</span>(<span class="dt">names_from =</span> date_day, <span class="dt">values_from =</span> total_sales)</a></code></pre></div>
 <pre><code>## # A tibble: 2 x 8
 ##   date_month  Friday  Monday Saturday  Sunday Thursday Tuesday Wednesday
 ##        &lt;int&gt;   &lt;dbl&gt;   &lt;dbl&gt;    &lt;dbl&gt;   &lt;dbl&gt;    &lt;dbl&gt;   &lt;dbl&gt;     &lt;dbl&gt;
 ## 1          1 173787. 139347.  177207. 177685.  156396. 141127.   155081.
 ## 2          2  80580.  83118.   84947.  80768.   77853.  79288.    76166.</code></pre></li>
-</ol>
-</div>
-<div id="the-mutate-verb" class="section level2">
-<h2><span class="header-section-number">2.6</span> The <code>mutate()</code> verb</h2>
-<p><em>See how <code>dtplyr</code> creates a copy of the original <code>data.table</code> object in order to make the <code>mutate</code> operation work the same as it does on <code>dtplr</code></em></p>
-<ol style="list-style-type: decimal">
-<li><p>Use <code>mutate()</code> and <code>show_query()</code> to see the <code>copy()</code> command being used</p>
-<div class="sourceCode" id="cb64"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb64-1" data-line-number="1">dt_transactions <span class="op">%&gt;%</span></a>
-<a class="sourceLine" id="cb64-2" data-line-number="2"><span class="st">  </span><span class="kw">mutate</span>(<span class="dt">new_field =</span> price <span class="op">/</span><span class="st"> </span><span class="dv">2</span>) <span class="op">%&gt;%</span></a>
-<a class="sourceLine" id="cb64-3" data-line-number="3"><span class="st">  </span><span class="kw">show_query</span>()</a></code></pre></div>
-<pre><code>## copy(`_DT1`)[, `:=`(new_field = price/2)]</code></pre></li>
-<li><p>Use <code>lazy_dt()</code> with the <code>immutable</code> argument set to <code>FALSE</code> to avoid the copy</p>
-<div class="sourceCode" id="cb66"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb66-1" data-line-number="1"><span class="kw">lazy_dt</span>(transactions, <span class="dt">immutable =</span> <span class="ot">FALSE</span>) <span class="op">%&gt;%</span></a>
-<a class="sourceLine" id="cb66-2" data-line-number="2"><span class="st">  </span><span class="kw">mutate</span>(<span class="dt">new_field =</span> price <span class="op">/</span><span class="st"> </span><span class="dv">2</span>) <span class="op">%&gt;%</span></a>
-<a class="sourceLine" id="cb66-3" data-line-number="3"><span class="st">  </span><span class="kw">show_query</span>()</a></code></pre></div>
-<pre><code>## `_DT2`[, `:=`(new_field = price/2)]</code></pre></li>
 </ol>
 
 </div>

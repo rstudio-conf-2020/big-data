@@ -145,12 +145,12 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="2.3" data-path="introduction-to-dtplyr.html"><a href="introduction-to-dtplyr.html#how-dtplyr-works"><i class="fa fa-check"></i><b>2.3</b> How <code>dtplyr</code> works</a></li>
 <li class="chapter" data-level="2.4" data-path="introduction-to-dtplyr.html"><a href="introduction-to-dtplyr.html#working-with-dtplyr"><i class="fa fa-check"></i><b>2.4</b> Working with <code>dtplyr</code></a></li>
 <li class="chapter" data-level="2.5" data-path="introduction-to-dtplyr.html"><a href="introduction-to-dtplyr.html#pivot-data"><i class="fa fa-check"></i><b>2.5</b> Pivot data</a></li>
-<li class="chapter" data-level="2.6" data-path="introduction-to-dtplyr.html"><a href="introduction-to-dtplyr.html#the-mutate-verb"><i class="fa fa-check"></i><b>2.6</b> The <code>mutate()</code> verb</a></li>
 </ul></li>
 <li class="chapter" data-level="3" data-path="introduction-to-database-connections.html"><a href="introduction-to-database-connections.html"><i class="fa fa-check"></i><b>3</b> Introduction to database connections</a><ul>
-<li class="chapter" data-level="3.1" data-path="introduction-to-database-connections.html"><a href="introduction-to-database-connections.html#connecting-via-dsn"><i class="fa fa-check"></i><b>3.1</b> Connecting via DSN</a></li>
-<li class="chapter" data-level="3.2" data-path="introduction-to-database-connections.html"><a href="introduction-to-database-connections.html#connect-with-a-connection-string"><i class="fa fa-check"></i><b>3.2</b> Connect with a connection string</a></li>
-<li class="chapter" data-level="3.3" data-path="introduction-to-database-connections.html"><a href="introduction-to-database-connections.html#secure-connection-details"><i class="fa fa-check"></i><b>3.3</b> Secure connection details</a></li>
+<li class="chapter" data-level="3.1" data-path="introduction-to-database-connections.html"><a href="introduction-to-database-connections.html#connect-with-the-connections-pane"><i class="fa fa-check"></i><b>3.1</b> Connect with the Connections pane</a></li>
+<li class="chapter" data-level="3.2" data-path="introduction-to-database-connections.html"><a href="introduction-to-database-connections.html#connecting-via-dsn"><i class="fa fa-check"></i><b>3.2</b> Connecting via DSN</a></li>
+<li class="chapter" data-level="3.3" data-path="introduction-to-database-connections.html"><a href="introduction-to-database-connections.html#connect-with-a-connection-string"><i class="fa fa-check"></i><b>3.3</b> Connect with a connection string</a></li>
+<li class="chapter" data-level="3.4" data-path="introduction-to-database-connections.html"><a href="introduction-to-database-connections.html#secure-connection-details"><i class="fa fa-check"></i><b>3.4</b> Secure connection details</a></li>
 </ul></li>
 <li class="chapter" data-level="4" data-path="introduction-to-dbi.html"><a href="introduction-to-dbi.html"><i class="fa fa-check"></i><b>4</b> Introduction to <code>DBI</code></a><ul>
 <li class="chapter" data-level="4.1" data-path="introduction-to-dbi.html"><a href="introduction-to-dbi.html#local-database-basics"><i class="fa fa-check"></i><b>4.1</b> Local database basics</a></li>
@@ -219,91 +219,123 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
             <section class="normal" id="section-">
 <div id="introduction-to-database-connections" class="section level1">
 <h1><span class="header-section-number">3</span> Introduction to database connections</h1>
+<div id="connect-with-the-connections-pane" class="section level2">
+<h2><span class="header-section-number">3.1</span> Connect with the Connections pane</h2>
+<p><em>Connect using the features of the RStudio IDE</em></p>
+<ol style="list-style-type: decimal">
+<li>The connections pane (top right hand corner of the RStudio IDE) can guide through establishing database connections.
+<img src="images/connections-pane.gif" /></li>
+</ol>
+</div>
 <div id="connecting-via-dsn" class="section level2">
-<h2><span class="header-section-number">3.1</span> Connecting via DSN</h2>
+<h2><span class="header-section-number">3.2</span> Connecting via DSN</h2>
 <p><em>Connect using defined Data Source Name (DSN). This requires an ODBC driver.</em></p>
 <ol style="list-style-type: decimal">
 <li><p>Load the <code>DBI</code> and <code>odbc</code> packages</p>
-<div class="sourceCode" id="cb68"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb68-1" data-line-number="1"><span class="kw">library</span>(DBI)</a>
-<a class="sourceLine" id="cb68-2" data-line-number="2"><span class="kw">library</span>(odbc)</a></code></pre></div></li>
+<div class="sourceCode" id="cb78"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb78-1" data-line-number="1"><span class="kw">library</span>(DBI)</a>
+<a class="sourceLine" id="cb78-2" data-line-number="2"><span class="kw">library</span>(odbc)</a></code></pre></div></li>
 <li><p>Use <code>odbcListDatasources</code> to list available DSNs</p>
-<div class="sourceCode" id="cb69"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb69-1" data-line-number="1"><span class="kw">odbcListDataSources</span>()</a></code></pre></div></li>
+<div class="sourceCode" id="cb79"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb79-1" data-line-number="1"><span class="kw">odbcListDataSources</span>()</a></code></pre></div></li>
 <li><p>Use <code>dbConnect</code> to connect to a database using the <code>odbc</code> function and a DSN</p>
-<div class="sourceCode" id="cb70"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb70-1" data-line-number="1">con &lt;-<span class="st"> </span><span class="kw">dbConnect</span>(<span class="kw">odbc</span>(), <span class="st">&quot;Postgres DSN&quot;</span>)</a></code></pre></div></li>
+<div class="sourceCode" id="cb80"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb80-1" data-line-number="1">con &lt;-<span class="st"> </span><span class="kw">dbConnect</span>(<span class="kw">odbc</span>(), <span class="st">&quot;Postgres Dev&quot;</span>)</a></code></pre></div></li>
 <li><p>Disconnect using <code>dbDisconnect</code></p>
-<div class="sourceCode" id="cb71"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb71-1" data-line-number="1"><span class="kw">dbDisconnect</span>(con)</a></code></pre></div></li>
+<div class="sourceCode" id="cb81"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb81-1" data-line-number="1"><span class="kw">dbDisconnect</span>(con)</a></code></pre></div></li>
 </ol>
 </div>
 <div id="connect-with-a-connection-string" class="section level2">
-<h2><span class="header-section-number">3.2</span> Connect with a connection string</h2>
+<h2><span class="header-section-number">3.3</span> Connect with a connection string</h2>
 <p><em>Connect by specifying all connection details in <code>dbConnect</code></em></p>
 <ol style="list-style-type: decimal">
 <li><p>Use <code>dbConnect</code> and <code>odbc</code> to connect to a database, but this time all connection details are provided</p>
-<div class="sourceCode" id="cb72"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb72-1" data-line-number="1">con &lt;-<span class="st"> </span><span class="kw">dbConnect</span>(<span class="kw">odbc</span>(),</a>
-<a class="sourceLine" id="cb72-2" data-line-number="2">                 <span class="dt">driver =</span> <span class="st">&quot;postgresql&quot;</span>,</a>
-<a class="sourceLine" id="cb72-3" data-line-number="3">                 <span class="dt">host =</span> <span class="st">&quot;localhost&quot;</span>,</a>
-<a class="sourceLine" id="cb72-4" data-line-number="4">                 <span class="dt">user =</span> <span class="st">&quot;postgres&quot;</span>,</a>
-<a class="sourceLine" id="cb72-5" data-line-number="5">                 <span class="dt">pwd =</span> <span class="st">&quot;postgres&quot;</span>,</a>
-<a class="sourceLine" id="cb72-6" data-line-number="6">                 <span class="dt">port =</span> <span class="dv">5432</span>,</a>
-<a class="sourceLine" id="cb72-7" data-line-number="7">                 <span class="dt">database =</span> <span class="st">&quot;postgres&quot;</span>,</a>
-<a class="sourceLine" id="cb72-8" data-line-number="8">                 <span class="dt">bigint =</span> <span class="st">&quot;integer&quot;</span>)</a></code></pre></div></li>
+<div class="sourceCode" id="cb82"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb82-1" data-line-number="1">con &lt;-<span class="st"> </span><span class="kw">dbConnect</span>(<span class="kw">odbc</span>(),</a>
+<a class="sourceLine" id="cb82-2" data-line-number="2">                 <span class="dt">driver =</span> <span class="st">&quot;postgresql&quot;</span>,</a>
+<a class="sourceLine" id="cb82-3" data-line-number="3">                 <span class="dt">host =</span> <span class="st">&quot;localhost&quot;</span>,</a>
+<a class="sourceLine" id="cb82-4" data-line-number="4">                 <span class="dt">user =</span> <span class="st">&quot;rstudio_dev&quot;</span>,</a>
+<a class="sourceLine" id="cb82-5" data-line-number="5">                 <span class="dt">pwd =</span> <span class="st">&quot;dev_user&quot;</span>,</a>
+<a class="sourceLine" id="cb82-6" data-line-number="6">                 <span class="dt">port =</span> <span class="dv">5432</span>,</a>
+<a class="sourceLine" id="cb82-7" data-line-number="7">                 <span class="dt">database =</span> <span class="st">&quot;postgres&quot;</span>,</a>
+<a class="sourceLine" id="cb82-8" data-line-number="8">                 <span class="dt">bigint =</span> <span class="st">&quot;integer&quot;</span>)</a></code></pre></div></li>
 <li><p>Disconnect using <code>dbDisconnect</code></p>
-<div class="sourceCode" id="cb73"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb73-1" data-line-number="1"><span class="kw">dbDisconnect</span>(con)</a></code></pre></div></li>
+<div class="sourceCode" id="cb83"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb83-1" data-line-number="1"><span class="kw">dbDisconnect</span>(con)</a></code></pre></div></li>
 </ol>
 </div>
 <div id="secure-connection-details" class="section level2">
-<h2><span class="header-section-number">3.3</span> Secure connection details</h2>
+<h2><span class="header-section-number">3.4</span> Secure connection details</h2>
 <p><em>Use <code>config</code>, <code>keyring</code>, or environment variables to secure connection credentials</em></p>
 <ol style="list-style-type: decimal">
 <li><p>Load the <code>config</code> package</p>
-<div class="sourceCode" id="cb74"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb74-1" data-line-number="1"><span class="kw">library</span>(config)</a></code></pre></div></li>
+<div class="sourceCode" id="cb84"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb84-1" data-line-number="1"><span class="kw">library</span>(config)</a></code></pre></div></li>
 <li><p>Get the current config using the <code>get</code> function and store the results in an object called <code>config</code></p>
-<div class="sourceCode" id="cb75"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb75-1" data-line-number="1">config &lt;-<span class="st"> </span><span class="kw">get</span>()</a></code></pre></div></li>
+<div class="sourceCode" id="cb85"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb85-1" data-line-number="1">config &lt;-<span class="st"> </span><span class="kw">get</span>()</a></code></pre></div></li>
 <li><p>Use <code>str</code> to investigate the contents of <code>config</code></p>
-<div class="sourceCode" id="cb76"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb76-1" data-line-number="1"><span class="kw">str</span>(config)</a></code></pre></div></li>
+<div class="sourceCode" id="cb86"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb86-1" data-line-number="1"><span class="kw">str</span>(config)</a></code></pre></div></li>
 <li><p>Connect using details provided in <code>config</code></p>
-<div class="sourceCode" id="cb77"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb77-1" data-line-number="1">con &lt;-<span class="st"> </span><span class="kw">dbConnect</span>(<span class="kw">odbc</span>(),</a>
-<a class="sourceLine" id="cb77-2" data-line-number="2">                 <span class="dt">driver =</span> config<span class="op">$</span>driver,</a>
-<a class="sourceLine" id="cb77-3" data-line-number="3">                 <span class="dt">host =</span> config<span class="op">$</span>host,</a>
-<a class="sourceLine" id="cb77-4" data-line-number="4">                 <span class="dt">user =</span> config<span class="op">$</span>user,</a>
-<a class="sourceLine" id="cb77-5" data-line-number="5">                 <span class="dt">pwd =</span> config<span class="op">$</span>pwd,</a>
-<a class="sourceLine" id="cb77-6" data-line-number="6">                 <span class="dt">port =</span> config<span class="op">$</span>port,</a>
-<a class="sourceLine" id="cb77-7" data-line-number="7">                 <span class="dt">database =</span> config<span class="op">$</span>dbname,</a>
-<a class="sourceLine" id="cb77-8" data-line-number="8">                 <span class="dt">bigint =</span> config<span class="op">$</span>bigint)</a></code></pre></div></li>
+<div class="sourceCode" id="cb87"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb87-1" data-line-number="1">con &lt;-<span class="st"> </span><span class="kw">dbConnect</span>(<span class="kw">odbc</span>(),</a>
+<a class="sourceLine" id="cb87-2" data-line-number="2">                 <span class="dt">driver =</span> config<span class="op">$</span>driver,</a>
+<a class="sourceLine" id="cb87-3" data-line-number="3">                 <span class="dt">host =</span> config<span class="op">$</span>host,</a>
+<a class="sourceLine" id="cb87-4" data-line-number="4">                 <span class="dt">user =</span> config<span class="op">$</span>user,</a>
+<a class="sourceLine" id="cb87-5" data-line-number="5">                 <span class="dt">pwd =</span> config<span class="op">$</span>pwd,</a>
+<a class="sourceLine" id="cb87-6" data-line-number="6">                 <span class="dt">port =</span> config<span class="op">$</span>port,</a>
+<a class="sourceLine" id="cb87-7" data-line-number="7">                 <span class="dt">database =</span> config<span class="op">$</span>dbname,</a>
+<a class="sourceLine" id="cb87-8" data-line-number="8">                 <span class="dt">bigint =</span> config<span class="op">$</span>bigint)</a></code></pre></div></li>
 <li><p>Disconnect using <code>dbDisconnect</code></p>
-<div class="sourceCode" id="cb78"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb78-1" data-line-number="1"><span class="kw">dbDisconnect</span>(con)</a></code></pre></div></li>
+<div class="sourceCode" id="cb88"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb88-1" data-line-number="1"><span class="kw">dbDisconnect</span>(con)</a></code></pre></div></li>
 <li><p>Load the <code>keyring</code> package</p>
-<div class="sourceCode" id="cb79"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb79-1" data-line-number="1"><span class="kw">library</span>(keyring)</a></code></pre></div></li>
-<li><p>Store the database host, username, and password using <code>keyring</code></p>
-<div class="sourceCode" id="cb80"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb80-1" data-line-number="1"><span class="kw">key_set</span>(<span class="st">&quot;postgres&quot;</span>, <span class="st">&quot;host&quot;</span>)</a>
-<a class="sourceLine" id="cb80-2" data-line-number="2"><span class="kw">key_set</span>(<span class="st">&quot;postgres&quot;</span>, <span class="st">&quot;username&quot;</span>)</a>
-<a class="sourceLine" id="cb80-3" data-line-number="3"><span class="kw">key_set</span>(<span class="st">&quot;postgres&quot;</span>, <span class="st">&quot;password&quot;</span>)</a></code></pre></div></li>
+<div class="sourceCode" id="cb89"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb89-1" data-line-number="1"><span class="kw">library</span>(keyring)</a></code></pre></div></li>
+<li><p>Store the database username and password using <code>keyring</code>. The username is <code>rstudio_dev</code> and the password is <code>dev_user</code></p>
+<div class="sourceCode" id="cb90"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb90-1" data-line-number="1"><span class="kw">key_set</span>(<span class="st">&quot;postgres&quot;</span>, <span class="st">&quot;username&quot;</span>)</a>
+<a class="sourceLine" id="cb90-2" data-line-number="2"><span class="kw">key_set</span>(<span class="st">&quot;postgres&quot;</span>, <span class="st">&quot;password&quot;</span>)</a></code></pre></div></li>
 <li><p>Use the stored credentials along with <code>dbConnect</code> to connect to the database</p>
-<div class="sourceCode" id="cb81"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb81-1" data-line-number="1">con &lt;-<span class="st"> </span><span class="kw">dbConnect</span>(<span class="kw">odbc</span>(),</a>
-<a class="sourceLine" id="cb81-2" data-line-number="2">                 <span class="dt">driver =</span> <span class="st">&quot;postgresql&quot;</span>,</a>
-<a class="sourceLine" id="cb81-3" data-line-number="3">                 <span class="dt">host =</span> <span class="kw">key_get</span>(<span class="st">&quot;postgres&quot;</span>, <span class="st">&quot;host&quot;</span>),</a>
-<a class="sourceLine" id="cb81-4" data-line-number="4">                 <span class="dt">user =</span> <span class="kw">key_get</span>(<span class="st">&quot;postgres&quot;</span>, <span class="st">&quot;username&quot;</span>),</a>
-<a class="sourceLine" id="cb81-5" data-line-number="5">                 <span class="dt">pwd =</span> <span class="kw">key_get</span>(<span class="st">&quot;postgres&quot;</span>, <span class="st">&quot;password&quot;</span>),</a>
-<a class="sourceLine" id="cb81-6" data-line-number="6">                 <span class="dt">port =</span> <span class="dv">5432</span>,</a>
-<a class="sourceLine" id="cb81-7" data-line-number="7">                 <span class="dt">database =</span> <span class="st">&quot;postgres&quot;</span>,</a>
-<a class="sourceLine" id="cb81-8" data-line-number="8">                 <span class="dt">bigint =</span> <span class="st">&quot;integer&quot;</span>)</a></code></pre></div></li>
-<li><p>Discnonect using <code>dbDisconnect</code></p>
-<div class="sourceCode" id="cb82"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb82-1" data-line-number="1"><span class="kw">dbDisconnect</span>(con)</a></code></pre></div></li>
-<li><p>The <code>.Renviron</code> file contains entries to create environment variables for <code>PG_HOST</code>, <code>PG_USER</code>, and <code>PG_PWD</code>. These variables can be read using <code>Sys.getenv()</code>.</p>
-<div class="sourceCode" id="cb83"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb83-1" data-line-number="1"><span class="kw">Sys.getenv</span>(<span class="st">&quot;PG_HOST&quot;</span>)</a></code></pre></div></li>
+<div class="sourceCode" id="cb91"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb91-1" data-line-number="1">con &lt;-<span class="st"> </span><span class="kw">dbConnect</span>(<span class="kw">odbc</span>(),</a>
+<a class="sourceLine" id="cb91-2" data-line-number="2">                 <span class="dt">driver =</span> <span class="st">&quot;postgresql&quot;</span>,</a>
+<a class="sourceLine" id="cb91-3" data-line-number="3">                 <span class="dt">host =</span> <span class="st">&quot;localhost&quot;</span>,</a>
+<a class="sourceLine" id="cb91-4" data-line-number="4">                 <span class="dt">user =</span> <span class="kw">key_get</span>(<span class="st">&quot;postgres&quot;</span>, <span class="st">&quot;username&quot;</span>),</a>
+<a class="sourceLine" id="cb91-5" data-line-number="5">                 <span class="dt">pwd =</span> <span class="kw">key_get</span>(<span class="st">&quot;postgres&quot;</span>, <span class="st">&quot;password&quot;</span>),</a>
+<a class="sourceLine" id="cb91-6" data-line-number="6">                 <span class="dt">port =</span> <span class="dv">5432</span>,</a>
+<a class="sourceLine" id="cb91-7" data-line-number="7">                 <span class="dt">database =</span> <span class="st">&quot;postgres&quot;</span>,</a>
+<a class="sourceLine" id="cb91-8" data-line-number="8">                 <span class="dt">bigint =</span> <span class="st">&quot;integer&quot;</span>)</a></code></pre></div></li>
+<li><p>Discnonnect using <code>dbDisconnect</code></p>
+<div class="sourceCode" id="cb92"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb92-1" data-line-number="1"><span class="kw">dbDisconnect</span>(con)</a></code></pre></div></li>
+<li><p>The <code>.Renviron</code> file contains entries to create environment variables for <code>PG_USER</code> and <code>PG_PWD</code>. These variables can be read using <code>Sys.getenv()</code>.</p>
+<div class="sourceCode" id="cb93"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb93-1" data-line-number="1"><span class="kw">Sys.getenv</span>(<span class="st">&quot;PG_USER&quot;</span>)</a></code></pre></div></li>
 <li><p>Connect to the database using the credentials stored in <code>.Renviron</code> and <code>Sys.getenv()</code></p>
-<div class="sourceCode" id="cb84"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb84-1" data-line-number="1">con &lt;-<span class="st"> </span><span class="kw">dbConnect</span>(<span class="kw">odbc</span>(),</a>
-<a class="sourceLine" id="cb84-2" data-line-number="2">                 <span class="dt">driver =</span> <span class="st">&quot;postgresql&quot;</span>,</a>
-<a class="sourceLine" id="cb84-3" data-line-number="3">                 <span class="dt">host =</span> <span class="kw">Sys.getenv</span>(<span class="st">&quot;PG_HOST&quot;</span>),</a>
-<a class="sourceLine" id="cb84-4" data-line-number="4">                 <span class="dt">user =</span> <span class="kw">Sys.getenv</span>(<span class="st">&quot;PG_USER&quot;</span>),</a>
-<a class="sourceLine" id="cb84-5" data-line-number="5">                 <span class="dt">pwd =</span> <span class="kw">Sys.getenv</span>(<span class="st">&quot;PG_PWD&quot;</span>),</a>
-<a class="sourceLine" id="cb84-6" data-line-number="6">                 <span class="dt">port =</span> <span class="dv">5432</span>,</a>
-<a class="sourceLine" id="cb84-7" data-line-number="7">                 <span class="dt">database =</span> <span class="st">&quot;postgres&quot;</span>,</a>
-<a class="sourceLine" id="cb84-8" data-line-number="8">                 <span class="dt">bigint =</span> <span class="st">&quot;integer&quot;</span>)</a></code></pre></div></li>
-<li><p>Discnonect using <code>dbDisconnect</code></p>
-<div class="sourceCode" id="cb85"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb85-1" data-line-number="1"><span class="kw">dbDisconnect</span>(con)</a></code></pre></div></li>
+<div class="sourceCode" id="cb94"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb94-1" data-line-number="1">con &lt;-<span class="st"> </span><span class="kw">dbConnect</span>(<span class="kw">odbc</span>(),</a>
+<a class="sourceLine" id="cb94-2" data-line-number="2">                 <span class="dt">driver =</span> <span class="st">&quot;postgresql&quot;</span>,</a>
+<a class="sourceLine" id="cb94-3" data-line-number="3">                 <span class="dt">host =</span> <span class="st">&quot;localhost&quot;</span>,</a>
+<a class="sourceLine" id="cb94-4" data-line-number="4">                 <span class="dt">user =</span> <span class="kw">Sys.getenv</span>(<span class="st">&quot;PG_USER&quot;</span>),</a>
+<a class="sourceLine" id="cb94-5" data-line-number="5">                 <span class="dt">pwd =</span> <span class="kw">Sys.getenv</span>(<span class="st">&quot;PG_PWD&quot;</span>),</a>
+<a class="sourceLine" id="cb94-6" data-line-number="6">                 <span class="dt">port =</span> <span class="dv">5432</span>,</a>
+<a class="sourceLine" id="cb94-7" data-line-number="7">                 <span class="dt">database =</span> <span class="st">&quot;postgres&quot;</span>,</a>
+<a class="sourceLine" id="cb94-8" data-line-number="8">                 <span class="dt">bigint =</span> <span class="st">&quot;integer&quot;</span>)</a></code></pre></div></li>
+<li><p>Disconnect using <code>dbDisconnect</code></p>
+<div class="sourceCode" id="cb95"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb95-1" data-line-number="1"><span class="kw">dbDisconnect</span>(con)</a></code></pre></div></li>
+<li><p>Store connection details using <code>options()</code></p>
+<div class="sourceCode" id="cb96"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb96-1" data-line-number="1"><span class="kw">options</span>(<span class="dt">pg_user =</span> <span class="st">&quot;rstudio_dev&quot;</span>, <span class="dt">pg_pwd =</span> <span class="st">&quot;dev_user&quot;</span>)</a></code></pre></div></li>
+<li><p>Connect using the credentials accessed via <code>getOption</code></p>
+<div class="sourceCode" id="cb97"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb97-1" data-line-number="1">con &lt;-<span class="st"> </span><span class="kw">dbConnect</span>(<span class="kw">odbc</span>(),</a>
+<a class="sourceLine" id="cb97-2" data-line-number="2">                 <span class="dt">driver =</span> <span class="st">&quot;postgresql&quot;</span>,</a>
+<a class="sourceLine" id="cb97-3" data-line-number="3">                 <span class="dt">host =</span> <span class="st">&quot;localhost&quot;</span>,</a>
+<a class="sourceLine" id="cb97-4" data-line-number="4">                 <span class="dt">user =</span> <span class="kw">getOption</span>(<span class="st">&quot;pg_user&quot;</span>),</a>
+<a class="sourceLine" id="cb97-5" data-line-number="5">                 <span class="dt">pwd =</span> <span class="kw">getOption</span>(<span class="st">&quot;pg_pwd&quot;</span>),</a>
+<a class="sourceLine" id="cb97-6" data-line-number="6">                 <span class="dt">port =</span> <span class="dv">5432</span>,</a>
+<a class="sourceLine" id="cb97-7" data-line-number="7">                 <span class="dt">database =</span> <span class="st">&quot;postgres&quot;</span>,</a>
+<a class="sourceLine" id="cb97-8" data-line-number="8">                 <span class="dt">bigint =</span> <span class="st">&quot;integer&quot;</span>)</a></code></pre></div></li>
+<li><p>Disconnect using <code>dbDisconnect</code></p>
+<div class="sourceCode" id="cb98"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb98-1" data-line-number="1"><span class="kw">dbDisconnect</span>(con)</a></code></pre></div></li>
+<li><p>Interactively prompt users for input using <code>rstudioapi::askForPassword()</code></p>
+<div class="sourceCode" id="cb99"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb99-1" data-line-number="1">con &lt;-<span class="st"> </span><span class="kw">dbConnect</span>(<span class="kw">odbc</span>(),</a>
+<a class="sourceLine" id="cb99-2" data-line-number="2">                 <span class="dt">driver =</span> <span class="st">&quot;postgresql&quot;</span>,</a>
+<a class="sourceLine" id="cb99-3" data-line-number="3">                 <span class="dt">host =</span> <span class="st">&quot;localhost&quot;</span>,</a>
+<a class="sourceLine" id="cb99-4" data-line-number="4">                 <span class="dt">user =</span> rstudioapi<span class="op">::</span><span class="kw">askForPassword</span>(<span class="st">&quot;DB User&quot;</span>),</a>
+<a class="sourceLine" id="cb99-5" data-line-number="5">                 <span class="dt">pwd =</span> rstudioapi<span class="op">::</span><span class="kw">askForPassword</span>(<span class="st">&quot;DB Password&quot;</span>),</a>
+<a class="sourceLine" id="cb99-6" data-line-number="6">                 <span class="dt">port =</span> <span class="dv">5432</span>,</a>
+<a class="sourceLine" id="cb99-7" data-line-number="7">                 <span class="dt">database =</span> <span class="st">&quot;postgres&quot;</span>,</a>
+<a class="sourceLine" id="cb99-8" data-line-number="8">                 <span class="dt">bigint =</span> <span class="st">&quot;integer&quot;</span>)</a></code></pre></div></li>
+<li><p>Disconnect using <code>dbDisconnect</code></p>
+<div class="sourceCode" id="cb100"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb100-1" data-line-number="1"><span class="kw">dbDisconnect</span>(con)</a></code></pre></div></li>
 </ol>
 
+<div class="sourceCode" id="cb101"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb101-1" data-line-number="1">knitr<span class="op">::</span>opts_chunk<span class="op">$</span><span class="kw">set</span>(<span class="dt">connection =</span> <span class="st">&quot;con&quot;</span>, <span class="dt">max.print =</span> <span class="dv">5</span>)</a></code></pre></div>
 </div>
 </div>
             </section>

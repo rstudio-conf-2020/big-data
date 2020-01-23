@@ -149,12 +149,12 @@ library(keyring)
     ```
 
 1. Store connection details using `options()`
-    ```{r}
+    ```{r, eval = eval_connections}
     options(pg_user = "rstudio_dev", pg_pwd = "dev_user")
     ```
 
 1. Connect using the credentials accessed via `getOption`
-    ```{r}
+    ```{r, eval = eval_connections}
     con <- dbConnect(odbc(),
                      driver = "postgresql",
                      host = "localhost",
@@ -166,12 +166,12 @@ library(keyring)
     ```
     
 1. Disconnect using `dbDisconnect`
-    ```{r}
+    ```{r, eval = eval_connections}
     dbDisconnect(con)
     ```
 
 1. Interactively prompt users for input using `rstudioapi::askForPassword()`
-    ```{r}
+    ```{r, eval = eval_connections}
     con <- dbConnect(odbc(),
                      driver = "postgresql",
                      host = "localhost",
@@ -183,7 +183,7 @@ library(keyring)
     ```
 
 1. Disconnect using `dbDisconnect`
-    ```{r}
+    ```{r, eval = eval_connections}
     dbDisconnect(con)
     ```
 
