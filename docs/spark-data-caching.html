@@ -30,7 +30,7 @@
   
   
 <link rel="prev" href="text-mining-with-sparklyr.html"/>
-
+<link rel="next" href="spark-pipelines.html"/>
 <script src="libs/jquery-2.2.3/jquery.min.js"></script>
 <link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
 <link href="libs/gitbook-2.6.7/css/plugin-table.css" rel="stylesheet" />
@@ -189,6 +189,8 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="9.1" data-path="intro-to-sparklyr.html"><a href="intro-to-sparklyr.html#new-spark-session"><i class="fa fa-check"></i><b>9.1</b> New Spark session</a></li>
 <li class="chapter" data-level="9.2" data-path="intro-to-sparklyr.html"><a href="intro-to-sparklyr.html#data-transfer"><i class="fa fa-check"></i><b>9.2</b> Data transfer</a></li>
 <li class="chapter" data-level="9.3" data-path="intro-to-sparklyr.html"><a href="intro-to-sparklyr.html#spark-and-dplyr"><i class="fa fa-check"></i><b>9.3</b> Spark and <code>dplyr</code></a></li>
+<li class="chapter" data-level="9.4" data-path="intro-to-sparklyr.html"><a href="intro-to-sparklyr.html#feature-transformers"><i class="fa fa-check"></i><b>9.4</b> Feature transformers</a></li>
+<li class="chapter" data-level="9.5" data-path="intro-to-sparklyr.html"><a href="intro-to-sparklyr.html#models"><i class="fa fa-check"></i><b>9.5</b> Models</a></li>
 </ul></li>
 <li class="chapter" data-level="10" data-path="text-mining-with-sparklyr.html"><a href="text-mining-with-sparklyr.html"><i class="fa fa-check"></i><b>10</b> Text mining with <code>sparklyr</code></a><ul>
 <li class="chapter" data-level="10.1" data-path="text-mining-with-sparklyr.html"><a href="text-mining-with-sparklyr.html#data-import"><i class="fa fa-check"></i><b>10.1</b> Data Import</a></li>
@@ -199,6 +201,12 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="11" data-path="spark-data-caching.html"><a href="spark-data-caching.html"><i class="fa fa-check"></i><b>11</b> Spark data caching</a><ul>
 <li class="chapter" data-level="11.1" data-path="spark-data-caching.html"><a href="spark-data-caching.html#map-data"><i class="fa fa-check"></i><b>11.1</b> Map data</a></li>
 <li class="chapter" data-level="11.2" data-path="spark-data-caching.html"><a href="spark-data-caching.html#caching-data"><i class="fa fa-check"></i><b>11.2</b> Caching data</a></li>
+</ul></li>
+<li class="chapter" data-level="12" data-path="spark-pipelines.html"><a href="spark-pipelines.html"><i class="fa fa-check"></i><b>12</b> Spark Pipelines</a><ul>
+<li class="chapter" data-level="12.1" data-path="spark-pipelines.html"><a href="spark-pipelines.html#build-an-estimator-plan"><i class="fa fa-check"></i><b>12.1</b> Build an Estimator (plan)</a></li>
+<li class="chapter" data-level="12.2" data-path="spark-pipelines.html"><a href="spark-pipelines.html#build-a-transformer-fit"><i class="fa fa-check"></i><b>12.2</b> Build a Transformer (fit)</a></li>
+<li class="chapter" data-level="12.3" data-path="spark-pipelines.html"><a href="spark-pipelines.html#predictions-using-spark-pipelines"><i class="fa fa-check"></i><b>12.3</b> Predictions using Spark Pipelines</a></li>
+<li class="chapter" data-level="12.4" data-path="spark-pipelines.html"><a href="spark-pipelines.html#save-the-pipeline-objects"><i class="fa fa-check"></i><b>12.4</b> Save the pipeline objects</a></li>
 </ul></li>
 </ul>
 
@@ -225,38 +233,15 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <ol style="list-style-type: decimal">
 <li><p>Examine the contents of the <strong>/usr/share/class/files</strong> folder</p></li>
 <li><p>Load the <code>sparklyr</code> library</p>
-<div class="sourceCode" id="cb385"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb385-1" data-line-number="1"><span class="kw">library</span>(sparklyr)</a></code></pre></div></li>
+<div class="sourceCode" id="cb401"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb401-1" data-line-number="1"><span class="kw">library</span>(sparklyr)</a></code></pre></div></li>
 <li><p>Use <code>spark_connect()</code> to create a new local Spark session</p>
-<div class="sourceCode" id="cb386"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb386-1" data-line-number="1">sc &lt;-<span class="st"> </span><span class="kw">spark_connect</span>(<span class="dt">master =</span> <span class="st">&quot;local&quot;</span>)</a></code></pre></div>
+<div class="sourceCode" id="cb402"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb402-1" data-line-number="1">sc &lt;-<span class="st"> </span><span class="kw">spark_connect</span>(<span class="dt">master =</span> <span class="st">&quot;local&quot;</span>)</a></code></pre></div>
 <pre><code>## * Using Spark: 2.4.0</code></pre></li>
 <li><p>Load the <code>readr</code> and <code>purrr</code> libraries</p>
-<div class="sourceCode" id="cb388"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb388-1" data-line-number="1"><span class="kw">library</span>(readr)</a></code></pre></div>
-<pre><code>## Registered S3 methods overwritten by &#39;readr&#39;:
-##   method           from 
-##   format.col_spec  vroom
-##   print.col_spec   vroom
-##   print.collector  vroom
-##   print.date_names vroom
-##   print.locale     vroom
-##   str.col_spec     vroom</code></pre>
-<pre><code>## 
-## Attaching package: &#39;readr&#39;</code></pre>
-<pre><code>## The following object is masked from &#39;package:yardstick&#39;:
-## 
-##     spec</code></pre>
-<pre><code>## The following object is masked from &#39;package:scales&#39;:
-## 
-##     col_factor</code></pre>
-<pre><code>## The following objects are masked from &#39;package:vroom&#39;:
-## 
-##     as.col_spec, col_character, col_date, col_datetime, col_double,
-##     col_factor, col_guess, col_integer, col_logical, col_number,
-##     col_skip, col_time, cols, cols_condense, cols_only, date_names,
-##     date_names_lang, date_names_langs, default_locale, fwf_cols,
-##     fwf_empty, fwf_positions, fwf_widths, locale, output_column, spec</code></pre>
-<div class="sourceCode" id="cb394"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb394-1" data-line-number="1"><span class="kw">library</span>(purrr)</a></code></pre></div></li>
+<div class="sourceCode" id="cb404"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb404-1" data-line-number="1"><span class="kw">library</span>(readr)</a>
+<a class="sourceLine" id="cb404-2" data-line-number="2"><span class="kw">library</span>(purrr)</a></code></pre></div></li>
 <li><p>Read the top 5 rows of the <strong>transactions_1</strong> CSV file</p>
-<div class="sourceCode" id="cb395"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb395-1" data-line-number="1">top_rows &lt;-<span class="st"> </span><span class="kw">read_csv</span>(<span class="st">&quot;/usr/share/class/files/transactions_1.csv&quot;</span>, <span class="dt">n_max =</span> <span class="dv">5</span>)</a></code></pre></div>
+<div class="sourceCode" id="cb405"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb405-1" data-line-number="1">top_rows &lt;-<span class="st"> </span><span class="kw">read_csv</span>(<span class="st">&quot;/usr/share/class/files/transactions_1.csv&quot;</span>, <span class="dt">n_max =</span> <span class="dv">5</span>)</a></code></pre></div>
 <pre><code>## Parsed with column specification:
 ## cols(
 ##   order_id = col_double(),
@@ -275,11 +260,11 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 ##   price = col_double()
 ## )</code></pre></li>
 <li><p>Create a list based on the column names, and add a list item with “character” as its value. Name the variable <code>file_columns</code></p>
-<div class="sourceCode" id="cb397"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb397-1" data-line-number="1">file_columns &lt;-<span class="st"> </span>top_rows <span class="op">%&gt;%</span></a>
-<a class="sourceLine" id="cb397-2" data-line-number="2"><span class="st">  </span><span class="kw">rename_all</span>(tolower) <span class="op">%&gt;%</span></a>
-<a class="sourceLine" id="cb397-3" data-line-number="3"><span class="st">  </span><span class="kw">map</span>(<span class="cf">function</span>(x) <span class="st">&quot;character&quot;</span>)</a></code></pre></div></li>
+<div class="sourceCode" id="cb407"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb407-1" data-line-number="1">file_columns &lt;-<span class="st"> </span>top_rows <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb407-2" data-line-number="2"><span class="st">  </span><span class="kw">rename_all</span>(tolower) <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb407-3" data-line-number="3"><span class="st">  </span><span class="kw">map</span>(<span class="cf">function</span>(x) <span class="st">&quot;character&quot;</span>)</a></code></pre></div></li>
 <li><p>Preview the contents of the <code>file_columns</code> variable</p>
-<div class="sourceCode" id="cb398"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb398-1" data-line-number="1"><span class="kw">head</span>(file_columns)</a></code></pre></div>
+<div class="sourceCode" id="cb408"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb408-1" data-line-number="1"><span class="kw">head</span>(file_columns)</a></code></pre></div>
 <pre><code>## $order_id
 ## [1] &quot;character&quot;
 ## 
@@ -298,18 +283,18 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 ## $customer_lon
 ## [1] &quot;character&quot;</code></pre></li>
 <li><p>Use <code>spark_read()</code> to “map” the file’s structure and location to the Spark context. Assign it to the <code>spark_lineitems</code> variable</p>
-<div class="sourceCode" id="cb400"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb400-1" data-line-number="1">spark_lineitems &lt;-<span class="st"> </span><span class="kw">spark_read_csv</span>(</a>
-<a class="sourceLine" id="cb400-2" data-line-number="2">  sc,</a>
-<a class="sourceLine" id="cb400-3" data-line-number="3">  <span class="dt">name =</span> <span class="st">&quot;orders&quot;</span>,</a>
-<a class="sourceLine" id="cb400-4" data-line-number="4">  <span class="dt">path =</span> <span class="st">&quot;/usr/share/class/files&quot;</span>,</a>
-<a class="sourceLine" id="cb400-5" data-line-number="5">  <span class="dt">memory =</span> <span class="ot">FALSE</span>,</a>
-<a class="sourceLine" id="cb400-6" data-line-number="6">  <span class="dt">columns =</span> file_columns,</a>
-<a class="sourceLine" id="cb400-7" data-line-number="7">  <span class="dt">infer_schema =</span> <span class="ot">FALSE</span></a>
-<a class="sourceLine" id="cb400-8" data-line-number="8">)</a></code></pre></div></li>
+<div class="sourceCode" id="cb410"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb410-1" data-line-number="1">spark_lineitems &lt;-<span class="st"> </span><span class="kw">spark_read_csv</span>(</a>
+<a class="sourceLine" id="cb410-2" data-line-number="2">  sc,</a>
+<a class="sourceLine" id="cb410-3" data-line-number="3">  <span class="dt">name =</span> <span class="st">&quot;orders&quot;</span>,</a>
+<a class="sourceLine" id="cb410-4" data-line-number="4">  <span class="dt">path =</span> <span class="st">&quot;/usr/share/class/files&quot;</span>,</a>
+<a class="sourceLine" id="cb410-5" data-line-number="5">  <span class="dt">memory =</span> <span class="ot">FALSE</span>,</a>
+<a class="sourceLine" id="cb410-6" data-line-number="6">  <span class="dt">columns =</span> file_columns,</a>
+<a class="sourceLine" id="cb410-7" data-line-number="7">  <span class="dt">infer_schema =</span> <span class="ot">FALSE</span></a>
+<a class="sourceLine" id="cb410-8" data-line-number="8">)</a></code></pre></div></li>
 <li><p>In the Connections pane, click on the table icon by the <code>transactions</code> variable</p></li>
 <li><p>Verify that the new variable pointer works by using <code>tally()</code></p>
-<div class="sourceCode" id="cb401"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb401-1" data-line-number="1">spark_lineitems <span class="op">%&gt;%</span></a>
-<a class="sourceLine" id="cb401-2" data-line-number="2"><span class="st">  </span><span class="kw">tally</span>()</a></code></pre></div>
+<div class="sourceCode" id="cb411"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb411-1" data-line-number="1">spark_lineitems <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb411-2" data-line-number="2"><span class="st">  </span><span class="kw">tally</span>()</a></code></pre></div>
 <pre><code>## # Source: spark&lt;?&gt; [?? x 1]
 ##        n
 ##    &lt;dbl&gt;
@@ -321,14 +306,14 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <p><em>Learn how to cache a subset of the data in Spark</em></p>
 <ol style="list-style-type: decimal">
 <li><p>Create a subset of the <em>orders</em> table object. Summarize by <strong>date</strong>, careate a total price and number of items sold.</p>
-<div class="sourceCode" id="cb403"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb403-1" data-line-number="1">daily_orders &lt;-<span class="st"> </span>spark_lineitems <span class="op">%&gt;%</span></a>
-<a class="sourceLine" id="cb403-2" data-line-number="2"><span class="st">  </span><span class="kw">mutate</span>(<span class="dt">price =</span> <span class="kw">as.double</span>(price)) <span class="op">%&gt;%</span></a>
-<a class="sourceLine" id="cb403-3" data-line-number="3"><span class="st">  </span><span class="kw">group_by</span>(date) <span class="op">%&gt;%</span></a>
-<a class="sourceLine" id="cb403-4" data-line-number="4"><span class="st">  </span><span class="kw">summarise</span>(<span class="dt">total_sales =</span> <span class="kw">sum</span>(price, <span class="dt">na.rm =</span> <span class="ot">TRUE</span>), <span class="dt">no_items =</span> <span class="kw">n</span>())</a></code></pre></div></li>
+<div class="sourceCode" id="cb413"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb413-1" data-line-number="1">daily_orders &lt;-<span class="st"> </span>spark_lineitems <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb413-2" data-line-number="2"><span class="st">  </span><span class="kw">mutate</span>(<span class="dt">price =</span> <span class="kw">as.double</span>(price)) <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb413-3" data-line-number="3"><span class="st">  </span><span class="kw">group_by</span>(date) <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb413-4" data-line-number="4"><span class="st">  </span><span class="kw">summarise</span>(<span class="dt">total_sales =</span> <span class="kw">sum</span>(price, <span class="dt">na.rm =</span> <span class="ot">TRUE</span>), <span class="dt">no_items =</span> <span class="kw">n</span>())</a></code></pre></div></li>
 <li><p>Use <code>compute()</code> to extract the data into Spark memory</p>
-<div class="sourceCode" id="cb404"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb404-1" data-line-number="1">cached_orders &lt;-<span class="st"> </span><span class="kw">compute</span>(daily_orders, <span class="st">&quot;daily&quot;</span>)</a></code></pre></div></li>
+<div class="sourceCode" id="cb414"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb414-1" data-line-number="1">cached_orders &lt;-<span class="st"> </span><span class="kw">compute</span>(daily_orders, <span class="st">&quot;daily&quot;</span>)</a></code></pre></div></li>
 <li><p>Confirm new variable pointer works</p>
-<div class="sourceCode" id="cb405"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb405-1" data-line-number="1"><span class="kw">head</span>(cached_orders)</a></code></pre></div>
+<div class="sourceCode" id="cb415"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb415-1" data-line-number="1"><span class="kw">head</span>(cached_orders)</a></code></pre></div>
 <pre><code>## # Source: spark&lt;?&gt; [?? x 3]
 ##   date       total_sales no_items
 ##   &lt;chr&gt;            &lt;dbl&gt;    &lt;dbl&gt;
@@ -350,8 +335,8 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
           </div>
         </div>
       </div>
-<a href="text-mining-with-sparklyr.html" class="navigation navigation-prev navigation-unique" aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
-
+<a href="text-mining-with-sparklyr.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+<a href="spark-pipelines.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
     </div>
   </div>
 <script src="libs/gitbook-2.6.7/js/app.min.js"></script>

@@ -189,6 +189,8 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="9.1" data-path="intro-to-sparklyr.html"><a href="intro-to-sparklyr.html#new-spark-session"><i class="fa fa-check"></i><b>9.1</b> New Spark session</a></li>
 <li class="chapter" data-level="9.2" data-path="intro-to-sparklyr.html"><a href="intro-to-sparklyr.html#data-transfer"><i class="fa fa-check"></i><b>9.2</b> Data transfer</a></li>
 <li class="chapter" data-level="9.3" data-path="intro-to-sparklyr.html"><a href="intro-to-sparklyr.html#spark-and-dplyr"><i class="fa fa-check"></i><b>9.3</b> Spark and <code>dplyr</code></a></li>
+<li class="chapter" data-level="9.4" data-path="intro-to-sparklyr.html"><a href="intro-to-sparklyr.html#feature-transformers"><i class="fa fa-check"></i><b>9.4</b> Feature transformers</a></li>
+<li class="chapter" data-level="9.5" data-path="intro-to-sparklyr.html"><a href="intro-to-sparklyr.html#models"><i class="fa fa-check"></i><b>9.5</b> Models</a></li>
 </ul></li>
 <li class="chapter" data-level="10" data-path="text-mining-with-sparklyr.html"><a href="text-mining-with-sparklyr.html"><i class="fa fa-check"></i><b>10</b> Text mining with <code>sparklyr</code></a><ul>
 <li class="chapter" data-level="10.1" data-path="text-mining-with-sparklyr.html"><a href="text-mining-with-sparklyr.html#data-import"><i class="fa fa-check"></i><b>10.1</b> Data Import</a></li>
@@ -199,6 +201,12 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="11" data-path="spark-data-caching.html"><a href="spark-data-caching.html"><i class="fa fa-check"></i><b>11</b> Spark data caching</a><ul>
 <li class="chapter" data-level="11.1" data-path="spark-data-caching.html"><a href="spark-data-caching.html#map-data"><i class="fa fa-check"></i><b>11.1</b> Map data</a></li>
 <li class="chapter" data-level="11.2" data-path="spark-data-caching.html"><a href="spark-data-caching.html#caching-data"><i class="fa fa-check"></i><b>11.2</b> Caching data</a></li>
+</ul></li>
+<li class="chapter" data-level="12" data-path="spark-pipelines.html"><a href="spark-pipelines.html"><i class="fa fa-check"></i><b>12</b> Spark Pipelines</a><ul>
+<li class="chapter" data-level="12.1" data-path="spark-pipelines.html"><a href="spark-pipelines.html#build-an-estimator-plan"><i class="fa fa-check"></i><b>12.1</b> Build an Estimator (plan)</a></li>
+<li class="chapter" data-level="12.2" data-path="spark-pipelines.html"><a href="spark-pipelines.html#build-a-transformer-fit"><i class="fa fa-check"></i><b>12.2</b> Build a Transformer (fit)</a></li>
+<li class="chapter" data-level="12.3" data-path="spark-pipelines.html"><a href="spark-pipelines.html#predictions-using-spark-pipelines"><i class="fa fa-check"></i><b>12.3</b> Predictions using Spark Pipelines</a></li>
+<li class="chapter" data-level="12.4" data-path="spark-pipelines.html"><a href="spark-pipelines.html#save-the-pipeline-objects"><i class="fa fa-check"></i><b>12.4</b> Save the pipeline objects</a></li>
 </ul></li>
 </ul>
 
@@ -286,16 +294,16 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 ## # Database: postgres [rstudio_admin@localhost:5432/postgres]
 ##    order_id customer_id step_id
 ##       &lt;int&gt;       &lt;int&gt;   &lt;dbl&gt;
-##  1   127144           3     119
-##  2   127145          79     119
-##  3   127146          24     119
-##  4   127147           1     119
-##  5   127148          41     119
-##  6   127149          75     119
-##  7   127150          76     119
-##  8   127151          23     119
-##  9   127152          63     119
-## 10   127153          76     119
+##  1   801473          58     796
+##  2   801474          19     796
+##  3   801475           4     796
+##  4   801476          10     796
+##  5   801477          81     796
+##  6   801478          89     796
+##  7   801479          56     796
+##  8   801480          53     796
+##  9   801481          70     796
+## 10   801482          37     796
 ## # … with more rows</code></pre></li>
 <li><p>Full results of a remote query can be brought into R with <code>collect</code></p>
 <div class="sourceCode" id="cb156"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb156-1" data-line-number="1">local_orders &lt;-<span class="st"> </span><span class="kw">collect</span>(orders)</a></code></pre></div></li>
@@ -376,12 +384,12 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 ## # Database: postgres [rstudio_admin@localhost:5432/postgres]
 ##   order_id customer_id step_id today     
 ##      &lt;int&gt;       &lt;int&gt;   &lt;dbl&gt; &lt;date&gt;    
-## 1   127144           3     119 2020-01-23
-## 2   127145          79     119 2020-01-23
-## 3   127146          24     119 2020-01-23
-## 4   127147           1     119 2020-01-23
-## 5   127148          41     119 2020-01-23
-## 6   127149          75     119 2020-01-23</code></pre></li>
+## 1   801473          58     796 2020-01-23
+## 2   801474          19     796 2020-01-23
+## 3   801475           4     796 2020-01-23
+## 4   801476          10     796 2020-01-23
+## 5   801477          81     796 2020-01-23
+## 6   801478          89     796 2020-01-23</code></pre></li>
 </ol>
 </div>
 <div id="using-bang-bang" class="section level2">
@@ -403,12 +411,12 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 ## # Database: postgres [rstudio_admin@localhost:5432/postgres]
 ##   order_id customer_id step_id today     
 ##      &lt;int&gt;       &lt;int&gt;   &lt;dbl&gt; &lt;chr&gt;     
-## 1   127144           3     119 2020-01-23
-## 2   127145          79     119 2020-01-23
-## 3   127146          24     119 2020-01-23
-## 4   127147           1     119 2020-01-23
-## 5   127148          41     119 2020-01-23
-## 6   127149          75     119 2020-01-23</code></pre></li>
+## 1   801473          58     796 2020-01-23
+## 2   801474          19     796 2020-01-23
+## 3   801475           4     796 2020-01-23
+## 4   801476          10     796 2020-01-23
+## 5   801477          81     796 2020-01-23
+## 6   801478          89     796 2020-01-23</code></pre></li>
 <li><p>Disconnect from the database using <code>connection_close</code></p>
 <div class="sourceCode" id="cb179"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb179-1" data-line-number="1"><span class="kw">connection_close</span>(con)</a></code></pre></div></li>
 </ol>

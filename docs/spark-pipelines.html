@@ -4,11 +4,11 @@
 
   <meta charset="utf-8" />
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-  <title>9 Intro to sparklyr | _main.utf8</title>
+  <title>12 Spark Pipelines | _main.utf8</title>
   <meta name="description" content="" />
   <meta name="generator" content="bookdown 0.16 and GitBook 2.6.7" />
 
-  <meta property="og:title" content="9 Intro to sparklyr | _main.utf8" />
+  <meta property="og:title" content="12 Spark Pipelines | _main.utf8" />
   <meta property="og:type" content="book" />
   
   
@@ -16,7 +16,7 @@
   
 
   <meta name="twitter:card" content="summary" />
-  <meta name="twitter:title" content="9 Intro to sparklyr | _main.utf8" />
+  <meta name="twitter:title" content="12 Spark Pipelines | _main.utf8" />
   
   
   
@@ -29,8 +29,8 @@
   <meta name="apple-mobile-web-app-status-bar-style" content="black" />
   
   
-<link rel="prev" href="advanced-operations.html"/>
-<link rel="next" href="text-mining-with-sparklyr.html"/>
+<link rel="prev" href="spark-data-caching.html"/>
+
 <script src="libs/jquery-2.2.3/jquery.min.js"></script>
 <link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
 <link href="libs/gitbook-2.6.7/css/plugin-table.css" rel="stylesheet" />
@@ -225,158 +225,260 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
           <div class="page-inner">
 
             <section class="normal" id="section-">
-<div id="intro-to-sparklyr" class="section level1">
-<h1><span class="header-section-number">9</span> Intro to <code>sparklyr</code></h1>
-<div id="new-spark-session" class="section level2">
-<h2><span class="header-section-number">9.1</span> New Spark session</h2>
-<p><em>Learn to open a new Spark session</em></p>
+<div id="spark-pipelines" class="section level1">
+<h1><span class="header-section-number">12</span> Spark Pipelines</h1>
+<div id="build-an-estimator-plan" class="section level2">
+<h2><span class="header-section-number">12.1</span> Build an Estimator (plan)</h2>
+<p><em>Create a simple estimator that transforms data and fits a model</em></p>
 <ol style="list-style-type: decimal">
-<li><p>Load the <code>sparklyr</code> library</p>
-<div class="sourceCode" id="cb346"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb346-1" data-line-number="1"><span class="kw">library</span>(sparklyr)</a></code></pre></div></li>
-<li><p>Use <code>spark_connect()</code> to create a new local Spark session</p>
-<div class="sourceCode" id="cb347"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb347-1" data-line-number="1">sc &lt;-<span class="st"> </span><span class="kw">spark_connect</span>(<span class="dt">master =</span> <span class="st">&quot;local&quot;</span>)</a></code></pre></div>
-<pre><code>## * Using Spark: 2.4.0</code></pre></li>
-<li><p>Click on the <code>Spark</code> button to view the current Spark session’s UI</p></li>
-<li><p>Click on the <code>Log</code> button to see the message history</p></li>
-</ol>
-</div>
-<div id="data-transfer" class="section level2">
-<h2><span class="header-section-number">9.2</span> Data transfer</h2>
-<p><em>Practice uploading data to Spark</em></p>
-<ol style="list-style-type: decimal">
-<li><p>Load the <code>dplyr</code> library</p>
-<div class="sourceCode" id="cb349"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb349-1" data-line-number="1"><span class="kw">library</span>(dplyr)</a></code></pre></div></li>
-<li><p>Copy the <code>mtcars</code> dataset into the session</p>
-<div class="sourceCode" id="cb350"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb350-1" data-line-number="1">spark_mtcars &lt;-<span class="st"> </span><span class="kw">copy_to</span>(sc, mtcars, <span class="st">&quot;my_mtcars&quot;</span>)</a></code></pre></div></li>
-<li><p>In the <strong>Connections</strong> pane, expande the <code>my_mtcars</code> table</p></li>
-<li><p>Go to the Spark UI, note the new jobs</p></li>
-<li><p>In the UI, click the Storage button, note the new table</p></li>
-<li><p>Click on the <strong>In-memory table my_mtcars</strong> link</p></li>
-</ol>
-</div>
-<div id="spark-and-dplyr" class="section level2">
-<h2><span class="header-section-number">9.3</span> Spark and <code>dplyr</code></h2>
-<p><em>See how Spark handles <code>dplyr</code> commands</em></p>
-<ol style="list-style-type: decimal">
-<li><p>Run the following code snipett</p>
-<div class="sourceCode" id="cb351"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb351-1" data-line-number="1">spark_mtcars <span class="op">%&gt;%</span></a>
-<a class="sourceLine" id="cb351-2" data-line-number="2"><span class="st">  </span><span class="kw">group_by</span>(am) <span class="op">%&gt;%</span></a>
-<a class="sourceLine" id="cb351-3" data-line-number="3"><span class="st">  </span><span class="kw">summarise</span>(<span class="dt">mpg_mean =</span> <span class="kw">mean</span>(mpg, <span class="dt">na.rm =</span> <span class="ot">TRUE</span>))</a></code></pre></div>
-<pre><code>## # Source: spark&lt;?&gt; [?? x 2]
-##      am mpg_mean
-##   &lt;dbl&gt;    &lt;dbl&gt;
-## 1     0     17.1
-## 2     1     24.4</code></pre></li>
-<li><p>Go to the Spark UI and click the <strong>SQL</strong> button</p></li>
-<li><p>Click on the top item inside the <strong>Completed Queries</strong> table</p></li>
-<li><p>At the bottom of the diagram, expand <strong>Details</strong></p></li>
-</ol>
-</div>
-<div id="feature-transformers" class="section level2">
-<h2><span class="header-section-number">9.4</span> Feature transformers</h2>
-<p><em>Introduction to how Spark Feature Transformers can be called from R</em></p>
-<ol style="list-style-type: decimal">
-<li><p>Use <code>ft_binarizer()</code> to create a new column, called <code>over_20</code>, that indicates if that row’s <code>mpg</code> value is over or under 20MPG</p>
-<div class="sourceCode" id="cb353"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb353-1" data-line-number="1">spark_mtcars <span class="op">%&gt;%</span></a>
-<a class="sourceLine" id="cb353-2" data-line-number="2"><span class="st">  </span><span class="kw">ft_binarizer</span>(<span class="st">&quot;mpg&quot;</span>, <span class="st">&quot;over_20&quot;</span>, <span class="dv">20</span>)</a></code></pre></div>
-<pre><code>## # Source: spark&lt;?&gt; [?? x 12]
-##      mpg   cyl  disp    hp  drat    wt  qsec    vs    am  gear  carb over_20
-##    &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt;   &lt;dbl&gt;
-##  1  21       6  160    110  3.9   2.62  16.5     0     1     4     4       1
-##  2  21       6  160    110  3.9   2.88  17.0     0     1     4     4       1
-##  3  22.8     4  108     93  3.85  2.32  18.6     1     1     4     1       1
-##  4  21.4     6  258    110  3.08  3.22  19.4     1     0     3     1       1
-##  5  18.7     8  360    175  3.15  3.44  17.0     0     0     3     2       0
-##  6  18.1     6  225    105  2.76  3.46  20.2     1     0     3     1       0
-##  7  14.3     8  360    245  3.21  3.57  15.8     0     0     3     4       0
-##  8  24.4     4  147.    62  3.69  3.19  20       1     0     4     2       1
-##  9  22.8     4  141.    95  3.92  3.15  22.9     1     0     4     2       1
-## 10  19.2     6  168.   123  3.92  3.44  18.3     1     0     4     4       0
+<li><p>Use the <code>spark_lineitems</code> variable to create a new aggregation by <code>order_id</code>. Summarize the total sales and number of items</p>
+<div class="sourceCode" id="cb417"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb417-1" data-line-number="1">spark_lineitems <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb417-2" data-line-number="2"><span class="st">  </span><span class="kw">mutate</span>(<span class="dt">price =</span> <span class="kw">as.double</span>(price)) <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb417-3" data-line-number="3"><span class="st">  </span><span class="kw">group_by</span>(order_id) <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb417-4" data-line-number="4"><span class="st">  </span><span class="kw">summarise</span>(<span class="dt">total_sales =</span> <span class="kw">sum</span>(price, <span class="dt">na.rm =</span> <span class="ot">TRUE</span>), <span class="dt">no_items =</span> <span class="kw">n</span>())</a></code></pre></div>
+<pre><code>## # Source: spark&lt;?&gt; [?? x 3]
+##    order_id total_sales no_items
+##    &lt;chr&gt;          &lt;dbl&gt;    &lt;dbl&gt;
+##  1 33531           45.4        6
+##  2 33538           79.9       12
+##  3 33541           70.0       10
+##  4 33550           92.8       16
+##  5 33561           46.6        8
+##  6 33565           55.6        8
+##  7 33568           76.6       10
+##  8 33571           74         12
+##  9 33572           54.4        8
+## 10 33582           82.5       12
 ## # … with more rows</code></pre></li>
-<li><p>Pipe the code into <code>count()</code> to see how the data splits between the two values</p>
-<div class="sourceCode" id="cb355"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb355-1" data-line-number="1">spark_mtcars <span class="op">%&gt;%</span></a>
-<a class="sourceLine" id="cb355-2" data-line-number="2"><span class="st">  </span><span class="kw">ft_binarizer</span>(<span class="st">&quot;mpg&quot;</span>, <span class="st">&quot;over_20&quot;</span>, <span class="dv">20</span>) <span class="op">%&gt;%</span></a>
-<a class="sourceLine" id="cb355-3" data-line-number="3"><span class="st">  </span><span class="kw">count</span>(over_<span class="dv">20</span>)</a></code></pre></div>
-<pre><code>## # Source: spark&lt;?&gt; [?? x 2]
-##   over_20     n
-##     &lt;dbl&gt; &lt;dbl&gt;
-## 1       0    18
-## 2       1    14</code></pre></li>
-<li><p>Start a new code chunk. This time use <code>ft_quantile_discretizer()</code> to create a new column called <code>mpg_quantile</code></p>
-<div class="sourceCode" id="cb357"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb357-1" data-line-number="1">spark_mtcars <span class="op">%&gt;%</span></a>
-<a class="sourceLine" id="cb357-2" data-line-number="2"><span class="st">  </span><span class="kw">ft_quantile_discretizer</span>(<span class="st">&quot;mpg&quot;</span>, <span class="st">&quot;mpg_quantile&quot;</span>)</a></code></pre></div>
-<pre><code>## # Source: spark&lt;?&gt; [?? x 12]
-##      mpg   cyl  disp    hp  drat    wt  qsec    vs    am  gear  carb mpg_quantile
-##    &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt;        &lt;dbl&gt;
-##  1  21       6  160    110  3.9   2.62  16.5     0     1     4     4            1
-##  2  21       6  160    110  3.9   2.88  17.0     0     1     4     4            1
-##  3  22.8     4  108     93  3.85  2.32  18.6     1     1     4     1            1
-##  4  21.4     6  258    110  3.08  3.22  19.4     1     0     3     1            1
-##  5  18.7     8  360    175  3.15  3.44  17.0     0     0     3     2            0
-##  6  18.1     6  225    105  2.76  3.46  20.2     1     0     3     1            0
-##  7  14.3     8  360    245  3.21  3.57  15.8     0     0     3     4            0
-##  8  24.4     4  147.    62  3.69  3.19  20       1     0     4     2            1
-##  9  22.8     4  141.    95  3.92  3.15  22.9     1     0     4     2            1
-## 10  19.2     6  168.   123  3.92  3.44  18.3     1     0     4     4            1
-## # … with more rows</code></pre></li>
-<li><p>Add the <code>num_buckets</code> argument to <code>ft_quantile_discretizer()</code>, set its value to 5</p>
-<div class="sourceCode" id="cb359"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb359-1" data-line-number="1">spark_mtcars <span class="op">%&gt;%</span></a>
-<a class="sourceLine" id="cb359-2" data-line-number="2"><span class="st">  </span><span class="kw">ft_quantile_discretizer</span>(<span class="st">&quot;mpg&quot;</span>, <span class="st">&quot;mpg_quantile&quot;</span>, <span class="dt">num_buckets =</span> <span class="dv">5</span>)</a></code></pre></div>
-<pre><code>## # Source: spark&lt;?&gt; [?? x 12]
-##      mpg   cyl  disp    hp  drat    wt  qsec    vs    am  gear  carb mpg_quantile
-##    &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt;        &lt;dbl&gt;
-##  1  21       6  160    110  3.9   2.62  16.5     0     1     4     4            3
-##  2  21       6  160    110  3.9   2.88  17.0     0     1     4     4            3
-##  3  22.8     4  108     93  3.85  2.32  18.6     1     1     4     1            3
-##  4  21.4     6  258    110  3.08  3.22  19.4     1     0     3     1            3
-##  5  18.7     8  360    175  3.15  3.44  17.0     0     0     3     2            2
-##  6  18.1     6  225    105  2.76  3.46  20.2     1     0     3     1            2
-##  7  14.3     8  360    245  3.21  3.57  15.8     0     0     3     4            0
-##  8  24.4     4  147.    62  3.69  3.19  20       1     0     4     2            4
-##  9  22.8     4  141.    95  3.92  3.15  22.9     1     0     4     2            3
-## 10  19.2     6  168.   123  3.92  3.44  18.3     1     0     4     4            2
-## # … with more rows</code></pre></li>
-<li><ol style="list-style-type: decimal">
-<li>Pipe the code into <code>count()</code> to see how the data splits between the quantiles</li>
-</ol>
-<div class="sourceCode" id="cb361"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb361-1" data-line-number="1">spark_mtcars <span class="op">%&gt;%</span></a>
-<a class="sourceLine" id="cb361-2" data-line-number="2"><span class="st">  </span><span class="kw">ft_quantile_discretizer</span>(<span class="st">&quot;mpg&quot;</span>, <span class="st">&quot;mpg_quantile&quot;</span>, <span class="dt">num_buckets =</span> <span class="dv">5</span>) <span class="op">%&gt;%</span></a>
-<a class="sourceLine" id="cb361-3" data-line-number="3"><span class="st">  </span><span class="kw">count</span>(mpg_quantile)</a></code></pre></div>
-<pre><code>## # Source: spark&lt;?&gt; [?? x 2]
-##   mpg_quantile     n
-##          &lt;dbl&gt; &lt;dbl&gt;
-## 1            0     6
-## 2            3     7
-## 3            4     7
-## 4            1     6
-## 5            2     6</code></pre></li>
+<li><p>Assign the code to a new variable called <code>orders</code></p>
+<div class="sourceCode" id="cb419"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb419-1" data-line-number="1">orders &lt;-<span class="st"> </span>spark_lineitems <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb419-2" data-line-number="2"><span class="st">  </span><span class="kw">mutate</span>(<span class="dt">price =</span> <span class="kw">as.double</span>(price)) <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb419-3" data-line-number="3"><span class="st">  </span><span class="kw">group_by</span>(order_id) <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb419-4" data-line-number="4"><span class="st">  </span><span class="kw">summarise</span>(<span class="dt">total_sales =</span> <span class="kw">sum</span>(price, <span class="dt">na.rm =</span> <span class="ot">TRUE</span>), <span class="dt">no_items =</span> <span class="kw">n</span>())</a></code></pre></div></li>
+<li><p>Start a new code chunk, with calling <code>ml_pipeline(sc)</code></p>
+<div class="sourceCode" id="cb420"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb420-1" data-line-number="1"><span class="kw">ml_pipeline</span>(sc) </a></code></pre></div>
+<pre><code>## Pipeline (Estimator) with no stages
+## &lt;pipeline_55c15862a53&gt;</code></pre></li>
+<li><p>Pipe the <code>ml_pipeline()</code> code into a <code>ft_dplyr_transfomer()</code> call. Use the <code>orders</code> variable for its argument</p>
+<div class="sourceCode" id="cb422"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb422-1" data-line-number="1"><span class="kw">ml_pipeline</span>(sc) <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb422-2" data-line-number="2"><span class="st">  </span><span class="kw">ft_dplyr_transformer</span>(orders) </a></code></pre></div>
+<pre><code>## Pipeline (Estimator) with 1 stage
+## &lt;pipeline_55c68ca32c1&gt; 
+##   Stages 
+##   |--1 SQLTransformer (Transformer)
+##   |    &lt;dplyr_transformer_55c795af321&gt; 
+##   |     (Parameters -- Column Names)</code></pre></li>
+<li><p>Add an <code>ft_binarizer()</code> step that determines if the total sale is above $50. Name the new variable <code>above_50</code></p>
+<div class="sourceCode" id="cb424"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb424-1" data-line-number="1"><span class="kw">ml_pipeline</span>(sc) <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb424-2" data-line-number="2"><span class="st">  </span><span class="kw">ft_dplyr_transformer</span>(orders) <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb424-3" data-line-number="3"><span class="st">  </span><span class="kw">ft_binarizer</span>(<span class="st">&quot;total_sales&quot;</span>, <span class="st">&quot;above_50&quot;</span>, <span class="dv">50</span>) </a></code></pre></div>
+<pre><code>## Pipeline (Estimator) with 2 stages
+## &lt;pipeline_55c2f66e520&gt; 
+##   Stages 
+##   |--1 SQLTransformer (Transformer)
+##   |    &lt;dplyr_transformer_55c74b98194&gt; 
+##   |     (Parameters -- Column Names)
+##   |--2 Binarizer (Transformer)
+##   |    &lt;binarizer_55cbe5bb73&gt; 
+##   |     (Parameters -- Column Names)
+##   |      input_col: total_sales
+##   |      output_col: above_50</code></pre></li>
+<li><p>Using the <code>ft_r_formula</code>, add a step that sets the model’s formula to: <code>above_50 ~ no_items</code></p>
+<div class="sourceCode" id="cb426"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb426-1" data-line-number="1"><span class="kw">ml_pipeline</span>(sc) <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb426-2" data-line-number="2"><span class="st">  </span><span class="kw">ft_dplyr_transformer</span>(orders) <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb426-3" data-line-number="3"><span class="st">  </span><span class="kw">ft_binarizer</span>(<span class="st">&quot;total_sales&quot;</span>, <span class="st">&quot;above_50&quot;</span>, <span class="dv">50</span>) <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb426-4" data-line-number="4"><span class="st">  </span><span class="kw">ft_r_formula</span>(above_<span class="dv">50</span> <span class="op">~</span><span class="st"> </span>no_items) </a></code></pre></div>
+<pre><code>## Pipeline (Estimator) with 3 stages
+## &lt;pipeline_55c7014263c&gt; 
+##   Stages 
+##   |--1 SQLTransformer (Transformer)
+##   |    &lt;dplyr_transformer_55c640e84e2&gt; 
+##   |     (Parameters -- Column Names)
+##   |--2 Binarizer (Transformer)
+##   |    &lt;binarizer_55c6073c45b&gt; 
+##   |     (Parameters -- Column Names)
+##   |      input_col: total_sales
+##   |      output_col: above_50
+##   |--3 RFormula (Estimator)
+##   |    &lt;r_formula_55c3c7df218&gt; 
+##   |     (Parameters -- Column Names)
+##   |      features_col: features
+##   |      label_col: label
+##   |     (Parameters)
+##   |      force_index_label: FALSE
+##   |      formula: above_50 ~ no_items
+##   |      handle_invalid: error
+##   |      stringIndexerOrderType: frequencyDesc</code></pre></li>
+<li><p>Finalize the pipeline by adding a <code>ml_logistic_regression()</code> step, no arguments are needed</p>
+<div class="sourceCode" id="cb428"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb428-1" data-line-number="1"><span class="kw">ml_pipeline</span>(sc) <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb428-2" data-line-number="2"><span class="st">  </span><span class="kw">ft_dplyr_transformer</span>(orders) <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb428-3" data-line-number="3"><span class="st">  </span><span class="kw">ft_binarizer</span>(<span class="st">&quot;total_sales&quot;</span>, <span class="st">&quot;above_50&quot;</span>, <span class="dv">50</span>) <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb428-4" data-line-number="4"><span class="st">  </span><span class="kw">ft_r_formula</span>(above_<span class="dv">50</span> <span class="op">~</span><span class="st"> </span>no_items) <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb428-5" data-line-number="5"><span class="st">  </span><span class="kw">ml_logistic_regression</span>()</a></code></pre></div>
+<pre><code>## Pipeline (Estimator) with 4 stages
+## &lt;pipeline_55cc32e40c&gt; 
+##   Stages 
+##   |--1 SQLTransformer (Transformer)
+##   |    &lt;dplyr_transformer_55c183307c4&gt; 
+##   |     (Parameters -- Column Names)
+##   |--2 Binarizer (Transformer)
+##   |    &lt;binarizer_55c10313fcc&gt; 
+##   |     (Parameters -- Column Names)
+##   |      input_col: total_sales
+##   |      output_col: above_50
+##   |--3 RFormula (Estimator)
+##   |    &lt;r_formula_55c69641535&gt; 
+##   |     (Parameters -- Column Names)
+##   |      features_col: features
+##   |      label_col: label
+##   |     (Parameters)
+##   |      force_index_label: FALSE
+##   |      formula: above_50 ~ no_items
+##   |      handle_invalid: error
+##   |      stringIndexerOrderType: frequencyDesc
+##   |--4 LogisticRegression (Estimator)
+##   |    &lt;logistic_regression_55c412af3f9&gt; 
+##   |     (Parameters -- Column Names)
+##   |      features_col: features
+##   |      label_col: label
+##   |      prediction_col: prediction
+##   |      probability_col: probability
+##   |      raw_prediction_col: rawPrediction
+##   |     (Parameters)
+##   |      aggregation_depth: 2
+##   |      elastic_net_param: 0
+##   |      family: auto
+##   |      fit_intercept: TRUE
+##   |      max_iter: 100
+##   |      reg_param: 0
+##   |      standardization: TRUE
+##   |      threshold: 0.5
+##   |      tol: 1e-06</code></pre></li>
+<li><p>Assign the code to a new variable called <code>orders_plan</code></p>
+<div class="sourceCode" id="cb430"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb430-1" data-line-number="1">orders_plan &lt;-<span class="st"> </span><span class="kw">ml_pipeline</span>(sc) <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb430-2" data-line-number="2"><span class="st">  </span><span class="kw">ft_dplyr_transformer</span>(orders) <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb430-3" data-line-number="3"><span class="st">  </span><span class="kw">ft_binarizer</span>(<span class="st">&quot;total_sales&quot;</span>, <span class="st">&quot;above_50&quot;</span>, <span class="dv">50</span>) <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb430-4" data-line-number="4"><span class="st">  </span><span class="kw">ft_r_formula</span>(above_<span class="dv">50</span> <span class="op">~</span><span class="st"> </span>no_items) <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb430-5" data-line-number="5"><span class="st">  </span><span class="kw">ml_logistic_regression</span>()</a></code></pre></div></li>
+<li><p>Call <code>orders_plan</code> to confirm that all of the steps are present</p>
+<div class="sourceCode" id="cb431"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb431-1" data-line-number="1">orders_plan</a></code></pre></div>
+<pre><code>## Pipeline (Estimator) with 4 stages
+## &lt;pipeline_55c13a42573&gt; 
+##   Stages 
+##   |--1 SQLTransformer (Transformer)
+##   |    &lt;dplyr_transformer_55c59d87735&gt; 
+##   |     (Parameters -- Column Names)
+##   |--2 Binarizer (Transformer)
+##   |    &lt;binarizer_55c52b9fd9e&gt; 
+##   |     (Parameters -- Column Names)
+##   |      input_col: total_sales
+##   |      output_col: above_50
+##   |--3 RFormula (Estimator)
+##   |    &lt;r_formula_55c30166c14&gt; 
+##   |     (Parameters -- Column Names)
+##   |      features_col: features
+##   |      label_col: label
+##   |     (Parameters)
+##   |      force_index_label: FALSE
+##   |      formula: above_50 ~ no_items
+##   |      handle_invalid: error
+##   |      stringIndexerOrderType: frequencyDesc
+##   |--4 LogisticRegression (Estimator)
+##   |    &lt;logistic_regression_55c5655d997&gt; 
+##   |     (Parameters -- Column Names)
+##   |      features_col: features
+##   |      label_col: label
+##   |      prediction_col: prediction
+##   |      probability_col: probability
+##   |      raw_prediction_col: rawPrediction
+##   |     (Parameters)
+##   |      aggregation_depth: 2
+##   |      elastic_net_param: 0
+##   |      family: auto
+##   |      fit_intercept: TRUE
+##   |      max_iter: 100
+##   |      reg_param: 0
+##   |      standardization: TRUE
+##   |      threshold: 0.5
+##   |      tol: 1e-06</code></pre></li>
 </ol>
 </div>
-<div id="models" class="section level2">
-<h2><span class="header-section-number">9.5</span> Models</h2>
-<p><em>Introduce Spark ML models by running a couple of them in R</em></p>
+<div id="build-a-transformer-fit" class="section level2">
+<h2><span class="header-section-number">12.2</span> Build a Transformer (fit)</h2>
+<p><em>Execute the planned changes to obtain a new model</em></p>
 <ol style="list-style-type: decimal">
-<li><p>Use <code>ml_kmeans()</code> to run a model based on the following formula: <code>wt ~ mpg</code>. Assign the results to a variable called <code>k_mtcars</code></p>
-<div class="sourceCode" id="cb363"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb363-1" data-line-number="1">k_mtcars &lt;-<span class="st"> </span>spark_mtcars <span class="op">%&gt;%</span></a>
-<a class="sourceLine" id="cb363-2" data-line-number="2"><span class="st">  </span><span class="kw">ml_kmeans</span>(wt <span class="op">~</span><span class="st"> </span>mpg)</a></code></pre></div></li>
-<li><p>Use <code>k_mtcars$summary</code> to view the results of the model. Pull the cluster sizes by using <code>...$cluster_sizes()</code></p>
-<div class="sourceCode" id="cb364"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb364-1" data-line-number="1">k_mtcars<span class="op">$</span>summary<span class="op">$</span><span class="kw">cluster_sizes</span>()</a></code></pre></div>
-<pre><code>## [1] 14 18</code></pre></li>
-<li><p>Start a new code chunk. This time use <code>ml_linear_regression()</code> to produce a Linear Regression model of the same formula used in the previous model. Assign the results to a variable called <code>lr_mtcars</code></p>
-<div class="sourceCode" id="cb366"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb366-1" data-line-number="1">lr_mtcars &lt;-<span class="st"> </span>spark_mtcars <span class="op">%&gt;%</span></a>
-<a class="sourceLine" id="cb366-2" data-line-number="2"><span class="st">  </span><span class="kw">ml_linear_regression</span>(wt <span class="op">~</span><span class="st"> </span>mpg)</a></code></pre></div></li>
-<li><p>Use <code>summary()</code> to view the results of the model</p>
-<div class="sourceCode" id="cb367"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb367-1" data-line-number="1"><span class="kw">summary</span>(lr_mtcars)</a></code></pre></div>
-<pre><code>## Deviance Residuals:
-##     Min      1Q  Median      3Q     Max 
-## -0.6516 -0.3490 -0.1381  0.3190  1.3684 
-## 
-## Coefficients:
-## (Intercept)         mpg 
-##    6.047255   -0.140862 
-## 
-## R-Squared: 0.7528
-## Root Mean Squared Error: 0.4788</code></pre></li>
+<li><p>Use <code>ml_fit()</code> to execute the changes in <code>order_plan</code> using the <code>spark_lineitems</code> data. Assign to a new variable called <code>orders_fit</code></p>
+<div class="sourceCode" id="cb433"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb433-1" data-line-number="1">orders_fit &lt;-<span class="st"> </span><span class="kw">ml_fit</span>(orders_plan, spark_lineitems)</a></code></pre></div></li>
+<li><p>Call <code>orders_fit</code> to see the print-out of the newly fitted model</p>
+<div class="sourceCode" id="cb434"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb434-1" data-line-number="1">orders_fit</a></code></pre></div>
+<pre><code>## PipelineModel (Transformer) with 4 stages
+## &lt;pipeline_55c13a42573&gt; 
+##   Stages 
+##   |--1 SQLTransformer (Transformer)
+##   |    &lt;dplyr_transformer_55c59d87735&gt; 
+##   |     (Parameters -- Column Names)
+##   |--2 Binarizer (Transformer)
+##   |    &lt;binarizer_55c52b9fd9e&gt; 
+##   |     (Parameters -- Column Names)
+##   |      input_col: total_sales
+##   |      output_col: above_50
+##   |--3 RFormulaModel (Transformer)
+##   |    &lt;r_formula_55c30166c14&gt; 
+##   |     (Parameters -- Column Names)
+##   |      features_col: features
+##   |      label_col: label
+##   |     (Transformer Info)
+##   |      formula:  chr &quot;above_50 ~ no_items&quot; 
+##   |--4 LogisticRegressionModel (Transformer)
+##   |    &lt;logistic_regression_55c5655d997&gt; 
+##   |     (Parameters -- Column Names)
+##   |      features_col: features
+##   |      label_col: label
+##   |      prediction_col: prediction
+##   |      probability_col: probability
+##   |      raw_prediction_col: rawPrediction
+##   |     (Transformer Info)
+##   |      coefficient_matrix:  num [1, 1] 2.21 
+##   |      coefficients:  num 2.21 
+##   |      intercept:  num -16.7 
+##   |      intercept_vector:  num -16.7 
+##   |      num_classes:  int 2 
+##   |      num_features:  int 1 
+##   |      threshold:  num 0.5 
+##   |      thresholds:  num [1:2] 0.5 0.5</code></pre></li>
+</ol>
+</div>
+<div id="predictions-using-spark-pipelines" class="section level2">
+<h2><span class="header-section-number">12.3</span> Predictions using Spark Pipelines</h2>
+<p><em>Overview of how to use a fitted pipeline to run predictions</em></p>
+<ol style="list-style-type: decimal">
+<li><p>Use <code>ml_transform()</code> in order to use the <code>orders_fit</code> model to run predictions over <code>spark_lineitems</code></p>
+<div class="sourceCode" id="cb436"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb436-1" data-line-number="1">orders_preds &lt;-<span class="st"> </span><span class="kw">ml_transform</span>(orders_fit, spark_lineitems)</a></code></pre></div></li>
+<li><p>With <code>count()</code>, compare the results from <code>above_50</code> against the predictions, the variable created by <code>ml_transform()</code> is called <code>prediction</code></p>
+<div class="sourceCode" id="cb437"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb437-1" data-line-number="1">orders_preds <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb437-2" data-line-number="2"><span class="st">  </span><span class="kw">count</span>(above_<span class="dv">50</span>, prediction)</a></code></pre></div>
+<pre><code>## # Source: spark&lt;?&gt; [?? x 3]
+## # Groups: above_50
+##   above_50 prediction     n
+##      &lt;dbl&gt;      &lt;dbl&gt; &lt;dbl&gt;
+## 1        0          1   783
+## 2        0          0  9282
+## 3        1          1 16387
+## 4        1          0    92</code></pre></li>
+</ol>
+</div>
+<div id="save-the-pipeline-objects" class="section level2">
+<h2><span class="header-section-number">12.4</span> Save the pipeline objects</h2>
+<p><em>Overview of how to save the Estimator and the Transformer</em></p>
+<ol style="list-style-type: decimal">
+<li><p>Use <code>ml_save()</code> to save <code>order_plan</code> in a new folder called “saved_model”</p>
+<div class="sourceCode" id="cb439"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb439-1" data-line-number="1"><span class="kw">ml_save</span>(orders_plan, <span class="st">&quot;saved_model&quot;</span>, <span class="dt">overwrite =</span> <span class="ot">TRUE</span>)</a></code></pre></div>
+<pre><code>## Model successfully saved.</code></pre></li>
+<li><p>Navigate to the “saved_model” folder to inspect its contents</p></li>
+<li><p>Use <code>ml_save()</code> to save <code>orders_fit</code> in a new folder called “saved_pipeline”</p>
+<div class="sourceCode" id="cb441"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb441-1" data-line-number="1"><span class="kw">ml_save</span>(orders_fit, <span class="st">&quot;saved_pipeline&quot;</span>, <span class="dt">overwrite =</span> <span class="ot">TRUE</span>)</a></code></pre></div>
+<pre><code>## Model successfully saved.</code></pre></li>
+<li><p>Navigate to the “saved_pipeline” folder to inspect its contents</p></li>
 </ol>
 
 </div>
@@ -386,8 +488,8 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
           </div>
         </div>
       </div>
-<a href="advanced-operations.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
-<a href="text-mining-with-sparklyr.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
+<a href="spark-data-caching.html" class="navigation navigation-prev navigation-unique" aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+
     </div>
   </div>
 <script src="libs/gitbook-2.6.7/js/app.min.js"></script>

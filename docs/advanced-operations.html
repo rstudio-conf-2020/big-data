@@ -189,6 +189,8 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="9.1" data-path="intro-to-sparklyr.html"><a href="intro-to-sparklyr.html#new-spark-session"><i class="fa fa-check"></i><b>9.1</b> New Spark session</a></li>
 <li class="chapter" data-level="9.2" data-path="intro-to-sparklyr.html"><a href="intro-to-sparklyr.html#data-transfer"><i class="fa fa-check"></i><b>9.2</b> Data transfer</a></li>
 <li class="chapter" data-level="9.3" data-path="intro-to-sparklyr.html"><a href="intro-to-sparklyr.html#spark-and-dplyr"><i class="fa fa-check"></i><b>9.3</b> Spark and <code>dplyr</code></a></li>
+<li class="chapter" data-level="9.4" data-path="intro-to-sparklyr.html"><a href="intro-to-sparklyr.html#feature-transformers"><i class="fa fa-check"></i><b>9.4</b> Feature transformers</a></li>
+<li class="chapter" data-level="9.5" data-path="intro-to-sparklyr.html"><a href="intro-to-sparklyr.html#models"><i class="fa fa-check"></i><b>9.5</b> Models</a></li>
 </ul></li>
 <li class="chapter" data-level="10" data-path="text-mining-with-sparklyr.html"><a href="text-mining-with-sparklyr.html"><i class="fa fa-check"></i><b>10</b> Text mining with <code>sparklyr</code></a><ul>
 <li class="chapter" data-level="10.1" data-path="text-mining-with-sparklyr.html"><a href="text-mining-with-sparklyr.html#data-import"><i class="fa fa-check"></i><b>10.1</b> Data Import</a></li>
@@ -199,6 +201,12 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="11" data-path="spark-data-caching.html"><a href="spark-data-caching.html"><i class="fa fa-check"></i><b>11</b> Spark data caching</a><ul>
 <li class="chapter" data-level="11.1" data-path="spark-data-caching.html"><a href="spark-data-caching.html#map-data"><i class="fa fa-check"></i><b>11.1</b> Map data</a></li>
 <li class="chapter" data-level="11.2" data-path="spark-data-caching.html"><a href="spark-data-caching.html#caching-data"><i class="fa fa-check"></i><b>11.2</b> Caching data</a></li>
+</ul></li>
+<li class="chapter" data-level="12" data-path="spark-pipelines.html"><a href="spark-pipelines.html"><i class="fa fa-check"></i><b>12</b> Spark Pipelines</a><ul>
+<li class="chapter" data-level="12.1" data-path="spark-pipelines.html"><a href="spark-pipelines.html#build-an-estimator-plan"><i class="fa fa-check"></i><b>12.1</b> Build an Estimator (plan)</a></li>
+<li class="chapter" data-level="12.2" data-path="spark-pipelines.html"><a href="spark-pipelines.html#build-a-transformer-fit"><i class="fa fa-check"></i><b>12.2</b> Build a Transformer (fit)</a></li>
+<li class="chapter" data-level="12.3" data-path="spark-pipelines.html"><a href="spark-pipelines.html#predictions-using-spark-pipelines"><i class="fa fa-check"></i><b>12.3</b> Predictions using Spark Pipelines</a></li>
+<li class="chapter" data-level="12.4" data-path="spark-pipelines.html"><a href="spark-pipelines.html#save-the-pipeline-objects"><i class="fa fa-check"></i><b>12.4</b> Save the pipeline objects</a></li>
 </ul></li>
 </ul>
 
@@ -364,12 +372,12 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 ## [[1]]
 ## &lt;quosure&gt;
 ## expr: ^order_id
-## env:  0x56001667bd80
+## env:  0x56522573ace8
 ## 
 ## [[2]]
 ## &lt;quosure&gt;
 ## expr: ^date
-## env:  0x56001667bd80</code></pre></li>
+## env:  0x56522573ace8</code></pre></li>
 <li><p>Add a step to the function that iterates through each quosure and prefixes a minus sign to tell <code>select()</code> to drop that specific field. Use <code>map()</code> for the iteration, and <code>quo()</code> to create the prefixed expression.</p>
 <div class="sourceCode" id="cb304"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb304-1" data-line-number="1">de_select &lt;-<span class="st"> </span><span class="cf">function</span>(.data, ...){</a>
 <a class="sourceLine" id="cb304-2" data-line-number="2">  vars &lt;-<span class="st"> </span><span class="kw">enquos</span>(...)</a>
@@ -382,12 +390,12 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <pre><code>## [[1]]
 ## &lt;quosure&gt;
 ## expr: ^-^order_id
-## env:  0x560015a3aaf0
+## env:  0x565225b688f0
 ## 
 ## [[2]]
 ## &lt;quosure&gt;
 ## expr: ^-^date
-## env:  0x560015a35f20</code></pre></li>
+## env:  0x565225b6b610</code></pre></li>
 <li><p>Add the <code>select()</code> step. Use <em>!!!</em> to parse the <em>vars</em> variable inside <code>select()</code></p>
 <div class="sourceCode" id="cb307"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb307-1" data-line-number="1">de_select &lt;-<span class="st"> </span><span class="cf">function</span>(.data, ...){</a>
 <a class="sourceLine" id="cb307-2" data-line-number="2">  vars &lt;-<span class="st"> </span><span class="kw">enquos</span>(...)</a>
@@ -542,9 +550,9 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 ## # Database: postgres [rstudio_admin@localhost:5432/postgres]
 ##    mean
 ##   &lt;dbl&gt;
-## 1  37.9
-## 2  38.2
-## 3  38.0</code></pre></li>
+## 1  38.2
+## 2  38.0
+## 3  37.9</code></pre></li>
 <li><p>Use <code>show_query()</code> to see the resulting single query sent to the database</p>
 <div class="sourceCode" id="cb326"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb326-1" data-line-number="1">months <span class="op">%&gt;%</span></a>
 <a class="sourceLine" id="cb326-2" data-line-number="2"><span class="st">  </span><span class="kw">map</span>(</a>
@@ -629,8 +637,8 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 ## # Database: postgres [rstudio_admin@localhost:5432/postgres]
 ##    mean
 ##   &lt;dbl&gt;
-## 1  38.0
-## 2  38.3
+## 1  38.3
+## 2  38.0
 ## 3  38.2</code></pre></li>
 <li><p>Add a <code>show_query()</code> step to see how the final query was constructed.</p>
 <div class="sourceCode" id="cb335"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb335-1" data-line-number="1"><span class="kw">map2</span>(</a>

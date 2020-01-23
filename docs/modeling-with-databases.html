@@ -189,6 +189,8 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="9.1" data-path="intro-to-sparklyr.html"><a href="intro-to-sparklyr.html#new-spark-session"><i class="fa fa-check"></i><b>9.1</b> New Spark session</a></li>
 <li class="chapter" data-level="9.2" data-path="intro-to-sparklyr.html"><a href="intro-to-sparklyr.html#data-transfer"><i class="fa fa-check"></i><b>9.2</b> Data transfer</a></li>
 <li class="chapter" data-level="9.3" data-path="intro-to-sparklyr.html"><a href="intro-to-sparklyr.html#spark-and-dplyr"><i class="fa fa-check"></i><b>9.3</b> Spark and <code>dplyr</code></a></li>
+<li class="chapter" data-level="9.4" data-path="intro-to-sparklyr.html"><a href="intro-to-sparklyr.html#feature-transformers"><i class="fa fa-check"></i><b>9.4</b> Feature transformers</a></li>
+<li class="chapter" data-level="9.5" data-path="intro-to-sparklyr.html"><a href="intro-to-sparklyr.html#models"><i class="fa fa-check"></i><b>9.5</b> Models</a></li>
 </ul></li>
 <li class="chapter" data-level="10" data-path="text-mining-with-sparklyr.html"><a href="text-mining-with-sparklyr.html"><i class="fa fa-check"></i><b>10</b> Text mining with <code>sparklyr</code></a><ul>
 <li class="chapter" data-level="10.1" data-path="text-mining-with-sparklyr.html"><a href="text-mining-with-sparklyr.html#data-import"><i class="fa fa-check"></i><b>10.1</b> Data Import</a></li>
@@ -199,6 +201,12 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="11" data-path="spark-data-caching.html"><a href="spark-data-caching.html"><i class="fa fa-check"></i><b>11</b> Spark data caching</a><ul>
 <li class="chapter" data-level="11.1" data-path="spark-data-caching.html"><a href="spark-data-caching.html#map-data"><i class="fa fa-check"></i><b>11.1</b> Map data</a></li>
 <li class="chapter" data-level="11.2" data-path="spark-data-caching.html"><a href="spark-data-caching.html#caching-data"><i class="fa fa-check"></i><b>11.2</b> Caching data</a></li>
+</ul></li>
+<li class="chapter" data-level="12" data-path="spark-pipelines.html"><a href="spark-pipelines.html"><i class="fa fa-check"></i><b>12</b> Spark Pipelines</a><ul>
+<li class="chapter" data-level="12.1" data-path="spark-pipelines.html"><a href="spark-pipelines.html#build-an-estimator-plan"><i class="fa fa-check"></i><b>12.1</b> Build an Estimator (plan)</a></li>
+<li class="chapter" data-level="12.2" data-path="spark-pipelines.html"><a href="spark-pipelines.html#build-a-transformer-fit"><i class="fa fa-check"></i><b>12.2</b> Build a Transformer (fit)</a></li>
+<li class="chapter" data-level="12.3" data-path="spark-pipelines.html"><a href="spark-pipelines.html#predictions-using-spark-pipelines"><i class="fa fa-check"></i><b>12.3</b> Predictions using Spark Pipelines</a></li>
+<li class="chapter" data-level="12.4" data-path="spark-pipelines.html"><a href="spark-pipelines.html#save-the-pipeline-objects"><i class="fa fa-check"></i><b>12.4</b> Save the pipeline objects</a></li>
 </ul></li>
 </ul>
 
@@ -278,16 +286,16 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 ## # Database: postgres [rstudio_admin@localhost:5432/postgres]
 ##    order_id customer_id step_id
 ##       &lt;int&gt;       &lt;int&gt;   &lt;dbl&gt;
-##  1   193654          74     192
-##  2   195351          87     193
-##  3   195473           6     193
-##  4   197301          25     194
-##  5   201884          89     196
-##  6   203664          70     197
-##  7   203876           9     197
-##  8   205486          87     198
-##  9   205654          68     203
-## 10   209115          11     205
+##  1   969600          39     965
+##  2   970974          89     966
+##  3   973046          86     967
+##  4   973200          78     967
+##  5   975219          75     968
+##  6   975885          62     968
+##  7   977001          21     969
+##  8   979327          53     970
+##  9   973304          26     972
+## 10   973555          48     972
 ## # … with more rows</code></pre></li>
 <li><p>Use <code>inner_join()</code> to add the information from the <code>orders_view</code> pointer, use <code>order_id</code> as the matching field</p>
 <div class="sourceCode" id="cb228"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb228-1" data-line-number="1">orders <span class="op">%&gt;%</span></a>
@@ -299,16 +307,16 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 ## # Database: postgres [rstudio_admin@localhost:5432/postgres]
 ##    order_id customer_id.x step_id date  date_year date_month customer_id.y
 ##       &lt;int&gt;         &lt;int&gt;   &lt;dbl&gt; &lt;chr&gt;     &lt;int&gt;      &lt;int&gt;         &lt;int&gt;
-##  1     1305            76       1 2016…      2016          1            76
-##  2     5111            54       3 2016…      2016          1            54
-##  3     5403            45       3 2016…      2016          1            45
-##  4     7070            17       4 2016…      2016          1            17
-##  5     7537            45       4 2016…      2016          1            45
-##  6     9878            88       5 2016…      2016          1            88
-##  7    11214            83       6 2016…      2016          1            83
-##  8    11214            83       6 2016…      2016          1            10
-##  9    11660            20       6 2016…      2016          1            20
-## 10    11660            20       6 2016…      2016          1            19
+##  1     5693            33       3 2016…      2016          1            33
+##  2     7095            69       4 2016…      2016          1            69
+##  3     7280            78       4 2016…      2016          1            78
+##  4    11260            20       6 2016…      2016          1            20
+##  5    11260            20       6 2016…      2016          1            22
+##  6    15317            22      13 2016…      2016          1            87
+##  7    15317            22      13 2016…      2016          1            22
+##  8    15841            41       8 2016…      2016          1            41
+##  9    15841            41       8 2016…      2016          1            51
+## 10    21315            54      16 2016…      2016          1            54
 ## # … with more rows, and 5 more variables: customer_name &lt;chr&gt;,
 ## #   customer_lon &lt;dbl&gt;, customer_lat &lt;dbl&gt;, order_total &lt;dbl&gt;, order_qty &lt;int&gt;</code></pre></li>
 <li><p>Assign the resulting code to a variable <code>orders_sample_db</code></p>
@@ -349,13 +357,13 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <a class="sourceLine" id="cb238-3" data-line-number="3"><span class="st">  </span><span class="kw">fit</span>(order_total <span class="op">~</span><span class="st"> </span>order_qty, <span class="dt">data =</span> orders_sample)</a></code></pre></div>
 <pre><code>## parsnip model object
 ## 
-## Fit in:  118ms
+## Fit in:  126ms
 ## Call:
 ## stats::lm(formula = formula, data = data)
 ## 
 ## Coefficients:
 ## (Intercept)    order_qty  
-##      0.3355       6.5747</code></pre></li>
+##     0.09443      6.62037</code></pre></li>
 <li><p>Assign the previous code to a variable called <code>parsnip_model</code></p>
 <div class="sourceCode" id="cb240"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb240-1" data-line-number="1">parsnip_model &lt;-<span class="st"> </span><span class="kw">linear_reg</span>() <span class="op">%&gt;%</span></a>
 <a class="sourceLine" id="cb240-2" data-line-number="2"><span class="st">  </span><span class="kw">set_engine</span>(<span class="st">&quot;lm&quot;</span>) <span class="op">%&gt;%</span></a>
@@ -363,20 +371,20 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li><p>Use <code>bind_cols()</code> to add the predictions to <code>order_sample</code>. Calculate the prediction with <code>predict()</code></p>
 <div class="sourceCode" id="cb241"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb241-1" data-line-number="1">orders_sample <span class="op">%&gt;%</span><span class="st"> </span></a>
 <a class="sourceLine" id="cb241-2" data-line-number="2"><span class="st">  </span><span class="kw">bind_cols</span>(<span class="kw">predict</span>(parsnip_model, orders_sample))</a></code></pre></div>
-<pre><code>## # A tibble: 1,882 x 13
+<pre><code>## # A tibble: 1,964 x 13
 ##    order_id customer_id.x step_id date  date_year date_month customer_id.y
 ##       &lt;int&gt;         &lt;int&gt;   &lt;dbl&gt; &lt;chr&gt;     &lt;int&gt;      &lt;int&gt;         &lt;int&gt;
-##  1     1101            73       1 2016…      2016          1            73
-##  2     1728            84       1 2016…      2016          1            84
-##  3     1797            87       1 2016…      2016          1            87
-##  4     3063            33       2 2016…      2016          1            33
-##  5     7213            88       4 2016…      2016          1            88
-##  6    11053            24      11 2016…      2016          1            24
-##  7    11226            48       6 2016…      2016          1            48
-##  8    11226            48       6 2016…      2016          1            35
-##  9    11711            62       6 2016…      2016          1            62
-## 10    11711            62       6 2016…      2016          1            35
-## # … with 1,872 more rows, and 6 more variables: customer_name &lt;chr&gt;,
+##  1     1864            35       1 2016…      2016          1            35
+##  2     3617            13       2 2016…      2016          1            13
+##  3     5279            81       3 2016…      2016          1            81
+##  4     5426            42       3 2016…      2016          1            42
+##  5     7472             1       4 2016…      2016          1             1
+##  6     7967            50       4 2016…      2016          1            50
+##  7    11174            74       6 2016…      2016          1            74
+##  8    11174            74       6 2016…      2016          1            50
+##  9    11532            22      11 2016…      2016          1            62
+## 10    11532            22      11 2016…      2016          1            22
+## # … with 1,954 more rows, and 6 more variables: customer_name &lt;chr&gt;,
 ## #   customer_lon &lt;dbl&gt;, customer_lat &lt;dbl&gt;, order_total &lt;dbl&gt;, order_qty &lt;int&gt;,
 ## #   .pred &lt;dbl&gt;</code></pre></li>
 <li><p>Pipe the code into the <code>metrics()</code> function. Use <code>order_total</code> as the <code>truth</code> argument, and <code>.pred</code> as the <code>estimate</code> argument</p>
@@ -386,9 +394,9 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <pre><code>## # A tibble: 3 x 3
 ##   .metric .estimator .estimate
 ##   &lt;chr&gt;   &lt;chr&gt;          &lt;dbl&gt;
-## 1 rmse    standard       3.66 
-## 2 rsq     standard       0.932
-## 3 mae     standard       2.85</code></pre></li>
+## 1 rmse    standard       3.50 
+## 2 rsq     standard       0.939
+## 3 mae     standard       2.78</code></pre></li>
 </ol>
 </div>
 <div id="score-with-tidypredict" class="section level2">
@@ -405,24 +413,24 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 ##   ..$ model   : chr &quot;lm&quot;
 ##   ..$ version : num 2
 ##   ..$ type    : chr &quot;regression&quot;
-##   ..$ residual: int 1880
-##   ..$ sigma2  : num 13.4
+##   ..$ residual: int 1962
+##   ..$ sigma2  : num 12.3
 ##   ..$ is_glm  : num 0
 ##  $ terms  :List of 2
 ##   ..$ :List of 5
 ##   .. ..$ label       : chr &quot;(Intercept)&quot;
-##   .. ..$ coef        : num 0.335
+##   .. ..$ coef        : num 0.0944
 ##   .. ..$ is_intercept: num 1
 ##   .. ..$ fields      :List of 1
 ##   .. .. ..$ :List of 2
 ##   .. .. .. ..$ type: chr &quot;ordinary&quot;
 ##   .. .. .. ..$ col : chr &quot;(Intercept)&quot;
 ##   .. ..$ qr          :List of 2
-##   .. .. ..$ qr_1: num -0.0231
-##   .. .. ..$ qr_2: num -0.0653
+##   .. .. ..$ qr_1: num -0.0226
+##   .. .. ..$ qr_2: num -0.0639
 ##   ..$ :List of 5
 ##   .. ..$ label       : chr &quot;order_qty&quot;
-##   .. ..$ coef        : num 6.57
+##   .. ..$ coef        : num 6.62
 ##   .. ..$ is_intercept: num 0
 ##   .. ..$ fields      :List of 1
 ##   .. .. ..$ :List of 2
@@ -430,11 +438,11 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 ##   .. .. .. ..$ col : chr &quot;order_qty&quot;
 ##   .. ..$ qr          :List of 2
 ##   .. .. ..$ qr_1: num 0
-##   .. .. ..$ qr_2: num 0.0112
+##   .. .. ..$ qr_2: num 0.0109
 ##  - attr(*, &quot;class&quot;)= chr [1:3] &quot;parsed_model&quot; &quot;pm_regression&quot; &quot;list&quot;</code></pre></li>
 <li><p>Use <code>tidypredict_fit()</code> to view the <code>dplyr</code> formula that calculates the prediction</p>
 <div class="sourceCode" id="cb249"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb249-1" data-line-number="1"><span class="kw">tidypredict_fit</span>(parsed_parsnip)</a></code></pre></div>
-<pre><code>## 0.335486259621637 + (order_qty * 6.5747141301029)</code></pre></li>
+<pre><code>## 0.0944307069267399 + (order_qty * 6.62036536915535)</code></pre></li>
 <li><p>Use <code>head()</code> to get the first 10 records from <code>orders_view</code></p>
 <div class="sourceCode" id="cb251"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb251-1" data-line-number="1">orders_view <span class="op">%&gt;%</span></a>
 <a class="sourceLine" id="cb251-2" data-line-number="2"><span class="st">  </span><span class="kw">head</span>(<span class="dv">10</span>)</a></code></pre></div>
@@ -515,16 +523,16 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 ## # Database: postgres [rstudio_admin@localhost:5432/postgres]
 ##    order_total order_qty
 ##          &lt;dbl&gt;     &lt;int&gt;
-##  1        66.6        10
-##  2        66.6        10
-##  3        30.7         5
-##  4        30.7         5
-##  5        29.8         4
-##  6        29.8         4
-##  7        31.4         5
-##  8        31.4         5
-##  9        21.9         3
-## 10        21.9         3
+##  1       23.2          3
+##  2        7.53         1
+##  3       13.7          2
+##  4       17.6          3
+##  5       12.6          2
+##  6       31.7          5
+##  7       31.7          5
+##  8       21.2          3
+##  9       21.2          3
+## 10       37.1          6
 ## # … with more rows</code></pre></li>
 <li><p>Pipe the code into the <code>linear_regression_db()</code> function, pass <code>order_total</code> as the only argument</p>
 <div class="sourceCode" id="cb264"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb264-1" data-line-number="1">orders_sample_db <span class="op">%&gt;%</span></a>
@@ -533,7 +541,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <pre><code>## # A tibble: 1 x 2
 ##   `(Intercept)` order_qty
 ##           &lt;dbl&gt;     &lt;dbl&gt;
-## 1        -0.120      6.66</code></pre></li>
+## 1         0.105      6.64</code></pre></li>
 <li><p>Assign the model results to a new variable called <code>db_model</code></p>
 <div class="sourceCode" id="cb266"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb266-1" data-line-number="1">db_model &lt;-<span class="st"> </span>orders_sample_db <span class="op">%&gt;%</span></a>
 <a class="sourceLine" id="cb266-2" data-line-number="2"><span class="st">  </span><span class="kw">select</span>(order_total, order_qty) <span class="op">%&gt;%</span><span class="st"> </span></a>
