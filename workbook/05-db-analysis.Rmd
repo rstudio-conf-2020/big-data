@@ -57,7 +57,7 @@ library(config)
     ```
     
 1. Use the `class` function to determine the object type of `orders`
-    ```{r}
+    ```{r, eval = eval_db}
     class(orders)
     ```
 
@@ -70,12 +70,12 @@ library(config)
     ```
     
 1. When executed, `orders` returns the first 1000 rows of the remote **orders** table
-    ```{r}
+    ```{r, eval = eval_db}
     orders
     ```
 
 1. Full results of a remote query can be brought into R with `collect`
-    ```{r}
+    ```{r, eval = eval_db}
     local_orders <- collect(orders)
     ```
 
@@ -93,7 +93,7 @@ library(config)
     ```
     
 1. Queries can be assigned to variables. Create a variable called `orders_head` that contains the previous query
-    ```{r}
+    ```{r, eval = eval_db}
     orders_head <- orders %>% 
       head()
     
@@ -119,7 +119,7 @@ library(config)
 *Review of how `dbplyr` handles R commands that have not been translated into a like-SQL command*
 
 1. Preview how `mean` is translated
-    ```{r}
+    ```{r, eval = eval_db}
     orders %>% 
       mutate(avg_id = mean(order_id, na.rm = TRUE)) %>% 
       show_query()
@@ -164,7 +164,7 @@ library(config)
     ```
 
 1. Disconnect from the database using `connection_close`
-    ```{r}
+    ```{r, eval = eval_db}
     connection_close(con)
     ```
 

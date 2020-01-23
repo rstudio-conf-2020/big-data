@@ -8,6 +8,8 @@ if(Sys.getenv("GLOBAL_EVAL") != "") eval_caching <- Sys.getenv("GLOBAL_EVAL")
     ```{r, eval = eval_caching, include = FALSE}
     library(sparklyr)
     library(dplyr)
+    library(readr)
+    library(purrr)    
     ```
 
 ## Map data

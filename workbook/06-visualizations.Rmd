@@ -230,7 +230,7 @@ locations %>%
 ```
 
 1. Disconnect from the database using `connection_close`
-    ```{r}
+    ```{r, eval = eval_viz}
     connection_close(con)
     ```
 
