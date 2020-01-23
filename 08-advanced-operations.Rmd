@@ -391,6 +391,6 @@ library(purrr)
       show_query()
     ```
 
-```{r, include = FALSE}
+```{r, eval = eval_adv, include = FALSE}
 connection_close(con)
 ```

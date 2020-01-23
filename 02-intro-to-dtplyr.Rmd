@@ -113,34 +113,34 @@ library(purrr)
     ```
 
 7. Check to confirm that the new column *did not* persist in `dt_transactions`
-    ```{r}
+    ```{r, eval = eval_dtplyr}
     dt_transactions
     ```
 
 8. Use `lazy_dt()` with the `immutable` argument set to `FALSE` to avoid the copy
-    ```{r}
+    ```{r, eval = eval_dtplyr}
     m_transactions <- lazy_dt(copy(transactions), immutable = FALSE)
     ```
 
-    ```{r}
+    ```{r, eval = eval_dtplyr}
     m_transactions
     ```
 
 9. Create a `new_field` column in `m_transactions` using `mutate()`
-    ```{r}
+    ```{r, eval = eval_dtplyr}
     m_transactions %>% 
       mutate(new_field = price / 2)
     ```
 
 10. Use `show_query()` to see that `copy()` is no longer being used
-    ```{r}
+    ```{r, eval = eval_dtplyr}
     m_transactions %>% 
       mutate(new_field = price / 2) %>% 
       show_query()
     ```
 
 11. Inspect `m_transactions` to see that `new_field` has persisted
-    ```{r}
+    ```{r, eval = eval_dtplyr}
     m_transactions
     ```
 

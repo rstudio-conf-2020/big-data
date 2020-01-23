@@ -63,3 +63,66 @@ library(sparklyr)
 3. Click on the top item inside the **Completed Queries** table
 
 4. At the bottom of the diagram, expand **Details**
+
+## Feature transformers
+*Introduction to how Spark Feature Transformers can be called from R*
+
+1. Use `ft_binarizer()` to create a new column, called `over_20`, that indicates if that row's `mpg` value is over or under 20MPG
+    ```{r, eval = eval_sparklyr}
+    spark_mtcars %>%
+      ft_binarizer("mpg", "over_20", 20)
+    ```
+
+
+2. Pipe the code into `count()` to see how the data splits between the two values
+    ```{r, eval = eval_sparklyr}
+    spark_mtcars %>%
+      ft_binarizer("mpg", "over_20", 20) %>%
+      count(over_20)
+    ```
+
+
+3. Start a new code chunk. This time use `ft_quantile_discretizer()` to create a new column called `mpg_quantile`
+    ```{r, eval = eval_sparklyr}
+    spark_mtcars %>%
+      ft_quantile_discretizer("mpg", "mpg_quantile")
+    ```
+
+4. Add the `num_buckets` argument to `ft_quantile_discretizer()`, set its value to 5
+    ```{r, eval = eval_sparklyr}
+    spark_mtcars %>%
+      ft_quantile_discretizer("mpg", "mpg_quantile", num_buckets = 5)
+    ```
+
+5. 1. Pipe the code into `count()` to see how the data splits between the quantiles
+    ```{r, eval = eval_sparklyr}
+    spark_mtcars %>%
+      ft_quantile_discretizer("mpg", "mpg_quantile", num_buckets = 5) %>%
+      count(mpg_quantile)
+    ```
+
+## Models
+*Introduce Spark ML models by running a couple of them in R*
+
+1. Use `ml_kmeans()` to run a model based on the following formula: `wt ~ mpg`.  Assign the results to a variable called `k_mtcars`
+    ```{r, eval = eval_sparklyr}
+    k_mtcars <- spark_mtcars %>%
+      ml_kmeans(wt ~ mpg)
+    ```
+
+2. Use `k_mtcars$summary` to view the results of the model.  Pull the cluster sizes by using `...$cluster_sizes()`
+    ```{r, eval = eval_sparklyr}
+    k_mtcars$summary$cluster_sizes()
+    ```
+
+3. Start a new code chunk. This time use `ml_linear_regression()` to produce a Linear Regression model of the same formula used in the previous model. Assign the results to a variable called `lr_mtcars`
+    ```{r, eval = eval_sparklyr}
+    lr_mtcars <- spark_mtcars %>%
+      ml_linear_regression(wt ~ mpg)
+    ```
+
+4. Use `summary()` to view the results of the model
+    ```{r, eval = eval_sparklyr}
+    summary(lr_mtcars)
+    ```
+
