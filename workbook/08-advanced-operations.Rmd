@@ -42,7 +42,6 @@ library(purrr)
     orders <- tbl(con, in_schema("retail", "v_orders"))
     ```
 
-
 1. Create a simple `dplyr` call that gets the average of all order totals
     ```{r, eval = eval_adv}
     orders %>%
@@ -108,7 +107,6 @@ library(purrr)
     ```
 
 1. Test the function by passing a formula, such as `order_total / order_qty`
-
     ```{r, eval = eval_adv}
     my_mean(order_total / order_qty)
     ```
@@ -175,7 +173,7 @@ library(purrr)
     }
     ```
 
-1. Test the function using *airports*
+1. Test the function using *orders*
     ```{r, eval = eval_adv}
     orders %>%
       de_select(order_id, date)
@@ -340,7 +338,7 @@ library(purrr)
     reduce(function(x, y) union(x, y))
     ```
 
-5. Add a `show_query()` step to see how the final query was constructed.
+1. Add a `show_query()` step to see how the final query was constructed.
     ```{r, eval = eval_adv}
     map2(
       ranges$from, 

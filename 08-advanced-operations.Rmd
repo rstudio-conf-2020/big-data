@@ -63,48 +63,37 @@ library(purrr)
 
 7. Test the new function. It should return the same variable name, but inside quosure. Use `order_total` as its argument's value to test
     ```{r, eval = eval_adv}
-    my_mean(order_total)
+    
     ```
 
 8. In the function, re-assign `x` to the result of `enquo(x)`, and then return `x`
     ```{r, eval = eval_adv}
-    my_mean <- function(x){
-      x <- enquo(x)
-      x
-    }
+    
     ```
 
 9. Test the same way again, the output should match to what it was as before
     ```{r, eval = eval_adv}
-    my_mean(order_total)
+    
     ```
 
 10. Remove the last line that has `x`,  add the contents of the function with the initial `dplyr` code from step 3.  Then replace `order_total` with `!! x`
     ```{r, eval = eval_adv}
-    my_mean <- function(x){
-      x <- enquo(x)
-      orders %>%
-        summarise(mean = mean(!! x, na.rm = TRUE))
-    }
+    
     ```
 
 11. Test the new function by passing `order_total` as `x`
     ```{r, eval = eval_adv}
-    my_mean(order_total)
+    
     ```
 
 12. In the `summarise()` step, replace the name `mean`, with `!! as_label(x)`, also replace the `=` sign, with `:=`
     ```{r, eval = eval_adv}
-    my_mean <- function(x){
-      x <- enquo(x)
-      orders %>%
-        summarise(!! as_label(x) := mean(!! x, na.rm = TRUE))
-    }
+    
     ```
 
 13. Run the function again, the name of the column should match the argument value
     ```{r, eval = eval_adv}
-    my_mean(order_total)
+    
     ```
 
 14. Test the function by passing a formula, such as `order_total / order_qty`
@@ -115,28 +104,17 @@ library(purrr)
 
 15. Make the function generic, add a new argument called: `.data`. Inisde the function, replace `orders` with `.data`
     ```{r, eval = eval_adv}
-    my_mean <- function(.data, x){
-      x <- enquo(x)
-      .data %>%
-        summarise(!! as_label(x) := mean(!! x, na.rm = TRUE))
-    }
+    
     ```
 
 16. The function now behaves more like a `dplyr` verb. Start with `orders` and then pipe into the function
     ```{r, eval = eval_adv}
-    orders %>% 
-      my_mean(order_total)
+    
     ```
 
 17. Clean up the code by removing the pipe that inside the function
     ```{r, eval = eval_adv}
-    my_mean <- function(.data, x){
-      x <- enquo(x)
-      summarise(
-        .data,
-        !! as_label(x) := mean(!! x, na.rm = TRUE)
-        )
-    }
+    
     ```
 
 18. Confirm that there is no change in the behavior of the function
@@ -147,9 +125,7 @@ library(purrr)
 
 19. Add a `show_query()` step to preview the resulting SQL statement
     ```{r, eval = eval_adv}
-    orders %>% 
-      my_mean(order_total) %>%
-      show_query()
+    
     ```
 
 20. Try the function with a non-DB backed variable, such as `mtcars`. Use `mpg` as the aggregating variable
@@ -175,7 +151,7 @@ library(purrr)
     }
     ```
 
-3. Test the function using *airports*
+3. Test the function using *orders*
     ```{r, eval = eval_adv}
     orders %>%
       de_select(order_id, date)
@@ -183,39 +159,27 @@ library(purrr)
 
 4. Add a step to the function that iterates through each quosure and prefixes a minus sign to tell `select()` to drop that specific field.  Use `map()` for the iteration, and `quo()` to create the prefixed expression.
     ```{r, eval = eval_adv}
-    de_select <- function(.data, ...){
-      vars <- enquos(...)
-      vars <- map(vars, ~ quo(- !! .x))
-      vars
-    }
+
     ```
 
 5. Run the same test to view the new results
     ```{r, eval = eval_adv}
-    orders %>%
-      de_select(order_id, date)
+
     ```
 
 6. Add the `select()` step.  Use *!!!* to parse the *vars* variable inside `select()`
     ```{r, eval = eval_adv}
-    de_select <- function(.data, ...){
-      vars <- enquos(...)
-      vars <- map(vars, ~ quo(- !! .x))
-      select(.data, !!! vars)
-    }
+
     ```
 
 7. Run the test again, this time the operation will take place.  
     ```{r, eval = eval_adv}
-    orders %>%
-      de_select(order_id, date)
+    
     ```
 
 8. Add a `show_query()` step to see the resulting SQL
     ```{r, eval = eval_adv}
-    orders %>%
-      de_select(order_id, date) %>%
-      show_query()
+    
     ```
 
 9. Test the function with a different data set, such as `mtcars`
@@ -236,24 +200,19 @@ library(purrr)
 
 2. Assign the first operation to a variable called *a*, and create copy of the operation but changing the selected months to January, March and April.  Assign the second one to a variable called *b*.
     ```{r, eval = eval_adv}
-    a <- orders %>%
-      filter(date_month %in% c(1,2,3)) %>%
-      summarise(mean = mean(order_total, na.rm = TRUE)) 
+    a <- 
     
-    b <- orders %>%
-      filter(date_month %in% c(1,3,4)) %>%
-      summarise(mean = mean(order_total, na.rm = TRUE)) 
+    b <- 
     ```
 
 3. Use *union()* to pass *a* and *b* at the same time to the database
     ```{r, eval = eval_adv}
-    union(a, b)
+    
     ```
 
 4. Pipe the previous instruction to `show_query()` to confirm that the resulting query is a single one
     ```{r, eval = eval_adv}
-    union(a, b) %>%
-      show_query()
+
     ```
 
 
@@ -268,35 +227,17 @@ library(purrr)
 
 6. Use `map()` to cycle through each set of overlapping months.  Notice that it returns three separate results, meaning that it went to the database three times
     ```{r, eval = eval_adv}
-    months %>%
-      map(
-        ~ orders %>%
-            filter(date_month %in% .x) %>%
-            summarise(mean = mean(order_total, na.rm = TRUE)) 
-      )
+    
     ```
 
 7. Add a `reduce()` operation and use `union()` command to create a single query
     ```{r, eval = eval_adv}
-    months %>%
-      map(
-        ~ orders %>%
-            filter(date_month %in% .x) %>%
-            summarise(mean = mean(order_total, na.rm = TRUE)) 
-      ) %>%
-      reduce(function(x, y) union(x, y))
+    
     ```
 
 8. Use `show_query()` to see the resulting single query sent to the database
     ```{r, eval = eval_adv}
-    months %>%
-      map(
-        ~ orders %>%
-            filter(date_month %in% .x) %>%
-            summarise(mean = mean(order_total, na.rm = TRUE)) 
-      ) %>%
-      reduce(function(x, y) union(x, y)) %>%
-      show_query()
+
     ```
 
 
@@ -314,43 +255,22 @@ library(purrr)
 
 2. See how `map2()` works by passing the two variables as the *x* and *y* arguments, and adding them as the function
     ```{r, eval = eval_adv}
-    map2(ranges$from, ranges$to, ~.x + .y)
+    
     ```
 
 3. Replace *x + y* with the `dplyr` operation from the previous exercise.  In it, re-write the filter to use *x* and *y* as the month ranges 
     ```{r, eval = eval_adv}
-    map2(
-      ranges$from, 
-      ranges$to,
-       ~ orders %>%
-            filter(date_month >= .x & date_month <= .y) %>%
-            summarise(mean = mean(order_total, na.rm = TRUE)) 
-    )
+    
     ```
 
 4. Add the `reduce()` operation
     ```{r, eval = eval_adv}
-    map2(
-      ranges$from, 
-      ranges$to,
-       ~ orders %>%
-            filter(date_month >= .x & date_month <= .y) %>%
-            summarise(mean = mean(order_total, na.rm = TRUE)) 
-    ) %>%
-    reduce(function(x, y) union(x, y))
+    
     ```
 
 5. Add a `show_query()` step to see how the final query was constructed.
     ```{r, eval = eval_adv}
-    map2(
-      ranges$from, 
-      ranges$to,
-       ~ orders %>%
-            filter(date_month >= .x & date_month <= .y) %>%
-            summarise(mean = mean(order_total, na.rm = TRUE)) 
-    ) %>%
-    reduce(function(x, y) union(x, y)) %>%
-    show_query()
+    
     ```
 
 
@@ -364,31 +284,22 @@ library(purrr)
 
 2. Add a `mutate()` step that adds the new field. And then another step selecting just the new field
     ```{r, eval = eval_adv}
-    orders %>%
-      mutate(my_field = !! orders_field) %>%
-      select(my_field)
+    
     ```
 
 3. Add a `mutate()` step that adds the new field. And then another step selecting just the new field
     ```{r, eval = eval_adv}
-    orders %>%
-      mutate(!! my_field := !! orders_field) %>%
-      select(my_field)
+    
     ```
 
 4. Wrap `orders_field` inside a `sym()` function
     ```{r, eval = eval_adv}
-    orders %>%
-      mutate(!! my_field := !! sym(orders_field)) %>%
-      select(my_field)
+
     ```
 
 5. Pipe the code into `show_query()`
     ```{r, eval = eval_adv}
-    orders %>%
-      mutate(!! my_field := !! sym(orders_field)) %>%
-      select(my_field) %>%
-      show_query()
+
     ```
 
 ```{r, eval = eval_adv, include = FALSE}
