@@ -52,22 +52,14 @@ if(Sys.getenv("GLOBAL_EVAL") != "") eval_caching <- Sys.getenv("GLOBAL_EVAL")
 
 8. Use `spark_read()` to "map" the file's structure and location to the Spark context. Assign it to the `spark_lineitems` variable
     ```{r, eval = eval_caching}
-    spark_lineitems <- spark_read_csv(
-      sc,
-      name = "orders",
-      path = "/usr/share/class/files",
-      memory = FALSE,
-      columns = file_columns,
-      infer_schema = FALSE
-    )
+
     ```
 
 9. In the Connections pane, click on the table icon by the `transactions` variable
 
 10. Verify that the new variable pointer works by using `tally()`
     ```{r, eval = eval_caching}
-    spark_lineitems %>%
-      tally()
+
     ```
 
 ## Caching data
@@ -75,20 +67,17 @@ if(Sys.getenv("GLOBAL_EVAL") != "") eval_caching <- Sys.getenv("GLOBAL_EVAL")
 
 1. Create a subset of the *orders* table object. Summarize by **date**, careate a total price and number of items sold.
     ```{r, eval = eval_caching}
-    daily_orders <- spark_lineitems %>%
-      mutate(price = as.double(price)) %>%
-      group_by(date) %>%
-      summarise(total_sales = sum(price, na.rm = TRUE), no_items = n())
+    daily_orders <- 
     ```
 
 2. Use `compute()` to extract the data into Spark memory
     ```{r, eval = eval_caching}
-    cached_orders <- compute(daily_orders, "daily")
+    
     ```
 
 3. Confirm new variable pointer works
     ```{r, eval = eval_caching}
-    head(cached_orders)
+    
     ```
 
 4. Go to the Spark UI 
