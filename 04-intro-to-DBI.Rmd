@@ -28,22 +28,22 @@ library(DBI)
     
 3. Use `dbListTables()` to view existing tables, there should be 0 tables
     ```{r, eval = eval_dbi}
-    dbListTables(con)
+    
     ```
 
 4. Use `dbWriteTable()` to create a new table using `mtcars` data. Name it **db_mtcars**
     ```{r, eval = eval_dbi}
-    dbWriteTable(con, "db_mtcars", mtcars)
+    
     ```
 
 5. Use `dbListTables()` to view existing tables, it should return **db_mtcars**
     ```{r, eval = eval_dbi}
-    dbListTables(con)
+    
     ```
 
 6. Use `dbGetQuery()` to pass a SQL query to the database
     ```{r, eval = eval_dbi}
-    dbGetQuery(con, "select * from db_mtcars")
+    
     ```
 
 7. Close the database connection using `dbDisconnect()`
@@ -61,7 +61,7 @@ library(DBI)
 
 2. Use `dbWriteTable()` to re-create the **db_mtcars** table using `mtcars` data
     ```{r, eval = FALSE}
-    dbWriteTable(con, "db_mtcars", mtcars)
+    
     ```
 ```
  Error: Table db_mtcars exists in database, and both overwrite and append are FALSE
@@ -69,22 +69,22 @@ library(DBI)
 
 3. Use the `append` argument in `dbWriteTable()` to add to the data in the **db_mtcars** table
     ```{r, eval = eval_dbi}
-    dbWriteTable(con, "db_mtcars", mtcars, append = TRUE)
+    
     ```
 
 4. Using `dbGetQuery()`, check the current record count of **db_mtcars** with the following query: "select count() from db_mtcars"
     ```{r, eval = eval_dbi}
-    dbGetQuery(con, "select count() from db_mtcars")
+    
     ```
 
 5. Use the `overwrite` argument to `dbWriteTable()` to replace the data in the **db_mtcars** table
     ```{r, eval = TRUE}
-    dbWriteTable(con, "db_mtcars", mtcars, overwrite = TRUE)
+    
     ```
 
 6. Check the record count of `db_mtcars` again
     ```{r, eval = eval_dbi}
-    dbGetQuery(con, "select count() from db_mtcars")
+    
     ```
 
 ## Database operations
@@ -92,37 +92,37 @@ library(DBI)
 
 1. Use `dbSendStatement()` to pass a SQL commands that deletes any automatic car from `db_mtcars`: "delete from db_mtcars where am = 1". Load the command to a variable called `rs`
     ```{r, eval = eval_dbi}
-    rs <- dbSendStatement(con, "delete from db_mtcars where am = 1")
+    
     ```
 
 2. Call the `rs` variable to view information about the results of the requested change
     ```{r, eval = eval_dbi}
-    rs
+    
     ```
 
 3. Use `dbHasCompleted()` to confirm that the job is complete
     ```{r, eval = eval_dbi}
-    dbHasCompleted(rs)
+    
     ```
 
 4. Use `dbGetRowsAffected()` to see the number of rows that were affected by the request
     ```{r, eval = eval_dbi}
-    dbGetRowsAffected(rs)
+    
     ```
 
 5. Clear the results using `dbClearResult()`
     ```{r, eval = eval_dbi}
-    dbClearResult(rs)
+    
     ```
 
 6. Confirm that the result set has been removed by calling the `rs` variable once more
     ```{r, eval = eval_dbi}
-    rs
+    
     ```
 
 7. Check the record count of **db_mtcars** again, the new count should be 19 (32 original records - 13 deleted records)
     ```{r, eval = eval_dbi}
-    dbGetQuery(con, "select count() from db_mtcars")
+    
     ```
 
 8. Use `dbWriteTable()` to overwrite **db_mtcars** with the value of `mtcars`
@@ -132,17 +132,17 @@ library(DBI)
     
 9. Use `dbExeceute()` to delete rows where am = 1 using the same query as before. Load the results in a variable called `rs`
     ```{r}
-    rs <- dbExecute(con, "delete from db_mtcars where am = 1")
+    
     ```
     
-10. `rs` contains the number of rows affected by the satement that was executed
+10. `rs` contains the number of rows affected by the statement that was executed
     ```{r}
-    rs
+    
     ```
     
 11. Check the record count of **db_mtcars** again.
     ```{r, eval = eval_dbi}
-    dbGetQuery(con, "select count() from db_mtcars")
+    
     ```
 
 ## `knitr` SQL engine
@@ -164,8 +164,8 @@ select * from db_mtcars
     select * from db_mtcars
     `r ''````
 
-```{sql, connection=con, echo = FALSE, max.print = 5}
-select * from db_mtcars
+```{sql, connection=con, echo = FALSE}
+
 ```
 
 3. Set defaults for the `sql` chunks by using the `knitr::opts_chunk$set()` command in the `setup` at the beginning of the document.
@@ -180,13 +180,13 @@ select * from db_mtcars
     `r ''````
 
 ```{sql, echo = FALSE}
-select * from db_mtcars
+
 ```
 
 5. Store the results of the query into an R object called `local_mtcars` using 
 the `output.var` option.
-```{sql, output.var = "local_mtcars"}
-select * from db_mtcars
+```{sql}
+
 ```
 
 ```{r}
