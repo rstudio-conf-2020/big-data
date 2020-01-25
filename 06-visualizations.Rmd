@@ -42,7 +42,7 @@ library(config)
 
 3. Use `tbl()` to create a pointer to the **v_orders** table
     ```{r, eval = eval_viz}
-    orders <- tbl(con, in_schema("retail", "v_orders"))
+    orders <- 
     ```
 
 4. Use `collect()` bring back the aggregated results into a "pass-through" variable called `by_year`
@@ -54,7 +54,7 @@ library(config)
 
 5. Preview the `by_year` variable
     ```{r, eval = eval_viz}
-    by_year
+    
     ```
 
 6. Load the `ggplot2` library
@@ -71,11 +71,7 @@ library(config)
 
 8. Using the code in this section, create a single piped code set which also creates the plot
     ```{r, eval = eval_viz}
-    orders %>%
-      count(date_year) %>%
-      collect() %>%
-      ggplot() +            # < Don't forget to switch to `+`
-      geom_col(aes(date_year, n)) 
+    
     ```
 
 ## Plot in one code segment
@@ -96,20 +92,12 @@ library(config)
     
 3. Summarize the order totals grouped by `date_year` in a new variable called `sales` and plot the results
     ```{r, eval = eval_viz}
-    orders %>%
-      group_by(date_year) %>%
-      summarise(sales = sum(order_total)) %>%
-      ggplot() +
-      geom_col(aes(date_year, sales))
+    
     ```
 
 4. Switch the calculation to reflect the average of the order sale total
     ```{r, eval = eval_viz}
-    orders %>%
-      group_by(date_year) %>%
-      summarise(sales = mean(order_total)) %>%
-      ggplot() +
-      geom_col(aes(date_year, sales))
+    
     ```
 
 ## Create a histogram
@@ -129,8 +117,7 @@ library(config)
 
 3. Adjust the `binwidth` to 10
     ```{r, eval = eval_viz}
-    orders %>%
-      dbplot_histogram(order_total, binwidth = 10)
+    
     ```
 
 ## Raster plot
@@ -144,8 +131,7 @@ library(config)
 
 2. Change the plot's resolution to 10
     ```{r, eval = eval_viz}
-    orders %>%
-      dbplot_raster(order_qty, order_total, resolution = 10)
+    
     ```
 
 ## Using the `compute` functions

@@ -28,17 +28,17 @@ library(keyring)
 
 2. Use `odbcListDatasources` to list available DSNs
     ```{r, eval = eval_connections}
-    odbcListDataSources()
+    
     ```
     
 3. Use `dbConnect` to connect to a database using the `odbc` function and a DSN
     ```{r, eval = eval_connections}
-    con <- dbConnect(odbc(), "Postgres Dev")
+    
     ```
     
 4. Disconnect using `dbDisconnect`
     ```{r, eval = eval_connections}
-    dbDisconnect(con)
+    
     ```
 
 ## Connect with a connection string
@@ -58,7 +58,7 @@ library(keyring)
     
 2. Disconnect using `dbDisconnect`
     ```{r, eval = eval_connections}
-    dbDisconnect(con)
+    
     ```
     
 ## Secure connection details
@@ -71,12 +71,12 @@ library(keyring)
     
 2. Get the current config using the `get` function and store the results in an object called `config`
     ```{r, eval = eval_connections}
-    config <- get()
+    
     ```
 
 3. Use `str` to investigate the contents of `config`
     ```{r, eval = eval_connections}
-    str(config)
+    
     ```
 
 4. Connect using details provided in `config`

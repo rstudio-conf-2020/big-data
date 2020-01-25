@@ -28,14 +28,12 @@ library(dplyr)
 
 3. Use the `id` argument to add the file name to the data frame.  Use **file_name** as the argument's value
     ```{r, eval = eval_vroom}
-    vroom("/usr/share/class/files/transactions_1.csv", id = "file_name")
+    
     ```
 
 4. Load the prior command into a variable called `vr_transactions`
     ```{r, eval = eval_vroom}
-    vr_transactions <- vroom("/usr/share/class/files/transactions_1.csv", id = "file_name")
     
-    vr_transactions
     ```
 
 5. Load the file spec into a variable called `vr_spec`, using the `spec()` command
@@ -60,24 +58,22 @@ library(dplyr)
 
 3. In the `dir_ls()` function, use the `glob` argument to pass a wildcard to list CSV files only. Load to a variable named `files`
     ```{r, eval = eval_vroom}
-    files <- dir_ls("/usr/share/class/files", glob = "*.csv")
+    
     ```
 
 4. Pass the `files` variable to `vroom`. Set the `n_max` argument to 1,000 to limit the data load for now
     ```{r, eval = eval_vroom}
-    vroom(files, n_max = 1000)
+    
     ```
 
 5. Add a `col_types` argument with `vr_specs` as its value
     ```{r, eval = eval_vroom}
-    vroom(files, n_max = 1000, col_types = vr_spec)
+    
     ```
 
 6. Use the `col_select` argument to pass a `list` object containing the following variables: order_id, date, customer_name, and price
     ```{r, eval = eval_vroom}
-    vroom(files, n_max = 1000, col_types = vr_spec,
-          col_select = list(order_id, date, customer_name, price)
-          )
+    
     ```
 
 ## Load and modify multiple files
@@ -93,8 +89,6 @@ library(dplyr)
 2. Switch the `print()` command with the `vroom` command, using the same arguments, except the file name.  Use the `files` variable.  Load the results into a variable called `transactions`. 
     ```{r, eval = eval_vroom}
     for(i in seq_along(files)) {
-      transactions <- vroom(files[i], n_max = 1000, col_types = vr_spec, 
-                           col_select = list(order_id, date, customer_name, price))
 
     }
     ```
@@ -102,11 +96,7 @@ library(dplyr)
 3. Group `transactions` by `order_id` and get the total of `price` and the number of records. Name them `total_sales` and `no_items` respectively. Name the new variable `orders`
     ```{r, eval = eval_vroom}
     for(i in seq_along(files)) {
-      transactions <- vroom(files[i], n_max = 1000, col_types = vr_spec, 
-                           col_select = list(order_id, date, customer_name, price))
-      orders <- transactions %>%
-        group_by(order_id) %>%
-        summarise(total_sales = sum(price), no_items = n())
+      
     }
     ```
 
@@ -114,12 +104,7 @@ library(dplyr)
     ```{r, eval = eval_vroom}
     orders <- NULL
     for(i in seq_along(files)) {
-      transactions <- vroom(files[i], n_max = 1000, col_types = vr_spec, 
-                           col_select = list(order_id, date, customer_name, price))
-      orders <- transactions %>%
-        group_by(order_id) %>%
-        summarise(total_sales = sum(price), no_items = n()) %>%
-        bind_rows(orders)
+      
     }
     ```
     
@@ -127,13 +112,7 @@ library(dplyr)
     ```{r, eval = eval_vroom}
     orders <- NULL
     for(i in seq_along(files)) {
-      transactions <- vroom(files[i], n_max = 1000, col_types = vr_spec, 
-                           col_select = list(order_id, date, customer_name, price))
-      orders <- transactions %>%
-        group_by(order_id) %>%
-        summarise(total_sales = sum(price), no_items = n()) %>%
-        bind_rows(orders)
-      rm(transactions)
+      
     }
     ```
     
