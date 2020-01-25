@@ -135,7 +135,7 @@ library(DBI)
     rs <- dbExecute(con, "delete from db_mtcars where am = 1")
     ```
     
-1. `rs` contains the number of rows affected by the satement that was executed
+1. `rs` contains the number of rows affected by the statement that was executed
     ```{r}
     rs
     ```
